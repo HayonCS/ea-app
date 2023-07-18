@@ -1,0 +1,39 @@
+import * as actionTypes from "./actionTypes";
+import { AppAction, AppState } from "./type";
+
+export const initialState: AppState = {};
+
+const reducer = (
+  state: AppState = initialState,
+  action: AppAction
+): AppState => {
+  switch (action.type) {
+    case actionTypes.SET_CURRENT_USER:
+      const user = action.currentUser;
+      return {
+        ...state,
+        currentUser: user,
+      };
+    case actionTypes.UPDATE_USER_DATA:
+      const userData = action.userData;
+      return {
+        ...state,
+        userData: userData,
+      };
+    case actionTypes.UPDATE_USER_GENTEX:
+      const userGentex = action.userGentex;
+      return {
+        ...state,
+        userGentex: userGentex,
+      };
+    case actionTypes.UPDATE_TEAM_GENTEX:
+      const userTeamGentex = action.userTeamGentex;
+      return {
+        ...state,
+        userTeamGentex: userTeamGentex,
+      };
+  }
+  return state;
+};
+
+export default reducer;

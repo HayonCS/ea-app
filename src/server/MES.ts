@@ -2,9 +2,7 @@ import { dateToString } from "./DataUtility";
 import {
   ProcessDataExportRaw,
   ProcessDataExport,
-  LineOperationPart,
   ProcessDataOperator,
-  ProcessDataOperatorTotals,
   UserLumenInfo,
   EmployeeInfoGentex,
 } from "../utils/DataTypes";
@@ -140,132 +138,20 @@ export const getProcessDataExport = async (
         !x.PartNumber.includes("I") &&
         !x.PartNumber.includes("E") &&
         !x.PartNumber.includes("U") &&
-        !x.PartNumber.includes("0000") &&
-        x.Operator
+        !x.PartNumber.includes("0000")
     );
+    if (asset.includes("PCB")) {
+      processData = processData.filter(
+        (x) =>
+          (x.Description && x.Description === "Main_Board") ||
+          (x.CycleTime && x.CycleTime !== "")
+      );
+    }
+
     return processData;
   } catch (error) {
     console.log("ERROR: " + error);
     return undefined;
-  }
-};
-
-export const getProcessDataExportRange = async (
-  asset: string,
-  startDate: Date,
-  endDate: Date
-) => {
-  try {
-    let finalData: ProcessDataExport[] = [];
-    for (
-      let start = new Date(startDate);
-      start.getTime() <= endDate.getTime();
-      start.setDate(start.getDate() + 1)
-    ) {
-      const end = new Date(start);
-      end.setDate(end.getDate() + 1);
-      const processData = await getProcessDataExport(asset, start, end);
-      if (processData) {
-        finalData = finalData.concat(processData);
-      }
-    }
-    return finalData;
-  } catch (error) {
-    console.log("ERROR: " + error);
-    return undefined;
-  }
-};
-
-export const getPartCycleTimeCombo = async (
-  partNumber: string,
-  orgCode: string
-) => {
-  try {
-    const url = `https://zvm-msgprod.gentex.com/MES/Client/manufacturingweb/api/v1/bi/cycletimes/lineoperationpart?orgCode=14&partNumber=${partNumber}`;
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
-    });
-    if (!response.ok) {
-      throw new Error(`Error! status: ${response.status}`);
-    }
-    const result: LineOperationPart[] = await response.json();
-    if (result.length > 0) {
-      for (let i = 0; i < result.length; ++i) {
-        const op = result[i].ebsOperation;
-        if (op === "O610" || op === "O612") {
-          return result[i].averageCycleTime;
-        }
-      }
-    }
-    return 0;
-  } catch (error) {
-    console.log("ERROR: " + error);
-    return 0;
-  }
-};
-
-export const getPartCycleTimeMonoRail = async (
-  partNumber: string,
-  orgCode: string
-) => {
-  try {
-    const url = `https://zvm-msgprod.gentex.com/MES/Client/manufacturingweb/api/v1/bi/cycletimes/lineoperationpart?orgCode=14&partNumber=${partNumber}`;
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
-    });
-    if (!response.ok) {
-      throw new Error(`Error! status: ${response.status}`);
-    }
-    const result: LineOperationPart[] = await response.json();
-    if (result.length > 0) {
-      for (let i = 0; i < result.length; ++i) {
-        const op = result[i].ebsOperation;
-        if (op === "O614") {
-          return result[i].averageCycleTime;
-        }
-      }
-    }
-    return 0;
-  } catch (error) {
-    console.log("ERROR: " + error);
-    return 0;
-  }
-};
-
-export const getPartCycleTimePress = async (
-  partNumber: string,
-  orgCode: string
-) => {
-  try {
-    const url = `https://zvm-msgprod.gentex.com/MES/Client/manufacturingweb/api/v1/bi/cycletimes/lineoperationpart?orgCode=14&partNumber=${partNumber}`;
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
-    });
-    if (!response.ok) {
-      throw new Error(`Error! status: ${response.status}`);
-    }
-    const result: LineOperationPart[] = await response.json();
-    if (result.length > 0) {
-      for (let i = 0; i < result.length; ++i) {
-        const op = result[i].ebsOperation;
-        if (op === "O540") {
-          return result[i].averageCycleTime;
-        }
-      }
-    }
-    return 0;
-  } catch (error) {
-    console.log("ERROR: " + error);
-    return 0;
   }
 };
 
@@ -436,154 +322,154 @@ export const getFinalProcessDataOperatorPress = (
   return finalData;
 };
 
-export const getFinalProcessDataOperatorTotals = async (
-  processData: ProcessDataOperator[]
-) => {
-  let processOperators: ProcessDataOperatorTotals[] = [];
-  //let cycleTimeList: { part: string; cycle: number }[] = [];
-  for (let index = 0; index < processData.length; ++index) {
-    const row = processData[index];
-    if (index === 0) {
-      let cycleTime = 0;
-      if (row.Asset.includes("CMB")) {
-        cycleTime = await getPartCycleTimeCombo(row.PartNumber, row.Line ?? "");
-      } else if (row.Asset.includes("MR")) {
-        cycleTime = await getPartCycleTimeMonoRail(
-          row.PartNumber,
-          row.Line ?? ""
-        );
-      } else if (row.Asset.includes("PCB")) {
-        cycleTime = await getPartCycleTimePress(row.PartNumber, row.Line ?? "");
-      }
-      //cycleTimeList.push({ part: row.PartNumber, cycle: cycleTime });
-      const runActual =
-        (row.EndTime.getTime() - row.StartTime.getTime()) / 60000;
-      const runTheory =
-        cycleTime > 0 ? ((row.Passes + row.Fails) * cycleTime) / 60 : 0;
-      const efficiency = runActual > 0 ? (runTheory / runActual) * 100 : 100;
-      const partsPerHour =
-        runActual > 0
-          ? ((row.Passes + row.Fails) / runActual) * 60
-          : row.Passes + row.Fails;
+// export const getFinalProcessDataOperatorTotals = async (
+//   processData: ProcessDataOperator[]
+// ) => {
+//   let processOperators: ProcessDataOperatorTotals[] = [];
+//   //let cycleTimeList: { part: string; cycle: number }[] = [];
+//   for (let index = 0; index < processData.length; ++index) {
+//     const row = processData[index];
+//     if (index === 0) {
+//       let cycleTime = 0;
+//       if (row.Asset.includes("CMB")) {
+//         cycleTime = await getPartCycleTimeCombo(row.PartNumber, row.Line ?? "");
+//       } else if (row.Asset.includes("MR")) {
+//         cycleTime = await getPartCycleTimeMonoRail(
+//           row.PartNumber,
+//           row.Line ?? ""
+//         );
+//       } else if (row.Asset.includes("PCB")) {
+//         cycleTime = await getPartCycleTimePress(row.PartNumber, row.Line ?? "");
+//       }
+//       //cycleTimeList.push({ part: row.PartNumber, cycle: cycleTime });
+//       const runActual =
+//         (row.EndTime.getTime() - row.StartTime.getTime()) / 60000;
+//       const runTheory =
+//         cycleTime > 0 ? ((row.Passes + row.Fails) * cycleTime) / 60 : 0;
+//       const efficiency = runActual > 0 ? (runTheory / runActual) * 100 : 100;
+//       const partsPerHour =
+//         runActual > 0
+//           ? ((row.Passes + row.Fails) / runActual) * 60
+//           : row.Passes + row.Fails;
 
-      const obj: ProcessDataOperatorTotals = {
-        id: row.id,
-        Asset: row.Asset,
-        PartNumber: row.PartNumber,
-        Date: row.Date,
-        StartTime: row.StartTime,
-        EndTime: row.EndTime,
-        Passes: row.Passes,
-        Fails: row.Fails,
-        OperationId: row.OperationId,
-        Line: row.Line ?? "",
-        Label: row.Label ?? "",
-        Operator: row.Operator ?? "",
-        Revision: row.Revision ?? "",
-        Sender: row.Sender ?? "",
-        TestPlan: row.TestPlan ?? "",
-        CycleTime: cycleTime,
-        RunActual: runActual,
-        RunTheory: runTheory,
-        Efficiency: efficiency,
-        PartsPerHour: partsPerHour,
-      };
-      processOperators.push(obj);
-    } else if (processOperators.length > 0) {
-      let matched = false;
-      for (let i = 0; i < processOperators.length; ++i) {
-        const data = processOperators[i];
-        if (
-          data.Date.getDate() === row.Date.getDate() &&
-          data.Operator === row.Operator &&
-          data.PartNumber === row.PartNumber
-        ) {
-          matched = true;
-          let match = { ...data };
-          const runActual =
-            (row.EndTime.getTime() - row.StartTime.getTime()) / 60000;
-          const runTheory =
-            data.CycleTime > 0
-              ? ((row.Passes + row.Fails) * data.CycleTime) / 60
-              : 0;
-          match.RunActual += runActual;
-          match.RunTheory += runTheory;
-          match.Passes += row.Passes;
-          match.Fails += row.Fails;
-          const efficiency =
-            match.RunActual > 0
-              ? (match.RunTheory / match.RunActual) * 100
-              : 100;
-          const partsPerHour =
-            match.RunActual > 0
-              ? ((match.Passes + match.Fails) / match.RunActual) * 60
-              : match.Passes + match.Fails;
-          match.Efficiency = efficiency;
-          match.PartsPerHour = partsPerHour;
-          match.EndTime = row.EndTime;
-          processOperators[i] = match;
-          break;
-        }
-      }
-      if (!matched) {
-        let cycleTime = 0;
-        if (row.Asset.includes("CMB")) {
-          cycleTime = await getPartCycleTimeCombo(
-            row.PartNumber,
-            row.Line ?? ""
-          );
-        } else if (row.Asset.includes("MR")) {
-          cycleTime = await getPartCycleTimeMonoRail(
-            row.PartNumber,
-            row.Line ?? ""
-          );
-        } else if (row.Asset.includes("PCB")) {
-          cycleTime = await getPartCycleTimePress(
-            row.PartNumber,
-            row.Line ?? ""
-          );
-        }
-        // const foundCycle = cycleTimeList.find((x) => x.part === row.PartNumber);
-        // const cycleTime = foundCycle
-        //   ? foundCycle.cycle
-        //   : await getPartCycleTime(row.PartNumber, row.Line);
-        const runActual =
-          (row.EndTime.getTime() - row.StartTime.getTime()) / 60000;
-        const runTheory =
-          cycleTime > 0 ? ((row.Passes + row.Fails) * cycleTime) / 60 : 0;
-        const efficiency = runActual > 0 ? (runTheory / runActual) * 100 : 100;
-        const partsPerHour =
-          runActual > 0
-            ? ((row.Passes + row.Fails) / runActual) * 60
-            : row.Passes + row.Fails;
+//       const obj: ProcessDataOperatorTotals = {
+//         id: row.id,
+//         Asset: row.Asset,
+//         PartNumber: row.PartNumber,
+//         Date: row.Date,
+//         StartTime: row.StartTime,
+//         EndTime: row.EndTime,
+//         Passes: row.Passes,
+//         Fails: row.Fails,
+//         OperationId: row.OperationId,
+//         Line: row.Line ?? "",
+//         Label: row.Label ?? "",
+//         Operator: row.Operator ?? "",
+//         Revision: row.Revision ?? "",
+//         Sender: row.Sender ?? "",
+//         TestPlan: row.TestPlan ?? "",
+//         CycleTime: cycleTime,
+//         RunActual: runActual,
+//         RunTheory: runTheory,
+//         Efficiency: efficiency,
+//         PartsPerHour: partsPerHour,
+//       };
+//       processOperators.push(obj);
+//     } else if (processOperators.length > 0) {
+//       let matched = false;
+//       for (let i = 0; i < processOperators.length; ++i) {
+//         const data = processOperators[i];
+//         if (
+//           data.Date.getDate() === row.Date.getDate() &&
+//           data.Operator === row.Operator &&
+//           data.PartNumber === row.PartNumber
+//         ) {
+//           matched = true;
+//           let match = { ...data };
+//           const runActual =
+//             (row.EndTime.getTime() - row.StartTime.getTime()) / 60000;
+//           const runTheory =
+//             data.CycleTime > 0
+//               ? ((row.Passes + row.Fails) * data.CycleTime) / 60
+//               : 0;
+//           match.RunActual += runActual;
+//           match.RunTheory += runTheory;
+//           match.Passes += row.Passes;
+//           match.Fails += row.Fails;
+//           const efficiency =
+//             match.RunActual > 0
+//               ? (match.RunTheory / match.RunActual) * 100
+//               : 100;
+//           const partsPerHour =
+//             match.RunActual > 0
+//               ? ((match.Passes + match.Fails) / match.RunActual) * 60
+//               : match.Passes + match.Fails;
+//           match.Efficiency = efficiency;
+//           match.PartsPerHour = partsPerHour;
+//           match.EndTime = row.EndTime;
+//           processOperators[i] = match;
+//           break;
+//         }
+//       }
+//       if (!matched) {
+//         let cycleTime = 0;
+//         if (row.Asset.includes("CMB")) {
+//           cycleTime = await getPartCycleTimeCombo(
+//             row.PartNumber,
+//             row.Line ?? ""
+//           );
+//         } else if (row.Asset.includes("MR")) {
+//           cycleTime = await getPartCycleTimeMonoRail(
+//             row.PartNumber,
+//             row.Line ?? ""
+//           );
+//         } else if (row.Asset.includes("PCB")) {
+//           cycleTime = await getPartCycleTimePress(
+//             row.PartNumber,
+//             row.Line ?? ""
+//           );
+//         }
+//         // const foundCycle = cycleTimeList.find((x) => x.part === row.PartNumber);
+//         // const cycleTime = foundCycle
+//         //   ? foundCycle.cycle
+//         //   : await getPartCycleTime(row.PartNumber, row.Line);
+//         const runActual =
+//           (row.EndTime.getTime() - row.StartTime.getTime()) / 60000;
+//         const runTheory =
+//           cycleTime > 0 ? ((row.Passes + row.Fails) * cycleTime) / 60 : 0;
+//         const efficiency = runActual > 0 ? (runTheory / runActual) * 100 : 100;
+//         const partsPerHour =
+//           runActual > 0
+//             ? ((row.Passes + row.Fails) / runActual) * 60
+//             : row.Passes + row.Fails;
 
-        const obj: ProcessDataOperatorTotals = {
-          id: row.id,
-          Asset: row.Asset,
-          PartNumber: row.PartNumber,
-          Date: row.Date,
-          StartTime: row.StartTime,
-          EndTime: row.EndTime,
-          Passes: row.Passes,
-          Fails: row.Fails,
-          OperationId: row.OperationId,
-          Line: row.Line ?? "",
-          Label: row.Label ?? "",
-          Operator: row.Operator ?? "",
-          Revision: row.Revision ?? "",
-          Sender: row.Sender ?? "",
-          TestPlan: row.TestPlan ?? "",
-          CycleTime: cycleTime,
-          RunActual: runActual,
-          RunTheory: runTheory,
-          Efficiency: efficiency,
-          PartsPerHour: partsPerHour,
-        };
-        processOperators.push(obj);
-      }
-    }
-  }
-  processOperators.forEach((x, i) => (x.id = i));
+//         const obj: ProcessDataOperatorTotals = {
+//           id: row.id,
+//           Asset: row.Asset,
+//           PartNumber: row.PartNumber,
+//           Date: row.Date,
+//           StartTime: row.StartTime,
+//           EndTime: row.EndTime,
+//           Passes: row.Passes,
+//           Fails: row.Fails,
+//           OperationId: row.OperationId,
+//           Line: row.Line ?? "",
+//           Label: row.Label ?? "",
+//           Operator: row.Operator ?? "",
+//           Revision: row.Revision ?? "",
+//           Sender: row.Sender ?? "",
+//           TestPlan: row.TestPlan ?? "",
+//           CycleTime: cycleTime,
+//           RunActual: runActual,
+//           RunTheory: runTheory,
+//           Efficiency: efficiency,
+//           PartsPerHour: partsPerHour,
+//         };
+//         processOperators.push(obj);
+//       }
+//     }
+//   }
+//   processOperators.forEach((x, i) => (x.id = i));
 
-  return processOperators;
-};
+//   return processOperators;
+// };

@@ -1,12 +1,14 @@
 export const dateToString = (date: Date) => {
+  let d = new Date(date);
+  d.setHours(d.getHours() + 4);
   const str =
-    date.getFullYear() +
+    d.getFullYear() +
     "-" +
-    (date.getMonth() < 9 ? "0" : "") +
-    (date.getMonth() + 1) +
+    (d.getMonth() < 9 ? "0" : "") +
+    (d.getMonth() + 1) +
     "-" +
-    (date.getDate() < 10 ? "0" : "") +
-    date.getDate();
+    (d.getDate() < 10 ? "0" : "") +
+    d.getDate();
   return str;
 };
 

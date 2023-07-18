@@ -1,19 +1,12 @@
 import * as redis from "redis";
-import {
-  getEmployeeInfoDirectory,
-  getFinalProcessDataOperatorCombo,
-  getFinalProcessDataOperatorPress,
-  getFinalProcessDataOperatorTotals,
-  getProcessDataExport,
-} from "./MES";
+import { getEmployeeInfoDirectory, getProcessDataExport } from "./MES";
 import { setTimeout } from "timers/promises";
 import { dateToString } from "./DataUtility";
 import { ASSETLIST } from "../definitions";
 import {
   EmployeeInfoGentex,
   UserData,
-  ProcessDataOperator,
-  ProcessDataOperatorTotals,
+  ProcessDataExport,
 } from "../utils/DataTypes";
 
 const redisClient = redis.createClient({
@@ -61,9 +54,10 @@ export const updateUserData = async (user: string, data: UserData) => {
   return false;
 };
 
-export const processDataFromRedis = async (key: string) => {
+export const processDataFromRedis = async (asset: string, date: string) => {
   try {
-    let data: ProcessDataOperatorTotals[] = [];
+    const key = `${asset}:${date}`;
+    let data: ProcessDataExport[] = [];
     const redisResult = await redisClient.get(key);
     if (redisResult) {
       data = JSON.parse(redisResult);
@@ -78,44 +72,30 @@ export const processDataFromRedis = async (key: string) => {
   return undefined;
 };
 
-export const updateProcessData = async () => {
-  while (true) {
-    try {
-      const endDate = new Date();
-      const startDate = new Date(endDate);
-      for (let i = 0; i < ASSETLIST.length; ++i) {
-        const processData = await getProcessDataExport(
-          ASSETLIST[i],
-          startDate,
-          endDate
-        );
-        if (processData) {
-          let processOperator: ProcessDataOperator[] = [];
-          if (ASSETLIST[i].includes("CMB") || ASSETLIST[i].includes("MR")) {
-            processOperator = getFinalProcessDataOperatorCombo(processData);
-          } else {
-            processOperator = getFinalProcessDataOperatorPress(processData);
-          }
-
-          const finalData = await getFinalProcessDataOperatorTotals(
-            processOperator
-          );
-
-          const key = `${ASSETLIST[i]}:${dateToString(startDate)}`;
-          await redisClient.set(key, JSON.stringify(finalData));
-          console.log(`Updated "${key}" in Redis.`);
-        }
+export const processDataRangeFromRedis = async (
+  asset: string,
+  startDate: string,
+  endDate: string
+) => {
+  try {
+    let data: ProcessDataExport[] = [];
+    const dateEnd = new Date(endDate);
+    for (
+      let start = new Date(startDate);
+      start.getTime() <= dateEnd.getTime();
+      start.setDate(start.getDate() + 1)
+    ) {
+      const key = `${asset}:${dateToString(start)}`;
+      const redisResult = await redisClient.get(key);
+      if (redisResult) {
+        data = data.concat(JSON.parse(redisResult));
       }
-    } catch (err) {
-      console.log(err);
     }
-    const timeNow = new Date();
-    console.log(
-      `Done updating all assets in redis. (${timeNow.toLocaleTimeString()})`
-    );
-    console.log(`Waiting 10 minutes...`);
-    await setTimeout(600000);
+    return data;
+  } catch (e) {
+    console.log(e);
   }
+  return undefined;
 };
 
 const loadEmployeeDirectory = async () => {
@@ -128,6 +108,49 @@ const loadEmployeeDirectory = async () => {
     }
   } catch (error) {
     console.log(error);
+  }
+};
+
+const updateProcessData = async () => {
+  while (true) {
+    try {
+      const endDate = new Date();
+      const startDate = new Date(endDate);
+      let endDatePrev = new Date(endDate);
+      let startDatePrev = new Date(endDate);
+      endDatePrev.setDate(endDatePrev.getDate() - 1);
+      startDatePrev.setDate(startDatePrev.getDate() - 1);
+      for (let i = 0; i < ASSETLIST.length; ++i) {
+        const processDataNow = await getProcessDataExport(
+          ASSETLIST[i],
+          startDate,
+          endDate
+        );
+        const processDataPrev = await getProcessDataExport(
+          ASSETLIST[i],
+          startDatePrev,
+          endDatePrev
+        );
+        if (processDataNow) {
+          const key = `${ASSETLIST[i]}:${dateToString(startDate)}`;
+          await redisClient.set(key, JSON.stringify(processDataNow));
+          console.log(`Updated "${key}" in Redis.`);
+        }
+        if (processDataPrev) {
+          const key = `${ASSETLIST[i]}:${dateToString(startDatePrev)}`;
+          await redisClient.set(key, JSON.stringify(processDataPrev));
+          console.log(`Updated "${key}" in Redis.`);
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    const timeNow = new Date();
+    console.log(
+      `Done updating all assets in redis. (${timeNow.toLocaleTimeString()})`
+    );
+    console.log(`Waiting 10 minutes...`);
+    await setTimeout(600000);
   }
 };
 
@@ -154,19 +177,8 @@ export const processDataFunction = async () => {
           start
         );
         if (processData) {
-          //const processOperator = getFinalProcessDataOperator(processData);
-          let processOperator: ProcessDataOperator[] = [];
-          if (ASSETLIST[i].includes("CMB") || ASSETLIST[i].includes("MR")) {
-            processOperator = getFinalProcessDataOperatorCombo(processData);
-          } else {
-            processOperator = getFinalProcessDataOperatorPress(processData);
-          }
-          const finalData = await getFinalProcessDataOperatorTotals(
-            processOperator
-          );
-
           const key = `${ASSETLIST[i]}:${dateToString(start)}`;
-          await redisClient.set(key, JSON.stringify(finalData));
+          await redisClient.set(key, JSON.stringify(processData));
           console.log(`Added "${key}" to Redis.`);
         }
       }

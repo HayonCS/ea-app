@@ -1,12 +1,54 @@
 import {
   EmployeeInfoGentex,
   LineOperationPart,
-  ProcessDataExport,
-  ProcessDataExportRaw,
   UserInfoGentex,
 } from "./DataTypes";
-import { dateToString } from "./DateUtility";
 import { getUserInfoLumen } from "./redis";
+
+export const getPartCycleTime = async (
+  partNumber: string,
+  orgCode: string,
+  assetType?: "Combo" | "Combo2" | "MonoRail" | "Press"
+) => {
+  try {
+    const url = `https://zvm-msgprod.gentex.com/MES/Client/manufacturingweb/api/v1/bi/cycletimes/lineoperationpart?orgCode=${orgCode}&partNumber=${partNumber}`;
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Error! status: ${response.status}`);
+    }
+    const result: LineOperationPart[] = await response.json();
+    if (result.length > 0) {
+      for (let i = 0; i < result.length; ++i) {
+        const op = result[i].ebsOperation;
+        const cycle = result[i].averageCycleTime;
+        switch (assetType) {
+          case "Combo":
+            if (op === "O610") return cycle;
+            break;
+          case "Combo2":
+            if (op === "O612") return cycle;
+            break;
+          case "MonoRail":
+            if (op === "O614") return cycle;
+            break;
+          case "Press":
+            if (op === "O540") return cycle;
+            break;
+          default:
+            return cycle;
+        }
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  return 0;
+};
 
 export const getEmployeeInfoGentex = async (userId: string) => {
   try {
@@ -127,109 +169,4 @@ export const getUserInfoGentex = async (
     console.log(error);
   }
   return undefined;
-};
-
-export const getProcessDataExport = async (
-  asset: string,
-  startDate: string,
-  endDate: string
-) => {
-  try {
-    const url = `http://zvm-msgprod/MES/ProcessDataExportApi/api/v1/processdataexport/processDataExport?Assets=${asset}&StartDate=${startDate}&EndDate=${endDate}&TopNRows=0&UserMetadataKeys=line%2Clabel%2Coperator%2Crevision%2Csender%2Ctestplan%2Cbarcode`;
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
-    });
-    if (!response.ok) {
-      throw new Error(`Error! status: ${response.status}`);
-    }
-    const result: ProcessDataExportRaw[] = await response.json();
-    let processData: ProcessDataExport[] = result.map((item, index) => {
-      return {
-        id: index,
-        MetaDataId: item.MetaDataId,
-        Asset: item.KeyToValueDictionary.ASSET,
-        IdentifierCode: item.KeyToValueDictionary.IDENTIFIERCODE,
-        IdentifierCode2: item.KeyToValueDictionary.IDENTIFIERCODE2,
-        PartNumber: item.KeyToValueDictionary.PARTNUMBER,
-        OpEndTime: new Date(item.KeyToValueDictionary.OPENDTIME),
-        PassFail: item.KeyToValueDictionary.PASSFAIL === "PASS" ? true : false,
-        OperationId: item.KeyToValueDictionary.OPERATIONID,
-        Line: item.KeyToValueDictionary.LINE,
-        Label: item.KeyToValueDictionary.LABEL,
-        Operator: item.KeyToValueDictionary.OPERATOR,
-        Description: item.KeyToValueDictionary.DESCRIPTION,
-        CycleTime: item.KeyToValueDictionary.CYCLETIME,
-        Revision: item.KeyToValueDictionary.REVISION,
-        Sender: item.KeyToValueDictionary.SENDER,
-        TestPlan: item.KeyToValueDictionary.TESTPLAN,
-        Barcode: item.KeyToValueDictionary.BARCODE,
-      };
-    });
-    processData = processData.filter(
-      (x) =>
-        !x.PartNumber.includes("I") &&
-        !x.PartNumber.includes("E") &&
-        !x.PartNumber.includes("U") &&
-        !x.PartNumber.includes("0000") &&
-        x.Operator
-    );
-    return processData;
-  } catch (error) {
-    console.log("ERROR: " + error);
-    return undefined;
-  }
-};
-
-export const getProcessDataExportRange = async (
-  asset: string,
-  startDate: Date,
-  endDate: Date
-) => {
-  try {
-    let finalData: ProcessDataExport[] = [];
-    for (
-      let start = new Date(startDate);
-      start.getTime() <= endDate.getTime();
-      start.setDate(start.getDate() + 1)
-    ) {
-      const end = new Date(start);
-      end.setDate(end.getDate() + 1);
-      const dateStart = dateToString(start);
-      const dateEnd = dateToString(end);
-      const processData = await getProcessDataExport(asset, dateStart, dateEnd);
-      if (processData) {
-        finalData = finalData.concat(processData);
-      }
-    }
-    return finalData;
-  } catch (error) {
-    console.log("ERROR: " + error);
-    return undefined;
-  }
-};
-
-export const getPartCycleTime = async (partNumber: string, line: string) => {
-  try {
-    const url = `https://zvm-msgprod.gentex.com/MES/Client/manufacturingweb/api/v1/bi/cycletimes/lineoperationpart?orgCode=14&ebsOperation=O612&partNumber=${partNumber}`;
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
-    });
-    if (!response.ok) {
-      throw new Error(`Error! status: ${response.status}`);
-    }
-    const result: LineOperationPart[] = await response.json();
-    if (result.length > 0) {
-      return result[0].averageCycleTime;
-    }
-    return 0;
-  } catch (error) {
-    console.log("ERROR: " + error);
-    return 0;
-  }
 };

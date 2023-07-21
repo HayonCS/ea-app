@@ -42,7 +42,6 @@ export interface ProcessDataExportRaw {
 }
 
 export interface ProcessDataExport {
-  id: number;
   MetaDataId: string;
   Asset: string;
   IdentifierCode: string;

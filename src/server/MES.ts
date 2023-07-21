@@ -2,7 +2,6 @@ import { dateToString } from "./DataUtility";
 import {
   ProcessDataExportRaw,
   ProcessDataExport,
-  ProcessDataOperator,
   UserLumenInfo,
   EmployeeInfoGentex,
 } from "../utils/DataTypes";
@@ -108,9 +107,8 @@ export const getProcessDataExport = async (
       throw new Error(`Error! status: ${response.status}`);
     }
     const result: ProcessDataExportRaw[] = await response.json();
-    let processData: ProcessDataExport[] = result.map((item, index) => {
+    let processData: ProcessDataExport[] = result.map((item) => {
       return {
-        id: index,
         MetaDataId: item.MetaDataId,
         Asset: item.KeyToValueDictionary.ASSET,
         IdentifierCode: item.KeyToValueDictionary.IDENTIFIERCODE,
@@ -155,172 +153,172 @@ export const getProcessDataExport = async (
   }
 };
 
-export const getFinalProcessDataOperatorCombo = (
-  processData: ProcessDataExport[]
-) => {
-  let passCount = 0;
-  let failCount = 0;
-  let lastOp = "";
-  let lastPart = "";
-  let lastDate = new Date("1900-09-09");
-  const data: ProcessDataOperator[] = processData
-    .filter((x) => x.Operator !== undefined)
-    .sort((a, b) => a.OpEndTime.getTime() - b.OpEndTime.getTime())
-    .map((x, i) => {
-      if (
-        lastPart !== x.PartNumber ||
-        lastOp !== x.Operator ||
-        lastDate.getDate() !== x.OpEndTime.getDate()
-      ) {
-        passCount = 0;
-        failCount = 0;
-      }
-      lastPart = x.PartNumber;
-      lastOp = x.Operator ?? "";
-      lastDate = x.OpEndTime;
-      if (x.PassFail) passCount += 1;
-      else failCount += 1;
+// export const getFinalProcessDataOperatorCombo = (
+//   processData: ProcessDataExport[]
+// ) => {
+//   let passCount = 0;
+//   let failCount = 0;
+//   let lastOp = "";
+//   let lastPart = "";
+//   let lastDate = new Date("1900-09-09");
+//   const data: ProcessDataOperator[] = processData
+//     .filter((x) => x.Operator !== undefined)
+//     .sort((a, b) => a.OpEndTime.getTime() - b.OpEndTime.getTime())
+//     .map((x, i) => {
+//       if (
+//         lastPart !== x.PartNumber ||
+//         lastOp !== x.Operator ||
+//         lastDate.getDate() !== x.OpEndTime.getDate()
+//       ) {
+//         passCount = 0;
+//         failCount = 0;
+//       }
+//       lastPart = x.PartNumber;
+//       lastOp = x.Operator ?? "";
+//       lastDate = x.OpEndTime;
+//       if (x.PassFail) passCount += 1;
+//       else failCount += 1;
 
-      const obj: ProcessDataOperator = {
-        id: i,
-        Asset: x.Asset,
-        PartNumber: x.PartNumber,
-        Date: x.OpEndTime,
-        StartTime: x.OpEndTime,
-        EndTime: x.OpEndTime,
-        Passes: passCount,
-        Fails: failCount,
-        OperationId: x.OperationId,
-        Line: x.Line,
-        Label: x.Label,
-        Operator: x.Operator,
-        Description: x.Description,
-        CycleTime: x.CycleTime,
-        Revision: x.Revision,
-        Sender: x.Sender,
-        TestPlan: x.TestPlan,
-      };
-      return obj;
-    });
-  let finalData: ProcessDataOperator[] = [];
-  let startTime = new Date("1900-09-09");
-  data.forEach((row, index) => {
-    if (index < data.length - 1) {
-      if (index === 0) {
-        startTime = row.StartTime;
-      } else if (
-        row.PartNumber !== data[index - 1].PartNumber ||
-        row.Operator !== data[index - 1].Operator ||
-        row.StartTime.getDate() !== data[index - 1].EndTime.getDate()
-      ) {
-        startTime = row.StartTime;
-      }
-      if (
-        index !== 0 &&
-        (row.PartNumber !== data[index + 1].PartNumber ||
-          row.Operator !== data[index + 1].Operator ||
-          row.EndTime.getDate() !== data[index + 1].StartTime.getDate())
-      ) {
-        let obj = { ...row };
-        obj.Date = startTime;
-        obj.StartTime = startTime;
-        finalData.push(obj);
-      }
-    } else {
-      let obj = { ...row };
-      obj.Date = startTime;
-      obj.StartTime = startTime;
-      finalData.push(obj);
-    }
-  });
-  return finalData;
-};
+//       const obj: ProcessDataOperator = {
+//         id: i,
+//         Asset: x.Asset,
+//         PartNumber: x.PartNumber,
+//         Date: x.OpEndTime,
+//         StartTime: x.OpEndTime,
+//         EndTime: x.OpEndTime,
+//         Passes: passCount,
+//         Fails: failCount,
+//         OperationId: x.OperationId,
+//         Line: x.Line,
+//         Label: x.Label,
+//         Operator: x.Operator,
+//         Description: x.Description,
+//         CycleTime: x.CycleTime,
+//         Revision: x.Revision,
+//         Sender: x.Sender,
+//         TestPlan: x.TestPlan,
+//       };
+//       return obj;
+//     });
+//   let finalData: ProcessDataOperator[] = [];
+//   let startTime = new Date("1900-09-09");
+//   data.forEach((row, index) => {
+//     if (index < data.length - 1) {
+//       if (index === 0) {
+//         startTime = row.StartTime;
+//       } else if (
+//         row.PartNumber !== data[index - 1].PartNumber ||
+//         row.Operator !== data[index - 1].Operator ||
+//         row.StartTime.getDate() !== data[index - 1].EndTime.getDate()
+//       ) {
+//         startTime = row.StartTime;
+//       }
+//       if (
+//         index !== 0 &&
+//         (row.PartNumber !== data[index + 1].PartNumber ||
+//           row.Operator !== data[index + 1].Operator ||
+//           row.EndTime.getDate() !== data[index + 1].StartTime.getDate())
+//       ) {
+//         let obj = { ...row };
+//         obj.Date = startTime;
+//         obj.StartTime = startTime;
+//         finalData.push(obj);
+//       }
+//     } else {
+//       let obj = { ...row };
+//       obj.Date = startTime;
+//       obj.StartTime = startTime;
+//       finalData.push(obj);
+//     }
+//   });
+//   return finalData;
+// };
 
-export const getFinalProcessDataOperatorPress = (
-  processData: ProcessDataExport[]
-) => {
-  let passCount = 0;
-  let failCount = 0;
-  let lastOp = "";
-  let lastPart = "";
-  let lastDate = new Date("1900-09-09");
-  let data: ProcessDataOperator[] = [];
-  processData
-    .sort((a, b) => a.OpEndTime.getTime() - b.OpEndTime.getTime())
-    .forEach((x, i) => {
-      if (
-        lastPart !== x.PartNumber ||
-        (x.Operator && x.Operator !== "" && lastOp !== x.Operator) ||
-        lastDate.getDate() !== x.OpEndTime.getDate()
-      ) {
-        passCount = 0;
-        failCount = 0;
-      }
-      if (
-        (x.Description && x.Description === "Main_Board") ||
-        (x.CycleTime && x.CycleTime !== "")
-      ) {
-        lastPart = x.PartNumber;
-        lastOp = x.Operator ?? lastOp;
-        lastDate = x.OpEndTime;
-        if (x.PassFail) passCount += 1;
-        else failCount += 1;
+// export const getFinalProcessDataOperatorPress = (
+//   processData: ProcessDataExport[]
+// ) => {
+//   let passCount = 0;
+//   let failCount = 0;
+//   let lastOp = "";
+//   let lastPart = "";
+//   let lastDate = new Date("1900-09-09");
+//   let data: ProcessDataOperator[] = [];
+//   processData
+//     .sort((a, b) => a.OpEndTime.getTime() - b.OpEndTime.getTime())
+//     .forEach((x, i) => {
+//       if (
+//         lastPart !== x.PartNumber ||
+//         (x.Operator && x.Operator !== "" && lastOp !== x.Operator) ||
+//         lastDate.getDate() !== x.OpEndTime.getDate()
+//       ) {
+//         passCount = 0;
+//         failCount = 0;
+//       }
+//       if (
+//         (x.Description && x.Description === "Main_Board") ||
+//         (x.CycleTime && x.CycleTime !== "")
+//       ) {
+//         lastPart = x.PartNumber;
+//         lastOp = x.Operator ?? lastOp;
+//         lastDate = x.OpEndTime;
+//         if (x.PassFail) passCount += 1;
+//         else failCount += 1;
 
-        const obj: ProcessDataOperator = {
-          id: i,
-          Asset: x.Asset,
-          PartNumber: x.PartNumber,
-          Date: x.OpEndTime,
-          StartTime: x.OpEndTime,
-          EndTime: x.OpEndTime,
-          Passes: passCount,
-          Fails: failCount,
-          OperationId: x.OperationId,
-          Line: x.Line,
-          Label: x.Label,
-          Operator: x.Operator,
-          Description: x.Description,
-          CycleTime: x.CycleTime,
-          Revision: x.Revision,
-          Sender: x.Sender,
-          TestPlan: x.TestPlan,
-        };
-        data.push(obj);
-      }
-    });
-  let finalData: ProcessDataOperator[] = [];
-  let startTime = new Date("1900-09-09");
-  data.forEach((row, index) => {
-    if (index < data.length - 1) {
-      if (index === 0) {
-        startTime = row.StartTime;
-      } else if (
-        row.PartNumber !== data[index - 1].PartNumber ||
-        row.Operator !== data[index - 1].Operator ||
-        row.StartTime.getDate() !== data[index - 1].EndTime.getDate()
-      ) {
-        startTime = row.StartTime;
-      }
-      if (
-        index !== 0 &&
-        (row.PartNumber !== data[index + 1].PartNumber ||
-          row.Operator !== data[index + 1].Operator ||
-          row.EndTime.getDate() !== data[index + 1].StartTime.getDate())
-      ) {
-        let obj = { ...row };
-        obj.Date = startTime;
-        obj.StartTime = startTime;
-        finalData.push(obj);
-      }
-    } else {
-      let obj = { ...row };
-      obj.Date = startTime;
-      obj.StartTime = startTime;
-      finalData.push(obj);
-    }
-  });
-  return finalData;
-};
+//         const obj: ProcessDataOperator = {
+//           id: i,
+//           Asset: x.Asset,
+//           PartNumber: x.PartNumber,
+//           Date: x.OpEndTime,
+//           StartTime: x.OpEndTime,
+//           EndTime: x.OpEndTime,
+//           Passes: passCount,
+//           Fails: failCount,
+//           OperationId: x.OperationId,
+//           Line: x.Line,
+//           Label: x.Label,
+//           Operator: x.Operator,
+//           Description: x.Description,
+//           CycleTime: x.CycleTime,
+//           Revision: x.Revision,
+//           Sender: x.Sender,
+//           TestPlan: x.TestPlan,
+//         };
+//         data.push(obj);
+//       }
+//     });
+//   let finalData: ProcessDataOperator[] = [];
+//   let startTime = new Date("1900-09-09");
+//   data.forEach((row, index) => {
+//     if (index < data.length - 1) {
+//       if (index === 0) {
+//         startTime = row.StartTime;
+//       } else if (
+//         row.PartNumber !== data[index - 1].PartNumber ||
+//         row.Operator !== data[index - 1].Operator ||
+//         row.StartTime.getDate() !== data[index - 1].EndTime.getDate()
+//       ) {
+//         startTime = row.StartTime;
+//       }
+//       if (
+//         index !== 0 &&
+//         (row.PartNumber !== data[index + 1].PartNumber ||
+//           row.Operator !== data[index + 1].Operator ||
+//           row.EndTime.getDate() !== data[index + 1].StartTime.getDate())
+//       ) {
+//         let obj = { ...row };
+//         obj.Date = startTime;
+//         obj.StartTime = startTime;
+//         finalData.push(obj);
+//       }
+//     } else {
+//       let obj = { ...row };
+//       obj.Date = startTime;
+//       obj.StartTime = startTime;
+//       finalData.push(obj);
+//     }
+//   });
+//   return finalData;
+// };
 
 // export const getFinalProcessDataOperatorTotals = async (
 //   processData: ProcessDataOperator[]

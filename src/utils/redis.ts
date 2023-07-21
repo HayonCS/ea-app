@@ -1,6 +1,6 @@
 import {
   EmployeeInfoGentex,
-  ProcessDataOperatorTotals,
+  ProcessDataExport,
   UserData,
   UserLumenInfo,
 } from "./DataTypes";
@@ -102,76 +102,109 @@ export const saveUserDataToRedis = async (
   }
 };
 
-// export const saveUserDataToRedis = async (
-//   userName: string,
-//   userData: UserData
-// ) => {
-//   try {
-//     const dataBody = JSON.stringify(userData);
-//     const url = `http://localhost:8000/api/user/${userName}`;
-//     const response = await fetch(url, {
-//       method: "POST",
-//       headers: {
-//         Accept: "application/json",
-//       },
-//       body: dataBody,
-//     });
-//     console.log("Body sent: " + JSON.stringify(dataBody));
-//     if (!response.ok) {
-//       throw new Error(`Error! status: ${response.status}`);
-//     }
-//     const result = await response.json();
-//     if (result && result.data) {
-//       console.log(result.data);
-//       return result.data as boolean;
-//     }
+export const getProcessDataExport = async (asset: string, date: Date) => {
+  try {
+    const url = `http://localhost:8000/api/processdata/${asset}/${dateToString(
+      date
+    )}`;
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Error! status: ${response.status}`);
+    }
+    const result = await response.json();
+    if (result && result.data) {
+      let finalData: ProcessDataExport[] = result.data.map((x: any) => {
+        let data: ProcessDataExport = { ...x };
+        data.OpEndTime = new Date(x.OpEndTime);
+        return data;
+      });
+      finalData = finalData.filter((x) => x.Operator && x.Operator !== "");
+      return finalData;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  return undefined;
+};
 
-//     return false;
-//   } catch (error) {
-//     console.log("ERROR: " + error);
-//     return false;
-//   }
-// };
-
-export const getProcessOperatorTotalsRange = async (
+export const getProcessDataExportRange = async (
   asset: string,
   startDate: Date,
   endDate: Date
 ) => {
   try {
-    let finalData: ProcessDataOperatorTotals[] = [];
-    for (
-      let start = new Date(startDate);
-      start.getTime() <= endDate.getTime();
-      start.setDate(start.getDate() + 1)
-    ) {
-      const dateStr = dateToString(start);
-      const url = `http://localhost:8000/api/processdata/${asset}/${dateStr}`;
-      const response = await fetch(url, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-        },
-      });
-      if (!response.ok) {
-        throw new Error(`Error! status: ${response.status}`);
-      }
-      const result = await response.json();
-      if (result && result.data && result.data.length > 0) {
-        let redisData = result.data;
-        const newData: ProcessDataOperatorTotals[] = redisData.map((x: any) => {
-          let obj: ProcessDataOperatorTotals = { ...x };
-          obj.Date = new Date(x.Date);
-          obj.StartTime = new Date(x.StartTime);
-          obj.EndTime = new Date(x.EndTime);
-          return obj;
-        });
-        finalData = finalData.concat(newData);
-      }
+    const start = dateToString(startDate);
+    const end = dateToString(endDate);
+    const url = `http://localhost:8000/api/processdata/${asset}/${start}/${end}`;
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Error! status: ${response.status}`);
     }
-    return finalData;
+    const result = await response.json();
+    if (result && result.data) {
+      let finalData: ProcessDataExport[] = result.data.map((x: any) => {
+        let data: ProcessDataExport = { ...x };
+        data.OpEndTime = new Date(x.OpEndTime);
+        return data;
+      });
+      finalData = finalData.filter((x) => x.Operator && x.Operator !== "");
+      return finalData;
+    }
   } catch (error) {
-    console.log("ERROR: " + error);
-    return undefined;
+    console.log(error);
   }
+  return undefined;
 };
+
+// export const getProcessOperatorTotalsRange = async (
+//   asset: string,
+//   startDate: Date,
+//   endDate: Date
+// ) => {
+//   try {
+//     let finalData: ProcessDataOperatorTotals[] = [];
+//     for (
+//       let start = new Date(startDate);
+//       start.getTime() <= endDate.getTime();
+//       start.setDate(start.getDate() + 1)
+//     ) {
+//       const dateStr = dateToString(start);
+//       const url = `http://localhost:8000/api/processdata/${asset}/${dateStr}`;
+//       const response = await fetch(url, {
+//         method: "GET",
+//         headers: {
+//           Accept: "application/json",
+//         },
+//       });
+//       if (!response.ok) {
+//         throw new Error(`Error! status: ${response.status}`);
+//       }
+//       const result = await response.json();
+//       if (result && result.data && result.data.length > 0) {
+//         let redisData = result.data;
+//         const newData: ProcessDataOperatorTotals[] = redisData.map((x: any) => {
+//           let obj: ProcessDataOperatorTotals = { ...x };
+//           obj.Date = new Date(x.Date);
+//           obj.StartTime = new Date(x.StartTime);
+//           obj.EndTime = new Date(x.EndTime);
+//           return obj;
+//         });
+//         finalData = finalData.concat(newData);
+//       }
+//     }
+//     return finalData;
+//   } catch (error) {
+//     console.log("ERROR: " + error);
+//     return undefined;
+//   }
+// };

@@ -9,6 +9,7 @@ import {
   FormControlLabel,
   IconButton,
   InputLabel,
+  LinearProgress,
   ListItemText,
   MenuItem,
   OutlinedInput,
@@ -45,15 +46,23 @@ import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
 import { getEmployeeInfoGentex } from "../utils/MES";
 import { getHHMMSS } from "../utils/DateUtility";
 import { UserDisplayHover } from "../modules/UserDisplayHover";
-import { getProcessOperatorTotalsRange } from "../utils/redis";
+import {
+  getProcessDataExport,
+  getProcessDataExportRange,
+} from "../utils/redis";
 import { useSelector, shallowEqual } from "react-redux";
 import { AppState } from "../store/type";
 import { UserDisplayClickGentex } from "../modules/UserDisplayClickGentex";
 import { Close, FilterList } from "@mui/icons-material";
 import {
   EmployeeInfoGentex,
+  ProcessDataExport,
   ProcessDataOperatorTotals,
 } from "../utils/DataTypes";
+import {
+  getFinalProcessDataOperator,
+  getFinalProcessDataOperatorTotals,
+} from "../utils/DataUtility";
 
 function TabPanel(props: any) {
   const { children, value, index, ...other } = props;
@@ -181,6 +190,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+let cancelLoadingAssetOperator = false;
+
 export const Stats: React.FC<{}> = (p) => {
   document.title = "Stats | EA App";
 
@@ -198,6 +209,10 @@ export const Stats: React.FC<{}> = (p) => {
   const [tabValueStats, setTabValueStats] = React.useState(0);
 
   const [loadingAssetOperator, setLoadingAssetOperator] = React.useState(false);
+  const [loadingProgressAssetOperator, setLoadingProgressAssetOperator] =
+    React.useState(0);
+  const [cancelingLoadingAssetOperator, setCancelingLoadingAssetOperator] =
+    React.useState(false);
 
   const [operatorEmployeeInfo, setOperatorEmployeeInfo] = React.useState<
     EmployeeInfoGentex[]
@@ -261,28 +276,71 @@ export const Stats: React.FC<{}> = (p) => {
 
   const loadStatsAssetOperator = async () => {
     console.log("Loading Data...");
+    setLoadingProgressAssetOperator(0);
     setLoadingAssetOperator(true);
+    let canceled = false;
+    let progress = 0;
+    const step = 90 / (selectedAssetsOperator.length * 3);
     let finalOperatorData: ProcessDataOperatorTotals[] = [];
     for (let i = 0; i < selectedAssetsOperator.length; ++i) {
+      if (cancelLoadingAssetOperator) {
+        canceled = true;
+        break;
+      }
       const asset = selectedAssetsOperator[i];
-      const processData = await getProcessOperatorTotalsRange(
+      const processData = await getProcessDataExportRange(
         asset,
         startDateAssetOperator,
         checkboxDateAssetOperator
           ? startDateAssetOperator
           : endDateAssetOperator
       );
+      if (cancelLoadingAssetOperator) {
+        canceled = true;
+        break;
+      }
+      progress += step;
+      setLoadingProgressAssetOperator(progress);
       if (processData) {
-        finalOperatorData = finalOperatorData.concat(processData);
+        const procDataOperator = await getFinalProcessDataOperator(processData);
+        if (cancelLoadingAssetOperator) {
+          canceled = true;
+          break;
+        }
+        progress += step;
+        setLoadingProgressAssetOperator(progress);
+        const operatorTotals = await getFinalProcessDataOperatorTotals(
+          procDataOperator,
+          userDataRedux?.orgCode ?? "14"
+        );
+        if (cancelLoadingAssetOperator) {
+          canceled = true;
+          break;
+        }
+        finalOperatorData = finalOperatorData.concat(operatorTotals);
+        progress += step;
+        setLoadingProgressAssetOperator(progress);
       } else {
-        console.log("FAIL");
+        progress += step * 2;
+        setLoadingProgressAssetOperator(progress);
       }
     }
-    finalOperatorData.forEach((x, i) => (x.id = i));
-    setRowSelectionModelAssetOperator([]);
-    setRowsAssetOperator(finalOperatorData);
-    await loadAllEmployeeInfo(finalOperatorData);
-    setLoadingAssetOperator(false);
+    if (!canceled) {
+      setLoadingProgressAssetOperator(90);
+      finalOperatorData.forEach((x, i) => (x.id = i));
+      setRowSelectionModelAssetOperator([]);
+      setRowsAssetOperator(finalOperatorData);
+      await loadAllEmployeeInfo(finalOperatorData);
+      setLoadingProgressAssetOperator(100);
+      setLoadingAssetOperator(false);
+      cancelLoadingAssetOperator = false;
+      setCancelingLoadingAssetOperator(false);
+    } else {
+      setLoadingProgressAssetOperator(0);
+      setLoadingAssetOperator(false);
+      cancelLoadingAssetOperator = false;
+      setCancelingLoadingAssetOperator(false);
+    }
   };
 
   const loadAllEmployeeInfo = async (
@@ -1174,17 +1232,43 @@ export const Stats: React.FC<{}> = (p) => {
                     />
                   </LocalizationProvider>
 
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={(event) => {
-                      loadStatsAssetOperator();
-                    }}
-                    style={{ marginLeft: "50px" }}
-                  >
-                    GET
-                  </Button>
+                  {!loadingAssetOperator ? (
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={(event) => {
+                        loadStatsAssetOperator();
+                        // setLoadingAssetOperator(true);
+                      }}
+                      style={{ marginLeft: "50px" }}
+                    >
+                      GET
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      color={!cancelLoadingAssetOperator ? "error" : "warning"}
+                      onClick={(event) => {
+                        cancelLoadingAssetOperator = true;
+                        setCancelingLoadingAssetOperator(true);
+                      }}
+                      style={{ marginLeft: "50px" }}
+                    >
+                      {!cancelingLoadingAssetOperator
+                        ? "CANCEL"
+                        : "CANCELING..."}
+                    </Button>
+                  )}
                 </div>
+
+                {loadingAssetOperator && (
+                  <Box sx={{ width: "100%" }}>
+                    <LinearProgress
+                      variant="determinate"
+                      value={loadingProgressAssetOperator}
+                    />
+                  </Box>
+                )}
 
                 <Paper style={{ display: "flex" }}>
                   <Paper

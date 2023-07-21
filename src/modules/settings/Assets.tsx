@@ -12,6 +12,8 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { ASSETLIST } from "../../definitions";
+import { shallowEqual, useSelector } from "react-redux";
+import { AppState } from "../../store/type";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -47,8 +49,13 @@ export const AssetsSettingsPanel: React.FC<{
 
   const [loadedProps, setLoadedProps] = React.useState(false);
 
+  const assetListRedux = useSelector(
+    (state: AppState) => state.assetList,
+    shallowEqual
+  );
+
   const [checked, setChecked] = React.useState<string[]>([]);
-  const [left, setLeft] = React.useState<string[]>(ASSETLIST);
+  const [left, setLeft] = React.useState<string[]>(assetListRedux ?? ASSETLIST);
   const [right, setRight] = React.useState<string[]>(props.assets ?? []);
 
   const leftChecked = intersection(checked, left);
@@ -57,10 +64,10 @@ export const AssetsSettingsPanel: React.FC<{
   React.useEffect(() => {
     if (props.assets && !loadedProps) {
       setRight(props.assets);
-      setLeft(not(ASSETLIST, props.assets));
+      setLeft(not(assetListRedux ?? ASSETLIST, props.assets));
       setLoadedProps(true);
     }
-  }, [props, loadedProps]);
+  }, [props, loadedProps, assetListRedux]);
 
   const handleToggle = (value: string) => () => {
     const currentIndex = checked.indexOf(value);

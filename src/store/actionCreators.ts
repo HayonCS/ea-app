@@ -2,6 +2,15 @@ import { EmployeeInfoGentex, UserData } from "../utils/DataTypes";
 import * as actionTypes from "./actionTypes";
 import { AppAction, DispatchType } from "./type";
 
+export function setAssetList(list: string[]) {
+  const action: AppAction = {
+    type: actionTypes.SET_ASSET_LIST,
+    assetList: list,
+  };
+
+  return dispatchRequest(action);
+}
+
 export function setCurrentUser(user: string) {
   const action: AppAction = {
     type: actionTypes.SET_CURRENT_USER,

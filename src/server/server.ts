@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import {
+  getAssetListRedis,
   getEmployeeDirectoryRedis,
   getUserData,
   processDataFromRedis,
@@ -45,6 +46,11 @@ app.get("/api/lumen/:userId", async (req, res) => {
   const user = req.params.userId;
   const result = await getUserInfoLumen(user);
   res.json({ data: JSON.stringify(result) });
+});
+
+app.get("/api/assetList", async (req, res) => {
+  const data = await getAssetListRedis();
+  res.json({ data: data });
 });
 
 app.get("/api/processdata/:asset/:date", async (req, res) => {

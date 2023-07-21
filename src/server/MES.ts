@@ -7,6 +7,31 @@ import {
 } from "../utils/DataTypes";
 import { JSDOM } from "jsdom";
 
+export const getAssetList = async () => {
+  try {
+    const url = `http://zvm-msgprod/MES/ProcessDataExportApi/api/v1/processdataexport/getAssetList`;
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Error! status: ${response.status}`);
+    }
+    const result: string[] = await response.json();
+
+    const assetList = result.filter(
+      (x) => x.startsWith("CMB") || x.startsWith("MR") || x.startsWith("PCB")
+    );
+
+    return assetList;
+  } catch (error) {
+    console.log("ERROR: " + error);
+    return undefined;
+  }
+};
+
 export const getEmployeeInfoDirectory = async () => {
   try {
     const url = `https://api.gentex.com/employeedemo/v1/employees`;

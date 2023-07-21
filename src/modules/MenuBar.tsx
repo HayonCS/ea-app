@@ -28,11 +28,12 @@ import { Chevron } from "../icons/Chevron";
 import { GentexLogo } from "../icons/GentexLogo";
 import { GentexBlue } from "../styles/theme";
 import { CurrentUserDisplay } from "./CurrentUserDisplay";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getUserInfoGentex, getEmployeeInfoGentex } from "../utils/MES";
 import { AppState } from "../store/type";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import {
+  setAssetList,
   setCurrentUser,
   updateTeamGentex,
   updateUserData,
@@ -40,6 +41,7 @@ import {
 } from "../store/actionCreators";
 import { Dispatch } from "redux";
 import {
+  getAssetListRedis,
   getEmployeeDirectoryRedis,
   getUserDataFromRedis,
 } from "../utils/redis";
@@ -93,7 +95,12 @@ export const MenuBar: React.FC<{}> = (props) => {
   const classes = useStyles();
 
   const navigate = useNavigate();
+  const location = useLocation();
 
+  const assetListRedux = useSelector(
+    (state: AppState) => state.assetList,
+    shallowEqual
+  );
   const userGentexRedux = useSelector(
     (state: AppState) => state.userGentex,
     shallowEqual
@@ -112,6 +119,10 @@ export const MenuBar: React.FC<{}> = (props) => {
   );
 
   const dispatch: Dispatch<any> = useDispatch();
+  const setAssetListRedux = React.useCallback(
+    (assetList: string[]) => dispatch(setAssetList(assetList)),
+    [dispatch]
+  );
   const updateReduxUserGentex = React.useCallback(
     (userGentex: EmployeeInfoGentex) => dispatch(updateUserGentex(userGentex)),
     [dispatch]
@@ -171,12 +182,13 @@ export const MenuBar: React.FC<{}> = (props) => {
       .split("; ")
       .find((cookie) => cookie.startsWith(`${USER_COOKIE_NAME}=`))
       ?.split("=")[1];
+    const route = location.pathname;
     if (user) {
       setCurrentUserRedux(user);
-    } else {
+    } else if (!route.includes("Login") && !route.includes("Dashboard")) {
       navigate("/Login");
     }
-  }, [navigate, setCurrentUserRedux]);
+  }, [navigate, location, setCurrentUserRedux]);
 
   const [loadedRedux, setLoadedRedux] = React.useState(false);
 
@@ -186,6 +198,10 @@ export const MenuBar: React.FC<{}> = (props) => {
         setLoadedRedux(true);
       } else {
         const loadInfo = async () => {
+          const assetList = await getAssetListRedis();
+          if (assetList) {
+            setAssetListRedux(assetList);
+          }
           if (currentUser) {
             const userGentex = await getUserInfoGentex(currentUser);
             const userData = await getUserDataFromRedis(currentUser);
@@ -215,6 +231,7 @@ export const MenuBar: React.FC<{}> = (props) => {
       }
     }
   }, [
+    assetListRedux,
     userGentexRedux,
     teamGentexRedux,
     userDataRedux,
@@ -223,17 +240,18 @@ export const MenuBar: React.FC<{}> = (props) => {
     updateReduxUserGentex,
     updateReduxUserData,
     updateReduxTeamGentex,
+    setAssetListRedux,
   ]);
 
-  React.useEffect(() => {
-    const loadInfo = async () => {
-      const employeeData = await getEmployeeDirectoryRedis();
-      if (employeeData) {
-        console.log(employeeData);
-      }
-    };
-    void loadInfo();
-  }, []);
+  // React.useEffect(() => {
+  //   const loadInfo = async () => {
+  //     const employeeData = await getEmployeeDirectoryRedis();
+  //     if (employeeData) {
+  //       console.log(employeeData);
+  //     }
+  //   };
+  //   void loadInfo();
+  // }, []);
 
   return (
     <div className={classes.root}>

@@ -1,6 +1,7 @@
 import { LumenData, UserData, EmployeeInfoGentex } from "../utils/DataTypes";
 
 type AppState = {
+  assetList?: string[];
   currentUser?: string;
   userData?: UserData;
   userGentex?: EmployeeInfoGentex;
@@ -10,6 +11,7 @@ type AppState = {
 
 type AppAction = {
   type: string;
+  assetList?: string[];
   currentUser?: string;
   userData?: UserData;
   userGentex?: EmployeeInfoGentex;

@@ -1,8 +1,11 @@
 import * as redis from "redis";
-import { getEmployeeInfoDirectory, getProcessDataExport } from "./MES";
+import {
+  getAssetList,
+  getEmployeeInfoDirectory,
+  getProcessDataExport,
+} from "./MES";
 import { setTimeout } from "timers/promises";
 import { dateToString } from "./DataUtility";
-import { ASSETLIST } from "../definitions";
 import {
   EmployeeInfoGentex,
   UserData,
@@ -13,6 +16,19 @@ const redisClient = redis.createClient({
   url: "redis://127.0.0.1:6380",
 });
 
+export const getAssetListRedis = async () => {
+  try {
+    const redisResult = await redisClient.get("assetList");
+    if (redisResult) {
+      const data: string[] = JSON.parse(redisResult);
+      return data;
+    }
+  } catch (e) {
+    console.log(e);
+  }
+  return undefined;
+};
+
 export const getEmployeeDirectoryRedis = async () => {
   try {
     const redisResult = await redisClient.get("employeeDirectory");
@@ -20,7 +36,6 @@ export const getEmployeeDirectoryRedis = async () => {
       const data: EmployeeInfoGentex[] = JSON.parse(redisResult);
       return data;
     }
-    return undefined;
   } catch (e) {
     console.log(e);
   }
@@ -34,7 +49,6 @@ export const getUserData = async (key: string) => {
       const data: UserData = JSON.parse(redisResult);
       return data;
     }
-    return undefined;
   } catch (e) {
     console.log(e);
   }
@@ -65,7 +79,6 @@ export const processDataFromRedis = async (asset: string, date: string) => {
     if (data.length > 0) {
       return data;
     }
-    return undefined;
   } catch (e) {
     console.log(e);
   }
@@ -111,33 +124,48 @@ const loadEmployeeDirectory = async () => {
   }
 };
 
+const loadAssetList = async () => {
+  try {
+    const assetList = await getAssetList();
+    if (assetList) {
+      const key = `assetList`;
+      await redisClient.set(key, JSON.stringify(assetList));
+      console.log(`Added "${key}" to Redis.`);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const updateProcessData = async () => {
   while (true) {
     try {
+      await loadAssetList();
+      const assetList = (await getAssetListRedis()) ?? [];
       const endDate = new Date();
       const startDate = new Date(endDate);
       let endDatePrev = new Date(endDate);
       let startDatePrev = new Date(endDate);
       endDatePrev.setDate(endDatePrev.getDate() - 1);
       startDatePrev.setDate(startDatePrev.getDate() - 1);
-      for (let i = 0; i < ASSETLIST.length; ++i) {
+      for (let i = 0; i < assetList.length; ++i) {
         const processDataNow = await getProcessDataExport(
-          ASSETLIST[i],
+          assetList[i],
           startDate,
           endDate
         );
         const processDataPrev = await getProcessDataExport(
-          ASSETLIST[i],
+          assetList[i],
           startDatePrev,
           endDatePrev
         );
         if (processDataNow) {
-          const key = `${ASSETLIST[i]}:${dateToString(startDate)}`;
+          const key = `${assetList[i]}:${dateToString(startDate)}`;
           await redisClient.set(key, JSON.stringify(processDataNow));
           console.log(`Updated "${key}" in Redis.`);
         }
         if (processDataPrev) {
-          const key = `${ASSETLIST[i]}:${dateToString(startDatePrev)}`;
+          const key = `${assetList[i]}:${dateToString(startDatePrev)}`;
           await redisClient.set(key, JSON.stringify(processDataPrev));
           console.log(`Updated "${key}" in Redis.`);
         }
@@ -160,6 +188,8 @@ export const processDataFunction = async () => {
       await redisClient.connect();
     })();
     await loadEmployeeDirectory();
+    await loadAssetList();
+    const assetList = (await getAssetListRedis()) ?? [];
     console.log("Loading asset data into redis...");
     const endDate = new Date();
     let startDate = new Date(endDate);
@@ -170,14 +200,14 @@ export const processDataFunction = async () => {
       start.getTime() >= startDate.getTime();
       start.setDate(start.getDate() - 1)
     ) {
-      for (let i = 0; i < ASSETLIST.length; ++i) {
+      for (let i = 0; i < assetList.length; ++i) {
         const processData = await getProcessDataExport(
-          ASSETLIST[i],
+          assetList[i],
           start,
           start
         );
         if (processData) {
-          const key = `${ASSETLIST[i]}:${dateToString(start)}`;
+          const key = `${assetList[i]}:${dateToString(start)}`;
           await redisClient.set(key, JSON.stringify(processData));
           console.log(`Added "${key}" to Redis.`);
         }

@@ -6,6 +6,29 @@ import {
 } from "./DataTypes";
 import { dateToString } from "./DateUtility";
 
+export const getAssetListRedis = async () => {
+  try {
+    const url = `http://localhost:8000/api/assetList`;
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Error! status: ${response.status}`);
+    }
+    const result = await response.json();
+    if (result && result.data) {
+      const assetList: string[] = result.data;
+      return assetList;
+    }
+  } catch (error) {
+    console.log("ERROR: " + error);
+  }
+  return undefined;
+};
+
 export const getEmployeeDirectoryRedis = async () => {
   try {
     const url = `http://localhost:8000/api/employeeDirectory`;

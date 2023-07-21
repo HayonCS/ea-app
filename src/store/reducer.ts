@@ -1,13 +1,19 @@
 import * as actionTypes from "./actionTypes";
 import { AppAction, AppState } from "./type";
 
-export const initialState: AppState = {};
+export const initialState: AppState = { assetList: [] };
 
 const reducer = (
   state: AppState = initialState,
   action: AppAction
 ): AppState => {
   switch (action.type) {
+    case actionTypes.SET_ASSET_LIST:
+      const assetList = action.assetList;
+      return {
+        ...state,
+        assetList: assetList,
+      };
     case actionTypes.SET_CURRENT_USER:
       const user = action.currentUser;
       return {

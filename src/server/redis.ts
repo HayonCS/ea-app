@@ -140,6 +140,7 @@ const loadAssetList = async () => {
 const updateProcessData = async () => {
   while (true) {
     try {
+      await loadEmployeeDirectory();
       await loadAssetList();
       const assetList = (await getAssetListRedis()) ?? [];
       const endDate = new Date();

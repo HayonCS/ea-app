@@ -1,8 +1,12 @@
 import {
+  BiAssetInfo,
   EmployeeInfoGentex,
   LineOperationPart,
+  ProcessDataExport,
+  ProcessDataExportRaw,
   UserInfoGentex,
 } from "./DataTypes";
+import { dateToString } from "./DateUtility";
 import { getUserInfoLumen } from "./redis";
 
 export const getPartCycleTime = async (
@@ -164,6 +168,97 @@ export const getUserInfoGentex = async (
     const result: UserInfoGentex = await response.json();
     if (result) {
       return result;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  return undefined;
+};
+
+export const getProcessDataExport = async (
+  asset: string,
+  startDate: Date,
+  endDate: Date
+) => {
+  try {
+    const end = new Date(endDate);
+    end.setDate(end.getDate() + 1);
+    const dateStart = dateToString(startDate);
+    const dateEnd = dateToString(end);
+    const url = `http://zvm-msgprod/MES/ProcessDataExportApi/api/v1/processdataexport/processDataExport?Assets=${asset}&StartDate=${dateStart}&EndDate=${dateEnd}&TopNRows=-1&UserMetadataKeys=line%2Clabel%2Coperator%2Cdescription%2Ccycletime%2Crevision%2Csender%2Ctestplan%2Cbarcode`;
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Error! status: ${response.status}`);
+    }
+    const result: ProcessDataExportRaw[] = await response.json();
+    let processData: ProcessDataExport[] = result.map((item) => {
+      return {
+        MetaDataId: item.MetaDataId,
+        Asset: item.KeyToValueDictionary.ASSET,
+        IdentifierCode: item.KeyToValueDictionary.IDENTIFIERCODE,
+        IdentifierCode2: item.KeyToValueDictionary.IDENTIFIERCODE2,
+        PartNumber: item.KeyToValueDictionary.PARTNUMBER,
+        OpEndTime: new Date(item.KeyToValueDictionary.OPENDTIME),
+        PassFail: item.KeyToValueDictionary.PASSFAIL === "PASS" ? true : false,
+        OperationId: item.KeyToValueDictionary.OPERATIONID,
+        Line: item.KeyToValueDictionary.LINE,
+        Label: item.KeyToValueDictionary.LABEL,
+        Operator: item.KeyToValueDictionary.OPERATOR,
+        Description: item.KeyToValueDictionary.DESCRIPTION,
+        CycleTime: item.KeyToValueDictionary.CYCLETIME,
+        Revision: item.KeyToValueDictionary.REVISION,
+        Sender: item.KeyToValueDictionary.SENDER,
+        TestPlan: item.KeyToValueDictionary.TESTPLAN,
+        Barcode: item.KeyToValueDictionary.BARCODE,
+      };
+    });
+    processData = processData.filter(
+      (x) =>
+        !x.PartNumber.includes("I") &&
+        !x.PartNumber.includes("E") &&
+        !x.PartNumber.includes("U") &&
+        !x.PartNumber.includes("0000")
+    );
+    if (asset.includes("PCB")) {
+      processData = processData.filter(
+        (x) =>
+          (x.Description && x.Description === "Main_Board") ||
+          (x.CycleTime && x.CycleTime !== "")
+      );
+    }
+
+    processData = processData.sort(
+      (a, b) => a.OpEndTime.getTime() - b.OpEndTime.getTime()
+    );
+
+    return processData;
+  } catch (error) {
+    console.log("ERROR: " + error);
+    return undefined;
+  }
+};
+
+export const getBiAssetInfo = async (asset: string) => {
+  try {
+    const url = `https://zvm-msgprod.gentex.com/MES/Client/manufacturingweb/api/v1/bi/assets?assetName=${asset}`;
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Error! status: ${response.status}`);
+    }
+
+    const result: BiAssetInfo[] = await response.json();
+    if (result.length > 0) {
+      return result[0];
     }
   } catch (error) {
     console.log(error);

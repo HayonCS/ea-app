@@ -19,6 +19,23 @@ export interface LineOperationPart {
   comments: string | null;
 }
 
+export interface BiAssetInfo {
+  assetName: string;
+  serial: string;
+  model: string;
+  orgCode: string;
+  line: string;
+  dateCreated: string;
+  notes: string;
+  reportGroupName?: string;
+  reportGroupID: string;
+  excludeFromHealth: boolean;
+  legacyLocation?: string;
+  autoUpdate: boolean;
+  recordLastUpdated: string;
+  updatedBy: string;
+}
+
 export interface ProcessDataExportRaw {
   MetaDataId: string;
   KeyToValueDictionary: {

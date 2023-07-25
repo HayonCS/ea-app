@@ -1,6 +1,6 @@
 export const dateToString = (date: Date) => {
   let d = new Date(date);
-  d.setHours(d.getHours() + 4);
+  // d.setHours(d.getHours() + 4);
   const str =
     d.getFullYear() +
     "-" +

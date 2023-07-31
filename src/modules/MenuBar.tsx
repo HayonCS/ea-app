@@ -59,10 +59,16 @@ const useStyles = makeStyles(() => ({
     zIndex: 999,
     textAlign: "center",
   },
-  appBarStyle: {
+  appBar: {
     zIndex: 999,
     height: "48px",
     justifyContent: "center",
+  },
+  appBarLink: {
+    fontSize: "16px !important",
+    color: "#FFF !important",
+    marginRight: "30px !important",
+    cursor: "pointer !important",
   },
   menuButton: {
     marginRight: 1,
@@ -73,17 +79,17 @@ const useStyles = makeStyles(() => ({
     marginRight: "8px",
     scale: "1.3",
   },
+  chevron: {
+    fontSize: 20,
+    marginLeft: "8px",
+    marginRight: "8px",
+    scale: "0.8",
+  },
   logoDrawer: {
     fontSize: "150px",
     marginLeft: "16px",
     marginRight: "8px",
     scale: "1.5",
-  },
-  separator: {
-    fontSize: 20,
-    marginLeft: "8px",
-    marginRight: "8px",
-    scale: "0.8",
   },
   menuPanel: {
     backgroundColor: GentexBlue + " !important",
@@ -256,11 +262,7 @@ export const MenuBar: React.FC<{}> = (props) => {
 
   return (
     <div className={classes.root}>
-      <AppBar
-        position="static"
-        color="transparent"
-        className={classes.appBarStyle}
-      >
+      <AppBar position="static" color="transparent" className={classes.appBar}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -284,7 +286,7 @@ export const MenuBar: React.FC<{}> = (props) => {
           >
             <GentexLogo className={classes.logo} data-testid="gentexLogo" />
           </div>
-          <Chevron className={classes.separator} data-testid="logoSeparator" />
+          <Chevron className={classes.chevron} data-testid="logoSeparator" />
           <Typography
             variant="body1"
             component={"span"}
@@ -306,12 +308,7 @@ export const MenuBar: React.FC<{}> = (props) => {
 
           <div style={{ marginTop: "-4px" }}>
             <Link
-              style={{
-                fontSize: "16px",
-                color: "#FFF",
-                marginRight: "30px",
-                cursor: "pointer",
-              }}
+              className={classes.appBarLink}
               onClick={() => {
                 navigate("/");
               }}
@@ -319,12 +316,7 @@ export const MenuBar: React.FC<{}> = (props) => {
               Home
             </Link>
             <Link
-              style={{
-                fontSize: "16px",
-                color: "#FFF",
-                marginRight: "30px",
-                cursor: "pointer",
-              }}
+              className={classes.appBarLink}
               onClick={() => {
                 navigate("/Stats");
               }}
@@ -332,12 +324,7 @@ export const MenuBar: React.FC<{}> = (props) => {
               Statistics
             </Link>
             <Link
-              style={{
-                fontSize: "16px",
-                color: "#FFF",
-                marginRight: "30px",
-                cursor: "pointer",
-              }}
+              className={classes.appBarLink}
               onClick={() => {
                 navigate("/Dashboard");
               }}
@@ -345,12 +332,7 @@ export const MenuBar: React.FC<{}> = (props) => {
               Dashboard
             </Link>
             <Link
-              style={{
-                fontSize: "16px",
-                color: "#FFF",
-                marginRight: "30px",
-                cursor: "pointer",
-              }}
+              className={classes.appBarLink}
               onClick={() => {
                 navigate("/Resources");
               }}
@@ -358,12 +340,7 @@ export const MenuBar: React.FC<{}> = (props) => {
               Resources
             </Link>
             <Link
-              style={{
-                fontSize: "16px",
-                color: "#FFF",
-                marginRight: "30px",
-                cursor: "pointer",
-              }}
+              className={classes.appBarLink}
               onClick={() => {
                 navigate("/About");
               }}

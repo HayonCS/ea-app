@@ -1,22 +1,14 @@
 {
-    "version": "0.2",
-    "language": "en",
-    "minWordLength": 4,
-    "ignorePaths": [
-      
-    ],
-    // Words to be ignored and not suggested.
-    "ignoreWords": [
-      "ASSETLIST",
-      "Swipeable"
-    ],
-    // words - list of words to be always considered correct (will show up in suggestions)
-    "words": [
-       "gentex"
-    ],
-    // flagWords - list of words to be always considered incorrect
-    // This is useful for offensive words and common spelling errors.
-    // For example "hte" should be "the"
-    "flagWords": []
-  }
-  
+  "version": "0.2",
+  "language": "en",
+  "minWordLength": 4,
+  "ignorePaths": [],
+  // Words to be ignored and not suggested.
+  "ignoreWords": ["ASSETLIST", "Swipeable", "testid"],
+  // words - list of words to be always considered correct (will show up in suggestions)
+  "words": ["gentex"],
+  // flagWords - list of words to be always considered incorrect
+  // This is useful for offensive words and common spelling errors.
+  // For example "hte" should be "the"
+  "flagWords": []
+}

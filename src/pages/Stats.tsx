@@ -43,7 +43,6 @@ import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
-import { getEmployeeInfoGentex } from "../utils/MES";
 import { getHHMMSS } from "../utils/DateUtility";
 import { UserDisplayHover } from "../modules/UserDisplayHover";
 import {
@@ -63,15 +62,16 @@ import {
   getFinalProcessDataOperator,
   getFinalProcessDataOperatorTotals,
 } from "../utils/DataUtility";
+import { getEmployeeInfoGentex } from "../utils/mes";
 
-function TabPanel(props: any) {
+const TabPanel = (props: any) => {
   const { children, value, index, ...other } = props;
   return (
     <div
       role="tabpanel"
       hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
+      id={`tabpanel-${index}`}
+      aria-labelledby={`tab-${index}`}
       {...other}
     >
       {value === index && (
@@ -81,10 +81,10 @@ function TabPanel(props: any) {
   );
 }
 
-function a11yProps(index: any) {
+const tabProps = (index: any) => {
   return {
-    id: `full-width-tab-${index}`,
-    "aria-controls": `full-width-tabpanel-${index}`,
+    id: `tab-${index}`,
+    "aria-controls": `tabpanel-${index}`,
   };
 }
 
@@ -397,13 +397,7 @@ export const Stats: React.FC<{}> = (p) => {
     } else {
       setFilterOperatorUserInfo(teamGentexRedux ?? []);
     }
-  }, [
-    rowsAssetOperator,
-    filtersAssetOperator,
-    filtersAssetOperatorRadio,
-    teamGentexRedux,
-    operatorEmployeeInfo,
-  ]);
+  }, [rowsAssetOperator,filtersAssetOperator, filtersAssetOperatorRadio,teamGentexRedux,operatorEmployeeInfo,]);
 
   React.useEffect(() => {
     if (typeof rowSelectionModelAssetOperator !== "number") {
@@ -1081,19 +1075,19 @@ export const Stats: React.FC<{}> = (p) => {
             >
               <Tab
                 label={<Box className={classes.tabStyle}>{"Asset Stats"}</Box>}
-                {...a11yProps(0)}
+                {...tabProps(0)}
               />
               <Tab
                 label={
                   <Box className={classes.tabStyle}>{"*Placeholder*"}</Box>
                 }
-                {...a11yProps(1)}
+                {...tabProps(1)}
               />
               <Tab
                 label={
                   <Box className={classes.tabStyle}>{"*Placeholder*"}</Box>
                 }
-                {...a11yProps(2)}
+                {...tabProps(2)}
               />
             </Tabs>
           </Paper>

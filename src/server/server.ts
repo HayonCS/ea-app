@@ -9,7 +9,7 @@ import {
   processDataRangeFromRedis,
   updateUserData,
 } from "./redis";
-import { getUserInfoLumen } from "./MES";
+import { getUserInfoLumen } from "./mes";
 
 processDataFunction();
 

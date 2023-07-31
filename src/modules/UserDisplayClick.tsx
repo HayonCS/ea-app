@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { formatUserName, formatUserPhone } from "../utils/DataUtility";
-import { getEmployeeInfoGentex } from "../utils/MES";
+import { getEmployeeInfoGentex } from "../utils/mes";
 import { openInNewTab } from "../utils/WebUtility";
 import { EmployeeInfoGentex } from "../utils/DataTypes";
 

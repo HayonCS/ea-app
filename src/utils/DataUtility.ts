@@ -3,7 +3,7 @@ import {
   ProcessDataOperator,
   ProcessDataOperatorTotals,
 } from "./DataTypes";
-import { getPartCycleTime } from "./MES";
+import { getPartCycleTime } from "./mes";
 
 // export const getFinalProcessDataOperator = (
 //   processData: ProcessDataExport[]

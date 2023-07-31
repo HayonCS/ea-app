@@ -40,14 +40,14 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function TabPanel(props: any) {
+const TabPanel = (props: any) => {
   const { children, value, index, ...other } = props;
   return (
     <div
       role="tabpanel"
       hidden={value !== index}
-      id={`vertical-tabpanel-${index}`}
-      aria-labelledby={`vertical-tab-${index}`}
+      id={`tabpanel-${index}`}
+      aria-labelledby={`tab-${index}`}
       {...other}
     >
       {value === index && (
@@ -57,10 +57,10 @@ function TabPanel(props: any) {
   );
 }
 
-function a11yProps(index: any) {
+const tabProps = (index: any) => {
   return {
-    id: `vertical-tab-${index}`,
-    "aria-controls": `vertical-tabpanel-${index}`,
+    id: `tab-${index}`,
+    "aria-controls": `tabpanel-${index}`,
   };
 }
 
@@ -182,15 +182,15 @@ export const Settings: React.FC<{}> = (props) => {
           >
             <Tab
               label={<Box className={classes.tabStyle}>{"General"}</Box>}
-              {...a11yProps(0)}
+              {...tabProps(0)}
             />
             <Tab
               label={<Box className={classes.tabStyle}>{"Team"}</Box>}
-              {...a11yProps(1)}
+              {...tabProps(1)}
             />
             <Tab
               label={<Box className={classes.tabStyle}>{"Assets"}</Box>}
-              {...a11yProps(2)}
+              {...tabProps(2)}
             />
           </Tabs>
           <div

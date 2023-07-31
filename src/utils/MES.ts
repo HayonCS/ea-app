@@ -29,7 +29,7 @@ export const getPartCycleTime = async (
     if (result.length > 0) {
       for (let i = 0; i < result.length; ++i) {
         const op = result[i].ebsOperation;
-        const cycle = result[i].averageCycleTime;
+        const cycle = result[i].minimumRepeatable;
         switch (assetType) {
           case "Combo":
             if (op === "O610") return cycle;

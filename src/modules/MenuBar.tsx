@@ -29,7 +29,7 @@ import { GentexLogo } from "../icons/GentexLogo";
 import { GentexBlue } from "../styles/theme";
 import { CurrentUserDisplay } from "./CurrentUserDisplay";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getUserInfoGentex, getEmployeeInfoGentex } from "../utils/MES";
+import { getUserInfoGentex, getEmployeeInfoGentex } from "../utils/mes";
 import { AppState } from "../store/type";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import {

@@ -54,14 +54,14 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function TabPanel(props: any) {
+const TabPanel = (props: any) => {
   const { children, value, index, ...other } = props;
   return (
     <div
       role="tabpanel"
       hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
+      id={`tabpanel-${index}`}
+      aria-labelledby={`tab-${index}`}
       {...other}
     >
       {value === index && (
@@ -71,10 +71,10 @@ function TabPanel(props: any) {
   );
 }
 
-function a11yProps(index: any) {
+const tabProps = (index: any) => {
   return {
-    id: `full-width-tab-${index}`,
-    "aria-controls": `full-width-tabpanel-${index}`,
+    id: `tab-${index}`,
+    "aria-controls": `tabpanel-${index}`,
   };
 }
 
@@ -128,7 +128,7 @@ export const DashboardPage: React.FC<{}> = (props) => {
                   </div>
                 }
                 className={classes.tabStyle}
-                {...a11yProps(0)}
+                {...tabProps(0)}
               />
               <Tab
                 label={
@@ -145,7 +145,7 @@ export const DashboardPage: React.FC<{}> = (props) => {
                   </div>
                 }
                 className={classes.tabStyle}
-                {...a11yProps(1)}
+                {...tabProps(1)}
               />
             </Tabs>
           </Paper>
@@ -163,11 +163,7 @@ export const DashboardPage: React.FC<{}> = (props) => {
                   return (
                     <Box key={i} className={classes.linkStyle}>
                       <Link
-                        //href="#"
                         onClick={() => {
-                          // openInNewTab(
-                          //   "https://lumen.gentex.com/Work%20Standard/Search?line=EA311T"
-                          // );
                           navigate(`/Dashboard/${asset}`);
                         }}
                         style={{ cursor: "pointer" }}

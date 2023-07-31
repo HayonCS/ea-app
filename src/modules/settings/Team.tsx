@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { getEmployeeInfoGentex } from "../../utils/MES";
+import { getEmployeeInfoGentex } from "../../utils/mes";
 import { UserDisplayClickGentex } from "../UserDisplayClickGentex";
 import { EmployeeInfoGentex } from "../../utils/DataTypes";
 

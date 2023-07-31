@@ -35,6 +35,7 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import {
   setAssetList,
   setCurrentUser,
+  setEmployeeDirectory,
   updateTeamGentex,
   updateUserData,
   updateUserGentex,
@@ -140,6 +141,11 @@ export const MenuBar: React.FC<{}> = (props) => {
     (user: string) => dispatch(setCurrentUser(user)),
     [dispatch]
   );
+  const setEmployeeDirectoryRedux = React.useCallback(
+    (employeeDirectory: EmployeeInfoGentex[]) =>
+      dispatch(setEmployeeDirectory(employeeDirectory)),
+    [dispatch]
+  );
 
   const [drawerState, setDrawerState] = React.useState(false);
 
@@ -205,6 +211,7 @@ export const MenuBar: React.FC<{}> = (props) => {
           if (currentUser) {
             const userGentex = await getUserInfoGentex(currentUser);
             const userData = await getUserDataFromRedis(currentUser);
+            const employeeData = await getEmployeeDirectoryRedis();
             if (userGentex) {
               const employeeInfo = await getEmployeeInfoGentex(
                 userGentex.employeeId
@@ -225,6 +232,9 @@ export const MenuBar: React.FC<{}> = (props) => {
               );
               updateReduxTeamGentex(teamGentex);
             }
+            if (employeeData) {
+              setEmployeeDirectoryRedux(employeeData);
+            }
           }
         };
         void loadInfo();
@@ -241,17 +251,8 @@ export const MenuBar: React.FC<{}> = (props) => {
     updateReduxUserData,
     updateReduxTeamGentex,
     setAssetListRedux,
+    setEmployeeDirectoryRedux,
   ]);
-
-  // React.useEffect(() => {
-  //   const loadInfo = async () => {
-  //     const employeeData = await getEmployeeDirectoryRedis();
-  //     if (employeeData) {
-  //       console.log(employeeData);
-  //     }
-  //   };
-  //   void loadInfo();
-  // }, []);
 
   return (
     <div className={classes.root}>

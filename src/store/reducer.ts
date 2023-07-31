@@ -20,6 +20,12 @@ const reducer = (
         ...state,
         currentUser: user,
       };
+    case actionTypes.SET_EMPLOYEE_DIRECTORY:
+      const employeeDirectory = action.employeeDirectoryGentex;
+      return {
+        ...state,
+        employeeDirectoryGentex: employeeDirectory,
+      };
     case actionTypes.UPDATE_USER_DATA:
       const userData = action.userData;
       return {

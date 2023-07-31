@@ -1,4 +1,4 @@
-import { LumenData, UserData, EmployeeInfoGentex } from "../utils/DataTypes";
+import { UserData, EmployeeInfoGentex } from "../utils/DataTypes";
 
 type AppState = {
   assetList?: string[];
@@ -6,7 +6,7 @@ type AppState = {
   userData?: UserData;
   userGentex?: EmployeeInfoGentex;
   userTeamGentex?: EmployeeInfoGentex[];
-  userLumen?: LumenData;
+  employeeDirectoryGentex?: EmployeeInfoGentex[];
 };
 
 type AppAction = {
@@ -16,6 +16,7 @@ type AppAction = {
   userData?: UserData;
   userGentex?: EmployeeInfoGentex;
   userTeamGentex?: EmployeeInfoGentex[];
+  employeeDirectoryGentex?: EmployeeInfoGentex[];
 };
 
 type DispatchType = (args: AppAction) => AppAction;

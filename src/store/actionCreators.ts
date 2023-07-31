@@ -20,6 +20,15 @@ export function setCurrentUser(user: string) {
   return dispatchRequest(action);
 }
 
+export function setEmployeeDirectory(employeeDirectory: EmployeeInfoGentex[]) {
+  const action: AppAction = {
+    type: actionTypes.SET_EMPLOYEE_DIRECTORY,
+    employeeDirectoryGentex: employeeDirectory
+  };
+
+  return dispatchRequest(action);
+}
+
 export function updateUserData(userData: UserData) {
   const action: AppAction = {
     type: actionTypes.UPDATE_USER_DATA,

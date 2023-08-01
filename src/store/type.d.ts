@@ -1,6 +1,7 @@
-import { UserData, EmployeeInfoGentex } from "../utils/DataTypes";
+import { UserData, EmployeeInfoGentex, AlertType } from "../utils/DataTypes";
 
 type AppState = {
+  alerts?: AlertType[];
   assetList?: string[];
   currentUser?: string;
   userData?: UserData;
@@ -11,6 +12,7 @@ type AppState = {
 
 type AppAction = {
   type: string;
+  alert?: AlertType;
   assetList?: string[];
   currentUser?: string;
   userData?: UserData;

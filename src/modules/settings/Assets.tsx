@@ -12,8 +12,11 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { ASSETLIST } from "../../definitions";
-import { shallowEqual, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../store/type";
+import { Dispatch } from "redux";
+import { addAlert } from "../../store/actionCreators";
+import { AlertType } from "../../utils/DataTypes";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -54,6 +57,12 @@ export const AssetsSettingsPanel: React.FC<{
     shallowEqual
   );
 
+  const dispatch: Dispatch<any> = useDispatch();
+  const addAlertRedux = React.useCallback(
+    (alert: AlertType) => dispatch(addAlert(alert)),
+    [dispatch]
+  );
+
   const [checked, setChecked] = React.useState<string[]>([]);
   const [left, setLeft] = React.useState<string[]>(assetListRedux ?? ASSETLIST);
   const [right, setRight] = React.useState<string[]>(props.assets ?? []);
@@ -87,6 +96,11 @@ export const AssetsSettingsPanel: React.FC<{
     setRight(newRight);
     setLeft([]);
     if (props.onChange) props.onChange(newRight);
+    addAlertRedux({
+      message: `Added ALL Assets to your asset list.`,
+      severity: "info",
+      timeout: 3000,
+    });
   };
 
   const handleCheckedRight = () => {
@@ -95,6 +109,13 @@ export const AssetsSettingsPanel: React.FC<{
     setLeft(not(left, leftChecked));
     setChecked(not(checked, leftChecked));
     if (props.onChange) props.onChange(newRight);
+    addAlertRedux({
+      message: `Added the following asset(s) to your asset list: ${leftChecked.join(
+        ", "
+      )}`,
+      severity: "info",
+      timeout: 3000,
+    });
   };
 
   const handleCheckedLeft = () => {
@@ -103,12 +124,24 @@ export const AssetsSettingsPanel: React.FC<{
     setRight(newRight);
     setChecked(not(checked, rightChecked));
     if (props.onChange) props.onChange(newRight);
+    addAlertRedux({
+      message: `Removed the following asset(s) from your asset list: ${rightChecked.join(
+        ", "
+      )}`,
+      severity: "warning",
+      timeout: 3000,
+    });
   };
 
   const handleAllLeft = () => {
     setLeft(left.concat(right));
     setRight([]);
     if (props.onChange) props.onChange([]);
+    addAlertRedux({
+      message: `Removed ALL Assets from your asset list.`,
+      severity: "warning",
+      timeout: 3000,
+    });
   };
   const customList = (items: string[]) => (
     <Paper sx={{ width: 240, height: 300, overflow: "auto" }}>

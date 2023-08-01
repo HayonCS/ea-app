@@ -1,13 +1,38 @@
 import * as actionTypes from "./actionTypes";
 import { AppAction, AppState } from "./type";
 
-export const initialState: AppState = { assetList: [] };
+export const initialState: AppState = {};
 
 const reducer = (
   state: AppState = initialState,
   action: AppAction
 ): AppState => {
   switch (action.type) {
+    case actionTypes.ADD_ALERT:
+      const alert = action.alert;
+      return !alert
+        ? {
+            ...state,
+          }
+        : { ...state, alerts: [...(state.alerts ?? []), alert] };
+    case actionTypes.REMOVE_ALERT:
+      const alertRm = action.alert;
+      if (!alertRm) {
+        return { ...state };
+      } else if (state.alerts) {
+        // const newAlerts = [...state.alerts].filter(
+        //   (x) =>
+        //     x.message !== alertRm.message && x.severity !== alertRm.severity
+        // );
+        let newAlerts = [...state.alerts];
+        newAlerts.splice(newAlerts.indexOf(alertRm), 1);
+        return {
+          ...state,
+          alerts: newAlerts,
+        };
+      } else {
+        return { ...state };
+      }
     case actionTypes.SET_ASSET_LIST:
       const assetList = action.assetList;
       return {

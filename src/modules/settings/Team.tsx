@@ -9,19 +9,19 @@ import {
   Grid,
   List,
   ListItem,
-  MenuItem,
   Paper,
-  Popper,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { getEmployeeInfoGentex } from "../../utils/mes";
 import { UserDisplayClickGentex } from "../UserDisplayClickGentex";
-import { EmployeeInfoGentex } from "../../utils/DataTypes";
+import { AlertType, EmployeeInfoGentex } from "../../utils/DataTypes";
 import { UserDisplayHover } from "../UserDisplayHover";
 import { formatUserName } from "../../utils/DataUtility";
+import { Dispatch } from "redux";
+import { addAlert } from "../../store/actionCreators";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -49,6 +49,12 @@ export const TeamSettingsPanel: React.FC<{
 }> = (props) => {
   const classes = useStyles();
 
+  const dispatch: Dispatch<any> = useDispatch();
+  const addAlertRedux = React.useCallback(
+    (alert: AlertType) => dispatch(addAlert(alert)),
+    [dispatch]
+  );
+
   const [loadedProps, setLoadedProps] = React.useState(false);
 
   const [userOperators, setUserOperators] = React.useState<string[]>([]);
@@ -74,9 +80,6 @@ export const TeamSettingsPanel: React.FC<{
           a.firstName.localeCompare(b.firstName) ||
           a.lastName.localeCompare(b.lastName)
       );
-      // const teamGentex = props.teamGentex.sort((a, b) =>
-      //   a.employeeNumber.localeCompare(b.employeeNumber)
-      // );
       const empDirectory = props.employeeDirectory.sort(
         (a, b) =>
           a.firstName.localeCompare(b.firstName) ||
@@ -135,6 +138,7 @@ export const TeamSettingsPanel: React.FC<{
     value: string
   ) => {
     setInputValue(value);
+    setErrorSearch(false);
     if (value.length > 2) {
       setAutocompleteOpen(true);
     } else {
@@ -147,7 +151,7 @@ export const TeamSettingsPanel: React.FC<{
       if (errorSearch) return;
       if (
         !selectedValue ||
-        (selectedValue && userOperatorsGentex.includes(selectedValue))
+        (selectedValue && userOperators.includes(selectedValue.employeeNumber))
       ) {
         setErrorSearch(true);
         return;
@@ -168,6 +172,13 @@ export const TeamSettingsPanel: React.FC<{
           setSelectedValue(null);
           setAutocompleteOpen(false);
           props.onChange(newOps, newGentex);
+          addAlertRedux({
+            message: `Added ${formatUserName(
+              selectedValue.firstName + "." + selectedValue.lastName
+            )} (${selectedValue.employeeNumber}) to your team.`,
+            severity: "info",
+            timeout: 3000,
+          });
         }
       } else {
         setErrorSearch(true);
@@ -181,9 +192,22 @@ export const TeamSettingsPanel: React.FC<{
     const newGentex = [...userOperatorsGentex].filter(
       (x) => !checked.includes(x.employeeNumber)
     );
+    const opsRemoved = [...userOperatorsGentex].filter((x) =>
+      checked.includes(x.employeeNumber)
+    );
     setUserOperators(newOps);
     setUserOperatorsGentex(newGentex);
+    setChecked([]);
     if (props.onChange) props.onChange(newOps, newGentex);
+    opsRemoved.forEach((op) => {
+      addAlertRedux({
+        message: `Removed ${formatUserName(
+          op.firstName + "." + op.lastName
+        )} (${op.employeeNumber}) from your team.`,
+        severity: "warning",
+        timeout: 3000,
+      });
+    });
   };
 
   return (
@@ -195,8 +219,8 @@ export const TeamSettingsPanel: React.FC<{
           <Grid
             container={true}
             spacing={2}
-            justifyContent="center"
-            alignItems="center"
+            justifyContent="start"
+            alignItems="start"
           >
             <Grid item>
               <Typography
@@ -232,8 +256,6 @@ export const TeamSettingsPanel: React.FC<{
                   value={selectedValue}
                   onChange={(event, value) => {
                     setSelectedValue(value);
-                    setInputValue("");
-                    console.log("onChange: " + inputValue);
                   }}
                   clearOnBlur={false}
                   renderOption={(props, option) => (
@@ -274,7 +296,6 @@ export const TeamSettingsPanel: React.FC<{
                   </Typography>
                 </Button>
               </div>
-              <div style={{ height: "284px" }} />
             </Grid>
             <Grid item>
               <Grid container direction="column" alignItems="center">
@@ -329,31 +350,6 @@ export const TeamSettingsPanel: React.FC<{
                         </ListItem>
                       );
                     })}
-                    {/* {userOperators.map((value, index) => {
-                      const labelId = `checkbox-list-secondary-label-${value}`;
-                      return (
-                        <ListItem
-                          key={value}
-                          secondaryAction={
-                            editing ? (
-                              <Checkbox
-                                edge="end"
-                                onChange={handleToggle(value)}
-                                checked={checked.indexOf(value) !== -1}
-                                inputProps={{ "aria-labelledby": labelId }}
-                              />
-                            ) : (
-                              <div />
-                            )
-                          }
-                          disablePadding
-                        >
-                          <ListItemButton>
-                            <UserDisplayClick userId={value} />
-                          </ListItemButton>
-                        </ListItem>
-                      );
-                    })} */}
                   </List>
                 </Paper>
                 <div

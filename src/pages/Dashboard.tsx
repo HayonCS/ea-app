@@ -1,16 +1,9 @@
 import * as React from "react";
 import { makeStyles } from "@mui/styles";
 import { useNavigate } from "react-router-dom";
-import { Box, Fab, Link, Paper, Tab, Tabs, Typography } from "@mui/material";
-import {
-  Dashboard,
-  Equalizer,
-  Person,
-  PrecisionManufacturing,
-} from "@mui/icons-material";
+import { Box, Link, Paper, Tab, Tabs, Typography } from "@mui/material";
+import { Person, PrecisionManufacturing } from "@mui/icons-material";
 import SwipeableViews from "react-swipeable-views";
-import { Resources } from "../modules/Resources";
-import { About } from "../modules/About";
 import { shallowEqual, useSelector } from "react-redux";
 import { AppState } from "../store/type";
 import { ASSETLIST } from "../definitions";

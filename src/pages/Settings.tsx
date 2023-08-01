@@ -55,14 +55,14 @@ const TabPanel = (props: any) => {
       )}
     </div>
   );
-}
+};
 
 const tabProps = (index: any) => {
   return {
     id: `tab-${index}`,
     "aria-controls": `tabpanel-${index}`,
   };
-}
+};
 
 export const Settings: React.FC<{}> = (props) => {
   document.title = "Settings";
@@ -86,6 +86,11 @@ export const Settings: React.FC<{}> = (props) => {
     (state: AppState) => state.userData,
     shallowEqual
   );
+  const employeeDirectoryRedux = useSelector(
+    (state: AppState) => state.employeeDirectoryGentex,
+    shallowEqual
+  );
+
   const dispatch: Dispatch<any> = useDispatch();
   const updateReduxTeamGentex = React.useCallback(
     (teamGentex: EmployeeInfoGentex[]) =>
@@ -240,7 +245,8 @@ export const Settings: React.FC<{}> = (props) => {
             <Paper className={classes.tabPaperStyle}>
               <TeamSettingsPanel
                 operators={currentUserData.operators}
-                teamGentex={teamGentexRedux ?? []}
+                teamGentex={teamGentexRedux}
+                employeeDirectory={employeeDirectoryRedux}
                 onChange={(operators, teamGentex) => {
                   const userData = { ...currentUserData, operators: operators };
                   setCurrentUserData(userData);

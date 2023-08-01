@@ -143,6 +143,7 @@ export const CurrentUserDisplay: React.FC<{
               {userInfo ? (
                 <Avatar
                   src={pictureUrl}
+                  alt={formattedName}
                   style={{ width: "84px", height: "84px" }}
                 />
               ) : (

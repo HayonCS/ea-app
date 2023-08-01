@@ -108,6 +108,7 @@ export const UserDisplayClickGentex: React.FC<{
             >
               <Avatar
                 src={`https://api.gentex.com/user/image/v1/${props.userInfo.employeeNumber}`}
+                alt={formattedName}
                 style={{ width: "84px", height: "84px" }}
               />
             </div>

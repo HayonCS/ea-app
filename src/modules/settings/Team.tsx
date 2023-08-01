@@ -1,5 +1,7 @@
 import * as React from "react";
 import {
+  Autocomplete,
+  AutocompleteCloseReason,
   Box,
   Button,
   Checkbox,
@@ -7,7 +9,9 @@ import {
   Grid,
   List,
   ListItem,
+  MenuItem,
   Paper,
+  Popper,
   Stack,
   TextField,
   Typography,
@@ -16,6 +20,8 @@ import { makeStyles } from "@mui/styles";
 import { getEmployeeInfoGentex } from "../../utils/mes";
 import { UserDisplayClickGentex } from "../UserDisplayClickGentex";
 import { EmployeeInfoGentex } from "../../utils/DataTypes";
+import { UserDisplayHover } from "../UserDisplayHover";
+import { formatUserName } from "../../utils/DataUtility";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -38,6 +44,7 @@ const useStyles = makeStyles(() => ({
 export const TeamSettingsPanel: React.FC<{
   operators?: string[];
   teamGentex?: EmployeeInfoGentex[];
+  employeeDirectory?: EmployeeInfoGentex[];
   onChange?: (operators: string[], teamGentex: EmployeeInfoGentex[]) => void;
 }> = (props) => {
   const classes = useStyles();
@@ -48,17 +55,36 @@ export const TeamSettingsPanel: React.FC<{
   const [userOperatorsGentex, setUserOperatorsGentex] = React.useState<
     EmployeeInfoGentex[]
   >([]);
+  const [employeeDirectoryGentex, setEmployeeDirectoryGentex] = React.useState<
+    EmployeeInfoGentex[]
+  >([]);
 
   const [editing, setEditing] = React.useState(false);
 
   React.useEffect(() => {
-    if (props.operators && props.teamGentex && !loadedProps) {
+    if (
+      props.operators &&
+      props.teamGentex &&
+      props.employeeDirectory &&
+      !loadedProps
+    ) {
       const operators = props.operators.sort((a, b) => a.localeCompare(b));
-      const teamGentex = props.teamGentex.sort((a, b) =>
-        a.employeeNumber.localeCompare(b.employeeNumber)
+      const teamGentex = props.teamGentex.sort(
+        (a, b) =>
+          a.firstName.localeCompare(b.firstName) ||
+          a.lastName.localeCompare(b.lastName)
+      );
+      // const teamGentex = props.teamGentex.sort((a, b) =>
+      //   a.employeeNumber.localeCompare(b.employeeNumber)
+      // );
+      const empDirectory = props.employeeDirectory.sort(
+        (a, b) =>
+          a.firstName.localeCompare(b.firstName) ||
+          a.lastName.localeCompare(b.lastName)
       );
       setUserOperators(operators);
       setUserOperatorsGentex(teamGentex);
+      setEmployeeDirectoryGentex(empDirectory);
       setLoadedProps(true);
     }
   }, [props, loadedProps]);
@@ -80,45 +106,68 @@ export const TeamSettingsPanel: React.FC<{
 
   const [errorSearch, setErrorSearch] = React.useState(false);
 
-  const [valueSearch, setValueSearch] = React.useState("");
+  const [autocompleteOpen, setAutocompleteOpen] = React.useState(false);
 
-  const handleChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValueSearch(event.target.value);
+  const [inputValue, setInputValue] = React.useState("");
+
+  const [selectedValue, setSelectedValue] =
+    React.useState<EmployeeInfoGentex | null>(null);
+
+  const handleAutocompleteOpen = () => {
+    if (inputValue.length > 2) {
+      setAutocompleteOpen(true);
+    }
   };
 
-  React.useEffect(() => {
-    if (valueSearch.length > 0) {
-      if (valueSearch.includes(".") || !+valueSearch) {
-        setErrorSearch(true);
-        console.log("NaN error");
-      } else {
-        setErrorSearch(false);
-      }
+  const handleAutocompleteClose = (
+    event: React.SyntheticEvent<Element, Event>,
+    reason: AutocompleteCloseReason
+  ) => {
+    if (inputValue.length > 2) {
+      setAutocompleteOpen(true);
     } else {
-      setErrorSearch(false);
+      setAutocompleteOpen(false);
     }
-  }, [valueSearch]);
+  };
+
+  const handleInputChange = (
+    event: React.SyntheticEvent<Element, Event>,
+    value: string
+  ) => {
+    setInputValue(value);
+    if (value.length > 2) {
+      setAutocompleteOpen(true);
+    } else {
+      setAutocompleteOpen(false);
+    }
+  };
 
   const addTeamMember = () => {
     const add = async () => {
       if (errorSearch) return;
-      if (userOperators.includes(valueSearch)) {
+      if (
+        !selectedValue ||
+        (selectedValue && userOperatorsGentex.includes(selectedValue))
+      ) {
         setErrorSearch(true);
         return;
       }
-      const userInfo = await getEmployeeInfoGentex(valueSearch);
-      if (userInfo) {
+      if (selectedValue) {
         if (props.onChange) {
-          const newOps = [...userOperators, valueSearch].sort((a, b) =>
-            a.localeCompare(b)
+          const newOps = [...userOperators, selectedValue.employeeNumber].sort(
+            (a, b) => a.localeCompare(b)
           );
-          const newGentex = [...userOperatorsGentex, userInfo].sort((a, b) =>
-            a.employeeNumber.localeCompare(b.employeeNumber)
+          const newGentex = [...userOperatorsGentex, selectedValue].sort(
+            (a, b) =>
+              a.firstName.localeCompare(b.firstName) ||
+              a.lastName.localeCompare(b.lastName)
           );
           setUserOperators(newOps);
           setUserOperatorsGentex(newGentex);
+          setInputValue("");
+          setSelectedValue(null);
+          setAutocompleteOpen(false);
           props.onChange(newOps, newGentex);
-          console.log(newOps);
         }
       } else {
         setErrorSearch(true);
@@ -142,7 +191,7 @@ export const TeamSettingsPanel: React.FC<{
       <div
         style={{ display: "flex", marginLeft: "24px", alignItems: "center" }}
       >
-        <div style={{ width: "700px" }}>
+        <div style={{ width: "800px" }}>
           <Grid
             container={true}
             spacing={2}
@@ -161,25 +210,59 @@ export const TeamSettingsPanel: React.FC<{
                 {"Add Team Member"}
               </Typography>
               <div>
-                <TextField
-                  error={errorSearch}
-                  id="outlined-error"
-                  label="Search for Team Member"
-                  placeholder="Employee ID"
-                  variant="outlined"
-                  value={valueSearch}
-                  onChange={handleChangeSearch}
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter") {
-                      addTeamMember();
-                    }
+                <Autocomplete
+                  disablePortal={true}
+                  autoHighlight={true}
+                  id="autocomplete-employee-directory"
+                  options={
+                    !selectedValue ? employeeDirectoryGentex : [selectedValue]
+                  }
+                  getOptionLabel={(option) =>
+                    `${formatUserName(
+                      option.firstName + "." + option.lastName
+                    )} (${option.employeeNumber})`
+                  }
+                  autoFocus={true}
+                  sx={{ width: 300 }}
+                  open={autocompleteOpen}
+                  onOpen={handleAutocompleteOpen}
+                  onClose={handleAutocompleteClose}
+                  inputValue={inputValue}
+                  onInputChange={handleInputChange}
+                  value={selectedValue}
+                  onChange={(event, value) => {
+                    setSelectedValue(value);
+                    setInputValue("");
+                    console.log("onChange: " + inputValue);
                   }}
+                  clearOnBlur={false}
+                  renderOption={(props, option) => (
+                    <Box
+                      component="li"
+                      key={option.employeeNumber}
+                      style={{ padding: "2px 8px" }}
+                      {...props}
+                    >
+                      <UserDisplayHover userInfo={option} />
+                    </Box>
+                  )}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      inputProps={{
+                        ...params.inputProps,
+                        autoComplete: "new-password", // disable autocomplete and autofill
+                      }}
+                      label="Search for employee"
+                    />
+                  )}
                 />
               </div>
-              <div style={{ paddingTop: "20px" }}>
+              <div style={{ marginTop: "70px" }}>
                 <Button
                   variant="contained"
                   color="primary"
+                  disabled={!selectedValue}
                   onClick={(event) => {
                     addTeamMember();
                   }}
@@ -191,6 +274,7 @@ export const TeamSettingsPanel: React.FC<{
                   </Typography>
                 </Button>
               </div>
+              <div style={{ height: "284px" }} />
             </Grid>
             <Grid item>
               <Grid container direction="column" alignItems="center">

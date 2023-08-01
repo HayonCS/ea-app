@@ -79,14 +79,14 @@ const TabPanel = (props: any) => {
       )}
     </div>
   );
-}
+};
 
 const tabProps = (index: any) => {
   return {
     id: `tab-${index}`,
     "aria-controls": `tabpanel-${index}`,
   };
-}
+};
 
 const CustomDataGrid = withStyles({
   root: {
@@ -397,7 +397,13 @@ export const Stats: React.FC<{}> = (p) => {
     } else {
       setFilterOperatorUserInfo(teamGentexRedux ?? []);
     }
-  }, [rowsAssetOperator,filtersAssetOperator, filtersAssetOperatorRadio,teamGentexRedux,operatorEmployeeInfo,]);
+  }, [
+    rowsAssetOperator,
+    filtersAssetOperator,
+    filtersAssetOperatorRadio,
+    teamGentexRedux,
+    operatorEmployeeInfo,
+  ]);
 
   React.useEffect(() => {
     if (typeof rowSelectionModelAssetOperator !== "number") {
@@ -1074,7 +1080,9 @@ export const Stats: React.FC<{}> = (p) => {
               centered={true}
             >
               <Tab
-                label={<Box className={classes.tabStyle}>{"Asset Stats"}</Box>}
+                label={
+                  <Box className={classes.tabStyle}>{"Operator Stats"}</Box>
+                }
                 {...tabProps(0)}
               />
               <Tab

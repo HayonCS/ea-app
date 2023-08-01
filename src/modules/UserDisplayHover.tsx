@@ -18,8 +18,8 @@ const useStyles = makeStyles(() => ({
     paddingRight: "12px",
   },
   button: {
-    //width: "100%",
-    width: "180px",
+    width: "100%",
+    // width: "180px",
     display: "flex",
     alignItems: "center",
   },
@@ -121,6 +121,7 @@ export const UserDisplayHover: React.FC<{
             >
               <Avatar
                 src={pictureUrl}
+                alt={formattedName}
                 style={{ width: "84px", height: "84px" }}
               />
             </div>

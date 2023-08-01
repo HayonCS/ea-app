@@ -177,18 +177,6 @@ export const MenuBar: React.FC<{}> = (props) => {
       setDrawerState(open);
     };
 
-  // React.useEffect(() => {
-  //   if (userGentexRedux) {
-  //     const getLumen = async () => {
-  //       const result = await getUserInfoLumen(userGentexRedux.employeeId);
-  //       if (result) {
-  //         setUserLumenRedux(result);
-  //       }
-  //     };
-  //     void getLumen();
-  //   }
-  // }, [setUserLumenRedux, userGentexRedux]);
-
   React.useEffect(() => {
     const user = document.cookie
       .split("; ")
@@ -359,7 +347,7 @@ export const MenuBar: React.FC<{}> = (props) => {
                 }}
               >
                 <Typography component={"span"}>
-                  <Box fontWeight="600" fontSize="18px" color="white">
+                  <Box fontWeight="600" fontSize="16px" color="white">
                     {"LOGIN"}
                   </Box>
                 </Typography>

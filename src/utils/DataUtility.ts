@@ -376,12 +376,12 @@ export const getFinalProcessDataOperatorTotals = async (
       const runActual =
         (row.EndTime.getTime() - row.StartTime.getTime()) / 60000;
       const runTheory =
-        cycleTime > 0 ? ((row.Passes + row.Fails) * cycleTime) / 60 : 0;
+        cycleTime > 0 ? ((row.Passes + row.Fails - 1) * cycleTime) / 60 : 0;
       const efficiency = runActual > 0 ? (runTheory / runActual) * 100 : 100;
       const partsPerHour =
         runActual > 0
-          ? ((row.Passes + row.Fails) / runActual) * 60
-          : row.Passes + row.Fails;
+          ? ((row.Passes + row.Fails - 1) / runActual) * 60
+          : row.Passes + row.Fails - 1;
 
       const obj: ProcessDataOperatorTotals = {
         id: row.id,
@@ -437,12 +437,12 @@ export const getFinalProcessDataOperatorTotals = async (
       const runActual =
         (row.EndTime.getTime() - row.StartTime.getTime()) / 60000;
       const runTheory =
-        cycleTime > 0 ? ((row.Passes + row.Fails) * cycleTime) / 60 : 0;
+        cycleTime > 0 ? ((row.Passes + row.Fails - 1) * cycleTime) / 60 : 0;
       const efficiency = runActual > 0 ? (runTheory / runActual) * 100 : 100;
       const partsPerHour =
         runActual > 0
-          ? ((row.Passes + row.Fails) / runActual) * 60
-          : row.Passes + row.Fails;
+          ? ((row.Passes + row.Fails - 1) / runActual) * 60
+          : row.Passes + row.Fails - 1;
 
       const obj: ProcessDataOperatorTotals = {
         id: row.id,

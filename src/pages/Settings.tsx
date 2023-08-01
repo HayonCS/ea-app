@@ -10,12 +10,9 @@ import { TeamSettingsPanel } from "../modules/settings/Team";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { AppState } from "../store/type";
 import { Dispatch } from "redux";
-import {
-  addAlert,
-  updateTeamGentex,
-  updateUserData,
-} from "../store/actionCreators";
-import { AlertType, EmployeeInfoGentex, UserData } from "../utils/DataTypes";
+import { updateTeamGentex, updateUserData } from "../store/actionCreators";
+import { EmployeeInfoGentex, UserData } from "../utils/DataTypes";
+import { enqueueSnackbar } from "notistack";
 
 const useStyles = makeStyles(() => ({
   app: {
@@ -96,10 +93,6 @@ export const Settings: React.FC<{}> = (props) => {
   );
 
   const dispatch: Dispatch<any> = useDispatch();
-  const addAlertRedux = React.useCallback(
-    (alert: AlertType) => dispatch(addAlert(alert)),
-    [dispatch]
-  );
   const updateReduxTeamGentex = React.useCallback(
     (teamGentex: EmployeeInfoGentex[]) =>
       dispatch(updateTeamGentex(teamGentex)),
@@ -131,16 +124,14 @@ export const Settings: React.FC<{}> = (props) => {
         setRedisUserData(currentUserData);
         updateReduxUserData(currentUserData);
         updateReduxTeamGentex(currentTeamGentex);
-        addAlertRedux({
-          message: "Saved user settings successfully!",
-          severity: "success",
-          timeout: 7000,
+        enqueueSnackbar("Saved user settings successfully!", {
+          variant: "success",
+          autoHideDuration: 7000,
         });
       } else {
-        addAlertRedux({
-          message: "Failed to save user settings!",
-          severity: "error",
-          timeout: 7000,
+        enqueueSnackbar("Failed to save user settings!", {
+          variant: "error",
+          autoHideDuration: 7000,
         });
       }
     }

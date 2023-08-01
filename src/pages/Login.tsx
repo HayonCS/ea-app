@@ -4,14 +4,11 @@ import { makeStyles } from "@mui/styles";
 import { useNavigate } from "react-router-dom";
 import { getEmployeeInfoGentex, getUserInfoGentex } from "../utils/mes";
 import { useDispatch } from "react-redux";
-import {
-  setCurrentUser,
-  updateUserGentex,
-  addAlert,
-} from "../store/actionCreators";
+import { setCurrentUser, updateUserGentex } from "../store/actionCreators";
 import { Dispatch } from "redux";
 import { USER_COOKIE_NAME } from "../definitions";
-import { EmployeeInfoGentex, AlertType } from "../utils/DataTypes";
+import { EmployeeInfoGentex } from "../utils/DataTypes";
+import { enqueueSnackbar } from "notistack";
 
 const useStyles = makeStyles(() => ({
   app: {
@@ -41,10 +38,6 @@ export const Login: React.FC<{}> = (props) => {
   };
 
   const dispatch: Dispatch<any> = useDispatch();
-  const addAlertRedux = React.useCallback(
-    (alert: AlertType) => dispatch(addAlert(alert)),
-    [dispatch]
-  );
   const setCurrentUserRedux = React.useCallback(
     (user: string) => dispatch(setCurrentUser(user)),
     [dispatch]
@@ -91,17 +84,15 @@ export const Login: React.FC<{}> = (props) => {
         setCurrentUserRedux(userInfo.username);
         const employeeInfo = await getEmployeeInfoGentex(userInfo.employeeId);
         if (employeeInfo) updateUserGentexRedux(employeeInfo);
-        addAlertRedux({
-          message: "Login successful!",
-          severity: "success",
-          timeout: 4000,
+        enqueueSnackbar("Login successful!", {
+          variant: "success",
+          autoHideDuration: 4000,
         });
         navigate("/");
       } else {
-        addAlertRedux({
-          message: "Invalid login.",
-          severity: "error",
-          timeout: 4000,
+        enqueueSnackbar("Invalid login.", {
+          variant: "error",
+          autoHideDuration: 4000,
         });
         setError(true);
       }

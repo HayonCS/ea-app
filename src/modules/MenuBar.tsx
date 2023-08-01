@@ -33,7 +33,6 @@ import { getUserInfoGentex, getEmployeeInfoGentex } from "../utils/mes";
 import { AppState } from "../store/type";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import {
-  removeAlert,
   setAssetList,
   setCurrentUser,
   setEmployeeDirectory,
@@ -48,8 +47,8 @@ import {
   getUserDataFromRedis,
 } from "../utils/redis";
 import { USER_COOKIE_NAME } from "../definitions";
-import { AlertType, EmployeeInfoGentex, UserData } from "../utils/DataTypes";
-import { SnackbarProvider, enqueueSnackbar } from "notistack";
+import { EmployeeInfoGentex, UserData } from "../utils/DataTypes";
+import { SnackbarProvider } from "notistack";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -106,10 +105,6 @@ export const MenuBar: React.FC<{}> = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const alertsRedux = useSelector(
-    (state: AppState) => state.alerts,
-    shallowEqual
-  );
   const assetListRedux = useSelector(
     (state: AppState) => state.assetList,
     shallowEqual
@@ -132,10 +127,6 @@ export const MenuBar: React.FC<{}> = (props) => {
   );
 
   const dispatch: Dispatch<any> = useDispatch();
-  const removeAlertRedux = React.useCallback(
-    (alert: AlertType) => dispatch(removeAlert(alert)),
-    [dispatch]
-  );
   const setAssetListRedux = React.useCallback(
     (assetList: string[]) => dispatch(setAssetList(assetList)),
     [dispatch]
@@ -187,28 +178,28 @@ export const MenuBar: React.FC<{}> = (props) => {
       setDrawerState(open);
     };
 
-  const [alerts, setAlerts] = React.useState<AlertType[]>([]);
+  // const [alerts, setAlerts] = React.useState<AlertType[]>([]);
 
-  React.useEffect(() => {
-    if (alertsRedux && alertsRedux.length > alerts.length) {
-      alertsRedux.forEach((alert, i) => {
-        if (i >= alerts.length) {
-          enqueueSnackbar(alert.message, {
-            variant: alert.severity,
-            autoHideDuration: alert.timeout ?? 5000,
-            onClose: () => {
-              let newAlerts = [...alerts];
-              newAlerts.splice(newAlerts.indexOf(alert), 1);
-              setAlerts(newAlerts);
-              removeAlertRedux(alert);
-            },
-          });
-          //setAlerts([...alerts, alert]);
-        }
-      });
-      setAlerts(alertsRedux);
-    }
-  }, [alerts, alertsRedux, removeAlertRedux]);
+  // React.useEffect(() => {
+  //   if (alertsRedux && alertsRedux.length > alerts.length) {
+  //     alertsRedux.forEach((alert, i) => {
+  //       if (i >= alerts.length) {
+  //         enqueueSnackbar(alert.message, {
+  //           variant: alert.severity,
+  //           autoHideDuration: alert.timeout ?? 5000,
+  //           onClose: () => {
+  //             let newAlerts = [...alerts];
+  //             newAlerts.splice(newAlerts.indexOf(alert), 1);
+  //             setAlerts(newAlerts);
+  //             removeAlertRedux(alert);
+  //           },
+  //         });
+  //         //setAlerts([...alerts, alert]);
+  //       }
+  //     });
+  //     setAlerts(alertsRedux);
+  //   }
+  // }, [alerts, alertsRedux, removeAlertRedux]);
 
   React.useEffect(() => {
     const user = document.cookie
@@ -284,8 +275,8 @@ export const MenuBar: React.FC<{}> = (props) => {
   return (
     <div className={classes.root}>
       <SnackbarProvider
-        maxSnack={5}
-        preventDuplicate={true}
+        maxSnack={6}
+        // preventDuplicate={true}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       />
       <AppBar position="static" color="transparent" className={classes.appBar}>

@@ -1,24 +1,6 @@
-import { AlertType, EmployeeInfoGentex, UserData } from "../utils/DataTypes";
+import { EmployeeInfoGentex, UserData } from "../utils/DataTypes";
 import * as actionTypes from "./actionTypes";
 import { AppAction, DispatchType } from "./type";
-
-export function addAlert(alert: AlertType) {
-  const action: AppAction = {
-    type: actionTypes.ADD_ALERT,
-    alert: alert,
-  };
-
-  return dispatchRequest(action);
-}
-
-export function removeAlert(alert: AlertType) {
-  const action: AppAction = {
-    type: actionTypes.REMOVE_ALERT,
-    alert: alert,
-  };
-
-  return dispatchRequest(action);
-}
 
 export function setAssetList(list: string[]) {
   const action: AppAction = {

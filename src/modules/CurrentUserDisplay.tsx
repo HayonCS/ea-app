@@ -13,11 +13,9 @@ import { useNavigate } from "react-router-dom";
 import { formatUserName, formatUserPhone } from "../utils/DataUtility";
 import { EmployeeInfoGentex } from "../utils/DataTypes";
 import { AppState } from "../store/type";
-import { shallowEqual, useSelector, useDispatch } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 import { USER_COOKIE_NAME } from "../definitions";
-import { Dispatch } from "redux";
-import { addAlert } from "../store/actionCreators";
-import { AlertType } from "../utils/DataTypes";
+import { enqueueSnackbar } from "notistack";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -83,12 +81,6 @@ export const CurrentUserDisplay: React.FC<{
     shallowEqual
   );
 
-  const dispatch: Dispatch<any> = useDispatch();
-  const addAlertRedux = React.useCallback(
-    (alert: AlertType) => dispatch(addAlert(alert)),
-    [dispatch]
-  );
-
   React.useEffect(() => {
     if (userGentexRedux) {
       setPictureUrl(
@@ -99,10 +91,9 @@ export const CurrentUserDisplay: React.FC<{
   }, [userGentexRedux]);
 
   const handleLogout = () => {
-    addAlertRedux({
-      message: "You are now logged out of the app.",
-      severity: "info",
-      timeout: 4000,
+    enqueueSnackbar("You are now logged out of the app.", {
+      variant: "info",
+      autoHideDuration: 4000,
     });
     document.cookie = `${USER_COOKIE_NAME}=;`;
     navigate("/Login");

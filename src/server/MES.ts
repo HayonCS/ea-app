@@ -4,12 +4,14 @@ import {
   ProcessDataExport,
   UserLumenInfo,
   EmployeeInfoGentex,
+  BiAssetInfo,
 } from "../utils/DataTypes";
 import { JSDOM } from "jsdom";
 
+// THIS FUNCTION LOADS ASSETS FROM BI (SHOULD BE ALL ASSETS AVAILABLE)
 export const getAssetList = async () => {
   try {
-    const url = `http://zvm-msgprod/MES/ProcessDataExportApi/api/v1/processdataexport/getAssetList`;
+    const url = `https://zvm-msgprod.gentex.com/MES/Client/manufacturingweb/api/v1/bi/assets`;
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -19,11 +21,14 @@ export const getAssetList = async () => {
     if (!response.ok) {
       throw new Error(`Error! status: ${response.status}`);
     }
-    const result: string[] = await response.json();
+    const result: BiAssetInfo[] = await response.json();
 
-    const assetList = result.filter(
-      (x) => x.startsWith("CMB") || x.startsWith("MR") || x.startsWith("PCB")
-    );
+    const assetList = result
+      .map((asset) => asset.assetName)
+      .sort((a, b) => a.localeCompare(b))
+      .filter(
+        (x) => x.startsWith("CMB") || x.startsWith("MR") || x.startsWith("PCB")
+      );
 
     return assetList;
   } catch (error) {
@@ -31,6 +36,32 @@ export const getAssetList = async () => {
     return undefined;
   }
 };
+
+// THIS FUNCTION LOADS ASSETS FROM THE PROCESSDATAEXPORT API (I BELIEVE IT IS FOR RUNNING ASSETS ONLY)
+// export const getAssetList = async () => {
+//   try {
+//     const url = `http://zvm-msgprod/MES/ProcessDataExportApi/api/v1/processdataexport/getAssetList`;
+//     const response = await fetch(url, {
+//       method: "GET",
+//       headers: {
+//         Accept: "application/json",
+//       },
+//     });
+//     if (!response.ok) {
+//       throw new Error(`Error! status: ${response.status}`);
+//     }
+//     const result: string[] = await response.json();
+
+//     const assetList = result.filter(
+//       (x) => x.startsWith("CMB") || x.startsWith("MR") || x.startsWith("PCB")
+//     );
+
+//     return assetList;
+//   } catch (error) {
+//     console.log("ERROR: " + error);
+//     return undefined;
+//   }
+// };
 
 export const getEmployeeInfoDirectory = async () => {
   try {

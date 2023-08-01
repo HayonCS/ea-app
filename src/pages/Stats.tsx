@@ -49,23 +49,21 @@ import {
   getProcessDataExport,
   getProcessDataExportRange,
 } from "../utils/redis";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import { useSelector, shallowEqual } from "react-redux";
 import { AppState } from "../store/type";
-import { Dispatch } from "redux";
-import { addAlert } from "../store/actionCreators";
 import { UserDisplayClickGentex } from "../modules/UserDisplayClickGentex";
 import { Close, FilterList } from "@mui/icons-material";
 import {
   EmployeeInfoGentex,
   ProcessDataExport,
   ProcessDataOperatorTotals,
-  AlertType,
 } from "../utils/DataTypes";
 import {
   getFinalProcessDataOperator,
   getFinalProcessDataOperatorTotals,
 } from "../utils/DataUtility";
 import { getEmployeeInfoGentex } from "../utils/mes";
+import { enqueueSnackbar } from "notistack";
 
 const TabPanel = (props: any) => {
   const { children, value, index, ...other } = props;
@@ -211,12 +209,6 @@ export const Stats: React.FC<{}> = (p) => {
     shallowEqual
   );
 
-  const dispatch: Dispatch<any> = useDispatch();
-  const addAlertRedux = React.useCallback(
-    (alert: AlertType) => dispatch(addAlert(alert)),
-    [dispatch]
-  );
-
   const [tabValueStats, setTabValueStats] = React.useState(0);
 
   const [loadingAssetOperator, setLoadingAssetOperator] = React.useState(false);
@@ -286,10 +278,9 @@ export const Stats: React.FC<{}> = (p) => {
     React.useState(false);
 
   const loadStatsAssetOperator = async () => {
-    addAlertRedux({
-      message: "Loading data for operators by assets...",
-      severity: "info",
-      timeout: 3000,
+    enqueueSnackbar("Loading data for operators by assets...", {
+      variant: "info",
+      autoHideDuration: 3000,
     });
     setLoadingProgressAssetOperator(0);
     setLoadingAssetOperator(true);
@@ -373,20 +364,18 @@ export const Stats: React.FC<{}> = (p) => {
         parts: partFilter,
         assets: assetFilter,
       });
-      addAlertRedux({
-        message: "Data loaded successfully!",
-        severity: "success",
-        timeout: 3000,
+      enqueueSnackbar("Data loaded successfully!", {
+        variant: "success",
+        autoHideDuration: 3000,
       });
     } else {
       setLoadingProgressAssetOperator(0);
       setLoadingAssetOperator(false);
       cancelLoadingAssetOperator = false;
       setCancelingLoadingAssetOperator(false);
-      addAlertRedux({
-        message: "Canceled loading data.",
-        severity: "info",
-        timeout: 3000,
+      enqueueSnackbar("Canceled loading data.", {
+        variant: "info",
+        autoHideDuration: 3000,
       });
     }
   };

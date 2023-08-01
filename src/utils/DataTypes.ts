@@ -1,9 +1,3 @@
-export interface AlertType {
-  message: string;
-  severity: "error" | "info" | "success" | "warning";
-  timeout?: number;
-}
-
 export interface UserData {
   orgCode: string;
   assets: string[];

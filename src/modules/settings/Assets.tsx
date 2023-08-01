@@ -8,15 +8,14 @@ import {
   ListItemIcon,
   ListItemText,
   Paper,
+  TextField,
   Typography,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { ASSETLIST } from "../../definitions";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 import { AppState } from "../../store/type";
-import { Dispatch } from "redux";
-import { addAlert } from "../../store/actionCreators";
-import { AlertType } from "../../utils/DataTypes";
+import { enqueueSnackbar } from "notistack";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -57,18 +56,14 @@ export const AssetsSettingsPanel: React.FC<{
     shallowEqual
   );
 
-  const dispatch: Dispatch<any> = useDispatch();
-  const addAlertRedux = React.useCallback(
-    (alert: AlertType) => dispatch(addAlert(alert)),
-    [dispatch]
-  );
-
   const [checked, setChecked] = React.useState<string[]>([]);
   const [left, setLeft] = React.useState<string[]>(assetListRedux ?? ASSETLIST);
   const [right, setRight] = React.useState<string[]>(props.assets ?? []);
 
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
+
+  const [searchValue, setSearchValue] = React.useState("");
 
   React.useEffect(() => {
     if (props.assets && !loadedProps) {
@@ -96,10 +91,9 @@ export const AssetsSettingsPanel: React.FC<{
     setRight(newRight);
     setLeft([]);
     if (props.onChange) props.onChange(newRight);
-    addAlertRedux({
-      message: `Added ALL Assets to your asset list.`,
-      severity: "info",
-      timeout: 3000,
+    enqueueSnackbar("Added ALL Assets to your asset list.", {
+      variant: "info",
+      autoHideDuration: 3000,
     });
   };
 
@@ -109,13 +103,15 @@ export const AssetsSettingsPanel: React.FC<{
     setLeft(not(left, leftChecked));
     setChecked(not(checked, leftChecked));
     if (props.onChange) props.onChange(newRight);
-    addAlertRedux({
-      message: `Added the following asset(s) to your asset list: ${leftChecked.join(
+    enqueueSnackbar(
+      `Added the following asset(s) to your asset list: ${leftChecked.join(
         ", "
       )}`,
-      severity: "info",
-      timeout: 3000,
-    });
+      {
+        variant: "info",
+        autoHideDuration: 3000,
+      }
+    );
   };
 
   const handleCheckedLeft = () => {
@@ -124,23 +120,24 @@ export const AssetsSettingsPanel: React.FC<{
     setRight(newRight);
     setChecked(not(checked, rightChecked));
     if (props.onChange) props.onChange(newRight);
-    addAlertRedux({
-      message: `Removed the following asset(s) from your asset list: ${rightChecked.join(
+    enqueueSnackbar(
+      `Removed the following asset(s) from your asset list: ${rightChecked.join(
         ", "
       )}`,
-      severity: "warning",
-      timeout: 3000,
-    });
+      {
+        variant: "warning",
+        autoHideDuration: 3000,
+      }
+    );
   };
 
   const handleAllLeft = () => {
     setLeft(left.concat(right));
     setRight([]);
     if (props.onChange) props.onChange([]);
-    addAlertRedux({
-      message: `Removed ALL Assets from your asset list.`,
-      severity: "warning",
-      timeout: 3000,
+    enqueueSnackbar("Removed ALL Assets from your asset list.", {
+      variant: "warning",
+      autoHideDuration: 3000,
     });
   };
   const customList = (items: string[]) => (
@@ -162,7 +159,6 @@ export const AssetsSettingsPanel: React.FC<{
                   <Checkbox
                     checked={checked.indexOf(value) !== -1}
                     tabIndex={-1}
-                    //disableRipple
                     inputProps={{
                       "aria-labelledby": labelId,
                     }}
@@ -179,9 +175,21 @@ export const AssetsSettingsPanel: React.FC<{
   return (
     <div className={classes.root}>
       <div
-        style={{ display: "flex", marginLeft: "24px", alignItems: "center" }}
+        style={{
+          display: "flex",
+          marginLeft: "24px",
+          alignItems: "center",
+          justifyContent: "start",
+        }}
       >
-        <div style={{ width: "600px" }}>
+        <div
+          style={{
+            width: "600px",
+            display: "flex",
+            alignItems: "start",
+            flexDirection: "column",
+          }}
+        >
           <Grid
             container={true}
             spacing={2}
@@ -199,7 +207,11 @@ export const AssetsSettingsPanel: React.FC<{
               >
                 {"ALL ASSETS"}
               </Typography>
-              {customList(left)}
+              {customList(
+                searchValue.length < 1
+                  ? left
+                  : left.filter((x) => x.includes(searchValue))
+              )}
             </Grid>
             <Grid item>
               <Grid container direction="column" alignItems="center">
@@ -259,6 +271,16 @@ export const AssetsSettingsPanel: React.FC<{
               {customList(right)}
             </Grid>
           </Grid>
+          <TextField
+            id="asset-filter"
+            label="Search asset..."
+            variant="outlined"
+            value={searchValue}
+            onChange={(event) => {
+              setSearchValue(event.target.value);
+            }}
+            style={{ marginLeft: "20px", marginTop: "12px" }}
+          />
         </div>
       </div>
     </div>

@@ -16,12 +16,10 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { UserDisplayClickGentex } from "../UserDisplayClickGentex";
-import { AlertType, EmployeeInfoGentex } from "../../utils/DataTypes";
+import { EmployeeInfoGentex } from "../../utils/DataTypes";
 import { UserDisplayHover } from "../UserDisplayHover";
 import { formatUserName } from "../../utils/DataUtility";
-import { Dispatch } from "redux";
-import { addAlert } from "../../store/actionCreators";
-import { useDispatch } from "react-redux";
+import { enqueueSnackbar } from "notistack";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -48,12 +46,6 @@ export const TeamSettingsPanel: React.FC<{
   onChange?: (operators: string[], teamGentex: EmployeeInfoGentex[]) => void;
 }> = (props) => {
   const classes = useStyles();
-
-  const dispatch: Dispatch<any> = useDispatch();
-  const addAlertRedux = React.useCallback(
-    (alert: AlertType) => dispatch(addAlert(alert)),
-    [dispatch]
-  );
 
   const [loadedProps, setLoadedProps] = React.useState(false);
 
@@ -172,13 +164,15 @@ export const TeamSettingsPanel: React.FC<{
           setSelectedValue(null);
           setAutocompleteOpen(false);
           props.onChange(newOps, newGentex);
-          addAlertRedux({
-            message: `Added ${formatUserName(
+          enqueueSnackbar(
+            `Added ${formatUserName(
               selectedValue.firstName + "." + selectedValue.lastName
             )} (${selectedValue.employeeNumber}) to your team.`,
-            severity: "info",
-            timeout: 3000,
-          });
+            {
+              variant: "info",
+              autoHideDuration: 3000,
+            }
+          );
         }
       } else {
         setErrorSearch(true);
@@ -200,13 +194,15 @@ export const TeamSettingsPanel: React.FC<{
     setChecked([]);
     if (props.onChange) props.onChange(newOps, newGentex);
     opsRemoved.forEach((op) => {
-      addAlertRedux({
-        message: `Removed ${formatUserName(
-          op.firstName + "." + op.lastName
-        )} (${op.employeeNumber}) from your team.`,
-        severity: "warning",
-        timeout: 3000,
-      });
+      enqueueSnackbar(
+        `Removed ${formatUserName(op.firstName + "." + op.lastName)} (${
+          op.employeeNumber
+        }) from your team.`,
+        {
+          variant: "warning",
+          autoHideDuration: 3000,
+        }
+      );
     });
   };
 

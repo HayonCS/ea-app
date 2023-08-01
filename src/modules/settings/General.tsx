@@ -10,10 +10,7 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { ORGANIZATIONS } from "../../definitions";
-import { useDispatch } from "react-redux";
-import { Dispatch } from "redux";
-import { addAlert } from "../../store/actionCreators";
-import { AlertType } from "../../utils/DataTypes";
+import { enqueueSnackbar } from "notistack";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -39,12 +36,6 @@ export const GeneralSettingsPanel: React.FC<{
 }> = (props) => {
   const classes = useStyles();
 
-  const dispatch: Dispatch<any> = useDispatch();
-  const addAlertRedux = React.useCallback(
-    (alert: AlertType) => dispatch(addAlert(alert)),
-    [dispatch]
-  );
-
   const [orgCode, setOrgCode] = React.useState(props.orgCode ?? "0");
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -53,10 +44,9 @@ export const GeneralSettingsPanel: React.FC<{
     if (props.onChange) props.onChange(value);
     const org = ORGANIZATIONS.find((x) => x.code === value);
     if (org) {
-      addAlertRedux({
-        message: `Changed Organization to: ${org.code} - ${org.name}`,
-        severity: "info",
-        timeout: 3000,
+      enqueueSnackbar(`Changed Organization to: ${org.code} - ${org.name}`, {
+        variant: "info",
+        autoHideDuration: 3000,
       });
     }
   };

@@ -49,14 +49,17 @@ import {
   getProcessDataExport,
   getProcessDataExportRange,
 } from "../utils/redis";
-import { useSelector, shallowEqual } from "react-redux";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { AppState } from "../store/type";
+import { Dispatch } from "redux";
+import { addAlert } from "../store/actionCreators";
 import { UserDisplayClickGentex } from "../modules/UserDisplayClickGentex";
 import { Close, FilterList } from "@mui/icons-material";
 import {
   EmployeeInfoGentex,
   ProcessDataExport,
   ProcessDataOperatorTotals,
+  AlertType,
 } from "../utils/DataTypes";
 import {
   getFinalProcessDataOperator,
@@ -180,13 +183,15 @@ const useStyles = makeStyles(() => ({
     height: "100%",
   },
   cellStyle: {
-    paddingLeft: "8px",
+    marginRight: "4px",
     width: "100%",
-    alignItems: "left",
+    height: "100%",
+    alignItems: "center",
     color: "black",
     fontSize: "16px",
     fontFamily: "inherit",
     fontWeight: "bold",
+    display: "flex",
   },
 }));
 
@@ -204,6 +209,12 @@ export const Stats: React.FC<{}> = (p) => {
   const userDataRedux = useSelector(
     (state: AppState) => state.userData,
     shallowEqual
+  );
+
+  const dispatch: Dispatch<any> = useDispatch();
+  const addAlertRedux = React.useCallback(
+    (alert: AlertType) => dispatch(addAlert(alert)),
+    [dispatch]
   );
 
   const [tabValueStats, setTabValueStats] = React.useState(0);
@@ -275,7 +286,11 @@ export const Stats: React.FC<{}> = (p) => {
     React.useState(false);
 
   const loadStatsAssetOperator = async () => {
-    console.log("Loading Data...");
+    addAlertRedux({
+      message: "Loading data for operators by assets...",
+      severity: "info",
+      timeout: 3000,
+    });
     setLoadingProgressAssetOperator(0);
     setLoadingAssetOperator(true);
     let canceled = false;
@@ -335,11 +350,44 @@ export const Stats: React.FC<{}> = (p) => {
       setLoadingAssetOperator(false);
       cancelLoadingAssetOperator = false;
       setCancelingLoadingAssetOperator(false);
+      const opList = finalOperatorData
+        .map((x) => x.Operator)
+        .filter((v, i, a) => a.indexOf(v) === i);
+      const partList = finalOperatorData
+        .map((x) => x.PartNumber)
+        .filter((v, i, a) => a.indexOf(v) === i);
+      const assetList = finalOperatorData
+        .map((x) => x.Asset)
+        .filter((v, i, a) => a.indexOf(v) === i);
+      const opFilter = opList.filter((op) =>
+        filtersAssetOperator.operators.includes(op)
+      );
+      const partFilter = partList.filter((part) =>
+        filtersAssetOperator.parts.includes(part)
+      );
+      const assetFilter = assetList.filter((asset) =>
+        filtersAssetOperator.assets.includes(asset)
+      );
+      setFiltersAssetOperator({
+        operators: opFilter,
+        parts: partFilter,
+        assets: assetFilter,
+      });
+      addAlertRedux({
+        message: "Data loaded successfully!",
+        severity: "success",
+        timeout: 3000,
+      });
     } else {
       setLoadingProgressAssetOperator(0);
       setLoadingAssetOperator(false);
       cancelLoadingAssetOperator = false;
       setCancelingLoadingAssetOperator(false);
+      addAlertRedux({
+        message: "Canceled loading data.",
+        severity: "info",
+        timeout: 3000,
+      });
     }
   };
 
@@ -584,17 +632,15 @@ export const Stats: React.FC<{}> = (p) => {
       width: 100,
       renderCell: (cellValue) => {
         const value = Math.round(cellValue.value * 100) / 100;
-        const label = value.toFixed(2) + "%";
+        const label = `${value.toFixed(2)}%`;
         return (
           <div
             className={classes.cellStyle}
-            style={
-              value >= 95
-                ? { backgroundColor: "rgb(0, 200, 0)" }
-                : value >= 85
-                ? { backgroundColor: "orange" }
-                : { backgroundColor: "red" }
-            }
+            style={{
+              backgroundColor:
+                value >= 95 ? "rgb(0, 200, 0)" : value >= 85 ? "orange" : "red",
+              marginRight: "8px",
+            }}
           >
             {label}
           </div>
@@ -1389,24 +1435,30 @@ export const Stats: React.FC<{}> = (p) => {
                                 },
                               }}
                             >
-                              {filterOperatorUserInfo.map((user, i) => {
-                                return (
-                                  <MenuItem
-                                    key={i}
-                                    value={user.employeeNumber}
-                                    disableGutters={true}
-                                  >
-                                    <Checkbox
-                                      checked={
-                                        filtersAssetOperator.operators.indexOf(
-                                          user.employeeNumber
-                                        ) > -1
-                                      }
-                                    />
-                                    <UserDisplayHover userInfo={user} />
-                                  </MenuItem>
-                                );
-                              })}
+                              {filterOperatorUserInfo
+                                .sort(
+                                  (a, b) =>
+                                    a.firstName.localeCompare(b.firstName) ||
+                                    a.lastName.localeCompare(b.lastName)
+                                )
+                                .map((user, i) => {
+                                  return (
+                                    <MenuItem
+                                      key={i}
+                                      value={user.employeeNumber}
+                                      disableGutters={true}
+                                    >
+                                      <Checkbox
+                                        checked={
+                                          filtersAssetOperator.operators.indexOf(
+                                            user.employeeNumber
+                                          ) > -1
+                                        }
+                                      />
+                                      <UserDisplayHover userInfo={user} />
+                                    </MenuItem>
+                                  );
+                                })}
                             </Select>
                           </FormControl>
                         </Tooltip>

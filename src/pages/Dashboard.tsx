@@ -69,14 +69,14 @@ const TabPanel = (props: any) => {
       )}
     </div>
   );
-}
+};
 
 const tabProps = (index: any) => {
   return {
     id: `tab-${index}`,
     "aria-controls": `tabpanel-${index}`,
   };
-}
+};
 
 export const DashboardPage: React.FC<{}> = (props) => {
   document.title = "Dashboard | EA App";
@@ -87,6 +87,10 @@ export const DashboardPage: React.FC<{}> = (props) => {
 
   const [tabValue, setTabValue] = React.useState(0);
 
+  const userDataRedux = useSelector(
+    (state: AppState) => state.userData,
+    shallowEqual
+  );
   const assetListRedux = useSelector(
     (state: AppState) => state.assetList,
     shallowEqual
@@ -159,28 +163,46 @@ export const DashboardPage: React.FC<{}> = (props) => {
             <TabPanel value={tabValue} index={0}>
               <div style={{ height: "calc(100vh - 216px)" }}>
                 <div style={{ height: "30px" }} />
-                {(assetListRedux ?? ASSETLIST).map((asset, i) => {
-                  return (
-                    <Box key={i} className={classes.linkStyle}>
-                      <Link
-                        onClick={() => {
-                          navigate(`/Dashboard/${asset}`);
-                        }}
-                        style={{ cursor: "pointer" }}
-                      >
-                        {asset}
-                      </Link>
-                    </Box>
-                  );
-                })}
+                {(assetListRedux ?? ASSETLIST)
+                  .sort((a, b) => a.localeCompare(b))
+                  .map((asset, i) => {
+                    return (
+                      <Box key={i} className={classes.linkStyle}>
+                        <Link
+                          onClick={() => {
+                            navigate(`/Dashboard/${asset}`);
+                          }}
+                          style={{ cursor: "pointer" }}
+                        >
+                          {asset}
+                        </Link>
+                      </Box>
+                    );
+                  })}
                 <div style={{ height: "30px" }} />
               </div>
             </TabPanel>
             <TabPanel value={tabValue} index={1}>
-              <Resources />
-            </TabPanel>
-            <TabPanel value={tabValue} index={2}>
-              <About />
+              <div style={{ height: "calc(100vh - 216px)" }}>
+                <div style={{ height: "30px" }} />
+                {(userDataRedux?.assets ?? [])
+                  .sort((a, b) => a.localeCompare(b))
+                  .map((asset, i) => {
+                    return (
+                      <Box key={i} className={classes.linkStyle}>
+                        <Link
+                          onClick={() => {
+                            navigate(`/Dashboard/${asset}`);
+                          }}
+                          style={{ cursor: "pointer" }}
+                        >
+                          {asset}
+                        </Link>
+                      </Box>
+                    );
+                  })}
+                <div style={{ height: "30px" }} />
+              </div>
             </TabPanel>
           </SwipeableViews>
         </div>

@@ -121,6 +121,33 @@ export interface ProcessDataOperatorTotals {
   PartsPerHour: number;
 }
 
+// export interface ProcessDataPartTotals {
+//   id: number;
+//   Asset: string;
+//   PartNumber: string;
+//   Date: Date;
+//   StartTime: Date;
+//   EndTime: Date;
+//   Passes: number;
+//   Fails: number;
+//   OperationId: string;
+//   Line: string;
+//   Label: string;
+//   Operator: string;
+//   Revision: string;
+//   Sender: string;
+//   TestPlan: string;
+//   CycleTime: number;
+//   RunActual: number;
+//   RunTheory: number;
+//   Efficiency: number;
+//   PartsPerHour: number;
+// }
+
+export interface ProcessDataRawData extends ProcessDataExport {
+  id: number;
+}
+
 export interface UserInfoGentex {
   employeeId: string;
   username: string;

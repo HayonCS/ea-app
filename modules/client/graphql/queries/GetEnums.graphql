@@ -1,0 +1,17 @@
+query GetEnums($where: LibraryWhereUniqueInput!) {
+  library(where: $where) {
+    libraryName
+    versions {
+      versionNumber
+      enums {
+        name
+        description
+        entries {
+          name
+          description
+          value
+        }
+      }
+    }
+  }
+}

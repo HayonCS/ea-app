@@ -1,0 +1,10 @@
+query GetLibraryNamesWithVersionInfo($where: LibrariesWhereInput) {
+  libraries(where: $where) {
+    libraryName
+    versions {
+      versionNumber
+      platformName
+      isCurrentRelease
+    }
+  }
+}

@@ -1,0 +1,5 @@
+query TestPlanConfig($domain: Domain!, $testPlanName: String!) {
+  testPlan(domain: $domain, where: { name: $testPlanName }) {
+    configuration
+  }
+}

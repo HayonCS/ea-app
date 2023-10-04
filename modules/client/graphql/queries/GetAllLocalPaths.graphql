@@ -1,0 +1,37 @@
+query GetAllLocalPaths($domain: Domain!, $testPlanName: String!) {
+  localPaths(domain: $domain, testPlanName: $testPlanName) {
+    library {
+      libraryName
+      versions {
+        platformName
+        versionNumber
+        documentationLink
+        enums {
+          name
+          description
+          entries {
+            description
+            name
+            value
+          }
+        }
+        functions {
+          name
+          description
+          className
+          classDescription
+          params {
+            name
+            description
+            direction
+            type
+            default
+            enumName
+          }
+        }
+        isCurrentRelease
+        versionControlUrl
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+query GetStationWatcherUser($userName: String!) {
+  userStationWatcher(userName: $userName) {
+    computerName
+  }
+}

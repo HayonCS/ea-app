@@ -1,0 +1,44 @@
+{
+    "705-4789-001": [
+        {
+            "EcoNum": "Defaults",
+            "SpecLimits": []
+        },
+        {
+            "EcoNum": "E0016083",
+            "SpecLimits": []
+        },
+        {
+            "EcoNum": "E0016265",
+            "SpecLimits": []
+        },
+        {
+            "EcoNum": "E0016284",
+            "SpecLimits": []
+        },
+        {
+            "EcoNum": "E0016475",
+            "SpecLimits": []
+        },
+        {
+            "EcoNum": "E0016615",
+            "SpecLimits": []
+        },
+        {
+            "EcoNum": "E0018036",
+            "SpecLimits": []
+        },
+        {
+            "EcoNum": "E0018056",
+            "SpecLimits": []
+        },
+        {
+            "EcoNum": "E0018618",
+            "SpecLimits": []
+        },
+        {
+            "EcoNum": "E0018665",
+            "SpecLimits": []
+        }
+    ]
+}

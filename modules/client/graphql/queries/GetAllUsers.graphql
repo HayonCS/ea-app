@@ -1,0 +1,3 @@
+query GetAllUsers($domain: Domain!) {
+  allUsers(domain: $domain)
+}

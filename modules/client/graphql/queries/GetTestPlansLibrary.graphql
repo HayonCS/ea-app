@@ -1,0 +1,12 @@
+query GetTestPlansLibrary($domain: Domain!) {
+  testPlanLibrary(domain: $domain) {
+    testPlanLib {
+      PlanTitle
+      Type
+      Version
+      LastEditor
+      LastEdit
+      RevLabel
+    }
+  }
+}

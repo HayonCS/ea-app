@@ -1,0 +1,71 @@
+version: "3.7"
+services:
+  dev:
+    build: docker/dev
+    command: /usr/local/lib/tail-and-wait
+    ipc: host
+    volumes:
+      - devappdata:/home/dev/app
+      - devconfigdata:/home/dev/config
+      - subversiondata:/home/svn
+      - sambadata:/var/opt/samba
+      - ./samba-data:/var/opt/samba-external
+    ports:
+      - "3000:3000" # Webpack dev server
+      - "3001:3001" # Express server
+      - "9001:9001" # Storybook
+      - "9229:9229" # Debug express server
+      - "9230:9230" # Debug bull worker
+    environment:
+      - MSSQL_CLI_SERVER=sql-server
+      - MSSQL_CLI_USER=SA
+      - MSSQL_CLI_PASSWORD=YourStrongPassw0rd
+      - MSSQL_CLI_TELEMETRY_OPTOUT=True
+      - SA_PASSWORD=YourStrongPassw0rd
+
+  sql-server:
+    build: docker/sql-server
+    ipc: host
+    volumes:
+      - sqlserverdata:/var/opt/mssql
+      - ./mssql-data:/var/opt/mssql-external
+    environment:
+      - ACCEPT_EULA=y
+      - SA_PASSWORD=YourStrongPassw0rd
+    ports:
+      - "1433:1433"
+
+  subversion:
+    build: docker/subversion
+    volumes:
+      - subversiondata:/home/svn
+    ports:
+      - "80:80"
+      - "3690:3690"
+
+  redis:
+    image: redis:4
+    ipc: host
+    ports:
+      - "6379:6379"
+
+  samba:
+    build: docker/samba
+    volumes:
+      - sambadata:/var/opt/samba
+    tmpfs:
+      - /tmp
+    restart: unless-stopped
+    tty: true
+
+  rest-endpoints:
+    build: docker/rest-endpoints
+    ports:
+      - "3070:3070"
+
+volumes:
+  devappdata:
+  devconfigdata:
+  sqlserverdata:
+  subversiondata:
+  sambadata:

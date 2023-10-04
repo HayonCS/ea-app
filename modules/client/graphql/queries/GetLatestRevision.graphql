@@ -1,0 +1,5 @@
+query GetLatestRevision($domain: Domain!, $where: TestPlanWhereNameInput!) {
+  testPlanLatestRevision(domain: $domain, where: $where) {
+    RevNumber
+  }
+}

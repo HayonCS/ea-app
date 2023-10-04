@@ -1,0 +1,169 @@
+{
+  "title": "UserInformation",
+  "type": "object",
+
+  "additionalProperties": false,
+  "properties": {
+    "employeeId": {
+      "type": "string"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "cellPhone": {
+      "type": "string"
+    },
+    "workPhone": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "locationId": {
+      "type": "number"
+    },
+    "shift": {
+      "type": "number"
+    },
+    "jobTitle": {
+      "type": "string"
+    },
+    "managerEmployeeId": {
+      "type": "string"
+    },
+    "level": {
+      "type": "integer"
+    },
+    "erphrLocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "locationId": {
+          "type": "number"
+        },
+        "locationCode": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "inventoryOrgCode": {
+          "type": "number"
+        },
+        "inventoryOrgId": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "locationId",
+        "locationCode",
+        "description",
+        "inventoryOrgCode",
+        "inventoryOrgId"
+      ]
+    },
+    "isManager": {
+      "type": "boolean"
+    },
+    "status": {
+      "type": "string"
+    },
+    "salaryType": {
+      "type": "string"
+    },
+    "employeeType": {
+      "type": "string"
+    },
+    "personType": {
+      "type": "string"
+    },
+    "payGroup": {
+      "type": "string"
+    },
+    "preferredLocale": {
+      "type": "string"
+    },
+    "preferredDisplayLang": {
+      "type": "string"
+    },
+    "preferredCurrency": {
+      "type": "string"
+    },
+    "primaryTimezone": {
+      "type": "string"
+    },
+    "fullTime": {
+      "type": "boolean"
+    },
+    "partTime": {
+      "type": "boolean"
+    },
+    "roles": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "distributionLists": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "isServiceAccount": {
+      "type": "boolean"
+    },
+    "pager": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "employeeId",
+    "firstName",
+    "lastName",
+    "username",
+    "email",
+    "cellPhone",
+    "workPhone",
+    "location",
+    "locationId",
+    "shift",
+    "jobTitle",
+    "managerEmployeeId",
+    "level",
+    "erphrLocation",
+    "isManager",
+    "status",
+    "salaryType",
+    "employeeType",
+    "personType",
+    "payGroup",
+    "preferredLocale",
+    "preferredDisplayLang",
+    "preferredCurrency",
+    "primaryTimezone",
+    "fullTime",
+    "partTime",
+    "roles",
+    "distributionLists",
+    "isServiceAccount",
+    "pager"
+  ]
+}

@@ -1,0 +1,6 @@
+mutation SaveUserSettings(
+  $where: UserIdWhereInput!
+  $userSettings: UserSettings!
+) {
+  saveUserSettings(where: $where, userSettings: $userSettings)
+}

@@ -1,0 +1,42 @@
+{
+    "Defaults": {
+        "ecStateCmd": "EcState",
+        "ecStateParam": "ecState"
+    },
+    "E0016083": {
+        "ecStateCmd": "EcState",
+        "ecStateParam": "ecState"
+    },
+    "E0016265": {
+        "ecStateCmd": "EcState",
+        "ecStateParam": "ecState"
+    },
+    "E0016284": {
+        "ecStateCmd": "EcState",
+        "ecStateParam": "ecState"
+    },
+    "E0016475": {
+        "ecStateCmd": "EcState",
+        "ecStateParam": "ecState"
+    },
+    "E0016615": {
+        "ecStateCmd": "IecState",
+        "ecStateParam": "iecState"
+    },
+    "E0018036": {
+        "ecStateCmd": "IecState",
+        "ecStateParam": "iecState"
+    },
+    "E0018056": {
+        "ecStateCmd": "IecState",
+        "ecStateParam": "iecState"
+    },
+    "E0018618": {
+        "ecStateCmd": "EcState",
+        "ecStateParam": "ecState"
+    },
+    "E0018665": {
+        "ecStateCmd": "EcState",
+        "ecStateParam": "ecState"
+    }
+}

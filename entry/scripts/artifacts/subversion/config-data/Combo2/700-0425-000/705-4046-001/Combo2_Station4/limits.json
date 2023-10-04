@@ -1,0 +1,454 @@
+{
+    "705-4046-001": [
+        {
+            "EcoNum": "Defaults",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW1_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW2_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW3_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "J1_Presence"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1e+101,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 8e+100,
+                    "MeasuredValue": 9.9e+100,
+                    "TagName": "S1_C"
+                }
+            ]
+        },
+        {
+            "EcoNum": "E0016083",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW1_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW2_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW3_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "J1_Presence"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1e+101,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 8e+100,
+                    "MeasuredValue": 9.9e+100,
+                    "TagName": "S1_C"
+                }
+            ]
+        },
+        {
+            "EcoNum": "E0016265",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW1_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW2_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW3_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "J1_Presence"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1e+101,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 8e+100,
+                    "MeasuredValue": 9.9e+100,
+                    "TagName": "S1_C"
+                }
+            ]
+        },
+        {
+            "EcoNum": "E0016284",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW1_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW2_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW3_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "J1_Presence"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1e+101,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 8e+100,
+                    "MeasuredValue": 9.9e+100,
+                    "TagName": "S1_C"
+                }
+            ]
+        },
+        {
+            "EcoNum": "E0016475",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW1_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW2_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW3_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "J1_Presence"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1e+101,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 8e+100,
+                    "MeasuredValue": 9.9e+100,
+                    "TagName": "S1_C"
+                }
+            ]
+        },
+        {
+            "EcoNum": "E0016615",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW1_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW2_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW3_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "J1_Presence"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1e+101,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 8e+100,
+                    "MeasuredValue": 9.9e+100,
+                    "TagName": "S1_C"
+                }
+            ]
+        },
+        {
+            "EcoNum": "E0018036",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW1_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW2_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW3_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "J1_Presence"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1e+101,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 8e+100,
+                    "MeasuredValue": 9.9e+100,
+                    "TagName": "S1_C"
+                }
+            ]
+        },
+        {
+            "EcoNum": "E0018056",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW1_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW2_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW3_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "J1_Presence"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1e+101,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 8e+100,
+                    "MeasuredValue": 9.9e+100,
+                    "TagName": "S1_C"
+                }
+            ]
+        },
+        {
+            "EcoNum": "E0018618",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW1_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW2_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW3_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "J1_Presence"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1e+101,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 8e+100,
+                    "MeasuredValue": 9.9e+100,
+                    "TagName": "S1_C"
+                }
+            ]
+        },
+        {
+            "EcoNum": "E0018665",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW1_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW2_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW3_C_R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "J1_Presence"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1e+101,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 8e+100,
+                    "MeasuredValue": 9.9e+100,
+                    "TagName": "S1_C"
+                }
+            ]
+        }
+    ]
+}

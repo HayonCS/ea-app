@@ -1,0 +1,13 @@
+mutation AnalyzeSavedTestPlan(
+  $testPlanName: String!
+  $domain: Domain!
+  $revision: Int!
+  $jobUuid: String!
+) {
+  analyzeSavedTestPlan(
+    testPlanName: $testPlanName
+    domain: $domain
+    revision: $revision
+    jobUuid: $jobUuid
+  )
+}

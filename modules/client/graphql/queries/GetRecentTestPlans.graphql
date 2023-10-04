@@ -1,0 +1,11 @@
+query GetRecentTestPlans($where: UserIdWhereInput!) {
+  recentTestPlans(where: $where) {
+    recentTestPlans {
+      testPlanName
+      revision
+      domain
+      lastModifiedUserName
+      lastModifiedDate
+    }
+  }
+}

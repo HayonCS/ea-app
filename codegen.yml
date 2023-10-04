@@ -1,0 +1,111 @@
+generates:
+  modules/client/graphql/types.gen.tsx:
+    config:
+      withHooks: true
+      withComponent: false
+      withHOC: false
+      apolloReactHooksImportFrom: "@apollo/client"
+      apolloClientVersion: 3
+    schema:
+      - "modules/graphql-api/schema.graphql"
+      - "modules/client/graphql/schema.graphql"
+    documents:
+      - "modules/client/graphql/*/*.graphql"
+    plugins:
+      - add:
+          content:
+            - 'import * as DateTimeIso from "core/date-time-iso";'
+            - 'import * as DateIso from "core/date-iso";'
+            - 'import * as TimeIso from "core/time-iso";'
+            - 'import { JobStatus, JobIdentifier, Job } from "core/schemas/jobs";'
+            - 'type ConfigurationDataLimitType = "SpecLimit"'
+            - 'import { TestPlanDocument } from "core/schemas/test-plan-document.gen";'
+            - 'import { TestPlanMetadata } from "core/schemas/test-plan-document";'
+            - 'import { TestPlanConfiguration } from "core/schemas/test-plan-configuration.gen";'
+            - 'import { TesterType } from "helpers/station-prefix";'
+            - 'import { UserSettings } from "core/schemas/user-settings.gen"'
+            - 'import { UserAppData } from "core/schemas/user-app-data.gen"'
+            - 'import { EmployeeInfo } from "records/user"'
+            - 'import { EmployeeInfoResponse } from "rest-endpoints/employee-directory/employee-directory"'
+      - "typescript":
+          scalars:
+            IsoDateTime: DateTimeIso.Type
+            IsoDate: DateIso.Type
+            IsoTime: TimeIso.Type
+            JobStatus: JobStatus
+            Job: Job
+            JobIdentifier: JobIdentifier
+            TestPlanDocument: TestPlanDocument
+            TestPlanMetadata: TestPlanMetadata
+            TestPlanConfiguration: TestPlanConfiguration
+            ConfigurationDataLimitType: ConfigurationDataLimitType
+            TesterType: TesterType
+            UserSettings: UserSettings
+            UserAppData: UserAppData
+            SavedUserRecord: EmployeeInfo
+            EmployeeInfoResponse: EmployeeInfoResponse
+      - "typescript-operations"
+      - "typescript-react-apollo"
+      - "typescript-resolvers":
+          contextType: context#ApiContext
+          defaultMapper: any
+        mappers:
+          ConfigurationDataGlobalVariable: "./resolvers/test-plan-configuration-data#MinimalConfigurationDataGlobalVariable"
+          ConfigurationDataLocalVariable: "./resolvers/test-plan-configuration-data#MinimalConfigurationDataLocalVariable"
+          PartNumberConfigurationData: "./resolvers/test-plan-configuration-data#MinimalPartNumberConfigurationData"
+          Revision: "./resolvers/test-plan#MinimalTestPlanRevision"
+          SpecLimit: "./resolvers/configuration-data-limit#MinimalSpecLimit"
+          StationConfigurationData: "./resolvers/test-plan-configuration-data#MinimalStationConfigurationData"
+          TestPlan: "./resolvers/test-plan#MinimalTestPlan"
+          TestPlanConfigurationData: "./resolvers/test-plan-configuration-data#MinimalTestPlanConfigurationData"
+          User: "./resolvers/user#MinimalUser"
+  modules/graphql-api/server-types.gen.ts:
+    schema:
+      - "modules/graphql-api/schema.graphql"
+    plugins:
+      - add:
+          content:
+            - 'import * as DateTimeIso from "core/date-time-iso";'
+            - 'import * as DateIso from "core/date-iso";'
+            - 'import * as TimeIso from "core/time-iso";'
+            - 'import { JobStatus, JobIdentifier, Job } from "core/schemas/jobs";'
+            - 'type ConfigurationDataLimitType = "SpecLimit"'
+            - 'import { TestPlanDocument } from "core/schemas/test-plan-document.gen";'
+            - 'import { TestPlanMetadata } from "core/schemas/test-plan-document";'
+            - 'import { TestPlanConfiguration } from "core/schemas/test-plan-configuration.gen";'
+            - 'import { TesterType } from "helpers/station-prefix";'
+      - "typescript":
+          scalars:
+            IsoDateTime: DateTimeIso.Type
+            IsoDate: DateIso.Type
+            IsoTime: TimeIso.Type
+            JobStatus: JobStatus
+            Job: Job
+            JobIdentifier: JobIdentifier
+            TestPlanDocument: TestPlanDocument
+            TestPlanMetadata: TestPlanMetadata
+            TestPlanConfiguration: TestPlanConfiguration
+            ConfigurationDataLimitType: ConfigurationDataLimitType
+            TesterType: TesterType
+      - "typescript-operations"
+      - "typescript-resolvers":
+          contextType: context#ApiContext
+          defaultMapper: any
+          mappers:
+            ConfigurationDataGlobalVariable: "./resolvers/test-plan-configuration-data#MinimalConfigurationDataGlobalVariable"
+            ConfigurationDataLocalVariable: "./resolvers/test-plan-configuration-data#MinimalConfigurationDataLocalVariable"
+            PartNumberConfigurationData: "./resolvers/test-plan-configuration-data#MinimalPartNumberConfigurationData"
+            Revision: "./resolvers/test-plan#MinimalTestPlanRevision"
+            SpecLimit: "./resolvers/configuration-data-limit#MinimalSpecLimit"
+            StationConfigurationData: "./resolvers/test-plan-configuration-data#MinimalStationConfigurationData"
+            TestPlan: "./resolvers/test-plan#MinimalTestPlan"
+            TestPlanConfigurationData: "./resolvers/test-plan-configuration-data#MinimalTestPlanConfigurationData"
+            User: "./resolvers/user#MinimalUser"
+  modules/client/graphql/introspection-result.gen.json:
+    schema:
+      - "modules/graphql-api/schema.graphql"
+      - "modules/client/graphql/schema.graphql"
+    plugins:
+      - "fragment-matcher":
+    config:
+      apolloClientVersion: 3

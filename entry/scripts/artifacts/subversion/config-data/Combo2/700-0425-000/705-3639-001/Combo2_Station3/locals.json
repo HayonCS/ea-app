@@ -1,0 +1,92 @@
+{
+    "Defaults": {
+        "crcBinary": "$B868F00C",
+        "crcScript": "$10903BD3",
+        "firmwareFrb": "316_0301.FRB",
+        "firmwareFrs": "301_F.FRS",
+        "firmwareSVNPath": "316-03xx/316-0301/316-0301-040001",
+        "firmwareSVNRev": "39979",
+        "hlSubPN": ""
+    },
+    "E0016083": {
+        "crcBinary": "$B868F00C",
+        "crcScript": "$10903BD3",
+        "firmwareFrb": "316_0301.FRB",
+        "firmwareFrs": "301_F.FRS",
+        "firmwareSVNPath": "316-03xx/316-0301/316-0301-040001",
+        "firmwareSVNRev": "39979",
+        "hlSubPN": ""
+    },
+    "E0016265": {
+        "crcBinary": "$B868F00C",
+        "crcScript": "$10903BD3",
+        "firmwareFrb": "316_0301.FRB",
+        "firmwareFrs": "301_F.FRS",
+        "firmwareSVNPath": "316-03xx/316-0301/316-0301-040001",
+        "firmwareSVNRev": "39979",
+        "hlSubPN": ""
+    },
+    "E0016284": {
+        "crcBinary": "$B868F00C",
+        "crcScript": "$10903BD3",
+        "firmwareFrb": "316_0301.FRB",
+        "firmwareFrs": "301_F.FRS",
+        "firmwareSVNPath": "316-03xx/316-0301/316-0301-040001",
+        "firmwareSVNRev": "39979",
+        "hlSubPN": ""
+    },
+    "E0016475": {
+        "crcBinary": "$B868F00C",
+        "crcScript": "$10903BD3",
+        "firmwareFrb": "316_0301.FRB",
+        "firmwareFrs": "301_F.FRS",
+        "firmwareSVNPath": "316-03xx/316-0301/316-0301-040001",
+        "firmwareSVNRev": "39979",
+        "hlSubPN": ""
+    },
+    "E0016615": {
+        "crcBinary": "$B868F00C",
+        "crcScript": "$10903BD3",
+        "firmwareFrb": "316_0301.FRB",
+        "firmwareFrs": "301_F.FRS",
+        "firmwareSVNPath": "316-03xx/316-0301/316-0301-040001",
+        "firmwareSVNRev": "39979",
+        "hlSubPN": ""
+    },
+    "E0018036": {
+        "crcBinary": "$B868F00C",
+        "crcScript": "$10903BD3",
+        "firmwareFrb": "316_0301.FRB",
+        "firmwareFrs": "301_F.FRS",
+        "firmwareSVNPath": "316-03xx/316-0301/316-0301-040001",
+        "firmwareSVNRev": "39979",
+        "hlSubPN": ""
+    },
+    "E0018056": {
+        "crcBinary": "$B868F00C",
+        "crcScript": "$10903BD3",
+        "firmwareFrb": "316_0301.FRB",
+        "firmwareFrs": "301_F.FRS",
+        "firmwareSVNPath": "316-03xx/316-0301/316-0301-040001",
+        "firmwareSVNRev": "39979",
+        "hlSubPN": ""
+    },
+    "E0018618": {
+        "crcBinary": "$B868F00C",
+        "crcScript": "$10903BD3",
+        "firmwareFrb": "316_0301.FRB",
+        "firmwareFrs": "301_F.FRS",
+        "firmwareSVNPath": "316-03xx/316-0301/316-0301-040001",
+        "firmwareSVNRev": "39979",
+        "hlSubPN": ""
+    },
+    "E0018665": {
+        "crcBinary": "$B868F00C",
+        "crcScript": "$10903BD3",
+        "firmwareFrb": "316_0301.FRB",
+        "firmwareFrs": "301_F.FRS",
+        "firmwareSVNPath": "316-03xx/316-0301/316-0301-040001",
+        "firmwareSVNRev": "39979",
+        "hlSubPN": ""
+    }
+}

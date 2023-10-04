@@ -1,0 +1,11 @@
+query GetServerInfo {
+  serverInfo {
+    endpoint
+    authType
+    prodDatabaseServer
+    prodDatabaseName
+    engDatabaseServer
+    engDatabaseName
+    configLocation
+  }
+}

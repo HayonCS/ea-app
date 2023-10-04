@@ -1,0 +1,3 @@
+query GetJobStatus($jobIdentifiers: [JobIdentifier!]!) {
+  jobStatus(jobIdentifiers: $jobIdentifiers)
+}

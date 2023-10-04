@@ -1,0 +1,1310 @@
+{
+    "705-4981-001": [
+        {
+            "EcoNum": "Defaults",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 14.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 12.65,
+                    "MeasuredValue": 13.7,
+                    "TagName": "12UnV_13p8"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 16.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 14.5,
+                    "MeasuredValue": 16.0,
+                    "TagName": "12UnV_16p0"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 9.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 7.9,
+                    "MeasuredValue": 8.45,
+                    "TagName": "12UnV_9p0"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 3.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 2.0,
+                    "MeasuredValue": 2.9,
+                    "TagName": "BKLT_Max"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.85,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.05,
+                    "MeasuredValue": 0.0,
+                    "TagName": "BKLT_Min"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 90000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_HL_LEDs"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.015,
+                    "MeasuredValue": 0.15,
+                    "TagName": "ClCur_13p8"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.15,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.05,
+                    "MeasuredValue": 0.07,
+                    "TagName": "ClearCur_9p0"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.35,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.225,
+                    "MeasuredValue": 0.28,
+                    "TagName": "CurD_13p8"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.425,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.25,
+                    "MeasuredValue": 0.4,
+                    "TagName": "CurD_16p0"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.4,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.25,
+                    "MeasuredValue": 0.3,
+                    "TagName": "CurD_9p0"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.1,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D3_Off"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D43g_GRG"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D43g_GRG_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 10.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.5,
+                    "MeasuredValue": 2.0,
+                    "TagName": "D43r_GRG"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 10.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.5,
+                    "MeasuredValue": 2.0,
+                    "TagName": "D43r_GRG_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.02,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.01,
+                    "TagName": "D43r_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 25000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 2000.0,
+                    "MeasuredValue": 12500.0,
+                    "TagName": "D43r_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 101.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 84.0,
+                    "MeasuredValue": 90.0,
+                    "TagName": "D43r_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D43r_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D43r_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.5,
+                    "MeasuredValue": 2.0,
+                    "TagName": "D44g_GRG"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.5,
+                    "MeasuredValue": 2.0,
+                    "TagName": "D44g_GRG_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.319,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.208,
+                    "MeasuredValue": 0.27,
+                    "TagName": "D44g_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 20000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 400.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "D44g_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 101.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 84.0,
+                    "MeasuredValue": 95.0,
+                    "TagName": "D44g_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D44g_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D44g_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D44r_GRG"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D44r_GRG_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.5,
+                    "MeasuredValue": 2.0,
+                    "TagName": "D45g_GRG"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.5,
+                    "MeasuredValue": 2.0,
+                    "TagName": "D45g_GRG_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.319,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.18,
+                    "MeasuredValue": 0.27,
+                    "TagName": "D45g_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 20000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 400.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "D45g_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 101.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 84.0,
+                    "MeasuredValue": 95.0,
+                    "TagName": "D45g_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D45g_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D45g_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D45r_GRG"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D45r_GRG_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 3.9,
+                    "MeasuredValue": 4.8,
+                    "TagName": "ECLED_Max"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.85,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.05,
+                    "MeasuredValue": 0.0,
+                    "TagName": "ECLED_Min"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.15,
+                    "TagName": "IEC_CV13p8"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.28,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.11,
+                    "MeasuredValue": 1.21,
+                    "TagName": "IEC_DV13p8"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.28,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.11,
+                    "MeasuredValue": 1.21,
+                    "TagName": "IEC_DV16p0"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.13,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.96,
+                    "MeasuredValue": 1.05,
+                    "TagName": "IEC_DV9p0"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.15,
+                    "TagName": "IEC_ShntCur"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.28,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.4,
+                    "MeasuredValue": 1.2,
+                    "TagName": "IEC_UnClr1"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.35,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.1,
+                    "MeasuredValue": 1.15,
+                    "TagName": "IEC_UnLoad"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 14.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 12.8,
+                    "MeasuredValue": 13.8,
+                    "TagName": "IgnV_13p8"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 16.4,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 15.3,
+                    "MeasuredValue": 16.0,
+                    "TagName": "Ignition_16p0"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 10.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 8.5,
+                    "MeasuredValue": 9.0,
+                    "TagName": "Ignition_9p0"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.0,
+                    "TagName": "OEC_CV13p8"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.3,
+                    "MeasuredValue": 1.4,
+                    "TagName": "OEC_DIV_V"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.47,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.3,
+                    "MeasuredValue": 1.4,
+                    "TagName": "OEC_DV13p8"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.47,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.3,
+                    "MeasuredValue": 1.4,
+                    "TagName": "OEC_DV16p0"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.32,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.15,
+                    "MeasuredValue": 1.25,
+                    "TagName": "OEC_DV9p0"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.15,
+                    "TagName": "OEC_ShntCur"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.47,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.35,
+                    "MeasuredValue": 1.4,
+                    "TagName": "OEC_UnClr1"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.45,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.35,
+                    "MeasuredValue": 1.4,
+                    "TagName": "OEC_UnLoad"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 90000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "ParameterSuccess"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 10.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 5.0,
+                    "TagName": "Q31b_Delta"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 10.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 10.0,
+                    "MeasuredValue": 10.15,
+                    "TagName": "Q31b_Off"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 10.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 9.4,
+                    "MeasuredValue": 9.75,
+                    "TagName": "Q31b_On"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 18.8,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 3.3,
+                    "MeasuredValue": 9.5,
+                    "TagName": "Q32a_Delta"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 9.6,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 8.8,
+                    "MeasuredValue": 9.25,
+                    "TagName": "Q32a_Off"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 8.79,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 7.8,
+                    "MeasuredValue": 8.3,
+                    "TagName": "Q32a_On"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 15.6,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 9.5,
+                    "TagName": "Q33b_Delta"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 9.6,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 8.8,
+                    "MeasuredValue": 9.25,
+                    "TagName": "Q33b_Off"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 8.9,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 8.1,
+                    "MeasuredValue": 8.386,
+                    "TagName": "Q33b_On"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 101.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 93.3,
+                    "MeasuredValue": 98.75,
+                    "TagName": "Q6a_Delta"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 7.3,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 6.3,
+                    "MeasuredValue": 6.8,
+                    "TagName": "Q6a_Off"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.12,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Q6a_On"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.23,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.015,
+                    "MeasuredValue": 0.15,
+                    "TagName": "REV_ClrCur"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.0,
+                    "TagName": "REV_ClrIEC"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.0,
+                    "TagName": "REV_ClrOEC"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 4981.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4981.0,
+                    "MeasuredValue": 4981.0,
+                    "TagName": "SA_PartNum"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.05,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.03,
+                    "MeasuredValue": 0.04,
+                    "TagName": "SS7Cur_13p8"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.35,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.225,
+                    "MeasuredValue": 0.28,
+                    "TagName": "UnClrCur1"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 5.0,
+                    "TagName": "Vdd_13p8"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 5.0,
+                    "TagName": "Vdd_16p0"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 5.0,
+                    "TagName": "Vdd_9p0"
+                }
+            ]
+        },
+        {
+            "EcoNum": "Defaults-COPY",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 14.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 12.65,
+                    "MeasuredValue": 13.7,
+                    "TagName": "12UnV_13p8"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 16.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 14.5,
+                    "MeasuredValue": 16.0,
+                    "TagName": "12UnV_16p0"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 9.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 7.9,
+                    "MeasuredValue": 8.45,
+                    "TagName": "12UnV_9p0"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 3.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 2.0,
+                    "MeasuredValue": 2.9,
+                    "TagName": "BKLT_Max"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.85,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.05,
+                    "MeasuredValue": 0.0,
+                    "TagName": "BKLT_Min"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 90000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_HL_LEDs"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.015,
+                    "MeasuredValue": 0.15,
+                    "TagName": "ClCur_13p8"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.15,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.05,
+                    "MeasuredValue": 0.07,
+                    "TagName": "ClearCur_9p0"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.35,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.225,
+                    "MeasuredValue": 0.28,
+                    "TagName": "CurD_13p8"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.425,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.25,
+                    "MeasuredValue": 0.4,
+                    "TagName": "CurD_16p0"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.4,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.25,
+                    "MeasuredValue": 0.3,
+                    "TagName": "CurD_9p0"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.1,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D3_Off"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D43g_GRG"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D43g_GRG_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 10.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.5,
+                    "MeasuredValue": 2.0,
+                    "TagName": "D43r_GRG"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 10.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.5,
+                    "MeasuredValue": 2.0,
+                    "TagName": "D43r_GRG_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.02,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.01,
+                    "TagName": "D43r_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 25000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 2000.0,
+                    "MeasuredValue": 12500.0,
+                    "TagName": "D43r_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 101.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 84.0,
+                    "MeasuredValue": 90.0,
+                    "TagName": "D43r_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D43r_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D43r_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.5,
+                    "MeasuredValue": 2.0,
+                    "TagName": "D44g_GRG"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.5,
+                    "MeasuredValue": 2.0,
+                    "TagName": "D44g_GRG_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.319,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.208,
+                    "MeasuredValue": 0.27,
+                    "TagName": "D44g_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 20000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 400.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "D44g_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 101.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 84.0,
+                    "MeasuredValue": 95.0,
+                    "TagName": "D44g_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D44g_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D44g_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D44r_GRG"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D44r_GRG_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.5,
+                    "MeasuredValue": 2.0,
+                    "TagName": "D45g_GRG"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.5,
+                    "MeasuredValue": 2.0,
+                    "TagName": "D45g_GRG_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.319,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.18,
+                    "MeasuredValue": 0.27,
+                    "TagName": "D45g_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 20000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 400.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "D45g_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 101.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 84.0,
+                    "MeasuredValue": 95.0,
+                    "TagName": "D45g_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D45g_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D45g_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D45r_GRG"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D45r_GRG_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 3.9,
+                    "MeasuredValue": 4.8,
+                    "TagName": "ECLED_Max"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.85,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.05,
+                    "MeasuredValue": 0.0,
+                    "TagName": "ECLED_Min"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.15,
+                    "TagName": "IEC_CV13p8"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.28,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.11,
+                    "MeasuredValue": 1.21,
+                    "TagName": "IEC_DV13p8"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.28,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.11,
+                    "MeasuredValue": 1.21,
+                    "TagName": "IEC_DV16p0"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.13,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.96,
+                    "MeasuredValue": 1.05,
+                    "TagName": "IEC_DV9p0"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.15,
+                    "TagName": "IEC_ShntCur"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.28,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.4,
+                    "MeasuredValue": 1.2,
+                    "TagName": "IEC_UnClr1"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.35,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.1,
+                    "MeasuredValue": 1.15,
+                    "TagName": "IEC_UnLoad"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 14.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 12.8,
+                    "MeasuredValue": 13.8,
+                    "TagName": "IgnV_13p8"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 16.4,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 15.3,
+                    "MeasuredValue": 16.0,
+                    "TagName": "Ignition_16p0"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 10.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 8.5,
+                    "MeasuredValue": 9.0,
+                    "TagName": "Ignition_9p0"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.0,
+                    "TagName": "OEC_CV13p8"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.3,
+                    "MeasuredValue": 1.4,
+                    "TagName": "OEC_DIV_V"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.47,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.3,
+                    "MeasuredValue": 1.4,
+                    "TagName": "OEC_DV13p8"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.47,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.3,
+                    "MeasuredValue": 1.4,
+                    "TagName": "OEC_DV16p0"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.32,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.15,
+                    "MeasuredValue": 1.25,
+                    "TagName": "OEC_DV9p0"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.15,
+                    "TagName": "OEC_ShntCur"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.47,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.35,
+                    "MeasuredValue": 1.4,
+                    "TagName": "OEC_UnClr1"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.45,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.35,
+                    "MeasuredValue": 1.4,
+                    "TagName": "OEC_UnLoad"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 90000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "ParameterSuccess"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 10.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 5.0,
+                    "TagName": "Q31b_Delta"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 10.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 10.0,
+                    "MeasuredValue": 10.15,
+                    "TagName": "Q31b_Off"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 10.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 9.4,
+                    "MeasuredValue": 9.75,
+                    "TagName": "Q31b_On"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 18.8,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 3.3,
+                    "MeasuredValue": 9.5,
+                    "TagName": "Q32a_Delta"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 9.6,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 8.8,
+                    "MeasuredValue": 9.25,
+                    "TagName": "Q32a_Off"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 8.79,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 7.8,
+                    "MeasuredValue": 8.3,
+                    "TagName": "Q32a_On"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 15.6,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 9.5,
+                    "TagName": "Q33b_Delta"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 9.6,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 8.8,
+                    "MeasuredValue": 9.25,
+                    "TagName": "Q33b_Off"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 8.9,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 8.1,
+                    "MeasuredValue": 8.386,
+                    "TagName": "Q33b_On"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 101.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 93.3,
+                    "MeasuredValue": 98.75,
+                    "TagName": "Q6a_Delta"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 7.3,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 6.3,
+                    "MeasuredValue": 6.8,
+                    "TagName": "Q6a_Off"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.12,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Q6a_On"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.23,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.015,
+                    "MeasuredValue": 0.15,
+                    "TagName": "REV_ClrCur"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.0,
+                    "TagName": "REV_ClrIEC"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.1,
+                    "MeasuredValue": 0.0,
+                    "TagName": "REV_ClrOEC"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 4981.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4981.0,
+                    "MeasuredValue": 4981.0,
+                    "TagName": "SA_PartNum"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.05,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.03,
+                    "MeasuredValue": 0.04,
+                    "TagName": "SS7Cur_13p8"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.35,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.225,
+                    "MeasuredValue": 0.28,
+                    "TagName": "UnClrCur1"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 5.0,
+                    "TagName": "Vdd_13p8"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 5.0,
+                    "TagName": "Vdd_16p0"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 5.0,
+                    "TagName": "Vdd_9p0"
+                }
+            ]
+        }
+    ]
+}

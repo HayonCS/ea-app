@@ -1,0 +1,50 @@
+mutation UpdateTestStation($message: TestStationMessageInput!) {
+  updateTestStation(message: $message) {
+    type
+    webId
+    computerName
+    stationName
+    itemResults {
+      id
+      state
+      time
+      values {
+        name
+        value
+      }
+      errors
+      logs {
+        index
+        msg
+      }
+    }
+
+    state {
+      isUp
+      phase
+      errorMessage
+      phase
+      executionId
+    }
+    assignment {
+      testplan
+      revision
+      station
+      partNumber
+      code
+      executableIds
+      port_start
+      port_end
+    }
+    executeResults {
+      lines
+      extended
+      dumps
+      formattedResults
+      logMessage
+      time
+      label
+      payload
+    }
+  }
+}

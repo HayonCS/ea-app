@@ -1,0 +1,44 @@
+{
+  "definitions": {
+    "TestPlanConfigurationData": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "globals": {
+          "anyOf": [
+            { "$ref": "internal:configuration-data-variable-map" },
+            { "type": "null" }
+          ]
+        },
+        "stations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StationConfigurationData"
+          }
+        }
+      },
+      "required": ["name", "globals", "stations"],
+      "additionalProperties": false
+    },
+    "StationConfigurationData": {
+      "type": "object",
+      "properties": {
+        "stationName": { "type": "string" },
+        "locals": {
+          "anyOf": [
+            { "$ref": "internal:configuration-data-variable-map" },
+            { "type": "null" }
+          ]
+        },
+        "limits": {
+          "anyOf": [
+            { "$ref": "internal:configuration-data-limits" },
+            { "type": "null" }
+          ]
+        }
+      },
+      "required": ["stationName", "locals", "limits"],
+      "additionalProperties": false
+    }
+  }
+}

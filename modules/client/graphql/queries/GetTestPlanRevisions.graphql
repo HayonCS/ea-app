@@ -1,0 +1,11 @@
+query GetTestPlanRevisions($domain: Domain!, $where: TestPlanWhereInput!) {
+  testPlanRevisions(domain: $domain, where: $where) {
+    revs {
+      RevNumber
+      LastEditor
+      LastEdit
+      RevLabel
+      LogMessage
+    }
+  }
+}

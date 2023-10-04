@@ -1,0 +1,206 @@
+{
+    "705-2793-001": [
+        {
+            "EcoNum": "Defaults",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 500.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "EC_SW_Closed"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 200.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW1_Closed"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 200.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW2_Closed"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 200.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW3_Closed"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 16.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 14.0,
+                    "MeasuredValue": 15.0,
+                    "TagName": "J1"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 8.8,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 7.4,
+                    "MeasuredValue": 8.1,
+                    "TagName": "Q1_Off"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.03,
+                    "TagName": "Q1_On"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 8.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 7.5,
+                    "MeasuredValue": 8.0,
+                    "TagName": "Q2_Off"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 7.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 6.5,
+                    "MeasuredValue": 7.0,
+                    "TagName": "Q2_On"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 11.5,
+                    "MeasuredValue": 12.0,
+                    "TagName": "St4_Ign12"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 11.5,
+                    "MeasuredValue": 12.0,
+                    "TagName": "St4_Ign12_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 500.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "~IconInt"
+                }
+            ]
+        },
+        {
+            "EcoNum": "Defaults-COPY",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 500.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "EC_SW_Closed"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 200.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW1_Closed"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 200.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW2_Closed"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 200.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 25.0,
+                    "TagName": "HL_SW3_Closed"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 16.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 14.0,
+                    "MeasuredValue": 15.0,
+                    "TagName": "J1"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 8.8,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 7.4,
+                    "MeasuredValue": 8.1,
+                    "TagName": "Q1_Off"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.03,
+                    "TagName": "Q1_On"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 8.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 7.5,
+                    "MeasuredValue": 8.0,
+                    "TagName": "Q2_Off"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 7.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 6.5,
+                    "MeasuredValue": 7.0,
+                    "TagName": "Q2_On"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 11.5,
+                    "MeasuredValue": 12.0,
+                    "TagName": "St4_Ign12"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 11.5,
+                    "MeasuredValue": 12.0,
+                    "TagName": "St4_Ign12_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 500.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "~IconInt"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "Defaults": {
+        "allSegmentsInspection": "",
+        "displayFilmInspection": "",
+        "evenSegmentsInspection": "",
+        "oddSegmentsInspection": "",
+        "zeroSegmentsInspection": ""
+    },
+    "Defaults-COPY": {
+        "allSegmentsInspection": "",
+        "displayFilmInspection": "",
+        "evenSegmentsInspection": "",
+        "oddSegmentsInspection": "",
+        "zeroSegmentsInspection": ""
+    }
+}

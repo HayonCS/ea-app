@@ -1,0 +1,17 @@
+query GetStationWatchers {
+  stationWatchers {
+    webId
+    operation
+    info {
+      computerName
+      database
+      testerVersion
+      transport
+    }
+    state {
+      numberOfStations
+      numberOfStationsRunning
+      lastSeen
+    }
+  }
+}

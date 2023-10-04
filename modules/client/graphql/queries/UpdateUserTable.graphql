@@ -1,0 +1,57 @@
+mutation UpdateUserTable(
+  $employeeNumber: String!
+  $firstName: String!
+  $lastName: String!
+  $username: String!
+  $email: String!
+  $cellPhone: String!
+  $workPhone: String!
+  $location: String!
+  $locationId: String!
+  $shift: String!
+  $jobTitle: String!
+  $managerEmployeeNumber: String!
+  $level: Int!
+  $erphrLocation: Object!
+  $isManager: Boolean!
+  $status: String!
+  $salaryType: String!
+  $employeeType: String!
+  $personType: String!
+  $payGroup: String!
+  $preferredLocale: String!
+  $preferredDisplayLang: String!
+  $preferredCurrency: String!
+  $primaryTimezone: String!
+  $fullTime: Boolean!
+  $partTime: Boolean!
+) {
+  updateUserTable(
+    employeeNumber: $employeeNumber
+    firstName: $firstName
+    lastName: $lastName
+    username: $username
+    email: $email
+    cellPhone: $cellPhone
+    workPhone: $workPhone
+    location: $location
+    locationId: $locationId
+    shift: $shift
+    jobTitle: $jobTitle
+    managerEmployeeNumber: $managerEmployeeNumber
+    level: $level
+    erphrLocation: $erphrLocation
+    isManager: $isManager
+    status: $status
+    salaryType: $salaryType
+    employeeType: $employeeType
+    personType: $personType
+    payGroup: $payGroup
+    preferredLocale: $preferredLocale
+    preferredDisplayLang: $preferredDisplayLang
+    preferredCurrency: $preferredCurrency
+    primaryTimezone: $primaryTimezone
+    fullTime: $fullTime
+    partTime: $partTime
+  )
+}

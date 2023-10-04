@@ -1,0 +1,10 @@
+query GetTestPlans($domain: Domain!, $where: TestPlanWhereInput) {
+  testPlans(domain: $domain, where: $where) {
+    id
+    name
+    revision {
+      label
+      revisionNumber
+    }
+  }
+}

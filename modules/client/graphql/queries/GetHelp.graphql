@@ -1,0 +1,11 @@
+query GetHelp($context: HelpInfoContext!) {
+  helpInformation(context: $context) {
+    key 
+    titleText
+    body {
+      helpType
+      title
+      text 
+    }
+  } 
+}  

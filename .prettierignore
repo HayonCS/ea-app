@@ -1,0 +1,4 @@
+**/*.gen.ts
+**/*.gen.tsx
+**/*.gen.json
+load-text-testplan.ts

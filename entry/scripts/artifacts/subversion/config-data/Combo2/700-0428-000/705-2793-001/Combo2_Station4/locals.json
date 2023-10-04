@@ -1,0 +1,18 @@
+{
+    "Defaults": {
+        "firmwareBinaryCrc": "$C8E2DCB7",
+        "firmwareFrbName": "140829.FRB",
+        "firmwareFrsName": "140829_S.FRS",
+        "firmwareScriptCrc": "$605D6FF7",
+        "firmwareSvnPath": "http://vcs.gentex.com/svn/embedded_sw/Approved_Releases/316/316-05xx/316-0559/Release_Artifacts_140829/316-0559-140829",
+        "firmwareSvnRevision": "336742"
+    },
+    "Defaults-COPY": {
+        "firmwareBinaryCrc": "$C8E2DCB7",
+        "firmwareFrbName": "140829.FRB",
+        "firmwareFrsName": "140829_S.FRS",
+        "firmwareScriptCrc": "$605D6FF7",
+        "firmwareSvnPath": "http://vcs.gentex.com/svn/embedded_sw/Approved_Releases/316/316-05xx/316-0559/Release_Artifacts_140829/316-0559-140829",
+        "firmwareSvnRevision": "336742"
+    }
+}

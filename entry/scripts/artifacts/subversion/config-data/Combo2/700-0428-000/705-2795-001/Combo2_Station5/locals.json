@@ -1,0 +1,16 @@
+{
+    "Defaults": {
+        "allSegmentsInspection": "700-0428_St5_DispGreen_AllSeg.xml",
+        "displayFilmInspection": "700-0428_St5_DispGreen_DetectDisplayFilm.xml",
+        "evenSegmentsInspection": "700-0428_St5_DispGreen_EvenSeg.xml",
+        "oddSegmentsInspection": "700-0428_St5_DispGreen_OddSeg.xml",
+        "zeroSegmentsInspection": "700-0428_St5_DispGreen_NoSeg.xml"
+    },
+    "Defaults-COPY": {
+        "allSegmentsInspection": "700-0428_St5_DispGreen_AllSeg.xml",
+        "displayFilmInspection": "700-0428_St5_DispGreen_DetectDisplayFilm.xml",
+        "evenSegmentsInspection": "700-0428_St5_DispGreen_EvenSeg.xml",
+        "oddSegmentsInspection": "700-0428_St5_DispGreen_OddSeg.xml",
+        "zeroSegmentsInspection": "700-0428_St5_DispGreen_NoSeg.xml"
+    }
+}

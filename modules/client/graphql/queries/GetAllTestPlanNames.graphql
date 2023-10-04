@@ -1,0 +1,7 @@
+query GetAllTestPlanNames($domain: Domain!, $includeHidden: Boolean!) {
+  testPlanLibrary(domain: $domain, includeHidden: $includeHidden) {
+    testPlanLib {
+      PlanTitle
+    }
+  }
+}

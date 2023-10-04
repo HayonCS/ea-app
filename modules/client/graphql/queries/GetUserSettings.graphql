@@ -1,0 +1,3 @@
+query GetUserSettings($where: UserIdWhereInput!) {
+  getUserSettings(where: $where)
+}

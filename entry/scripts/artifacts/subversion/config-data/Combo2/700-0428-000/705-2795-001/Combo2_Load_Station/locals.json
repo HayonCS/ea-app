@@ -1,0 +1,10 @@
+{
+    "Defaults": {
+        "elastomerPartNumber": "161-0180-000",
+        "elastomerPartNumberCheckInterval": ""
+    },
+    "Defaults-COPY": {
+        "elastomerPartNumber": "161-0180-000",
+        "elastomerPartNumberCheckInterval": ""
+    }
+}

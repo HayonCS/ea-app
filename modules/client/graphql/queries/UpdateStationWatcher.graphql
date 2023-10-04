@@ -1,0 +1,22 @@
+mutation UpdateStationWatcher($message: StationWatcherMessageInput!) {
+  updateStationWatcher(message: $message) {
+    operation
+    webId
+    info {
+      computerName
+      database
+      testerVersion
+      transport
+    }
+    state {
+      numberOfStationsRunning
+      numberOfStations
+      lastSeen
+    }
+    result {
+      legacyReturnCode
+      legacyReturnText
+      stationsClosed
+    }
+  }
+}

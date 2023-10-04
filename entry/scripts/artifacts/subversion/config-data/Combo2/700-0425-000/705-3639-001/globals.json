@@ -1,0 +1,112 @@
+{
+    "Defaults": {
+        "ecReleaseStatus": "",
+        "hlMemoryMapPN": "305-0971-000",
+        "hlMemoryMapRev": "AAC",
+        "hlSubAssemblyPN": "705-3914-001",
+        "memoryMapPN": "305-0662-000",
+        "memoryMapRev": "AAK",
+        "opsManagerPullup": "1.5k",
+        "series": "2060",
+        "unlockCmd": "EnableDiagnosticMessages"
+    },
+    "E0016083": {
+        "ecReleaseStatus": "",
+        "hlMemoryMapPN": "305-0971-000",
+        "hlMemoryMapRev": "AAC",
+        "hlSubAssemblyPN": "705-3914-001",
+        "memoryMapPN": "305-0662-000",
+        "memoryMapRev": "AAK",
+        "opsManagerPullup": "1.5k",
+        "series": "2060",
+        "unlockCmd": "EnableDiagnosticMessages"
+    },
+    "E0016265": {
+        "ecReleaseStatus": "",
+        "hlMemoryMapPN": "305-0971-000",
+        "hlMemoryMapRev": "AAC",
+        "hlSubAssemblyPN": "705-3914-001",
+        "memoryMapPN": "305-0662-000",
+        "memoryMapRev": "AAK",
+        "opsManagerPullup": "1.5k",
+        "series": "2060",
+        "unlockCmd": "EnableDiagnosticMessages"
+    },
+    "E0016284": {
+        "ecReleaseStatus": "",
+        "hlMemoryMapPN": "305-0971-000",
+        "hlMemoryMapRev": "AAC",
+        "hlSubAssemblyPN": "705-3914-001",
+        "memoryMapPN": "305-0662-000",
+        "memoryMapRev": "AAK",
+        "opsManagerPullup": "1.5k",
+        "series": "2060",
+        "unlockCmd": "EnableDiagnosticMessages"
+    },
+    "E0016475": {
+        "ecReleaseStatus": "",
+        "hlMemoryMapPN": "305-0971-000",
+        "hlMemoryMapRev": "AAC",
+        "hlSubAssemblyPN": "705-3914-001",
+        "memoryMapPN": "305-0662-000",
+        "memoryMapRev": "AAK",
+        "opsManagerPullup": "1.5k",
+        "series": "2060",
+        "unlockCmd": "EnableDiagnosticMessages"
+    },
+    "E0016615": {
+        "ecReleaseStatus": "",
+        "hlMemoryMapPN": "305-0971-000",
+        "hlMemoryMapRev": "AAC",
+        "hlSubAssemblyPN": "705-3914-001",
+        "memoryMapPN": "305-0662-000",
+        "memoryMapRev": "AAK",
+        "opsManagerPullup": "1.5k",
+        "series": "2060",
+        "unlockCmd": "EnableDiagnosticMessages"
+    },
+    "E0018036": {
+        "ecReleaseStatus": "false",
+        "hlMemoryMapPN": "305-0971-000",
+        "hlMemoryMapRev": "AAC",
+        "hlSubAssemblyPN": "705-3914-001",
+        "memoryMapPN": "305-0662-000",
+        "memoryMapRev": "AAK",
+        "opsManagerPullup": "1.5k",
+        "series": "2060",
+        "unlockCmd": "EnableDiagnosticMessages"
+    },
+    "E0018056": {
+        "ecReleaseStatus": "false",
+        "hlMemoryMapPN": "305-0971-000",
+        "hlMemoryMapRev": "AAC",
+        "hlSubAssemblyPN": "705-3914-001",
+        "memoryMapPN": "305-0662-000",
+        "memoryMapRev": "AAK",
+        "opsManagerPullup": "1.5k",
+        "series": "2060",
+        "unlockCmd": "EnableDiagnosticMessages"
+    },
+    "E0018618": {
+        "ecReleaseStatus": "",
+        "hlMemoryMapPN": "305-0971-000",
+        "hlMemoryMapRev": "AAC",
+        "hlSubAssemblyPN": "705-3914-001",
+        "memoryMapPN": "305-0662-000",
+        "memoryMapRev": "AAK",
+        "opsManagerPullup": "1.5k",
+        "series": "2060",
+        "unlockCmd": "EnableDiagnosticMessages"
+    },
+    "E0018665": {
+        "ecReleaseStatus": "",
+        "hlMemoryMapPN": "305-0971-000",
+        "hlMemoryMapRev": "AAC",
+        "hlSubAssemblyPN": "705-3914-001",
+        "memoryMapPN": "305-0662-000",
+        "memoryMapRev": "AAK",
+        "opsManagerPullup": "1.5k",
+        "series": "2060",
+        "unlockCmd": "EnableDiagnosticMessages"
+    }
+}

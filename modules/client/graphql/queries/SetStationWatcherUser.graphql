@@ -1,0 +1,5 @@
+mutation SetStationWatcherUser($userName: String!, $computerName: String!) {
+  setStationWatcherUser(userName: $userName, computerName: $computerName) {
+    computerName
+  }
+}

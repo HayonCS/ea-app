@@ -1,0 +1,28 @@
+{
+    "Defaults": {
+        "homelinkOpsManagerPartNumber": "305-0681-001",
+        "homelinkOpsManagerRevision": "AAD",
+        "homelinkOpsManagerSubAssemblyPartNumber": "705-2901-001",
+        "homelinkOpsManagerVersion": "1",
+        "localExportDirectory": "C:/Tester/%station%/",
+        "opsManagerPartNumber": "305-0998-000",
+        "opsManagerRevision": "AAA",
+        "opsManagerSubAssemblyPartNumber": "%partnumber%",
+        "opsManagerVersion": "1",
+        "series": "2040",
+        "station": "%station%"
+    },
+    "Defaults-COPY": {
+        "homelinkOpsManagerPartNumber": "305-0681-001",
+        "homelinkOpsManagerRevision": "AAD",
+        "homelinkOpsManagerSubAssemblyPartNumber": "705-2901-001",
+        "homelinkOpsManagerVersion": "1",
+        "localExportDirectory": "C:/Tester/%station%/",
+        "opsManagerPartNumber": "305-0998-000",
+        "opsManagerRevision": "AAA",
+        "opsManagerSubAssemblyPartNumber": "%partnumber%",
+        "opsManagerVersion": "1",
+        "series": "2040",
+        "station": "%station%"
+    }
+}

@@ -1,0 +1,5 @@
+query GetUserPicture($employeeId: String!) {
+  userPicture(employeeId: $employeeId) {
+    picturePath
+  }
+}

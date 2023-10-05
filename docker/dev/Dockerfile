@@ -29,10 +29,6 @@ RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && rm "node-v$NODE_VERSION-linux-$ARCH.tar.xz" \
   && ln -s /usr/local/bin/node /usr/local/bin/nodejs
 
-RUN curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
-
-# RUN nvm install 18.17.0
-
 ENV YARN_VERSION 1.22.19
 
 RUN set -ex \ 
@@ -63,7 +59,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 # We were having issues installing mssql-cli with apt-get so we are using pip for now
 # https://github.com/dbcli/mssql-cli/issues/456
 RUN apt-get update & apt-get install -y libunwind8 python3-pip
-RUN apt-get install -y libicu60 2> /dev/null || apt-get install -y libicu57 2> /dev/null || apt-get install -y libicu55 2> /dev/null || apt-get install -y libicu55 2> /dev/null || apt-get install -y libicu52
+# RUN apt-get install -y libicu60 2> /dev/null || apt-get install -y libicu57 2> /dev/null || apt-get install -y libicu55 2> /dev/null || apt-get install -y libicu55 2> /dev/null || apt-get install -y libicu52
 RUN pip install mssql-cli
 
 # VSCode Live Share dependencies

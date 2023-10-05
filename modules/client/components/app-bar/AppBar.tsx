@@ -103,7 +103,7 @@ export const AppBarMenu: React.FC<{}> = () => {
   const location = useLocation();
 
   // const assetListRedux = useSelector(Selectors.App.assetList);
-  // const currentUserRedux = useSelector(Selectors.App.currentUserInfo);
+  const currentUserRedux = useSelector(Selectors.App.currentUserInfo);
   // const currentUserTeamRedux = useSelector(Selectors.App.currentUserTeamInfo);
   // const currentUserAppDataRedux = useSelector(Selectors.App.currentUserAppData);
 
@@ -138,17 +138,17 @@ export const AppBarMenu: React.FC<{}> = () => {
   const userInfo = useUserInformation(username ?? "");
 
   const assetList = useGetAssetListBiQuery({
-    fetchPolicy: "cache-and-network"
+    fetchPolicy: "cache-and-network",
   });
 
   const employeeDirectory = useGetEmployeeDirectoryQuery({
-    fetchPolicy: "cache-and-network"
+    fetchPolicy: "cache-and-network",
   });
 
   const userAppData = useGetUserAppDataQuery({
     variables: {
       userId:
-        userInfo !== "Error" && userInfo !== "Loading"
+        userInfo !== "Error" && userInfo !== "Loading" && userInfo !== "Unknown"
           ? userInfo.employeeId
           : "",
     },
@@ -172,7 +172,7 @@ export const AppBarMenu: React.FC<{}> = () => {
       if (
         (event as React.MouseEvent).clientX <= 250 &&
         ((event as React.MouseEvent).clientY > 240 ||
-          (event as React.MouseEvent).clientY < 52)
+          (event as React.MouseEvent).clientY < 56)
       ) {
         return;
       }
@@ -185,16 +185,19 @@ export const AppBarMenu: React.FC<{}> = () => {
       .split("; ")
       .find((cookie) => cookie.startsWith(`${USER_COOKIE_NAME}=`))
       ?.split("=")[1];
-    const route = location.pathname;
-    if (user) {
+    if (user && user !== "undefined") {
       setUsername(user);
-    } else if (!route.includes("Login") && !route.includes("Dashboard")) {
-      navigate("/login");
+    } else {
+      setUsername("");
     }
-  }, [navigate, location]);
+  });
 
   React.useEffect(() => {
-    if (userInfo !== "Loading" && userInfo !== "Error") {
+    if (
+      userInfo !== "Loading" &&
+      userInfo !== "Error" &&
+      userInfo !== "Unknown"
+    ) {
       setCurrentUserRedux(userInfo);
     }
   }, [setCurrentUserRedux, userInfo]);
@@ -242,7 +245,11 @@ export const AppBarMenu: React.FC<{}> = () => {
   }, [assetList, setAssetListRedux]);
 
   React.useEffect(() => {
-    if (userInfo !== "Error" && userInfo !== "Loading") {
+    if (
+      userInfo !== "Error" &&
+      userInfo !== "Loading" &&
+      userInfo !== "Unknown"
+    ) {
       if (
         userAppData &&
         userAppData.called &&
@@ -484,7 +491,9 @@ export const AppBarMenu: React.FC<{}> = () => {
             </Link>
           </div>
           <div style={{}}>
-            {userInfo !== "Error" && userInfo !== "Loading" ? (
+            {userInfo !== "Error" &&
+            userInfo !== "Loading" &&
+            userInfo !== "Unknown" ? (
               <CurrentUserDisplay username={username ?? ""} />
             ) : (
               <Button
@@ -526,8 +535,7 @@ export const AppBarMenu: React.FC<{}> = () => {
               >
                 <div
                   style={{
-                    width: "159px",
-                    margin: "8px 8px 8px 30px",
+                    margin: "12px 8px 8px 30px",
                   }}
                 >
                   <GentexLogo

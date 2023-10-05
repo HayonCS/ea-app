@@ -33,6 +33,7 @@ import { HomePage } from "./pages/home/home";
 import { Settings } from "./pages/settings/settings";
 import { Login } from "./pages/login/login";
 import { asyncComponent } from "react-async-component";
+import { USER_COOKIE_NAME } from "./utilities/definitions";
 // import { server_url } from "./connection-utils";
 
 //Setup the animation loop.
@@ -99,9 +100,12 @@ function ProtectedElement(element: React.ReactNode): React.ReactNode {
 
   const redirectPath = "/login";
 
-  console.log(currentUser);
+  const user = document.cookie
+    .split("; ")
+    .find((cookie) => cookie.startsWith(`${USER_COOKIE_NAME}=`))
+    ?.split("=")[1];
 
-  if (currentUser.employeeId !== "00000") {
+  if (currentUser.employeeId !== "00000" || (user && user !== "undefined")) {
     return element;
   } else {
     return <Navigate to={redirectPath} />;

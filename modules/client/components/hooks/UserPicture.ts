@@ -16,7 +16,7 @@ export const useUserPicture = (userId: string) => {
     variables: {
       employeeId: userId || "",
     },
-    fetchPolicy: "cache-first",
+    fetchPolicy: "cache-and-network",
     // displayName: "UserPictureQuery",
     skip: !userId || userId === "",
   });

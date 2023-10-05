@@ -24,6 +24,10 @@ export const AppActions = {
         userInfo,
       },
     } as const),
+  clearCurrentUser: () =>
+    ({
+      type: "App/clearCurrentUser",
+    } as const),
   currentUserTeamInfo: (teamInfo: UserInformation[]) =>
     ({
       type: "App/userTeamGentex",

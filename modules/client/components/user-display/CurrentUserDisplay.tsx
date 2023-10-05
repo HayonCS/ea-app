@@ -18,6 +18,10 @@ import { enqueueSnackbar } from "notistack";
 // import { Selectors } from "client/redux/selectors";
 import { useUserInformation } from "../hooks/UserInformation";
 import { useUserPicture } from "../hooks/UserPicture";
+import { useDispatch } from "react-redux";
+import { Dispatch } from "redux";
+import { Actions } from "client/redux/actions";
+import { UserInformation } from "core/schemas/user-information.gen";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -66,9 +70,13 @@ export const CurrentUserDisplay: React.FC<{
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
-  const userInfo = useUserInformation(props.username);
+  const [username, setUsername] = React.useState(props.username);
+
+  const userInfo = useUserInformation(username);
   const pictureUrl = useUserPicture(
-    userInfo !== "Loading" && userInfo !== "Error" ? userInfo.employeeId : ""
+    userInfo !== "Loading" && userInfo !== "Error" && userInfo !== "Unknown"
+      ? userInfo.employeeId
+      : ""
   );
 
   const currentUser = React.useMemo(() => {
@@ -78,6 +86,12 @@ export const CurrentUserDisplay: React.FC<{
   const formattedName = React.useMemo(() => {
     return formatUserName(currentUser).replace(/[0-9]/g, "");
   }, [currentUser]);
+
+  const dispatch = useDispatch<Dispatch<Actions>>();
+  const clearCurrentUser = React.useCallback(
+    () => dispatch(Actions.App.clearCurrentUser()),
+    [dispatch]
+  );
 
   // const [pictureUrl, setPictureUrl] = React.useState("");
   // const [userInfo, setUserInfo] = React.useState<EmployeeInfoGentex>();
@@ -95,18 +109,22 @@ export const CurrentUserDisplay: React.FC<{
 
   const handleLogout = () => {
     document.cookie = `${USER_COOKIE_NAME}=;`;
+    setUsername("");
+    clearCurrentUser();
     enqueueSnackbar("You are now logged out of the app.", {
       variant: "info",
       autoHideDuration: 4000,
     });
     navigate("/login");
-    window.location.reload();
+    // window.location.reload();
   };
 
   return (
     <div className={classes.root}>
       <div className={classes.button} onClick={handleClick}>
-        {userInfo ? (
+        {userInfo !== "Error" &&
+        userInfo !== "Loading" &&
+        userInfo !== "Unknown" ? (
           <Avatar
             alt={formattedName}
             src={pictureUrl}
@@ -141,7 +159,9 @@ export const CurrentUserDisplay: React.FC<{
           horizontal: "center",
         }}
       >
-        {userInfo !== "Loading" && userInfo !== "Error" ? (
+        {userInfo !== "Loading" &&
+        userInfo !== "Error" &&
+        userInfo !== "Unknown" ? (
           <Paper style={{ padding: "12px 20px 12px 20px" }}>
             <div className={classes.userInfo}>
               <div

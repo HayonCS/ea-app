@@ -43,7 +43,7 @@ export const Resources: React.FC<{}> = (props) => {
         <Typography component="span">
           <Box className={classes.title}>{"Resources for EA"}</Box>
         </Typography>
-        <Typography component="span">
+        {/* <Typography component="span">
           <Box className={classes.linkStyle}>
             <Link
               href="#"
@@ -98,7 +98,7 @@ export const Resources: React.FC<{}> = (props) => {
               {"Part Cycle Times"}
             </Link>
           </Box>
-        </Typography>
+        </Typography> */}
       </div>
     </div>
   );

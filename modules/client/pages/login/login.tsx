@@ -60,7 +60,7 @@ export const Login: React.FC<{}> = () => {
   }, [currentUser]);
 
   React.useEffect(() => {
-    if (userInfo !== "Error" && userInfo !== "Loading") {
+    if (userInfo !== "Error" && userInfo !== "Loading" && userInfo !== "Unknown") {
       if (userInfo.employeeId !== "00000") {
         let cookieDate = new Date();
         cookieDate.setFullYear(cookieDate.getFullYear() + 1);

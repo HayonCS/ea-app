@@ -5,19 +5,23 @@ import {
 } from "client/graphql/types.gen";
 import { UserInformation } from "core/schemas/user-information.gen";
 
-type UserInformationResponse = "Loading" | "Error" | UserInformation;
+type UserInformationResponse =
+  | "Loading"
+  | "Error"
+  | "Unknown"
+  | UserInformation;
 
 export const useUserInformation = (
   employeeNumOrUserName: string,
   includeGroups?: boolean
 ): UserInformationResponse => {
-  const [userInformation, setUserInformation] = React.useState<
-    UserInformationResponse
-  >("Loading");
+  const [userInformation, setUserInformation] =
+    React.useState<UserInformationResponse>("Loading");
 
   const { data, loading, error } = useGetMesUserInfoQuery({
     skip:
       !employeeNumOrUserName ||
+      employeeNumOrUserName === "undefined" ||
       employeeNumOrUserName.toLowerCase() === "unknown",
     variables: {
       employeeNumberOrUsername: employeeNumOrUserName,
@@ -34,6 +38,12 @@ export const useUserInformation = (
 
   React.useEffect(() => {
     if (
+      !employeeNumOrUserName ||
+      employeeNumOrUserName === "undefined" ||
+      employeeNumOrUserName.toLowerCase() === "unknown"
+    ) {
+      setUserInformation("Unknown");
+    } else if (
       !loading &&
       !error &&
       !employeeInfo.loading &&
@@ -51,23 +61,23 @@ export const useUserInformation = (
             cellPhone: employeeInfo.data.employeeInfo.cellPhone!,
             workPhone: employeeInfo.data.employeeInfo.workPhone!,
             location: employeeInfo.data.employeeInfo.location!,
-            locationId: employeeInfo.data.employeeInfo.locationId!,
+            locationId: +employeeInfo.data.employeeInfo.locationId!,
             shift: +employeeInfo.data.employeeInfo.shift!,
             jobTitle: employeeInfo.data.employeeInfo.jobTitle!,
-            managerEmployeeId: employeeInfo.data.employeeInfo
-              .managerEmployeeNumber!,
-            level: employeeInfo.data.employeeInfo.level,
+            managerEmployeeId:
+              employeeInfo.data.employeeInfo.managerEmployeeNumber!,
+            level: +employeeInfo.data.employeeInfo.level,
             erphrLocation: {
-              locationId: employeeInfo.data.employeeInfo.erphrLocation
-                .locationId!,
-              locationCode: employeeInfo.data.employeeInfo.erphrLocation
-                .locationCode!,
-              description: employeeInfo.data.employeeInfo.erphrLocation
-                .description!,
-              inventoryOrgCode: employeeInfo.data.employeeInfo.erphrLocation
-                .inventoryOrgCode!,
-              inventoryOrgId: employeeInfo.data.employeeInfo.erphrLocation
-                .inventoryOrgId!,
+              locationId:
+                +employeeInfo.data.employeeInfo.erphrLocation.locationId!,
+              locationCode:
+                employeeInfo.data.employeeInfo.erphrLocation.locationCode!,
+              description:
+                employeeInfo.data.employeeInfo.erphrLocation.description!,
+              inventoryOrgCode:
+                +employeeInfo.data.employeeInfo.erphrLocation.inventoryOrgCode!,
+              inventoryOrgId:
+                +employeeInfo.data.employeeInfo.erphrLocation.inventoryOrgId!,
             },
             isManager: employeeInfo.data.employeeInfo.isManager!,
             status: employeeInfo.data.employeeInfo.status!,
@@ -76,10 +86,10 @@ export const useUserInformation = (
             personType: employeeInfo.data.employeeInfo.personType!,
             payGroup: employeeInfo.data.employeeInfo.payGroup!,
             preferredLocale: employeeInfo.data.employeeInfo.preferredLocale!,
-            preferredDisplayLang: employeeInfo.data.employeeInfo
-              .preferredDisplayLang!,
-            preferredCurrency: employeeInfo.data.employeeInfo
-              .preferredCurrency!,
+            preferredDisplayLang:
+              employeeInfo.data.employeeInfo.preferredDisplayLang!,
+            preferredCurrency:
+              employeeInfo.data.employeeInfo.preferredCurrency!,
             primaryTimezone: employeeInfo.data.employeeInfo.primaryTimezone!,
             fullTime: employeeInfo.data.employeeInfo.fullTime!,
             partTime: employeeInfo.data.employeeInfo.partTime!,
@@ -90,6 +100,10 @@ export const useUserInformation = (
           });
         }
       }
+    } else if (loading || employeeInfo.loading) {
+      setUserInformation("Loading");
+    } else if (error || employeeInfo.error) {
+      setUserInformation("Error");
     }
   }, [
     data,

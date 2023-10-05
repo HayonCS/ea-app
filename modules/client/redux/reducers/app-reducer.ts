@@ -1,3 +1,4 @@
+import { initialAppState } from "../state/app-state";
 import { MainReducer } from "./main-reducer";
 import { InitialState } from "client/redux/state";
 
@@ -25,6 +26,12 @@ export const appReducer: MainReducer<"App"> = (
       return {
         ...state,
         currentUserInfo: userInfo,
+      };
+    }
+    case "App/clearCurrentUser": {
+      return {
+        ...state,
+        currentUserInfo: {...initialAppState.currentUserInfo}
       };
     }
     case "App/userTeamGentex": {

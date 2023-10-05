@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 RUN apt-get update && apt-get install -y \
   curl \
@@ -58,8 +58,8 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 # https://github.com/dbcli/mssql-cli/blob/master/doc/installation/pip.md#install-ubuntu--debian--mint
 # We were having issues installing mssql-cli with apt-get so we are using pip for now
 # https://github.com/dbcli/mssql-cli/issues/456
-RUN apt-get update & apt-get install -y libunwind8 python-pip
-RUN apt-get install -y libicu60 2> /dev/null || apt-get install -y libicu57 2> /dev/null || apt-get install -y libicu55 2> /dev/null || apt-get install -y libicu55 2> /dev/null || apt-get install -y libicu52
+RUN apt-get update & apt-get install -y libunwind8 python3-pip
+# RUN apt-get install -y libicu60 2> /dev/null || apt-get install -y libicu57 2> /dev/null || apt-get install -y libicu55 2> /dev/null || apt-get install -y libicu55 2> /dev/null || apt-get install -y libicu52
 RUN pip install mssql-cli
 
 # VSCode Live Share dependencies

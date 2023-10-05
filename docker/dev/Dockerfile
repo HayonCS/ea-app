@@ -31,7 +31,7 @@ RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
 
 RUN curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
 
-RUN nvm install 18.17.0
+# RUN nvm install 18.17.0
 
 ENV YARN_VERSION 1.22.19
 

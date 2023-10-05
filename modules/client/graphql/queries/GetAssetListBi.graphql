@@ -1,3 +1,18 @@
 query GetAssetListBi {
-  assetListBi
+  assetListBi {
+    assetName
+    serial
+    model
+    orgCode
+    line
+    dateCreated
+    notes
+    reportGroupName
+    reportGroupID
+    excludeFromHealth
+    legacyLocation
+    autoUpdate
+    recordLastUpdated
+    updatedBy
+  }
 }

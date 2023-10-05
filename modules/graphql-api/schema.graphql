@@ -34,6 +34,23 @@ type User {
   lastName: String!
 }
 
+type AssetInfo {
+  assetName: String!
+  serial: String!
+  model: String!
+  orgCode: String!
+  line: String!
+  dateCreated: String!
+  notes: String!
+  reportGroupName: String
+  reportGroupID: String
+  excludeFromHealth: Boolean!
+  legacyLocation: String
+  autoUpdate: Boolean!
+  recordLastUpdated: String!
+  updatedBy: String!
+}
+
 """
 Information about the state of individual servers and endpoints.
 """
@@ -952,7 +969,7 @@ type Query {
 
   employeeDirectory: [EmployeeInfoResponse!]!
 
-  assetListBi: [String!]!
+  assetListBi: [AssetInfo]!
 
   userAppData(userId: String!): UserAppData!
 

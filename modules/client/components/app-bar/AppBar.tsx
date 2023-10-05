@@ -240,7 +240,11 @@ export const AppBarMenu: React.FC<{}> = () => {
       assetList.data.assetListBi &&
       assetList.data.assetListBi.length > 0
     ) {
-      setAssetListRedux(assetList.data.assetListBi);
+      const assetsFilter = assetList.data.assetListBi.map(
+        (x) => x?.assetName ?? ""
+      );
+      const assets: string[] = assetsFilter.filter((x) => x);
+      setAssetListRedux(assets);
     }
   }, [assetList, setAssetListRedux]);
 

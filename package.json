@@ -29,7 +29,8 @@
   "scripts": {
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "execute": "cross-env NODE_ENV=production yarn build:server && cross-env PORT=3001 concurrently 'yarn dev:agent' 'yarn server:local'",
+    "execute": "cross-env NODE_ENV=production yarn build:server && cross-env PORT=3001 concurrently \"yarn dev:agent\" \"yarn server:local\"",
+    "initial": "yarn redis:load:assets",
     "build:jsonschema": "node scripts/json-schema-types.js",
     "build:graphql": "gql-gen -o",
     "build:client": "webpack --config ./webpack/client.config.js",
@@ -52,7 +53,8 @@
     "dev": "concurrently -p name -c \"white,yellow,magenta,green,red,gray,blue\" -n \"webpack-server,nodemon-server,webpack-client,graphql-types,json-schema,workers\" \"yarn dev:server:webpack\" \"yarn dev:server:nodemon\" \"yarn dev:client\" \"yarn dev:graphql\" \"yarn dev:jsonschema\" \"yarn dev:worker:nodemon\"",
     "dev:local": "yarn build:local && yarn server:local",
     "dev:production": "yarn build:production && yarn server:production",
-    "dev:storybook": "cross-env STORYBOOK_MODE=true TPE_ENDPOINT=prod start-storybook -s ./ -p 9001 -c .storybook --ci"
+    "dev:storybook": "cross-env STORYBOOK_MODE=true App_ENDPOINT=prod start-storybook -s ./ -p 9001 -c .storybook --ci",
+    "redis:load:assets": "sudo NODE_ENV=development node ./dist/scripts/asset-list-bi.js"
   },
   "dependencies": {
     "@apollo/client": "^3.8.4",

@@ -1,9 +1,10 @@
 import * as Hexagonal from "atomic-object/hexagonal";
 import { AssetsBiPort } from "./port";
 import { getAssetList } from "./assets-bi";
+import { AssetInfo } from "rest-endpoints/mes-bi/mes-bi";
 
 export type AssetsBiDef = {
-  getAssetList: () => Promise<string[]>;
+  getAssetList: () => Promise<AssetInfo[]>;
 };
 
 export const assetsBiAdapter = Hexagonal.adapter({
@@ -11,7 +12,7 @@ export const assetsBiAdapter = Hexagonal.adapter({
   requires: [],
   build: () => {
     return {
-      getAssetList: async (): Promise<string[]> => {
+      getAssetList: async (): Promise<AssetInfo[]> => {
         const list = await getAssetList();
         return list;
       },

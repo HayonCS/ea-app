@@ -29,6 +29,10 @@ RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && rm "node-v$NODE_VERSION-linux-$ARCH.tar.xz" \
   && ln -s /usr/local/bin/node /usr/local/bin/nodejs
 
+RUN curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+
+RUN nvm install 18.17.0
+
 ENV YARN_VERSION 1.22.19
 
 RUN set -ex \ 

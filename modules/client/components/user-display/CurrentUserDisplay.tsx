@@ -196,7 +196,7 @@ export const CurrentUserDisplay: React.FC<{
                 style={{ backgroundColor: "#000" }}
                 onClick={() => {
                   handleClose();
-                  navigate("/Settings");
+                  navigate("/settings");
                 }}
               >
                 <Typography component={"span"}>

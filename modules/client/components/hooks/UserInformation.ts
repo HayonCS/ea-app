@@ -48,7 +48,7 @@ export const useUserInformation = (
             lastName: data.mesUserInfo.lastName!,
             username: data.mesUserInfo.username!,
             email: data.mesUserInfo.emailAddress!,
-            cellPhone: employeeInfo.data.employeeInfo.workPhone!,
+            cellPhone: employeeInfo.data.employeeInfo.cellPhone!,
             workPhone: employeeInfo.data.employeeInfo.workPhone!,
             location: employeeInfo.data.employeeInfo.location!,
             locationId: employeeInfo.data.employeeInfo.locationId!,

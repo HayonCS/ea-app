@@ -53,6 +53,8 @@ import { AssetsBiPort } from "domain-services/assets-bi/port";
 import { assetsBiAdapter } from "domain-services/assets-bi";
 import { UserAppDataPort } from "domain-services/user-app-data/port";
 import { userAppDataAdapter } from "domain-services/user-app-data";
+import { MesBiPort } from "rest-endpoints/mes-bi/port";
+import { mesBiAdapter } from "rest-endpoints/mes-bi";
 
 export type ContextOpts = {
   db?: db.Knex;
@@ -99,6 +101,7 @@ const ContextBase = Hexagonal.contextClass((c) =>
     .add(ReservedKeywordsPort, reservedKeywordsRepositoryAdapter)
     .add(VersionedLibrariesPort, versionedLibrariesRepositoryAdapter)
     .add(MesSecurityPort, mesSecurityAdapter)
+    .add(MesBiPort, mesBiAdapter)
     .add(UserPicturePort, userPictureAdapter)
     .add(EmployeeInfoPort, employeeInfoAdapter)
     .add(
@@ -151,6 +154,10 @@ export class Context extends ContextBase {
 
   get mesSecurity() {
     return this.get(MesSecurityPort);
+  }
+
+  get mesBi() {
+    return this.get(MesBiPort);
   }
 
   get employeeInfo() {

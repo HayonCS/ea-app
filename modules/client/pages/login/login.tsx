@@ -3,7 +3,7 @@ import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useNavigate } from "react-router-dom";
 // import { getEmployeeInfoGentex, getUserInfoGentex } from "client/utilities/mes";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
 import { USER_COOKIE_NAME } from "client/utilities/definitions";
 import { enqueueSnackbar } from "notistack";
@@ -12,6 +12,7 @@ import { Actions } from "client/redux/actions";
 import { UserInformation } from "core/schemas/user-information.gen";
 import { getUserInformation } from "client/user-utils";
 import { useUserInformation } from "client/components/hooks/UserInformation";
+import { Selectors } from "client/redux/selectors";
 
 const useStyles = makeStyles(() => ({
   app: {
@@ -42,6 +43,8 @@ export const Login: React.FC<{}> = () => {
     setValue(event.target.value);
   };
 
+  const currentUser = useSelector(Selectors.App.currentUserInfo);
+
   const dispatch = useDispatch<Dispatch<Actions>>();
   const setCurrentUserRedux = React.useCallback(
     (user: UserInformation) => dispatch(Actions.App.currentUserInfo(user)),
@@ -49,6 +52,12 @@ export const Login: React.FC<{}> = () => {
   );
 
   const userInfo = useUserInformation(username ?? "");
+
+  React.useEffect(() => {
+    if (currentUser.employeeId && currentUser.employeeId !== "00000") {
+      navigate("/home");
+    }
+  }, [currentUser]);
 
   React.useEffect(() => {
     if (userInfo !== "Error" && userInfo !== "Loading") {
@@ -127,29 +136,6 @@ export const Login: React.FC<{}> = () => {
 
   const tryLogin = () => {
     setUsername(value);
-    // async function login() {
-    //   const userInfo = await getUserInformation(value);
-    //   if (userInfo && userInfo.employeeId !== "00000") {
-    //     let cookieDate = new Date();
-    //     cookieDate.setFullYear(cookieDate.getFullYear() + 1);
-    //     document.cookie = `${USER_COOKIE_NAME}=${
-    //       userInfo.username
-    //     }; expires=${cookieDate.toUTCString()};`;
-    //     setCurrentUserRedux(userInfo);
-    //     enqueueSnackbar("Login successful!", {
-    //       variant: "success",
-    //       autoHideDuration: 4000,
-    //     });
-    //     navigate("/");
-    //   } else {
-    //     enqueueSnackbar("Invalid login.", {
-    //       variant: "error",
-    //       autoHideDuration: 4000,
-    //     });
-    //     setError(true);
-    //   }
-    // }
-    // void login();
   };
 
   return (

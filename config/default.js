@@ -112,6 +112,7 @@ module.exports = {
   },
   mesRestApi: {
     mesSecurityEndpoint: process.env.MES_SECURITY_ENDPOINT,
+    mesBiEndpoint: process.env.MES_BI_ENDPOINT,
     mesUserPictureUrl: process.env.MES_USER_PICTURE,
     employeeDirectoryEndpoint: process.env.MES_EMPLOYEE_DIRECTORY,
     mesRegistryEndpoint: process.env.MES_REGISTRY_ENDPOINT,

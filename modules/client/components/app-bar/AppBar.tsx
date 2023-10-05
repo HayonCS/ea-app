@@ -137,9 +137,13 @@ export const AppBarMenu: React.FC<{}> = () => {
 
   const userInfo = useUserInformation(username ?? "");
 
-  const assetList = useGetAssetListBiQuery();
+  const assetList = useGetAssetListBiQuery({
+    fetchPolicy: "cache-and-network"
+  });
 
-  const employeeDirectory = useGetEmployeeDirectoryQuery();
+  const employeeDirectory = useGetEmployeeDirectoryQuery({
+    fetchPolicy: "cache-and-network"
+  });
 
   const userAppData = useGetUserAppDataQuery({
     variables: {

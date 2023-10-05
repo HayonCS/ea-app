@@ -49,6 +49,7 @@ export function App() {
   return (
     <div>
       <AppBarMenu />
+
       <Routes>
         <Route
           path="/login"
@@ -97,6 +98,8 @@ function ProtectedElement(element: React.ReactNode): React.ReactNode {
   const currentUser = useSelector(Selectors.App.currentUserInfo);
 
   const redirectPath = "/login";
+
+  console.log(currentUser);
 
   if (currentUser.employeeId !== "00000") {
     return element;

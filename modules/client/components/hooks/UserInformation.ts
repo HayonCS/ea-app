@@ -52,7 +52,7 @@ export const useUserInformation = (
             workPhone: employeeInfo.data.employeeInfo.workPhone!,
             location: employeeInfo.data.employeeInfo.location!,
             locationId: employeeInfo.data.employeeInfo.locationId!,
-            shift: employeeInfo.data.employeeInfo.shift!,
+            shift: +employeeInfo.data.employeeInfo.shift!,
             jobTitle: employeeInfo.data.employeeInfo.jobTitle!,
             managerEmployeeId: employeeInfo.data.employeeInfo
               .managerEmployeeNumber!,

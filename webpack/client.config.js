@@ -6,7 +6,7 @@ const ProgressBarPlugin = require("progress-bar-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 const loaders = require("./loaders");
-// const monacoLoader = require("../webpack/monaco-loader");
+const monacoLoader = require("../webpack/monaco-loader");
 // const fs = require("fs");
 var ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
@@ -92,7 +92,10 @@ module.exports = {
 
   // https://github.com/TypeStrong/ts-loader#transpileonly-boolean-defaultfalseO
   stats: {
-    warningsFilter: /export .* was not found in/,
+    warningsFilter: [
+      /export .* was not found in/,
+      './node_modules/config/lib/config.js'
+    ]
   },
 
   node: {
@@ -169,7 +172,7 @@ module.exports = {
       useTypescriptIncrementalApi: true,
     }),
 
-    // monacoLoader.plugin,
+    monacoLoader.plugin,
 
     ...(process.env.ANALYZE
       ? [new (require("webpack-bundle-analyzer").BundleAnalyzerPlugin)()]
@@ -186,6 +189,8 @@ module.exports = {
     extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
     modules: [path.resolve(__dirname, "../modules"), "node_modules"],
     alias: {
+      // "config": path.resolve(__dirname, "../node_modules/config/lib/config.js"),
+      // "config": "config/lib/config.js",
       "@material-ui/core": "@material-ui/core/es",
       "react-dnd": path.resolve(__dirname, "../node_modules/react-dnd"),
     },
@@ -198,14 +203,18 @@ module.exports = {
       loaders.graphql,
       loaders.scss,
     ].concat(loaders.allImagesAndFontsArray),
+    exprContextRegExp: /$^/,
+    exprContextCritical: false,
   },
 
   devServer: {
-    publicPath: "/",
+    devMiddleware: {
+      publicPath: "/",
+      stats: "errors-only"
+    },
     port: DEV_PORT,
     hot: false,
     historyApiFallback: true,
-    stats: "errors-only",
     host: config.get("webpackDevServer.host"),
     https: SSL_ENABLED,
     proxy: {

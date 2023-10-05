@@ -1,32 +1,29 @@
 import * as IORedis from "ioredis";
 import * as config from "config";
+import { getAssetsAll } from "rest-endpoints/mes-bi/mes-bi";
 
-config.get("redis.url");
-var _redis = new IORedis.Redis(config.get("redis.url"));
+var redis = new IORedis.Redis(config.get("redis.url"));
 
-async function FlushAllLocks() {
-  const pattern = `testplanlockout:*`;
+console.log("TEST TEST FROM ASSET-LIST-BI TEST TEST");
 
-  const keys = await _redis.keys(pattern);
+async function loadAllAssets() {
+  const assets = await getAssetsAll();
 
-  var count = 0;
-
-  if (keys.length) {
-    count = await _redis.del(keys);
+  if (assets.length > 0) {
+    await redis.set("biAssetList", JSON.stringify(assets));
+    return "Loaded bi asset list into redis."
+  } else {
+    return "Failed loading bi assets into redis. No assets received."
   }
-
-  return count >= 1
-    ? `Removed ${count} occurrences of locking keys.`
-    : `No keys matching pattern "${pattern}" were found.`;
 }
 
-async function FlushLocks() {
-  await FlushAllLocks().then((output) => {
+async function loadAssets() {
+  await loadAllAssets().then((output) => {
     console.info(output);
   });
 }
 
-void FlushLocks().then(() => {
-  _redis.disconnect();
+void loadAssets().then(() => {
+  redis.disconnect();
   process.exit();
 });

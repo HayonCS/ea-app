@@ -971,7 +971,7 @@ type Query {
 
   assetListBi: [AssetInfo]!
 
-  userAppData(userId: String!): UserAppData!
+  getUserAppData(userId: String!): UserAppData!
 
   """
   Displays information about the current server configuration including the current
@@ -1123,6 +1123,8 @@ enum UserInputType {
 }
 
 type Mutation {
+  setUserAppData(userId: String!, appData: UserAppData!): Boolean!
+
   """
   The mutation used to a save a new Recent Test Plan entry for a specific user.  This entry will show up on the Dashboard in the Recent Test Plans list.
   """

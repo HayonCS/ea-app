@@ -259,13 +259,13 @@ export const AppBarMenu: React.FC<{}> = () => {
         userAppData.called &&
         !userAppData.loading &&
         userAppData.data &&
-        userAppData.data.userAppData
+        userAppData.data.getUserAppData
       ) {
-        if (userAppData.data.userAppData.orgCode !== 0) {
-          setCurrentUserAppDataRedux(userAppData.data.userAppData);
+        if (userAppData.data.getUserAppData.orgCode !== 0) {
+          setCurrentUserAppDataRedux(userAppData.data.getUserAppData);
           void (async () => {
             let teamInfo: UserInformation[] = [];
-            for (let member of userAppData.data?.userAppData.teamIds ?? []) {
+            for (let member of userAppData.data?.getUserAppData.teamIds ?? []) {
               const info = await getUserInformation(member);
               if (info) teamInfo.push(info);
             }

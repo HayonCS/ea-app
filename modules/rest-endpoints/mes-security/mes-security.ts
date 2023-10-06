@@ -38,8 +38,20 @@ export async function getMesUserInfo(
     },
   });
 
+  const defaultUser: MesUserInfo = {
+    employeeId: "",
+    username: "",
+    firstName: "",
+    lastName: "",
+    emailAddress: "",
+    roles: [],
+    distributionLists: [],
+    isServiceAccount: false,
+    pager: "",
+  };
+
   const result = await response.json();
-  return result as MesUserInfo;
+  return result ? (result as MesUserInfo) : defaultUser;
 }
 
 export async function getMesManagerInfo(

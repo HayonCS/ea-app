@@ -15,3 +15,13 @@ export async function getUserAppData(userId: string): Promise<UserAppData> {
     teamIds: [],
   };
 }
+
+export async function setUserAppData(userId: string, appData: UserAppData) {
+  const connRedis = redis.getRedisPubConnection();
+  const key = `userAppData:${userId}`;
+  let result = await connRedis.set(key, JSON.stringify(appData));
+  if (result === "OK") {
+    return true;
+  }
+  return false;
+}

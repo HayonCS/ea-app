@@ -30,7 +30,7 @@ export const useUserInformation = (
   });
 
   const employeeInfo = useGetEmployeeInfoQuery({
-    skip: !data?.mesUserInfo.employeeId,
+    skip: !data?.mesUserInfo.employeeId || !!error,
     variables: {
       employeeNumberOrEmail: data?.mesUserInfo.employeeId ?? "00000",
     },
@@ -103,6 +103,8 @@ export const useUserInformation = (
     } else if (loading || employeeInfo.loading) {
       setUserInformation("Loading");
     } else if (error || employeeInfo.error) {
+      setUserInformation("Error");
+    } else if (!loading) {
       setUserInformation("Error");
     }
   }, [

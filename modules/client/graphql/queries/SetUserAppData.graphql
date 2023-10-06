@@ -1,0 +1,3 @@
+mutation SetUserAppData($userId: String!, $appData: UserAppData!) {
+  setUserAppData(userId: $userId, appData: $appData)
+}

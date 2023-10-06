@@ -25,6 +25,7 @@ import { notNilString, notNilType } from "helpers/nil-helpers";
 //   getEngDomainNameValidator,
 // } from "client/components/editor/editor-helpers";
 import { LocalPathManager } from "domain-services/local-path-data/LocalPathManager";
+import { UserAppDataPort } from "domain-services/user-app-data/port";
 
 export const isConfigValid = (config: TestPlanConfiguration) => {
   const isDefined = notNilType(config);
@@ -77,6 +78,14 @@ const ValidateString = (value: any, fieldName: string): string => {
 };
 
 const mutationResolvers: GraphQL.MutationResolvers = {
+  setUserAppData: async (parent, args, ctx): Promise<boolean> => {
+    const result = await ctx
+      .get(UserAppDataPort)
+      .setUserAppData(args.userId, args.appData);
+
+    return result;
+  },
+
   // saveTestPlanDocument: async (parent, args, ctx): Promise<Job> => {
   //   await ctx.get(JobRunnerPort).enqueue(saveTestPlanDocumentJob, {
   //     data: {

@@ -60,7 +60,11 @@ export const Login: React.FC<{}> = () => {
   }, [currentUser]);
 
   React.useEffect(() => {
-    if (userInfo !== "Error" && userInfo !== "Loading" && userInfo !== "Unknown") {
+    if (
+      userInfo !== "Error" &&
+      userInfo !== "Loading" &&
+      userInfo !== "Unknown"
+    ) {
       if (userInfo.employeeId !== "00000") {
         let cookieDate = new Date();
         cookieDate.setFullYear(cookieDate.getFullYear() + 1);
@@ -135,7 +139,24 @@ export const Login: React.FC<{}> = () => {
   // };
 
   const tryLogin = () => {
-    setUsername(value);
+    if (value.length > 0) {
+      if (!value.includes(".") || value.split(".")[1].length < 1) {
+        setError(true);
+        enqueueSnackbar(`Invalid login: "${value}"`, {
+          variant: "error",
+          autoHideDuration: 4000,
+        });
+      } else {
+        setError(false);
+        setUsername(value);
+      }
+    } else {
+      setError(true);
+      enqueueSnackbar(`Invalid login: "${value}"`, {
+        variant: "error",
+        autoHideDuration: 4000,
+      });
+    }
   };
 
   return (

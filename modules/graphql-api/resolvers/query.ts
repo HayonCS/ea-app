@@ -56,7 +56,7 @@ const queryResolvers: QueryResolvers = {
     return assetList;
   },
 
-  userAppData: async (parent, args, ctx) => {
+  getUserAppData: async (parent, args, ctx) => {
     const appData = await ctx.get(UserAppDataPort).getUserAppData(args.userId);
     return appData;
   },
@@ -422,10 +422,11 @@ const queryResolvers: QueryResolvers = {
     const matches = await ctx
       .get(RepositoriesPort)
       .domain(args.domain, async (domainRepos) => {
-        const innerMatches = await domainRepos.testPlans.searchForTestPlanByLibrary(
-          args.libraryName,
-          args.version ?? undefined
-        );
+        const innerMatches =
+          await domainRepos.testPlans.searchForTestPlanByLibrary(
+            args.libraryName,
+            args.version ?? undefined
+          );
         return innerMatches;
       });
     return matches;
@@ -435,9 +436,10 @@ const queryResolvers: QueryResolvers = {
     const matches = await ctx
       .get(RepositoriesPort)
       .domain(args.domain, async (domainRepos) => {
-        const innerMatches = await domainRepos.testPlans.searchForTestPlanByElementDescription(
-          args.description
-        );
+        const innerMatches =
+          await domainRepos.testPlans.searchForTestPlanByElementDescription(
+            args.description
+          );
         return innerMatches;
       });
     return matches;
@@ -447,10 +449,11 @@ const queryResolvers: QueryResolvers = {
     const matches = await ctx
       .get(RepositoriesPort)
       .domain(args.domain, async (domainRepos) => {
-        const innerMatches = await domainRepos.testPlans.searchForTestPlanByTesterType(
-          args.testerType,
-          args.includeHidden ?? false
-        );
+        const innerMatches =
+          await domainRepos.testPlans.searchForTestPlanByTesterType(
+            args.testerType,
+            args.includeHidden ?? false
+          );
         return innerMatches;
       });
     return matches;
@@ -467,12 +470,8 @@ const queryResolvers: QueryResolvers = {
   // },
 
   localPaths: async (_parent, args): Promise<Array<LocalPathInformation>> => {
-    const localPaths:
-      | LocalPathUtils.LocalPathData
-      | undefined = await LocalPathManager.AllLocalPaths(
-      args.domain,
-      args.testPlanName
-    );
+    const localPaths: LocalPathUtils.LocalPathData | undefined =
+      await LocalPathManager.AllLocalPaths(args.domain, args.testPlanName);
     if (localPaths === undefined) {
       return [
         {
@@ -482,18 +481,16 @@ const queryResolvers: QueryResolvers = {
     }
 
     const files = Object.keys(localPaths);
-    return files.map(
-      (currentFile): LocalPathInformation => {
-        return {
-          library: [
-            {
-              libraryName: currentFile,
-              versions: [localPaths[currentFile].library],
-            },
-          ],
-        };
-      }
-    );
+    return files.map((currentFile): LocalPathInformation => {
+      return {
+        library: [
+          {
+            libraryName: currentFile,
+            versions: [localPaths[currentFile].library],
+          },
+        ],
+      };
+    });
   },
 
   helpInformation: async (parent, args, ctx): Promise<HelpInfo> => {

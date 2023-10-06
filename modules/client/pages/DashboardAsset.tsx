@@ -29,6 +29,7 @@ import {
   ProcessDataOperatorTotals,
 } from "../utils/DataTypes";
 import { getHHMMSS } from "../utils/DateUtility";
+import { useParams } from "react-router";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -84,8 +85,10 @@ interface GraphData {
   Efficiency: string;
 }
 
-export const DashboardAsset: React.FC<{ asset: string }> = (props) => {
-  document.title = `Dashboard | ${props.asset}`;
+export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
+  const { asset } = useParams();
+
+  document.title = `Dashboard | ${props.asset ?? asset}`;
 
   const classes = useStyles();
 
@@ -100,7 +103,7 @@ export const DashboardAsset: React.FC<{ asset: string }> = (props) => {
   const [assetLastData, setAssetLastData] =
     React.useState<ProcessDataOperatorTotals>({
       id: 0,
-      Asset: props.asset,
+      Asset: props.asset ?? asset ?? "",
       PartNumber: "000-0000",
       Date: new Date(),
       StartTime: new Date(),
@@ -143,7 +146,11 @@ export const DashboardAsset: React.FC<{ asset: string }> = (props) => {
     const dateNow = new Date();
     let dateEnd = new Date(dateNow);
     dateEnd.setHours(dateEnd.getHours() - 4);
-    let processData = await getProcessDataExport(props.asset, dateNow, dateEnd);
+    let processData = await getProcessDataExport(
+      props.asset ?? asset ?? "",
+      dateNow,
+      dateEnd
+    );
     if (processData) {
       processData = processData.sort(
         (a, b) => a.OpEndTime.getTime() - b.OpEndTime.getTime()
@@ -206,7 +213,7 @@ export const DashboardAsset: React.FC<{ asset: string }> = (props) => {
 
   React.useEffect(() => {
     (async () => {
-      const assetInfo = await getBiAssetInfo(props.asset);
+      const assetInfo = await getBiAssetInfo(props.asset ?? asset ?? "");
       if (assetInfo) {
         setAssetInformation(assetInfo);
       }
@@ -805,13 +812,7 @@ export const DashboardAsset: React.FC<{ asset: string }> = (props) => {
                 position="insideLeft"
               />
             </YAxis>
-            {/* <Legend
-              verticalAlign="bottom"
-              align="left"
-              height={36}
-              iconSize={12}
-              wrapperStyle={{ fontSize: "1rem", marginLeft: "30px" }}
-            /> */}
+
             <Tooltip wrapperStyle={{ fontSize: "1rem" }} itemStyle={{}} />
             <ReferenceLine
               y={100}
@@ -832,6 +833,58 @@ export const DashboardAsset: React.FC<{ asset: string }> = (props) => {
             />
           </LineChart>
         </ResponsiveContainer>
+        {/* <ResponsiveContainer width="100%">
+          <LineChart data={graphData} margin={{ right: 100 }}>
+            <CartesianGrid stroke="#000" strokeDasharray="5 5" />
+            <XAxis
+              dataKey="timeString"
+              //interval={"preserveStartEnd"}
+              interval={2}
+              stroke="#000"
+              style={{ fontSize: "1rem" }}
+            >
+              <Label value="Time" offset={0} position="insideBottom" />
+            </XAxis>
+            <YAxis
+              stroke="#000"
+              style={{ fontSize: "1rem" }}
+              domain={[
+                0,
+                Math.round(
+                  Math.max(...graphData.map((o) => o.efficiency)) + 10
+                ),
+              ]}
+              // domain={[0, 150]}
+              allowDataOverflow={true}
+            >
+              <Label
+                value="Efficiency"
+                offset={20}
+                angle={-90}
+                position="insideLeft"
+              />
+            </YAxis>
+
+            <Tooltip wrapperStyle={{ fontSize: "1rem" }} itemStyle={{}} />
+            <ReferenceLine
+              y={100}
+              label={{
+                value: "100%",
+                fontSize: "1rem",
+                position: "right",
+              }}
+              stroke="red"
+              strokeDasharray="5 5"
+              strokeWidth={2}
+            />
+            <Line
+              dataKey="efficiency"
+              stroke="green"
+              strokeWidth={3}
+              activeDot={{ r: 8 }}
+            />
+          </LineChart>
+        </ResponsiveContainer> */}
       </div>
     </div>
   );

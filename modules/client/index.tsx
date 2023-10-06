@@ -85,8 +85,8 @@ export function App() {
         />
 
         <Route
-          path="/dashboard/:asset?"
-          element={ProtectedElement(<DashboardAsset asset="ASSET" />)}
+          path="/dashboard/:asset"
+          element={ProtectedElement(<DashboardAsset />)}
         />
 
         <Route Component={NotFoundErrorPageRouteLoader} />

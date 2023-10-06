@@ -54,7 +54,8 @@
     "dev:local": "yarn build:local && yarn server:local",
     "dev:production": "yarn build:production && yarn server:production",
     "dev:storybook": "cross-env STORYBOOK_MODE=true App_ENDPOINT=prod start-storybook -s ./ -p 9001 -c .storybook --ci",
-    "redis:load:assets": "sudo NODE_ENV=development node ./dist/scripts/asset-list-bi.js"
+    "redis:load:assets": "sudo NODE_ENV=development node ./dist/scripts/load-asset-list-bi.js",
+    "redis:load:employees": "sudo NODE_ENV=development node ./dist/scripts/load-employee-directory.js"
   },
   "dependencies": {
     "@apollo/client": "^3.8.4",
@@ -141,7 +142,7 @@
     "react-sortable-tree": "^2.8.0",
     "react-swipeable-views": "^0.14.0",
     "react-visibility-sensor": "^5.1.1",
-    "recharts": "^2.7.2",
+    "recharts": "^2.8.0",
     "redis": "^4.6.7",
     "redux": "^4.2.1",
     "redux-batched-actions": "^0.5.0",

@@ -140,6 +140,10 @@ export class Context extends ContextBase {
     return db.getConnection(domain);
   }
 
+  get userAppData() {
+    return this.get(UserAppDataPort);
+  }
+
   get jobs() {
     return this.get(JobRunnerPort);
   }

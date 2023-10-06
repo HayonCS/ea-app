@@ -1123,6 +1123,9 @@ enum UserInputType {
 }
 
 type Mutation {
+  """
+  Mutation to save a user's app data to redis.
+  """
   setUserAppData(userId: String!, appData: UserAppData!): Boolean!
 
   """

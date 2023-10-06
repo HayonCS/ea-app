@@ -17,6 +17,7 @@ import { Selectors } from "client/redux/selectors";
 import { Actions } from "client/redux/actions";
 import { UserInformation } from "core/schemas/user-information.gen";
 import { UserAppData } from "core/schemas/user-app-data.gen";
+import { useSetUserAppDataMutation } from "client/graphql/types.gen";
 
 const useStyles = makeStyles(() => ({
   app: {
@@ -78,10 +79,9 @@ export const Settings: React.FC<{}> = () => {
 
   const [loadedRedux, setLoadedRedux] = React.useState(false);
 
-  const currentUser = useSelector(Selectors.Authentication.currentUserName);
-
-  const teamGentexRedux = useSelector(Selectors.App.currentUserTeamInfo);
-  const userDataRedux = useSelector(Selectors.App.currentUserAppData);
+  const currentUser = useSelector(Selectors.App.currentUserInfo);
+  const teamInfoRedux = useSelector(Selectors.App.currentUserTeamInfo);
+  const userAppDataRedux = useSelector(Selectors.App.currentUserAppData);
   const employeeDirectoryRedux = useSelector(
     Selectors.App.employeeActiveDirectory
   );
@@ -112,55 +112,102 @@ export const Settings: React.FC<{}> = () => {
     UserInformation[]
   >([]);
 
+  const [setUserAppData] = useSetUserAppDataMutation();
+
   const saveUserData = async () => {
-    if (currentUser) {
-      const result = await saveUserDataToRedis(currentUser, currentUserData);
-      if (result) {
-        setRedisUserData(currentUserData);
-        updateReduxUserData(currentUserData);
-        updateReduxTeamGentex(currentTeamGentex);
-        enqueueSnackbar("Saved user settings successfully!", {
-          variant: "success",
-          autoHideDuration: 7000,
+    if (
+      currentUser &&
+      currentUser.employeeId !== "" &&
+      currentUser.employeeId !== "00000"
+    ) {
+      try {
+        const saveResponse = await setUserAppData({
+          variables: {
+            userId: currentUser.employeeId,
+            appData: currentUserData,
+          },
         });
-      } else {
-        enqueueSnackbar("Failed to save user settings!", {
-          variant: "error",
-          autoHideDuration: 7000,
-        });
+        if (
+          saveResponse &&
+          saveResponse.data &&
+          saveResponse.data.setUserAppData
+        ) {
+          setRedisUserData(currentUserData);
+          updateReduxUserData(currentUserData);
+          updateReduxTeamGentex(currentTeamGentex);
+          enqueueSnackbar("Saved user settings successfully!", {
+            variant: "success",
+            autoHideDuration: 7000,
+          });
+        } else {
+          enqueueSnackbar("Failed to save user settings!", {
+            variant: "error",
+            autoHideDuration: 7000,
+          });
+        }
+      } catch (error) {
+        console.log(error.message);
       }
     }
   };
 
+  // const saveUserData = async () => {
+  //   if (currentUser) {
+  //     const result = await saveUserDataToRedis(currentUser, currentUserData);
+  //     if (result) {
+  //       setRedisUserData(currentUserData);
+  //       updateReduxUserData(currentUserData);
+  //       updateReduxTeamGentex(currentTeamGentex);
+  //       enqueueSnackbar("Saved user settings successfully!", {
+  //         variant: "success",
+  //         autoHideDuration: 7000,
+  //       });
+  //     } else {
+  //       enqueueSnackbar("Failed to save user settings!", {
+  //         variant: "error",
+  //         autoHideDuration: 7000,
+  //       });
+  //     }
+  //   }
+  // };
+
   React.useEffect(() => {
-    if (userDataRedux && !loadedRedux) {
-      const data: UserAppData = {
-        orgCode: 0,
-        assetList: [],
-        teamIds: [],
-      };
-      setRedisUserData(userDataRedux ?? data);
-      setCurrentUserData(userDataRedux ?? data);
+    if (userAppDataRedux && !loadedRedux) {
+      setRedisUserData(userAppDataRedux);
+      setCurrentUserData(userAppDataRedux);
       setLoadedRedux(true);
-    } else if (currentUser) {
-      const getUserData = async () => {
-        const userData = await getUserDataFromRedis(currentUser);
-        if (userData) {
-          setRedisUserData(userData);
-          setCurrentUserData(userData);
-        } else {
-          const data: UserAppData = {
-            orgCode: 0,
-            assetList: [],
-            teamIds: [],
-          };
-          setRedisUserData(data);
-          setCurrentUserData(data);
-        }
-      };
-      void getUserData();
     }
-  }, [currentUser, userDataRedux, loadedRedux]);
+  }, [userAppDataRedux, loadedRedux]);
+
+  // React.useEffect(() => {
+  //   if (userAppDataRedux && !loadedRedux) {
+  //     const data: UserAppData = {
+  //       orgCode: 0,
+  //       assetList: [],
+  //       teamIds: [],
+  //     };
+  //     setRedisUserData(userAppDataRedux ?? data);
+  //     setCurrentUserData(userAppDataRedux ?? data);
+  //     setLoadedRedux(true);
+  //   } else if (currentUser) {
+  //     const getUserData = async () => {
+  //       const userData = await getUserDataFromRedis(currentUser);
+  //       if (userData) {
+  //         setRedisUserData(userData);
+  //         setCurrentUserData(userData);
+  //       } else {
+  //         const data: UserAppData = {
+  //           orgCode: 0,
+  //           assetList: [],
+  //           teamIds: [],
+  //         };
+  //         setRedisUserData(data);
+  //         setCurrentUserData(data);
+  //       }
+  //     };
+  //     void getUserData();
+  //   }
+  // }, [currentUser, userAppDataRedux, loadedRedux]);
 
   return (
     <div className={classes.app}>
@@ -250,7 +297,7 @@ export const Settings: React.FC<{}> = () => {
             <Paper className={classes.tabPaperStyle}>
               <TeamSettingsPanel
                 operators={currentUserData.teamIds}
-                teamGentex={teamGentexRedux}
+                teamGentex={teamInfoRedux}
                 employeeDirectory={employeeDirectoryRedux}
                 onChange={(operators, teamGentex) => {
                   const userData = { ...currentUserData, operators: operators };

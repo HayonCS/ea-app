@@ -75,6 +75,7 @@ generates:
             - 'import { TestPlanConfiguration } from "core/schemas/test-plan-configuration.gen";'
             - 'import { TesterType } from "helpers/station-prefix";'
             - 'import { UserAppData } from "core/schemas/user-app-data.gen"'
+            - 'import { EmployeeInfoResponse } from "rest-endpoints/employee-directory/employee-directory"'
       - "typescript":
           scalars:
             IsoDateTime: DateTimeIso.Type
@@ -89,6 +90,7 @@ generates:
             ConfigurationDataLimitType: ConfigurationDataLimitType
             TesterType: TesterType
             UserAppData: UserAppData
+            EmployeeInfoResponse: EmployeeInfoResponse
       - "typescript-operations"
       - "typescript-resolvers":
           contextType: context#ApiContext

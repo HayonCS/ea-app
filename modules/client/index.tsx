@@ -52,14 +52,16 @@ export function App() {
       <AppBarMenu />
 
       <Routes>
-        <Route
+        {/* <Route
           path="/login"
           Component={asyncComponent({
             resolve: async () =>
               (await import("client/pages/login/login")).Login,
             name: "Log In",
           })}
-        />
+        /> */}
+
+        <Route path="/login" element={<Login />} />
 
         <Route path="/error" Component={ServerErrorPageRouteLoader} />
 
@@ -79,15 +81,9 @@ export function App() {
 
         <Route path="/statistics" element={ProtectedElement(<Statistics />)} />
 
-        <Route
-          path="/dashboard"
-          element={ProtectedElement(<DashboardPage />)}
-        />
+        <Route path="/dashboard" element={<DashboardPage />} />
 
-        <Route
-          path="/dashboard/:asset"
-          element={ProtectedElement(<DashboardAsset />)}
-        />
+        <Route path="/dashboard/:asset" element={<DashboardAsset />} />
 
         <Route Component={NotFoundErrorPageRouteLoader} />
       </Routes>
@@ -110,6 +106,7 @@ function ProtectedElement(element: React.ReactNode): React.ReactNode {
   } else {
     return <Navigate to={redirectPath} />;
   }
+  // return element;
 }
 
 // let ASSET_LIST: string[] = [];

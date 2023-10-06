@@ -1,11 +1,11 @@
 import * as cookies from "js-cookie";
 export const AUTH_TOKEN = "AUTH_TOKEN";
 
-export const getAuthToken = (): string | null => {
+export const getAuthToken = (): string => {
   if (usingLocalAuth()) {
-    return localStorage.getItem(AUTH_TOKEN);
+    return localStorage.getItem(AUTH_TOKEN) ?? "";
   }
-  return cookies.get("app-jwt-cookie") ?? null;
+  return cookies.get("app-jwt-cookie") ?? "";
 };
 
 export const setAuthToken = (authToken: string) => {

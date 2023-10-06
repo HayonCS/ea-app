@@ -44,7 +44,8 @@ export const checkAuthStatus =
 export const login =
   (username: string): AppThunk =>
   async (dispatch) => {
-    dispatch(AuthenticationActions.loginPending());
+    // dispatch(AuthenticationActions.loginPending());
+    console.log("Authentication-Thunks: " + username);
     const loginQueryString = querystring.encode({
       username,
     });
@@ -52,6 +53,7 @@ export const login =
       method: "post",
       credentials: "include",
     });
+    console.log(result);
     if (result.status === 401 || result.status !== 200) {
       dispatch(AuthenticationActions.loginError("Authentication Failed"));
       return;
@@ -70,15 +72,16 @@ export const login =
 
     try {
       const user = jwtDecode(payload.token);
-      if (isSavedUserRecord(user)) {
-        setAuthToken(payload.token);
+      setAuthToken(payload.token);
+      // if (isSavedUserRecord(user)) {
+      //   setAuthToken(payload.token);
 
-        dispatch(AuthenticationActions.loginSuccessful(user));
-      } else {
-        dispatch(
-          AuthenticationActions.loginError("Parsed token did not contain user")
-        );
-      }
+      //   dispatch(AuthenticationActions.loginSuccessful(user));
+      // } else {
+      //   dispatch(
+      //     AuthenticationActions.loginError("Parsed token did not contain user")
+      //   );
+      // }
     } catch (e) {
       dispatch(
         AuthenticationActions.loginError(

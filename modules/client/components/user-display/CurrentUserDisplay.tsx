@@ -116,7 +116,7 @@ export const CurrentUserDisplay: React.FC<{
       autoHideDuration: 4000,
     });
     navigate("/login");
-    // window.location.reload();
+    window.location.reload();
   };
 
   return (

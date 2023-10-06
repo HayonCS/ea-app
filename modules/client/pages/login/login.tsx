@@ -13,6 +13,7 @@ import { UserInformation } from "core/schemas/user-information.gen";
 import { getUserInformation } from "client/user-utils";
 import { useUserInformation } from "client/components/hooks/UserInformation";
 import { Selectors } from "client/redux/selectors";
+import { login } from "client/redux/actions/thunks/authentication-thunks";
 
 const useStyles = makeStyles(() => ({
   app: {
@@ -45,7 +46,7 @@ export const Login: React.FC<{}> = () => {
 
   const currentUser = useSelector(Selectors.App.currentUserInfo);
 
-  const dispatch = useDispatch<Dispatch<Actions>>();
+  const dispatch = useDispatch<Dispatch<any>>();
   const setCurrentUserRedux = React.useCallback(
     (user: UserInformation) => dispatch(Actions.App.currentUserInfo(user)),
     [dispatch]
@@ -65,7 +66,7 @@ export const Login: React.FC<{}> = () => {
       userInfo !== "Loading" &&
       userInfo !== "Unknown"
     ) {
-      if (userInfo.employeeId !== "00000") {
+      if (userInfo.employeeId !== "" && userInfo.employeeId !== "00000") {
         let cookieDate = new Date();
         cookieDate.setFullYear(cookieDate.getFullYear() + 1);
         document.cookie = `${USER_COOKIE_NAME}=${
@@ -147,6 +148,7 @@ export const Login: React.FC<{}> = () => {
           autoHideDuration: 4000,
         });
       } else {
+        // dispatch(login(value));
         setError(false);
         setUsername(value);
       }

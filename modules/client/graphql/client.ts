@@ -53,6 +53,7 @@ export function buildGraphqlClient(
       new HttpLink({
         uri: "/graphql",
         credentials: "same-origin",
+        // credentials: ""
       }),
     ]),
     defaultOptions: {

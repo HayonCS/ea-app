@@ -138,10 +138,15 @@ export const AppBarMenu: React.FC<{}> = () => {
   const userInfo = useUserInformation(username ?? "");
 
   const assetList = useGetAssetListBiQuery({
+    // skip:
+    //   userInfo === "Error" || userInfo === "Loading" || userInfo === "Unknown",
+    // skip: location.pathname.includes("login"),
     fetchPolicy: "cache-and-network",
   });
 
   const employeeDirectory = useGetEmployeeDirectoryQuery({
+    skip:
+      userInfo === "Error" || userInfo === "Loading" || userInfo === "Unknown",
     fetchPolicy: "cache-and-network",
   });
 
@@ -152,7 +157,8 @@ export const AppBarMenu: React.FC<{}> = () => {
           ? userInfo.employeeId
           : "",
     },
-    skip: userInfo === "Error" || userInfo === "Loading",
+    skip:
+      userInfo === "Error" || userInfo === "Loading" || userInfo === "Unknown",
     fetchPolicy: "cache-and-network",
   });
 
@@ -201,35 +207,6 @@ export const AppBarMenu: React.FC<{}> = () => {
       setCurrentUserRedux(userInfo);
     }
   }, [setCurrentUserRedux, userInfo]);
-
-  // React.useEffect(() => {
-  //   if (currentUserRedux.employeeId !== "00000") {
-  //     void (async () => {
-  //       const assetList = await getAssetList();
-  //       if (assetList.length > 0) {
-  //         setAssetListRedux(assetList);
-  //       }
-  //       const userData = await getUserAppData(currentUserRedux.employeeId);
-  //       if (userData.orgCode !== 0) {
-  //         setCurrentUserAppDataRedux(userData);
-  //         let teamInfo: UserInformation[] = [];
-  //         for (let member of userData.teamIds) {
-  //           const info = await getUserInformation(member);
-  //           if (info) teamInfo.push(info);
-  //         }
-  //         teamInfo = teamInfo.sort((a, b) =>
-  //           a.employeeId.localeCompare(b.employeeId)
-  //         );
-  //         setCurrentUserTeamRedux(teamInfo);
-  //       }
-  //     })();
-  //   }
-  // }, [
-  //   currentUserRedux,
-  //   setAssetListRedux,
-  //   setCurrentUserAppDataRedux,
-  //   setCurrentUserTeamRedux,
-  // ]);
 
   React.useEffect(() => {
     if (
@@ -283,8 +260,6 @@ export const AppBarMenu: React.FC<{}> = () => {
     userAppData,
     userInfo,
   ]);
-
-  // const [loadedRedux, setLoadedRedux] = React.useState(false);
 
   React.useEffect(() => {
     if (
@@ -344,62 +319,6 @@ export const AppBarMenu: React.FC<{}> = () => {
       setEmployeeDirectoryRedux(employees);
     }
   }, [employeeDirectory, setEmployeeDirectoryRedux]);
-
-  // React.useEffect(() => {
-  //   if (!loadedRedux) {
-  //     if (userGentexRedux || teamGentexRedux || userDataRedux) {
-  //       setLoadedRedux(true);
-  //     } else {
-  //       const loadInfo = async () => {
-  //         const assetList = await getAssetListRedis();
-  //         if (assetList) {
-  //           setAssetListRedux(assetList);
-  //         }
-  //         if (currentUser !== "unknown") {
-  //           const userGentex = await getUserInfoGentex(currentUser);
-  //           const userData = await getUserDataFromRedis(currentUser);
-  //           const employeeData = await getEmployeeDirectoryRedis();
-  //           if (userGentex) {
-  //             const employeeInfo = await getEmployeeInfoGentex(
-  //               userGentex.employeeId
-  //             );
-  //             if (employeeInfo) {
-  //               updateReduxUserGentex(employeeInfo);
-  //             }
-  //           }
-  //           if (userData) {
-  //             updateReduxUserData(userData);
-  //             let teamGentex: EmployeeInfoGentex[] = [];
-  //             for (let i = 0; i < userData.operators.length; ++i) {
-  //               const info = await getEmployeeInfoGentex(userData.operators[i]);
-  //               if (info) teamGentex.push(info);
-  //             }
-  //             teamGentex = teamGentex.sort((a, b) =>
-  //               a.employeeNumber.localeCompare(b.employeeNumber)
-  //             );
-  //             updateReduxTeamGentex(teamGentex);
-  //           }
-  //           if (employeeData) {
-  //             setEmployeeDirectoryRedux(employeeData);
-  //           }
-  //         }
-  //       };
-  //       void loadInfo();
-  //     }
-  //   }
-  // }, [
-  //   assetListRedux,
-  //   userGentexRedux,
-  //   teamGentexRedux,
-  //   userDataRedux,
-  //   currentUser,
-  //   loadedRedux,
-  //   updateReduxUserGentex,
-  //   updateReduxUserData,
-  //   updateReduxTeamGentex,
-  //   setAssetListRedux,
-  //   setEmployeeDirectoryRedux,
-  // ]);
 
   return (
     <div className={classes.root}>
@@ -593,7 +512,7 @@ export const AppBarMenu: React.FC<{}> = () => {
                   <ListItemButton
                     style={{ display: "flex", alignItems: "center" }}
                     onClick={() => {
-                      navigate("/Stats");
+                      navigate("/statistics");
                     }}
                   >
                     <ListItemIcon style={{ color: "#FFF" }}>
@@ -610,7 +529,7 @@ export const AppBarMenu: React.FC<{}> = () => {
                   <ListItemButton
                     style={{ display: "flex", alignItems: "center" }}
                     onClick={() => {
-                      navigate("/Dashboard");
+                      navigate("/dashboard");
                     }}
                   >
                     <ListItemIcon style={{ color: "#FFF" }}>
@@ -627,7 +546,7 @@ export const AppBarMenu: React.FC<{}> = () => {
                   <ListItemButton
                     style={{ display: "flex", alignItems: "center" }}
                     onClick={() => {
-                      navigate("/Resources");
+                      navigate("/resources");
                     }}
                   >
                     <ListItemIcon style={{ color: "#FFF" }}>
@@ -644,7 +563,7 @@ export const AppBarMenu: React.FC<{}> = () => {
                   <ListItemButton
                     style={{ display: "flex", alignItems: "center" }}
                     onClick={() => {
-                      navigate("/About");
+                      navigate("/about");
                     }}
                   >
                     <ListItemIcon style={{ color: "#FFF" }}>

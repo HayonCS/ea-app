@@ -94,8 +94,8 @@ module.exports = {
   stats: {
     warningsFilter: [
       /export .* was not found in/,
-      './node_modules/config/lib/config.js'
-    ]
+      "./node_modules/config/lib/config.js",
+    ],
   },
 
   node: {
@@ -210,7 +210,7 @@ module.exports = {
   devServer: {
     devMiddleware: {
       publicPath: "/",
-      stats: "errors-only"
+      stats: "errors-only",
     },
     port: DEV_PORT,
     hot: false,

@@ -21,6 +21,7 @@ export const useUserInformation = (
   const { data, loading, error } = useGetMesUserInfoQuery({
     skip:
       !employeeNumOrUserName ||
+      employeeNumOrUserName === "" ||
       employeeNumOrUserName === "undefined" ||
       employeeNumOrUserName.toLowerCase() === "unknown",
     variables: {

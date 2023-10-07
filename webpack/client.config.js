@@ -63,12 +63,12 @@ module.exports = {
   entry: {
     app: [
       "whatwg-fetch",
-      "core-js/es/object",
-      "core-js/es/array",
-      "core-js/es/symbol",
-      "core-js/es/promise",
-      "core-js/es/map",
-      "core-js/es/set",
+      // "core-js/es/object",
+      // "core-js/es/array",
+      // "core-js/es/symbol",
+      // "core-js/es/promise",
+      // "core-js/es/map",
+      // "core-js/es/set",
       "./entry/client.tsx",
     ],
   },

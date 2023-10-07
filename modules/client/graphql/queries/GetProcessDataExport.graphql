@@ -1,0 +1,7 @@
+query GetProcessDataExport(
+  $asset: String!
+  $startDate: String!
+  $endDate: String!
+) {
+  getProcessDataExport(asset: $asset, startDate: $startDate, endDate: $endDate)
+}

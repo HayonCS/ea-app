@@ -205,20 +205,27 @@ export const Statistics: React.FC<{}> = () => {
 
   const classes = useStyles();
 
-  const teamGentexRedux = useSelector(Selectors.App.currentUserTeamInfo);
+  // const teamGentexRedux = useSelector(Selectors.App.currentUserTeamInfo);
+  const employeeDirectory = useSelector(Selectors.App.employeeActiveDirectory);
   const userDataRedux = useSelector(Selectors.App.currentUserAppData);
+
+  const [userTeamInfo, setUserTeamInfo] = React.useState<UserInformation[]>([]);
+
+  React.useEffect(() => {
+    let teamInfo = employeeDirectory.filter((x) =>
+      userDataRedux.operators.includes(x.employeeId)
+    );
+    teamInfo = teamInfo.sort((a, b) => a.username.localeCompare(b.username));
+    setUserTeamInfo(teamInfo);
+  }, [userDataRedux, employeeDirectory]);
 
   const [tabValueStats, setTabValueStats] = React.useState(0);
 
   const [loadingAssetOperator, setLoadingAssetOperator] = React.useState(false);
-  const [
-    loadingProgressAssetOperator,
-    setLoadingProgressAssetOperator,
-  ] = React.useState(0);
-  const [
-    cancelingLoadingAssetOperator,
-    setCancelingLoadingAssetOperator,
-  ] = React.useState(false);
+  const [loadingProgressAssetOperator, setLoadingProgressAssetOperator] =
+    React.useState(0);
+  const [cancelingLoadingAssetOperator, setCancelingLoadingAssetOperator] =
+    React.useState(false);
 
   const [operatorEmployeeInfo, setOperatorEmployeeInfo] = React.useState<
     UserInformation[]
@@ -231,41 +238,31 @@ export const Statistics: React.FC<{}> = () => {
     assets: string[];
     parts: string[];
   }>({ operators: [], assets: [], parts: [] });
-  const [
-    filtersAssetOperatorRadio,
-    setFiltersAssetOperatorRadio,
-  ] = React.useState("AllOperators");
+  const [filtersAssetOperatorRadio, setFiltersAssetOperatorRadio] =
+    React.useState("AllOperators");
   const [selectedAssetsOperator, setSelectedAssetsOperator] = React.useState<
     string[]
   >([]);
-  const [
-    checkboxDateAssetOperator,
-    setCheckboxDateAssetOperator,
-  ] = React.useState(false);
+  const [checkboxDateAssetOperator, setCheckboxDateAssetOperator] =
+    React.useState(false);
   const [startDateAssetOperator, setStartDateAssetOperator] = React.useState(
     new Date()
   );
   const [endDateAssetOperator, setEndDateAssetOperator] = React.useState(
     new Date()
   );
-  const [
-    processDataAssetOperator,
-    setProcessDataAssetOperator,
-  ] = React.useState<ProcessDataRawData[]>([]);
+  const [processDataAssetOperator, setProcessDataAssetOperator] =
+    React.useState<ProcessDataRawData[]>([]);
   const [rowsAssetOperator, setRowsAssetOperator] = React.useState<
     ProcessDataOperatorTotals[]
   >([]);
-  const [
-    rowsFilteredAssetOperator,
-    setRowsFilteredAssetOperator,
-  ] = React.useState<ProcessDataOperatorTotals[]>([]);
-  const [
-    paginationModelAssetOperator,
-    setPaginationModelAssetOperator,
-  ] = React.useState<GridPaginationModel>({
-    page: 0,
-    pageSize: 100,
-  });
+  const [rowsFilteredAssetOperator, setRowsFilteredAssetOperator] =
+    React.useState<ProcessDataOperatorTotals[]>([]);
+  const [paginationModelAssetOperator, setPaginationModelAssetOperator] =
+    React.useState<GridPaginationModel>({
+      page: 0,
+      pageSize: 100,
+    });
   const [
     columnVisibilityModelAssetOperator,
     setColumnVisibilityModelAssetOperator,
@@ -274,50 +271,36 @@ export const Statistics: React.FC<{}> = () => {
     recipe: false,
     changeover: false,
   });
-  const [
-    rowSelectionModelAssetOperator,
-    setRowSelectionModelAssetOperator,
-  ] = React.useState<GridInputRowSelectionModel>([]);
-  const [
-    footerStatsAssetOperator,
-    setFooterStatsAssetOperator,
-  ] = React.useState<FooterStatsTotals>({
-    Rows: 0,
-    Parts: 0,
-    Passes: 0,
-    Fails: 0,
-    RunActual: 0,
-    RunTheory: 0,
-    Efficiency: 0,
-    PartsPerHour: 0,
-  });
+  const [rowSelectionModelAssetOperator, setRowSelectionModelAssetOperator] =
+    React.useState<GridInputRowSelectionModel>([]);
+  const [footerStatsAssetOperator, setFooterStatsAssetOperator] =
+    React.useState<FooterStatsTotals>({
+      Rows: 0,
+      Parts: 0,
+      Passes: 0,
+      Fails: 0,
+      RunActual: 0,
+      RunTheory: 0,
+      Efficiency: 0,
+      PartsPerHour: 0,
+    });
 
-  const [
-    partSearchValueAssetPart,
-    setPartSearchValueAssetPart,
-  ] = React.useState("");
-  const [
-    showRawDataAssetOperator,
-    setShowRawDataAssetOperator,
-  ] = React.useState(false);
-  const [
-    filterPanelOpenAssetOperator,
-    setFilterPanelOpenAssetOperator,
-  ] = React.useState(false);
+  const [partSearchValueAssetPart, setPartSearchValueAssetPart] =
+    React.useState("");
+  const [showRawDataAssetOperator, setShowRawDataAssetOperator] =
+    React.useState(false);
+  const [filterPanelOpenAssetOperator, setFilterPanelOpenAssetOperator] =
+    React.useState(false);
   const [
     filterPanelCloseHoverStateAssetOperator,
     setFilterPanelCloseHoverStateAssetOperator,
   ] = React.useState(false);
 
   const [loadingAssetPart, setLoadingAssetPart] = React.useState(false);
-  const [
-    loadingProgressAssetPart,
-    setLoadingProgressAssetPart,
-  ] = React.useState(0);
-  const [
-    cancelingLoadingAssetPart,
-    setCancelingLoadingAssetPart,
-  ] = React.useState(false);
+  const [loadingProgressAssetPart, setLoadingProgressAssetPart] =
+    React.useState(0);
+  const [cancelingLoadingAssetPart, setCancelingLoadingAssetPart] =
+    React.useState(false);
   const [filtersAssetPart, setFiltersAssetPart] = React.useState<{
     assets: string[];
     parts: string[];
@@ -325,9 +308,8 @@ export const Statistics: React.FC<{}> = () => {
   const [selectedAssetsPart, setSelectedAssetsPart] = React.useState<string[]>(
     []
   );
-  const [checkboxDateAssetPart, setCheckboxDateAssetPart] = React.useState(
-    false
-  );
+  const [checkboxDateAssetPart, setCheckboxDateAssetPart] =
+    React.useState(false);
   const [startDateAssetPart, setStartDateAssetPart] = React.useState(
     new Date()
   );
@@ -341,43 +323,34 @@ export const Statistics: React.FC<{}> = () => {
   const [rowsFilteredAssetPart, setRowsFilteredAssetPart] = React.useState<
     ProcessDataOperatorTotals[]
   >([]);
-  const [
-    paginationModelAssetPart,
-    setPaginationModelAssetPart,
-  ] = React.useState<GridPaginationModel>({
-    page: 0,
-    pageSize: 100,
-  });
-  const [
-    columnVisibilityModelAssetPart,
-    setColumnVisibilityModelAssetPart,
-  ] = React.useState<GridColumnVisibilityModel>({
-    board: false,
-    recipe: false,
-    changeover: false,
-  });
-  const [
-    rowSelectionModelAssetPart,
-    setRowSelectionModelAssetPart,
-  ] = React.useState<GridInputRowSelectionModel>([]);
-  const [footerStatsAssetPart, setFooterStatsAssetPart] = React.useState<
-    FooterStatsTotals
-  >({
-    Rows: 0,
-    Parts: 0,
-    Passes: 0,
-    Fails: 0,
-    RunActual: 0,
-    RunTheory: 0,
-    Efficiency: 0,
-    PartsPerHour: 0,
-  });
+  const [paginationModelAssetPart, setPaginationModelAssetPart] =
+    React.useState<GridPaginationModel>({
+      page: 0,
+      pageSize: 100,
+    });
+  const [columnVisibilityModelAssetPart, setColumnVisibilityModelAssetPart] =
+    React.useState<GridColumnVisibilityModel>({
+      board: false,
+      recipe: false,
+      changeover: false,
+    });
+  const [rowSelectionModelAssetPart, setRowSelectionModelAssetPart] =
+    React.useState<GridInputRowSelectionModel>([]);
+  const [footerStatsAssetPart, setFooterStatsAssetPart] =
+    React.useState<FooterStatsTotals>({
+      Rows: 0,
+      Parts: 0,
+      Passes: 0,
+      Fails: 0,
+      RunActual: 0,
+      RunTheory: 0,
+      Efficiency: 0,
+      PartsPerHour: 0,
+    });
 
   const [showRawDataAssetPart, setShowRawDataAssetPart] = React.useState(false);
-  const [
-    filterPanelOpenAssetPart,
-    setFilterPanelOpenAssetPart,
-  ] = React.useState(false);
+  const [filterPanelOpenAssetPart, setFilterPanelOpenAssetPart] =
+    React.useState(false);
   const [
     filterPanelCloseHoverStateAssetPart,
     setFilterPanelCloseHoverStateAssetPart,
@@ -424,14 +397,14 @@ export const Statistics: React.FC<{}> = () => {
         setLoadingProgressAssetOperator(progress);
         const operatorTotals = await getFinalProcessDataOperatorTotals(
           procDataOperator,
-          userDataRedux?.orgCode ?? 14
+          userDataRedux.orgCode
         );
         if (cancelLoadingAssetOperator) {
           canceled = true;
           break;
         }
-        processDataTotal = processDataTotal.concat(processData);
-        finalOperatorData = finalOperatorData.concat(operatorTotals);
+        processDataTotal = processDataTotal.concat([...processData]);
+        finalOperatorData = finalOperatorData.concat([...operatorTotals]);
         progress += step;
         setLoadingProgressAssetOperator(progress);
       } else {
@@ -442,7 +415,7 @@ export const Statistics: React.FC<{}> = () => {
     if (!canceled) {
       setLoadingProgressAssetOperator(90);
       finalOperatorData.forEach((x, i) => (x.id = i));
-      const rawDataTotal = processDataTotal.map((x, i) => {
+      let rawDataTotal = processDataTotal.map((x, i) => {
         let obj: ProcessDataRawData = {
           id: i,
           ...x,
@@ -452,18 +425,18 @@ export const Statistics: React.FC<{}> = () => {
       setRowSelectionModelAssetOperator([]);
       setRowsAssetOperator(finalOperatorData);
       setProcessDataAssetOperator(rawDataTotal);
-      await loadAllEmployeeInfo(finalOperatorData);
+      loadAllEmployeeInfo(finalOperatorData);
       setLoadingProgressAssetOperator(100);
       setLoadingAssetOperator(false);
       cancelLoadingAssetOperator = false;
       setCancelingLoadingAssetOperator(false);
-      const opList = finalOperatorData
+      let opList = [...finalOperatorData]
         .map((x) => x.Operator)
         .filter((v, i, a) => a.indexOf(v) === i);
-      const partList = finalOperatorData
+      let partList = [...finalOperatorData]
         .map((x) => x.PartNumber)
         .filter((v, i, a) => a.indexOf(v) === i);
-      const assetList = finalOperatorData
+      let assetList = [...finalOperatorData]
         .map((x) => x.Asset)
         .filter((v, i, a) => a.indexOf(v) === i);
       const opFilter = opList.filter((op) =>
@@ -596,6 +569,7 @@ export const Statistics: React.FC<{}> = () => {
         variant: "success",
         autoHideDuration: 3000,
       });
+      // setRowsAssetPart(finalPartData);
     } else {
       setLoadingProgressAssetPart(0);
       setLoadingAssetPart(false);
@@ -608,36 +582,33 @@ export const Statistics: React.FC<{}> = () => {
     }
   };
 
-  const loadAllEmployeeInfo = async (
-    processData: ProcessDataOperatorTotals[]
-  ) => {
+  const loadAllEmployeeInfo = (processData: ProcessDataOperatorTotals[]) => {
     let allInfo: UserInformation[] = [];
     const ids = processData
       .map((x) => x.Operator)
       .filter((v, i, a) => a.indexOf(v) === i)
       .sort((a, b) => a.localeCompare(b));
-    for (let i = 0; i < ids.length; ++i) {
-      if (
-        teamGentexRedux &&
-        teamGentexRedux.some((x) => x.employeeId === ids[i])
-      ) {
-        const found = teamGentexRedux.find((x) => x.employeeId === ids[i]);
-        if (found) {
-          allInfo.push(found);
-        }
-      } else {
-        const info = await getUserInformation(ids[i]);
-        if (info) {
-          allInfo.push(info);
-        }
-      }
-    }
+    allInfo = employeeDirectory.filter((x) => ids.includes(x.employeeId));
+    // for (let i = 0; i < ids.length; ++i) {
+    //   if (userTeamInfo.some((x) => x.employeeId === ids[i])) {
+    //     const found = userTeamInfo.find((x) => x.employeeId === ids[i]);
+    //     if (found) {
+    //       allInfo.push(found);
+    //     }
+    //   } else {
+    //     const info = await getUserInformation(ids[i]);
+    //     if (info) {
+    //       allInfo.push(info);
+    //     }
+    //   }
+    // }
     setOperatorEmployeeInfo(allInfo);
   };
 
   React.useEffect(() => {
     setRowSelectionModelAssetOperator([]);
     let rows = [...rowsAssetOperator];
+    console.log(filtersAssetOperator);
     if (filtersAssetOperator.assets.length > 0) {
       rows = rows.filter((x) => filtersAssetOperator.assets.includes(x.Asset));
     }
@@ -652,23 +623,75 @@ export const Statistics: React.FC<{}> = () => {
       );
     }
     if (filtersAssetOperatorRadio === "MyTeam") {
-      const myTeam = teamGentexRedux?.map((x) => x.employeeId) ?? [];
+      const myTeam = [...userTeamInfo].map((x) => x.employeeId);
       rows = rows.filter((x) => myTeam.includes(x.Operator));
     }
-    setRowsFilteredAssetOperator(rows);
+    rows = rows.map((row, i) => {
+      let newRow = { ...row };
+      newRow.id = i + 1;
+      return newRow;
+    });
+    // if (rows.length > 0) {
+    //   rows.push({
+    //     ...rows[rows.length - 1],
+    //     id: rows.length + 1,
+    //   });
+    // }
 
     if (filtersAssetOperatorRadio === "AllOperators") {
       setFilterOperatorUserInfo(operatorEmployeeInfo);
     } else {
-      setFilterOperatorUserInfo(teamGentexRedux ?? []);
+      setFilterOperatorUserInfo(userTeamInfo);
     }
+
+    console.log(rows);
+
+    setRowsFilteredAssetOperator(rows);
+    // setNewRows(rows);
   }, [
     rowsAssetOperator,
     filtersAssetOperator,
     filtersAssetOperatorRadio,
-    teamGentexRedux,
+    userTeamInfo,
     operatorEmployeeInfo,
   ]);
+
+  const setNewRows = React.useCallback((rows: ProcessDataOperatorTotals[]) => {
+    setTimeout(() => {
+      // setRowsFilteredAssetOperator((prevRows) => prevRows.filter((row) => row.id !== id));
+      setRowsFilteredAssetOperator(rows);
+    }, 1000);
+  }, []);
+
+  // React.useEffect(() => {
+  //   console.log("SET ROWS");
+  //   const rows = [
+  //     {
+  //       Asset: "asdf",
+  //       CycleTime: 2,
+  //       Date: new Date(),
+  //       Efficiency: 124,
+  //       EndTime: new Date(),
+  //       Fails: 9,
+  //       id: 0,
+  //       Label: "",
+  //       Line: "",
+  //       OperationId: "",
+  //       Operator: "",
+  //       PartNumber: "",
+  //       PartsPerHour: 3,
+  //       Passes: 229,
+  //       Revision: "",
+  //       RunActual: 1234,
+  //       RunTheory: 12,
+  //       Sender: "",
+  //       StartTime: new Date(),
+  //       TestPlan: "",
+  //     },
+  //   ];
+  //   // setNewRows(rows);
+  //   setRowsFilteredAssetOperator(rows);
+  // }, []);
 
   React.useEffect(() => {
     if (typeof rowSelectionModelAssetOperator !== "number") {
@@ -716,39 +739,39 @@ export const Statistics: React.FC<{}> = () => {
     setRowsFilteredAssetPart(rows);
   }, [rowsAssetPart, filtersAssetPart]);
 
-  React.useEffect(() => {
-    if (typeof rowSelectionModelAssetPart !== "number") {
-      let stats: FooterStatsTotals = {
-        Rows: 0,
-        Parts: 0,
-        Passes: 0,
-        Fails: 0,
-        RunActual: 0,
-        RunTheory: 0,
-        Efficiency: 0,
-        PartsPerHour: 0,
-      };
-      for (const gridRowId of rowSelectionModelAssetPart) {
-        const id = gridRowId as number;
-        const row = rowsAssetPart[id];
-        stats.Rows += 1;
-        stats.Parts += row.Passes + row.Fails;
-        stats.Passes += row.Passes;
-        stats.Fails += row.Fails;
-        stats.RunActual += row.RunActual;
-        stats.RunTheory += row.RunTheory;
-        const efficiency =
-          stats.RunActual > 0 ? (stats.RunTheory / stats.RunActual) * 100 : 100;
-        const partsPerHour =
-          stats.RunActual > 0
-            ? ((stats.Passes + stats.Fails) / stats.RunActual) * 60
-            : stats.Passes + stats.Fails;
-        stats.Efficiency = efficiency;
-        stats.PartsPerHour = partsPerHour;
-      }
-      setFooterStatsAssetPart(stats);
-    }
-  }, [rowSelectionModelAssetPart, rowsAssetPart]);
+  // React.useEffect(() => {
+  //   if (typeof rowSelectionModelAssetPart !== "number") {
+  //     let stats: FooterStatsTotals = {
+  //       Rows: 0,
+  //       Parts: 0,
+  //       Passes: 0,
+  //       Fails: 0,
+  //       RunActual: 0,
+  //       RunTheory: 0,
+  //       Efficiency: 0,
+  //       PartsPerHour: 0,
+  //     };
+  //     for (const gridRowId of rowSelectionModelAssetPart) {
+  //       const id = gridRowId as number;
+  //       const row = rowsAssetPart[id];
+  //       stats.Rows += 1;
+  //       stats.Parts += row.Passes + row.Fails;
+  //       stats.Passes += row.Passes;
+  //       stats.Fails += row.Fails;
+  //       stats.RunActual += row.RunActual;
+  //       stats.RunTheory += row.RunTheory;
+  //       const efficiency =
+  //         stats.RunActual > 0 ? (stats.RunTheory / stats.RunActual) * 100 : 100;
+  //       const partsPerHour =
+  //         stats.RunActual > 0
+  //           ? ((stats.Passes + stats.Fails) / stats.RunActual) * 60
+  //           : stats.Passes + stats.Fails;
+  //       stats.Efficiency = efficiency;
+  //       stats.PartsPerHour = partsPerHour;
+  //     }
+  //     setFooterStatsAssetPart(stats);
+  //   }
+  // }, [rowSelectionModelAssetPart, rowsAssetPart]);
 
   const columnsAssetOperator: GridColDef[] = [
     {
@@ -843,7 +866,7 @@ export const Statistics: React.FC<{}> = () => {
       flex: 1,
       renderCell: (cellValue) => {
         const id = cellValue.value as string;
-        return <UserDisplayClick userId={id} />
+        return <UserDisplayClick userId={id} />;
         // const foundIndex = operatorEmployeeInfo.findIndex((userInfo) => {
         //   return userInfo.employeeId === id;
         // });
@@ -1905,8 +1928,9 @@ export const Statistics: React.FC<{}> = () => {
                               name="radio-buttons-group"
                               value={filtersAssetOperatorRadio}
                               onChange={(event) => {
-                                const radioValue = (event.target as HTMLInputElement)
-                                  .value;
+                                const radioValue = (
+                                  event.target as HTMLInputElement
+                                ).value;
                                 setFiltersAssetOperatorRadio(radioValue);
                                 setFiltersAssetOperator({
                                   ...filtersAssetOperator,
@@ -1934,7 +1958,7 @@ export const Statistics: React.FC<{}> = () => {
                                 style={{ fontSize: "16px", cursor: "default" }}
                               >
                                 {filtersAssetOperator.operators.length ===
-                                teamGentexRedux?.length
+                                userTeamInfo.length
                                   ? "My Entire Team"
                                   : filtersAssetOperator.operators.length > 0
                                   ? filtersAssetOperator.operators.join(", ")
@@ -2171,7 +2195,7 @@ export const Statistics: React.FC<{}> = () => {
                         onPaginationModelChange={(model) => {
                           setPaginationModelAssetOperator(model);
                         }}
-                        rowCount={rowsFilteredAssetOperator.length}
+                        // rowCount={rowsFilteredAssetOperator.length}
                         checkboxSelection={true}
                         disableRowSelectionOnClick={true}
                         slots={{
@@ -2184,31 +2208,31 @@ export const Statistics: React.FC<{}> = () => {
                             printOptions: { disableToolbarButton: true },
                           },
                         }}
-                        columnVisibilityModel={
-                          columnVisibilityModelAssetOperator
-                        }
-                        onColumnVisibilityModelChange={(model) => {
-                          setColumnVisibilityModelAssetOperator(model);
-                        }}
-                        rowSelectionModel={rowSelectionModelAssetOperator}
-                        onRowSelectionModelChange={(model) => {
-                          setRowSelectionModelAssetOperator(model);
-                        }}
-                        onCellClick={(params) => {
-                          if (params.field !== "Operator") {
-                            let newSelections = [
-                              ...(rowSelectionModelAssetOperator as number[]),
-                            ];
-                            const rowId = params.id as number;
-                            if (newSelections.includes(rowId)) {
-                              const index = newSelections.indexOf(rowId);
-                              if (index > -1) newSelections.splice(index, 1);
-                            } else newSelections.push(rowId);
-                            setRowSelectionModelAssetOperator(
-                              newSelections as GridInputRowSelectionModel
-                            );
-                          }
-                        }}
+                        // columnVisibilityModel={
+                        //   columnVisibilityModelAssetOperator
+                        // }
+                        // onColumnVisibilityModelChange={(model) => {
+                        //   setColumnVisibilityModelAssetOperator(model);
+                        // }}
+                        // rowSelectionModel={rowSelectionModelAssetOperator}
+                        // onRowSelectionModelChange={(model) => {
+                        //   setRowSelectionModelAssetOperator(model);
+                        // }}
+                        // onCellClick={(params) => {
+                        //   if (params.field !== "Operator") {
+                        //     let newSelections = [
+                        //       ...(rowSelectionModelAssetOperator as number[]),
+                        //     ];
+                        //     const rowId = params.id as number;
+                        //     if (newSelections.includes(rowId)) {
+                        //       const index = newSelections.indexOf(rowId);
+                        //       if (index > -1) newSelections.splice(index, 1);
+                        //     } else newSelections.push(rowId);
+                        //     setRowSelectionModelAssetOperator(
+                        //       newSelections as GridInputRowSelectionModel
+                        //     );
+                        //   }
+                        // }}
                       />
                     </div>
                   </Collapse>
@@ -2607,41 +2631,41 @@ export const Statistics: React.FC<{}> = () => {
                         onPaginationModelChange={(model) => {
                           setPaginationModelAssetPart(model);
                         }}
-                        rowCount={rowsFilteredAssetPart.length}
+                        // rowCount={rowsFilteredAssetPart.length}
                         checkboxSelection={true}
                         disableRowSelectionOnClick={true}
-                        slots={{
-                          toolbar: CustomToolbarAssetPart,
-                          // footer: CustomFooterAssetOperator,
-                        }}
-                        slotProps={{
-                          toolbar: {
-                            printOptions: { disableToolbarButton: true },
-                          },
-                        }}
-                        columnVisibilityModel={columnVisibilityModelAssetPart}
-                        onColumnVisibilityModelChange={(model) => {
-                          setColumnVisibilityModelAssetPart(model);
-                        }}
-                        rowSelectionModel={rowSelectionModelAssetPart}
-                        onRowSelectionModelChange={(model) => {
-                          setRowSelectionModelAssetPart(model);
-                        }}
-                        onCellClick={(params) => {
-                          if (params.field !== "Operator") {
-                            let newSelections = [
-                              ...(rowSelectionModelAssetPart as number[]),
-                            ];
-                            const rowId = params.id as number;
-                            if (newSelections.includes(rowId)) {
-                              const index = newSelections.indexOf(rowId);
-                              if (index > -1) newSelections.splice(index, 1);
-                            } else newSelections.push(rowId);
-                            setRowSelectionModelAssetPart(
-                              newSelections as GridInputRowSelectionModel
-                            );
-                          }
-                        }}
+                        // slots={{
+                        //   toolbar: CustomToolbarAssetPart,
+                        //   // footer: CustomFooterAssetOperator,
+                        // }}
+                        // slotProps={{
+                        //   toolbar: {
+                        //     printOptions: { disableToolbarButton: true },
+                        //   },
+                        // }}
+                        // columnVisibilityModel={columnVisibilityModelAssetPart}
+                        // onColumnVisibilityModelChange={(model) => {
+                        //   setColumnVisibilityModelAssetPart(model);
+                        // }}
+                        // rowSelectionModel={rowSelectionModelAssetPart}
+                        // onRowSelectionModelChange={(model) => {
+                        //   setRowSelectionModelAssetPart(model);
+                        // }}
+                        // onCellClick={(params) => {
+                        //   if (params.field !== "Operator") {
+                        //     let newSelections = [
+                        //       ...(rowSelectionModelAssetPart as number[]),
+                        //     ];
+                        //     const rowId = params.id as number;
+                        //     if (newSelections.includes(rowId)) {
+                        //       const index = newSelections.indexOf(rowId);
+                        //       if (index > -1) newSelections.splice(index, 1);
+                        //     } else newSelections.push(rowId);
+                        //     setRowSelectionModelAssetPart(
+                        //       newSelections as GridInputRowSelectionModel
+                        //     );
+                        //   }
+                        // }}
                       />
                     </div>
                   </Collapse>

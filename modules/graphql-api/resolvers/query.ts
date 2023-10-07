@@ -27,6 +27,7 @@ import { HelpContextBusinessLogic } from "domain-services/help-context/business-
 import { AssetsBiPort } from "domain-services/assets-bi/port";
 import { UserAppDataPort } from "domain-services/user-app-data/port";
 import { EmployeeDirectoryRedisPort } from "domain-services/employee-directory-redis/port";
+import { MesProcessDataPort } from "rest-endpoints/mes-process-data/port";
 // import { UserSettings } from "core/schemas/user-settings.gen";
 
 const queryResolvers: QueryResolvers = {
@@ -58,6 +59,14 @@ const queryResolvers: QueryResolvers = {
   assetListBi: async (parent, args, ctx) => {
     const assetList = await ctx.get(AssetsBiPort).getAssetList();
     return assetList;
+  },
+
+  getProcessDataExport: async (parent, args, ctx) => {
+    const processData = await ctx
+      .get(MesProcessDataPort)
+      .getProcessDataExport(args.asset, args.startDate, args.endDate);
+
+    return processData;
   },
 
   getUserAppData: async (parent, args, ctx) => {

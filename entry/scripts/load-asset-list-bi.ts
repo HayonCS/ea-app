@@ -14,6 +14,8 @@ async function loadAllAssets() {
       x.assetName.startsWith("PCB")
   );
 
+  assets = assets.sort((a, b) => a.assetName.localeCompare(b.assetName));
+
   if (assets.length > 0) {
     await redis.set("biAssetList", JSON.stringify(assets));
     return "Loaded bi asset list into redis.";

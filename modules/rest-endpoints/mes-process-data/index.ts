@@ -1,6 +1,6 @@
 import * as Hexagonal from "atomic-object/hexagonal";
 import { MesProcessDataPort } from "./port";
-import { ProcessDataExport, getProcessDataExport } from "./process-data";
+import { ProcessDataExport, getProcessDataExport } from "./mes-process-data";
 
 export type MesProcessData = {
   getProcessDataExport: (

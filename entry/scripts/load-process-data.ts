@@ -1,7 +1,7 @@
 import * as IORedis from "ioredis";
 import * as config from "config";
 import { AssetInfo } from "rest-endpoints/mes-bi/mes-bi";
-import { getProcessDataExport } from "rest-endpoints/mes-process-data/process-data";
+import { getProcessDataExport } from "rest-endpoints/mes-process-data/mes-process-data";
 
 var redis = new IORedis.Redis(config.get("redis.url"));
 

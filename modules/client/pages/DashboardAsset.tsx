@@ -798,10 +798,9 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
               style={{ fontSize: "1rem" }}
               domain={[
                 0,
-                // Math.round(
-                //   Math.max(...graphData.map((o) => o.efficiency)) + 10
-                // ),
-                120,
+                Math.round(
+                  Math.max(...graphData.map((o) => o.efficiency)) + 10
+                ),
               ]}
               // domain={[0, 150]}
               allowDataOverflow={true}

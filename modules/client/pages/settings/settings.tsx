@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => ({
     display: "flex",
   },
   tabPaperStyle: {
-    height: "calc(100vh - 112px)",
+    height: "calc(100vh - 48px)",
     width: "calc(100vw - 254px)",
     marginLeft: "4px",
     paddingTop: "64px",
@@ -283,7 +283,7 @@ export const Settings: React.FC<{}> = () => {
           containerStyle={{ width: "100%", height: "100%" }}
           slideStyle={{ width: "100%", height: "100%" }}
         >
-          <TabPanel value={tabValue} index={0}>
+          <TabPanel value={tabValue} index={0} style={{ height: "100%" }}>
             <Paper className={classes.tabPaperStyle}>
               <GeneralSettingsPanel
                 orgCode={currentUserData.orgCode}
@@ -312,7 +312,13 @@ export const Settings: React.FC<{}> = () => {
               <AssetsSettingsPanel
                 assets={currentUserData.assetList}
                 onChange={(assets) => {
-                  setCurrentUserData({ ...currentUserData, assetList: assets });
+                  const sortedAssets = assets.sort((a, b) =>
+                    a.localeCompare(b)
+                  );
+                  setCurrentUserData({
+                    ...currentUserData,
+                    assetList: sortedAssets,
+                  });
                 }}
               />
             </Paper>

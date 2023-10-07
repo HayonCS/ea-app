@@ -76,6 +76,7 @@ generates:
             - 'import { TesterType } from "helpers/station-prefix";'
             - 'import { UserAppData } from "core/schemas/user-app-data.gen"'
             - 'import { EmployeeInfoResponse } from "rest-endpoints/employee-directory/employee-directory"'
+            - 'import { ProcessDataExport } from "rest-endpoints/mes-process-data/mes-process-data"'
       - "typescript":
           scalars:
             IsoDateTime: DateTimeIso.Type
@@ -91,6 +92,7 @@ generates:
             TesterType: TesterType
             UserAppData: UserAppData
             EmployeeInfoResponse: EmployeeInfoResponse
+            ProcessDataExport: ProcessDataExport
       - "typescript-operations"
       - "typescript-resolvers":
           contextType: context#ApiContext

@@ -15,6 +15,7 @@ scalar UserAppData
 scalar Object
 scalar SavedUserRecord
 scalar EmployeeInfoResponse
+scalar ProcessDataExport
 
 """
 Represents an individual user.
@@ -972,6 +973,12 @@ type Query {
   assetListBi: [AssetInfo]!
 
   getUserAppData(userId: String!): UserAppData!
+
+  getProcessDataExport(
+    asset: String!
+    startDate: String!
+    endDate: String!
+  ): [ProcessDataExport]!
 
   """
   Displays information about the current server configuration including the current

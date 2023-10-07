@@ -26,6 +26,7 @@ import { LocalPathManager } from "domain-services/local-path-data/LocalPathManag
 import { HelpContextBusinessLogic } from "domain-services/help-context/business-logic/help-context-business-logic";
 import { AssetsBiPort } from "domain-services/assets-bi/port";
 import { UserAppDataPort } from "domain-services/user-app-data/port";
+import { EmployeeDirectoryRedisPort } from "domain-services/employee-directory-redis/port";
 // import { UserSettings } from "core/schemas/user-settings.gen";
 
 const queryResolvers: QueryResolvers = {
@@ -46,8 +47,11 @@ const queryResolvers: QueryResolvers = {
   },
 
   employeeDirectory: async (parent, args, ctx) => {
-    const directory = await ctx.get(EmployeeInfoPort).employeeDirectory();
-
+    // const directory = await ctx.get(EmployeeInfoPort).employeeDirectory();
+    // return directory;
+    const directory = await ctx
+      .get(EmployeeDirectoryRedisPort)
+      .getEmployeeDirectory();
     return directory;
   },
 

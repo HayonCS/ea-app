@@ -80,12 +80,14 @@ async function updateProcessData() {
           dateToString(endDatePrev)
         );
         if (processDataNow) {
-          const key = `${assetList[i]}:${dateToString(startDate)}`;
+          const key = `${assetList[i].assetName}:${dateToString(startDate)}`;
           await redis.set(key, JSON.stringify(processDataNow));
           console.log(`Updated "${key}" in Redis.`);
         }
         if (processDataPrev) {
-          const key = `${assetList[i]}:${dateToString(startDatePrev)}`;
+          const key = `${assetList[i].assetName}:${dateToString(
+            startDatePrev
+          )}`;
           await redis.set(key, JSON.stringify(processDataPrev));
           console.log(`Updated "${key}" in Redis.`);
         }

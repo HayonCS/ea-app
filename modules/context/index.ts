@@ -57,6 +57,8 @@ import { MesBiPort } from "rest-endpoints/mes-bi/port";
 import { mesBiAdapter } from "rest-endpoints/mes-bi";
 import { MesProcessDataPort } from "rest-endpoints/mes-process-data/port";
 import { mesProcessDataAdapter } from "rest-endpoints/mes-process-data";
+import { EmployeeDirectoryRedisPort } from "domain-services/employee-directory-redis/port";
+import { employeeDirectoryRedisAdapter } from "domain-services/employee-directory-redis";
 
 export type ContextOpts = {
   db?: db.Knex;
@@ -107,6 +109,7 @@ const ContextBase = Hexagonal.contextClass((c) =>
     .add(MesProcessDataPort, mesProcessDataAdapter)
     .add(UserPicturePort, userPictureAdapter)
     .add(EmployeeInfoPort, employeeInfoAdapter)
+    .add(EmployeeDirectoryRedisPort, employeeDirectoryRedisAdapter)
     .add(
       WikiDocumentPort,
       process.env.NODE_ENV === "test"
@@ -177,6 +180,10 @@ export class Context extends ContextBase {
 
   get employeeDirectory() {
     return this.get(EmployeeInfoPort);
+  }
+
+  get employeeDirectoryRedis() {
+    return this.get(EmployeeDirectoryRedisPort);
   }
 
   get subversion() {

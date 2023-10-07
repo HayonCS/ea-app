@@ -28,6 +28,7 @@ import { AssetsBiPort } from "domain-services/assets-bi/port";
 import { UserAppDataPort } from "domain-services/user-app-data/port";
 import { EmployeeDirectoryRedisPort } from "domain-services/employee-directory-redis/port";
 import { MesProcessDataPort } from "rest-endpoints/mes-process-data/port";
+import { ProcessDataRedisPort } from "domain-services/process-data-redis/port";
 // import { UserSettings } from "core/schemas/user-settings.gen";
 
 const queryResolvers: QueryResolvers = {
@@ -67,6 +68,14 @@ const queryResolvers: QueryResolvers = {
       .getProcessDataExport(args.asset, args.startDate, args.endDate);
 
     return processData;
+  },
+
+  getProcessDataRedis: async (parent, args, ctx) => {
+    const data = await ctx
+      .get(ProcessDataRedisPort)
+      .getProcessDataRedis(args.asset, args.date);
+
+    return data;
   },
 
   getUserAppData: async (parent, args, ctx) => {

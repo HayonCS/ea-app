@@ -980,6 +980,8 @@ type Query {
     endDate: String!
   ): [ProcessDataExport]!
 
+  getProcessDataRedis(asset: String!, date: String!): [ProcessDataExport]!
+
   """
   Displays information about the current server configuration including the current
   endpoints and api urls used.

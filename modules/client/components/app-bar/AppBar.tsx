@@ -240,17 +240,19 @@ export const AppBarMenu: React.FC<{}> = () => {
       ) {
         if (userAppData.data.getUserAppData.orgCode !== 0) {
           setCurrentUserAppDataRedux(userAppData.data.getUserAppData);
-          void (async () => {
-            let teamInfo: UserInformation[] = [];
-            for (let member of userAppData.data?.getUserAppData.teamIds ?? []) {
-              const info = await getUserInformation(member);
-              if (info) teamInfo.push(info);
-            }
-            teamInfo = teamInfo.sort((a, b) =>
-              a.employeeId.localeCompare(b.employeeId)
-            );
-            setCurrentUserTeamRedux(teamInfo);
-          })();
+          // void (async () => {
+          //   let teamInfo: UserInformation[] = [];
+          //   for (let member of userAppData.data?.getUserAppData.operators ??
+          //     []) {
+          //     const info = await getUserInformation(member);
+          //     if (info) teamInfo.push(info);
+          //     console.log(`Got Info: ${JSON.stringify(info)}`);
+          //   }
+          //   teamInfo = teamInfo.sort((a, b) =>
+          //     a.employeeId.localeCompare(b.employeeId)
+          //   );
+          //   setCurrentUserTeamRedux(teamInfo);
+          // })();
         }
       }
     }

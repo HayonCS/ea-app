@@ -79,7 +79,6 @@ const ValidateString = (value: any, fieldName: string): string => {
 
 const mutationResolvers: GraphQL.MutationResolvers = {
   setUserAppData: async (parent, args, ctx): Promise<boolean> => {
-    console.log(args.appData);
     const result = await ctx
       .get(UserAppDataPort)
       .setUserAppData(args.userId, args.appData);

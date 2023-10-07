@@ -16,7 +16,7 @@
         ]
       }
     },
-    "teamIds": {
+    "operators": {
       "type": "array",
       "items": {
         "anyOf": [
@@ -27,5 +27,5 @@
       }
     }
   },
-  "required": ["orgCode", "assetList", "teamIds"]
+  "required": ["orgCode", "assetList", "operators"]
 }

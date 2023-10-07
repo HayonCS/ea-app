@@ -150,7 +150,7 @@ export const DashboardPage: React.FC<{}> = () => {
             <TabPanel value={tabValue} index={0}>
               <div style={{ height: "calc(100vh - 216px)" }}>
                 <div style={{ height: "30px" }} />
-                {(assetListRedux ?? ASSETLIST)
+                {[...(assetListRedux ?? ASSETLIST)]
                   .sort((a, b) => a.localeCompare(b))
                   .map((asset, i) => {
                     return (
@@ -172,7 +172,7 @@ export const DashboardPage: React.FC<{}> = () => {
             <TabPanel value={tabValue} index={1}>
               <div style={{ height: "calc(100vh - 216px)" }}>
                 <div style={{ height: "30px" }} />
-                {(userDataRedux?.assetList ?? [])
+                {[...(userDataRedux?.assetList ?? [])]
                   .sort((a, b) => a.localeCompare(b))
                   .map((asset, i) => {
                     return (

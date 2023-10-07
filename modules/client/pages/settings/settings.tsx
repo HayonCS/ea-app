@@ -101,12 +101,12 @@ export const Settings: React.FC<{}> = () => {
   const [redisUserData, setRedisUserData] = React.useState<UserAppData>({
     orgCode: 0,
     assetList: [],
-    teamIds: [],
+    operators: [],
   });
   const [currentUserData, setCurrentUserData] = React.useState<UserAppData>({
     orgCode: 0,
     assetList: [],
-    teamIds: [],
+    operators: [],
   });
   const [currentTeamGentex, setCurrentTeamGentex] = React.useState<
     UserInformation[]
@@ -296,13 +296,13 @@ export const Settings: React.FC<{}> = () => {
           <TabPanel value={tabValue} index={1}>
             <Paper className={classes.tabPaperStyle}>
               <TeamSettingsPanel
-                operators={currentUserData.teamIds}
+                operators={currentUserData.operators}
                 teamGentex={teamInfoRedux}
                 employeeDirectory={employeeDirectoryRedux}
-                onChange={(operators, teamGentex) => {
+                onChange={(operators) => {
                   const userData = { ...currentUserData, operators: operators };
                   setCurrentUserData(userData);
-                  setCurrentTeamGentex(teamGentex);
+                  // setCurrentTeamGentex(teamGentex);
                 }}
               />
             </Paper>

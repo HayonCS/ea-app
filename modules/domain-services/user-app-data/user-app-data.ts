@@ -12,7 +12,7 @@ export async function getUserAppData(userId: string): Promise<UserAppData> {
   return {
     orgCode: 0,
     assetList: [],
-    teamIds: [],
+    operators: [],
   };
 }
 

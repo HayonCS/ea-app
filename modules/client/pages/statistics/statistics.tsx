@@ -66,6 +66,7 @@ import { DateTimeHover } from "./DateTimeHover";
 import { Selectors } from "client/redux/selectors";
 import { UserInformation } from "core/schemas/user-information.gen";
 import { getUserInformation } from "client/user-utils";
+import { UserDisplayClick } from "client/components/user-display/UserDisplayClick";
 
 const TabPanel = (props: any) => {
   const { children, value, index, ...other } = props;
@@ -531,7 +532,7 @@ export const Statistics: React.FC<{}> = () => {
       progress += step;
       setLoadingProgressAssetPart(progress);
       if (processData) {
-        const procDataPart = await getFinalProcessDataPart(processData);
+        const procDataPart = getFinalProcessDataPart(processData);
         if (cancelLoadingAssetPart) {
           canceled = true;
           break;
@@ -842,16 +843,17 @@ export const Statistics: React.FC<{}> = () => {
       flex: 1,
       renderCell: (cellValue) => {
         const id = cellValue.value as string;
-        const foundIndex = operatorEmployeeInfo.findIndex((userInfo) => {
-          return userInfo.employeeId === id;
-        });
+        return <UserDisplayClick userId={id} />
+        // const foundIndex = operatorEmployeeInfo.findIndex((userInfo) => {
+        //   return userInfo.employeeId === id;
+        // });
 
-        return foundIndex > -1 ? (
-          <UserDisplayClickGentex userInfo={operatorEmployeeInfo[foundIndex]} />
-        ) : (
-          // <UserDisplayClick userId={"-1"} />
-          <div className={classes.cellStyle}>{cellValue.value}</div>
-        );
+        // return foundIndex > -1 ? (
+        //   <UserDisplayClickGentex userInfo={operatorEmployeeInfo[foundIndex]} />
+        // ) : (
+        //   // <UserDisplayClick userId={"-1"} />
+        //   <div className={classes.cellStyle}>{cellValue.value}</div>
+        // );
       },
     },
     {

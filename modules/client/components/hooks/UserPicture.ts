@@ -18,7 +18,11 @@ export const useUserPicture = (userId: string) => {
     },
     fetchPolicy: "cache-and-network",
     // displayName: "UserPictureQuery",
-    skip: !userId || userId === "",
+    skip:
+      !userId ||
+      userId === "" ||
+      userId === "undefined" ||
+      userId.toLowerCase() === "unknown",
   });
 
   React.useEffect(() => {

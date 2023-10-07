@@ -16,7 +16,7 @@ export const initialAppState: AppState = {
   currentUserAppData: {
     orgCode: 0,
     assetList: [],
-    teamIds: [],
+    operators: [],
   },
   currentUserInfo: {
     employeeId: "00000",

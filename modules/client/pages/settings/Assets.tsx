@@ -140,7 +140,7 @@ export const AssetsSettingsPanel: React.FC<{
   const customList = (items: string[]) => (
     <Paper sx={{ width: 240, height: 300, overflow: "auto" }}>
       <List dense component="div" role="list">
-        {items
+        {[...items]
           .sort((a, b) => a.localeCompare(b))
           .map((value: string, index) => {
             const labelId = `transfer-list-item-${value}-label`;

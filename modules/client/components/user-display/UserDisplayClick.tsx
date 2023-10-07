@@ -13,6 +13,8 @@ import { formatUserName, formatUserPhone } from "client/utils/DataUtility";
 import { getEmployeeInfoGentex } from "client/utils/mes";
 import { openInNewTab } from "client/utils/WebUtility";
 import { EmployeeInfoGentex } from "client/utils/DataTypes";
+import { useUserPicture } from "../hooks/UserPicture";
+import { useUserInformation } from "../hooks/UserInformation";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -59,58 +61,64 @@ export const UserDisplayClick: React.FC<{
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
-  const [pictureUrl, setPictureUrl] = React.useState("");
-  const [userInfo, setUserInfo] = React.useState<EmployeeInfoGentex>();
+  // const [pictureUrl, setPictureUrl] = React.useState("");
+  const userInfo = useUserInformation(props.userId);
+  const pictureUrl = useUserPicture(props.userId);
+  // const [userInfo, setUserInfo] = React.useState<EmployeeInfoGentex>();
 
   const formattedName = React.useMemo(() => {
     const formatName = formatUserName(
-      userInfo ? userInfo?.firstName + "." + userInfo?.lastName : "first.last"
+      userInfo !== "Error" && userInfo !== "Unknown" && userInfo !== "Loading"
+        ? userInfo.firstName + "." + userInfo.lastName
+        : "first.last"
     ).replace(/[0-9]/g, "");
-    return userInfo &&
+    return userInfo !== "Error" &&
+      userInfo !== "Loading" &&
+      userInfo !== "Unknown" &&
       (userInfo.location === "Inactive" ||
         userInfo.jobTitle?.includes("Former"))
       ? `(${formatName})`
       : formatName;
   }, [userInfo]);
 
-  React.useEffect(() => {
-    if (!userInfo) {
-      const loadInfo = async () => {
-        if (props.userId !== "-1") {
-          const info = await getEmployeeInfoGentex(props.userId);
-          if (info) {
-            setUserInfo(info);
-          }
-        } else {
-          const blank: EmployeeInfoGentex = {
-            employeeNumber: "00000",
-            firstName: "Loading",
-            lastName: "",
-            username: "unknown",
-            email: "unknown@gentex.com",
-            cellPhone: "+16167721800",
-            workPhone: "",
-            location: "Unknown",
-            locationId: "",
-            shift: "0",
-            jobTitle: "unknown",
-          };
-          setUserInfo(blank);
-        }
-      };
-      void loadInfo();
-    }
-  }, [props, userInfo]);
+  // React.useEffect(() => {
+  //   if (!userInfo) {
+  //     const loadInfo = async () => {
+  //       if (props.userId !== "-1") {
+  //         const info = await getEmployeeInfoGentex(props.userId);
+  //         if (info) {
+  //           setUserInfo(info);
+  //         }
+  //       } else {
+  //         const blank: EmployeeInfoGentex = {
+  //           employeeNumber: "00000",
+  //           firstName: "Loading",
+  //           lastName: "",
+  //           username: "unknown",
+  //           email: "unknown@gentex.com",
+  //           cellPhone: "+16167721800",
+  //           workPhone: "",
+  //           location: "Unknown",
+  //           locationId: "",
+  //           shift: "0",
+  //           jobTitle: "unknown",
+  //         };
+  //         setUserInfo(blank);
+  //       }
+  //     };
+  //     void loadInfo();
+  //   }
+  // }, [props, userInfo]);
 
-  React.useEffect(() => {
-    if (userInfo) {
-      setPictureUrl(
-        `https://api.gentex.com/user/image/v1/${userInfo?.employeeNumber}`
-      );
-    } else {
-      setPictureUrl(`https://api.gentex.com/user/image/v1/00000`);
-    }
-  }, [userInfo]);
+  // React.useEffect(() => {
+  //   if (userInfo) {
+  //     setPictureUrl(
+  //       `https://api.gentex.com/user/image/v1/${userInfo?.employeeNumber}`
+  //     );
+  //   } else {
+  //     setPictureUrl(`https://api.gentex.com/user/image/v1/00000`);
+  //   }
+  // }, [userInfo]);
 
   return (
     <div className={classes.root}>
@@ -180,32 +188,63 @@ export const UserDisplayClick: React.FC<{
               )}
             </div>
             <Typography className={classes.userInfoDetails} component={"span"}>
-              <div style={{ display: "flex" }}>
-                <Box fontWeight="600" fontSize="15px">
-                  {formattedName}
-                </Box>
-                <Box fontWeight="500" fontSize="15px" marginLeft={1}>
-                  {userInfo ? `(${userInfo.employeeNumber})` : `-----`}
-                </Box>
-              </div>
-              {userInfo && (
-                <div>
-                  <Box fontWeight="600" fontSize="15px">
-                    {userInfo.location}
-                  </Box>
-                  <Box fontWeight="600" fontSize="15px">
-                    {userInfo.jobTitle}
-                  </Box>
-                  {userInfo.cellPhone && (
+              {userInfo !== "Error" &&
+              userInfo !== "Loading" &&
+              userInfo !== "Unknown" ? (
+                <>
+                  <div style={{ display: "flex" }}>
                     <Box fontWeight="600" fontSize="15px">
-                      {formatUserPhone(userInfo.cellPhone)}
+                      {formattedName}
                     </Box>
+                    <Box fontWeight="500" fontSize="15px" marginLeft={1}>
+                      {`(${userInfo.employeeId})`}
+                    </Box>
+                  </div>
+                  {userInfo && (
+                    <div>
+                      <Box fontWeight="600" fontSize="15px">
+                        {userInfo.location}
+                      </Box>
+                      <Box fontWeight="600" fontSize="15px">
+                        {userInfo.jobTitle}
+                      </Box>
+                      <Box fontWeight="600" fontSize="15px">
+                        {formatUserPhone(userInfo.cellPhone)}
+                      </Box>
+                    </div>
                   )}
-                </div>
+                  <Box fontWeight="600" fontSize="15px">
+                    {userInfo ? userInfo.email : "unknown@gentex.com"}
+                  </Box>
+                </>
+              ) : (
+                <>
+                  <div style={{ display: "flex" }}>
+                    <Box fontWeight="600" fontSize="15px">
+                      {formattedName}
+                    </Box>
+                    <Box fontWeight="500" fontSize="15px" marginLeft={1}>
+                      {`(${props.userId})`}
+                    </Box>
+                  </div>
+                  {userInfo && (
+                    <div>
+                      <Box fontWeight="600" fontSize="15px">
+                        {"Unknown"}
+                      </Box>
+                      <Box fontWeight="600" fontSize="15px">
+                        {"Inactive"}
+                      </Box>
+                      <Box fontWeight="600" fontSize="15px">
+                        {formatUserPhone("+16167721800")}
+                      </Box>
+                    </div>
+                  )}
+                  <Box fontWeight="600" fontSize="15px">
+                    {"unknown@gentex.com"}
+                  </Box>
+                </>
               )}
-              <Box fontWeight="600" fontSize="15px">
-                {userInfo ? userInfo.email : "unknown@gentex.com"}
-              </Box>
             </Typography>
           </div>
           <div

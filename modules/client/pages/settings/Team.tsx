@@ -42,16 +42,18 @@ export const TeamSettingsPanel: React.FC<{
   operators?: string[];
   teamGentex?: UserInformation[];
   employeeDirectory?: UserInformation[];
-  onChange?: (operators: string[], teamGentex: UserInformation[]) => void;
+  onChange?: (operators: string[]) => void;
 }> = (props) => {
   const classes = useStyles();
 
   const [loadedProps, setLoadedProps] = React.useState(false);
 
-  const [userOperators, setUserOperators] = React.useState<string[]>([]);
-  const [userOperatorsGentex, setUserOperatorsGentex] = React.useState<
-    UserInformation[]
-  >([]);
+  const [userOperators, setUserOperators] = React.useState<UserInformation[]>(
+    []
+  );
+  // const [userOperatorsGentex, setUserOperatorsGentex] = React.useState<
+  //   UserInformation[]
+  // >([]);
   const [employeeDirectoryGentex, setEmployeeDirectoryGentex] = React.useState<
     UserInformation[]
   >([]);
@@ -65,19 +67,22 @@ export const TeamSettingsPanel: React.FC<{
       props.employeeDirectory &&
       !loadedProps
     ) {
-      const operators = props.operators.sort((a, b) => a.localeCompare(b));
-      const teamGentex = props.teamGentex.sort(
-        (a, b) =>
-          a.firstName.localeCompare(b.firstName) ||
-          a.lastName.localeCompare(b.lastName)
-      );
+      const operators = [...props.operators].sort((a, b) => a.localeCompare(b));
+      // const teamGentex = props.teamGentex.sort(
+      //   (a, b) =>
+      //     a.firstName.localeCompare(b.firstName) ||
+      //     a.lastName.localeCompare(b.lastName)
+      // );
       const empDirectory = props.employeeDirectory.sort(
         (a, b) =>
           a.firstName.localeCompare(b.firstName) ||
           a.lastName.localeCompare(b.lastName)
       );
-      setUserOperators(operators);
-      setUserOperatorsGentex(teamGentex);
+      const opInfo = empDirectory.filter((x) =>
+        operators.includes(x.employeeId)
+      );
+      setUserOperators(opInfo);
+      // setUserOperatorsGentex(teamGentex);
       setEmployeeDirectoryGentex(empDirectory);
       setLoadedProps(true);
     }
@@ -104,10 +109,8 @@ export const TeamSettingsPanel: React.FC<{
 
   const [inputValue, setInputValue] = React.useState("");
 
-  const [
-    selectedValue,
-    setSelectedValue,
-  ] = React.useState<UserInformation | null>(null);
+  const [selectedValue, setSelectedValue] =
+    React.useState<UserInformation | null>(null);
 
   const handleAutocompleteOpen = () => {
     if (inputValue.length > 2) {
@@ -141,28 +144,28 @@ export const TeamSettingsPanel: React.FC<{
       if (errorSearch) return;
       if (
         !selectedValue ||
-        (selectedValue && userOperators.includes(selectedValue.employeeId))
+        (selectedValue && userOperators.includes(selectedValue))
       ) {
         setErrorSearch(true);
         return;
       }
       if (selectedValue) {
         if (props.onChange) {
-          const newOps = [
-            ...userOperators,
-            selectedValue.employeeId,
-          ].sort((a, b) => a.localeCompare(b));
-          const newGentex = [...userOperatorsGentex, selectedValue].sort(
-            (a, b) =>
-              a.firstName.localeCompare(b.firstName) ||
-              a.lastName.localeCompare(b.lastName)
+          const newOps = [...userOperators, selectedValue].sort((a, b) =>
+            a.employeeId.localeCompare(b.employeeId)
           );
+          const newOpsInfo = newOps.map((x) => x.employeeId);
+          // const newGentex = [...userOperatorsGentex, selectedValue].sort(
+          //   (a, b) =>
+          //     a.firstName.localeCompare(b.firstName) ||
+          //     a.lastName.localeCompare(b.lastName)
+          // );
           setUserOperators(newOps);
-          setUserOperatorsGentex(newGentex);
+          // setUserOperatorsGentex(newGentex);
           setInputValue("");
           setSelectedValue(null);
           setAutocompleteOpen(false);
-          props.onChange(newOps, newGentex);
+          props.onChange(newOpsInfo);
           enqueueSnackbar(
             `Added ${formatUserName(
               selectedValue.firstName + "." + selectedValue.lastName
@@ -181,17 +184,20 @@ export const TeamSettingsPanel: React.FC<{
   };
 
   const removeTeamMembers = () => {
-    const newOps = [...userOperators].filter((x) => !checked.includes(x));
-    const newGentex = [...userOperatorsGentex].filter(
+    const newOpsInfo = [...userOperators].filter(
       (x) => !checked.includes(x.employeeId)
     );
-    const opsRemoved = [...userOperatorsGentex].filter((x) =>
+    const newOps = newOpsInfo.map((x) => x.employeeId);
+    // const newGentex = [...userOperatorsGentex].filter(
+    //   (x) => !checked.includes(x.employeeId)
+    // );
+    const opsRemoved = [...userOperators].filter((x) =>
       checked.includes(x.employeeId)
     );
-    setUserOperators(newOps);
-    setUserOperatorsGentex(newGentex);
+    setUserOperators(newOpsInfo);
+    // setUserOperatorsGentex(newGentex);
     setChecked([]);
-    if (props.onChange) props.onChange(newOps, newGentex);
+    if (props.onChange) props.onChange(newOps);
     opsRemoved.forEach((op) => {
       enqueueSnackbar(
         `Removed ${formatUserName(op.firstName + "." + op.lastName)} (${
@@ -318,7 +324,7 @@ export const TeamSettingsPanel: React.FC<{
                     }}
                     role="list"
                   >
-                    {userOperatorsGentex.map((value) => {
+                    {userOperators.map((value) => {
                       const labelId = `checkbox-list-secondary-label-${value.employeeId}`;
                       return (
                         <ListItem

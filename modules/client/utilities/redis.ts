@@ -163,7 +163,8 @@ export const getProcessDataExportRange = async (
   try {
     const start = dateToString(startDate);
     const end = dateToString(endDate);
-    const url = `http://localhost:8000/api/processdata/${asset}/${start}/${end}`;
+    // const url = `http://localhost:8000/api/processdata/${asset}/${start}/${end}`;
+    const url = `http://zvm-msgprod/MES/ProcessDataExportApi/api/v1/processdataexport/processDataExport?Assets=${asset}&StartDate=${start}&EndDate=${end}&TopNRows=-1&UserMetadataKeys=line%2Clabel%2Coperator%2Cdescription%2Ccycletime%2Crevision%2Csender%2Ctestplan%2Cbarcode`;
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -173,14 +174,39 @@ export const getProcessDataExportRange = async (
     if (!response.ok) {
       throw new Error(`Error! status: ${response.status}`);
     }
-    const result = await response.json();
-    if (result && result.data) {
-      let finalData: ProcessDataExport[] = result.data.map((x: any) => {
-        let data: ProcessDataExport = { ...x };
-        data.OpEndTime = new Date(x.OpEndTime);
+    const jsonData = await response.json();
+    if (jsonData && jsonData.length > 0) {
+      let finalData: ProcessDataExport[] = jsonData.map((x: any) => {
+        // let data: ProcessDataExport = { ...x };
+        // console.log(x["KeyToValueDictionary"]["OPENDTIME"]);
+        // console.log(new Date(x["KeyToValueDictionary"]["OPENDTIME"]));
+        let data: ProcessDataExport = {
+          MetaDataId: x["MetaDataId"],
+          Asset: x["KeyToValueDictionary"]["ASSET"],
+          IdentifierCode: x["KeyToValueDictionary"]["IDENTIFIERCODE"],
+          IdentifierCode2: x["KeyToValueDictionary"]["IDENTIFIERCODE2"],
+          PartNumber: x["KeyToValueDictionary"]["PARTNUMBER"],
+          OpEndTime: new Date(x["KeyToValueDictionary"]["OPENDTIME"]),
+          PassFail: x["KeyToValueDictionary"]["PASSFAIL"],
+          OperationId: x["KeyToValueDictionary"]["OPERATIONID"],
+          Line: x["KeyToValueDictionary"]["LINE"],
+          Label: x["KeyToValueDictionary"]["LABEL"],
+          Operator: x["KeyToValueDictionary"]["OPERATOR"],
+          Description: x["KeyToValueDictionary"]["DESCRIPTION"],
+          CycleTime: x["KeyToValueDictionary"]["CYCLETIME"],
+          Revision: x["KeyToValueDictionary"]["REVISION"],
+          Sender: x["KeyToValueDictionary"]["SENDER"],
+          TestPlan: x["KeyToValueDictionary"]["TESTPLAN"],
+          Barcode: x["KeyToValueDictionary"]["BARCODE"],
+        };
+        data.OpEndTime = new Date(x["KeyToValueDictionary"]["OPENDTIME"]);
         return data;
       });
       finalData = finalData.filter((x) => x.Operator && x.Operator !== "");
+      finalData = finalData.sort(
+        (a, b) => a.OpEndTime.getTime() - b.OpEndTime.getTime()
+      );
+      console.log(finalData);
       return finalData;
     }
   } catch (error) {

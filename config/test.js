@@ -41,5 +41,6 @@ module.exports = {
     mesUserPictureUrl: "http://rest-endpoints:3070/user/image/",
     employeeDirectoryEndpoint: "http://rest-endpoints:3070/employees/",
     mesRegistryEndpoint: "http://rest-endpoints:3070/mes/",
+    mesProcessDataEndpoint: "http://rest-endpoints:3070/processData",
   },
 };

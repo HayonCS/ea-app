@@ -782,7 +782,7 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
         }}
       >
         <ResponsiveContainer width="100%">
-          <LineChart data={graphData} margin={{ right: 100 }}>
+          <LineChart data={[...graphData]} margin={{ right: 100 }}>
             <CartesianGrid stroke="#000" strokeDasharray="5 5" />
             <XAxis
               dataKey="timeString"
@@ -798,9 +798,10 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
               style={{ fontSize: "1rem" }}
               domain={[
                 0,
-                Math.round(
-                  Math.max(...graphData.map((o) => o.efficiency)) + 10
-                ),
+                // Math.round(
+                //   Math.max(...graphData.map((o) => o.efficiency)) + 10
+                // ),
+                120,
               ]}
               // domain={[0, 150]}
               allowDataOverflow={true}

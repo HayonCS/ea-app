@@ -206,7 +206,6 @@ export const getProcessDataExportRange = async (
       finalData = finalData.sort(
         (a, b) => a.OpEndTime.getTime() - b.OpEndTime.getTime()
       );
-      console.log(finalData);
       return finalData;
     }
   } catch (error) {

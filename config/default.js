@@ -116,6 +116,7 @@ module.exports = {
     mesUserPictureUrl: process.env.MES_USER_PICTURE,
     employeeDirectoryEndpoint: process.env.MES_EMPLOYEE_DIRECTORY,
     mesRegistryEndpoint: process.env.MES_REGISTRY_ENDPOINT,
+    mesProcessDataEndpoint: process.env.MES_PROCESS_DATA_ENDPOINT,
   },
   tpLockout: {
     enableLockout: process.env.ENABLE_LOCKOUT ?? "true",

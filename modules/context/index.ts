@@ -55,6 +55,8 @@ import { UserAppDataPort } from "domain-services/user-app-data/port";
 import { userAppDataAdapter } from "domain-services/user-app-data";
 import { MesBiPort } from "rest-endpoints/mes-bi/port";
 import { mesBiAdapter } from "rest-endpoints/mes-bi";
+import { MesProcessDataPort } from "rest-endpoints/mes-process-data/port";
+import { mesProcessDataAdapter } from "rest-endpoints/mes-process-data";
 
 export type ContextOpts = {
   db?: db.Knex;
@@ -102,6 +104,7 @@ const ContextBase = Hexagonal.contextClass((c) =>
     .add(VersionedLibrariesPort, versionedLibrariesRepositoryAdapter)
     .add(MesSecurityPort, mesSecurityAdapter)
     .add(MesBiPort, mesBiAdapter)
+    .add(MesProcessDataPort, mesProcessDataAdapter)
     .add(UserPicturePort, userPictureAdapter)
     .add(EmployeeInfoPort, employeeInfoAdapter)
     .add(
@@ -162,6 +165,10 @@ export class Context extends ContextBase {
 
   get mesBi() {
     return this.get(MesBiPort);
+  }
+
+  get mesProcessData() {
+    return this.get(MesProcessDataPort);
   }
 
   get employeeInfo() {

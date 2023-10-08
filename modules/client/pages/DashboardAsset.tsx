@@ -205,10 +205,13 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
     const dateNow = new Date();
     let dateEnd = new Date(dateNow);
     dateEnd.setHours(dateEnd.getHours() - 4);
+    // console.log(
+    //   `DateNow: ${dateNow.toLocaleString()}, DateEnd: ${dateEnd.toLocaleString()}`
+    // );
     let processData = await getProcessDataExport(
       props.asset ?? asset ?? "",
-      dateNow,
-      dateEnd
+      dateEnd,
+      dateNow
     );
     if (processData) {
       processData = processData.sort(
@@ -221,6 +224,7 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
         processOps,
         assetInformation?.orgCode ?? "14"
       );
+      console.log(processData);
       if (processTotal) {
         setAssetDataTotal(processTotal);
         if (processTotal.length > 0) {

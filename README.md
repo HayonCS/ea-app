@@ -39,10 +39,11 @@ All development should be done inside a Docker container. This allows for a cons
 2. Make sure the Docker service is running: `sudo service docker start`
 3. Run `docker-compose up -d` from the root of the project. This will build all the Docker images (if they don't already exist) and start up the Docker containers in the background.
 4. Now, run `docker-compose exec dev /bin/bash -l`. This will give you a bash prompt within the main dev container along with some instructions for adding the SSH key for that container into DevOps.
-5. From the bash prompt, run `project-init`. This will clone the repository and install needed dependencies in the container. It will also run `yarn git:setup-hooks`.
+5. From the bash prompt, run `project-init`. This will clone the repository and install needed dependencies in the container.
 6. Copy `.env.example` to `.env`. This will define your environment variables while running and testing the app in the Docker container.
 7. Run `yarn build` to build the codebase including utility scripts and generated types.
-8. Run `yarn initial` to create and seed all the mock data sources.
+8. Run `yarn initial` to create and seed all the data into redis.
+9. Open another terminal and run `yarn redis:load:processdata` to seed and update Mes Process Data into redis for querying statistics.
 
 ## Configure git
 
@@ -79,10 +80,10 @@ vimrc
 - On the left toolbar in VSCode, click on `Remote Explorer`.
 - Select `WSL Targets` from the drop down at the top. Select the `Ubuntu` distro and click the Connect button. The tooltip should say `Connect To WSL`. This will open a new instance of VSCode inside the WSL2 environment. You can close your old instance of VSCode.
 - Click on `Remote Explorer` in the left toolbar again. This time select `Containers` from the drop down at the top. A list should populate showing all the Docker containers running in the WSL2 environment.
-- Click on the main development container, i.e. `/tpe_dev_1`.
+- Click on the main development container, i.e. `/eabackend_dev_1`.
 - Click the button on the selected container that looks like a new window icon. The tooltip should say `Attach to Container`.
 - This will open a new instance of VSCode. You can close your old instance of VSCode.
-- Select `Open folder...` and choose `/home/dev/app`. You now have a TPE Linux development environment within a Docker container running inside WSL2 on Windows.
+- Select `Open folder...` and choose `/home/dev/app`. You now have a EABackEnd Linux development environment within a Docker container running inside WSL2 on Windows.
 - If you open a terminal in VSCode, it will now give you a prompt with direct access to the dev container and the Linux filesystem.
 
 ### VSCode Extensions
@@ -173,7 +174,7 @@ You can use `webpack.DefinePlugin` to put environment variables in `process.env`
 - `REDIS_URL` - The endpoint of the Redis server.
 - `TP_LOCKOUT_TIME_MS` - The amount of time before the lockout expires when a user is editing a Test Plan.
 - `AUTH_LOCAL` - When true, authentication will only require that you enter the name of an active Gentex employee.
-- `TPE_ENDPOINT` - The type of endpoint the app is deployed to: `dev`, `qa`, or `prod`. Note that `graphiql` is disabled on the `prod` endpoint.
+- `APP_ENDPOINT`- The type of endpoint the app is deployed to:`dev`, `qa`, or `prod`. Note that `graphiql`is disabled on the`prod` endpoint.
 
 ## Config Files
 
@@ -283,9 +284,9 @@ NOTE: Be careful of where your DATABASE_SERVER environment variables are pointin
 
 Our server is using [Redis](https://redis.io) to provide a variety of services:
 
-- As an in-memory [cache](https://redis.io/topics/client-side-caching) for fast retrieval of Test Plans, Configuration data, and DCIGen versioned library information.
-- As a [key/value](https://redis.com/nosql/key-value-databases) store for holding user data like recently opened test plans, Test Plan Lockout state, user preferences, or Execution state.
-- As a [pub/sub](https://redis.io/topics/pubsub) service for asynchronous messaging between server and client (such as Test Plan Lockout updates).
+- As an in-memory [cache](https://redis.io/topics/client-side-caching) for fast retrieval of data.
+- As a [key/value](https://redis.com/nosql/key-value-databases) store for holding user data.
+- As a [pub/sub](https://redis.io/topics/pubsub) service for asynchronous messaging between server and client.
 - As a host for the [Bull](https://github.com/OptimalBits/bull) job runner.
 
 If you want to connect to the local instance of Redis with a tool like `TablePlus`:
@@ -297,8 +298,8 @@ Host: `localhost` Port: `6379`
 Make sure you run the `wsl_port_forwarding.py` script on the host system.
 
 Occasionally, the Redis instances on the deployed endpoints may be need to be flushed. This could be required if the schema used to store data in Redis changes.
-There should be nothing stored in Redis used for long term data retention. It should be able to be cleared without risk of breaking the app or losing Test Plan data.
-Worst case scenario, after clearing Redis the Test Plans, Config Data, and DCIGen library info have to be re-cached resulting in longer load times in the client.
+There should be nothing stored in Redis used for long term data retention. It should be able to be cleared without risk of breaking the app or losing process data.
+Worst case scenario, after clearing Redis the data has to be re-cached resulting in longer load times in the client.
 Our deployed Redis instances are configured such that the commands for deleting keys have been intentionally removed, and data is not preserved across container re-deployments.
 So the only way to clear the data is to redeploy the Redis PODs in Rancher on each endpoint.
 

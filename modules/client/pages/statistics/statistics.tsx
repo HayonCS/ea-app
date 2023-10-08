@@ -1623,7 +1623,9 @@ export const Statistics: React.FC<{}> = () => {
           }}
         >
           <FilterList style={{ marginRight: "8px" }} />
-          <Typography style={{ fontSize: "14px", marginBottom: "2px" }}>
+          <Typography
+            style={{ fontSize: "14px", marginBottom: "2px", fontWeight: "500" }}
+          >
             {"Filters"}
           </Typography>
         </Button>

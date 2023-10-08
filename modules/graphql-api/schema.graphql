@@ -16,6 +16,7 @@ scalar Object
 scalar SavedUserRecord
 scalar EmployeeInfoResponse
 scalar ProcessDataExport
+scalar RunningNowItem
 
 """
 Represents an individual user.
@@ -985,6 +986,8 @@ type Query {
   ): [ProcessDataExport]!
 
   getProcessDataRedis(asset: String!, date: String!): [ProcessDataExport]!
+
+  getAssetsRunningNow: [RunningNowItem!]!
 
   """
   Displays information about the current server configuration including the current

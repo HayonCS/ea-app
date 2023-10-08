@@ -21,6 +21,21 @@ export interface ProcessDataExport {
   Barcode: string;
 }
 
+export interface RunningNowItem {
+  Asset: string;
+  OperationId: string;
+  PartNumber: string;
+  IdentifierCode: string;
+  TimeSinceLastRun: number;
+  TimeSincePartChange: number;
+  QtyRunSincePartChange: number;
+  QtyFailed: number;
+  PreviousPartNumber: string;
+  LastRunTime: Date;
+  TimeOfPartChange: Date;
+  TimeSinceLastEtl: number;
+}
+
 export async function getProcessDataExport(
   asset: string,
   startDate: string,
@@ -28,7 +43,7 @@ export async function getProcessDataExport(
 ): Promise<ProcessDataExport[]> {
   const url =
     config.get<string>("mesRestApi.mesProcessDataEndpoint") +
-    "?Assets=" +
+    "processdataexport/processDataExport?Assets=" +
     asset +
     "&StartDate=" +
     startDate +
@@ -76,4 +91,60 @@ export async function getProcessDataExport(
     );
   }
   return processData;
+}
+
+export async function getAssetsRunningNow(): Promise<RunningNowItem[]> {
+  const combo = await getRunningNowItems("CMB-");
+  const combo2 = await getRunningNowItems("CMB2-");
+  const monorail = await getRunningNowItems("MR-");
+  const press = await getRunningNowItems("PCB");
+  let assets = [...combo, ...combo2, ...monorail, ...press];
+  assets = assets.sort((a, b) => a.Asset.localeCompare(b.Asset));
+  return assets;
+}
+
+async function getRunningNowItems(asset: string): Promise<RunningNowItem[]> {
+  const url =
+    config.get<string>("mesRestApi.mesProcessDataEndpoint") +
+    `runningnow/getItemsRunningNow?AssetFirstLetter=${asset}&showOnlyLast24Hours=true`;
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  });
+
+  if (!response.ok) {
+    return [];
+  }
+
+  let items: RunningNowItem[] = [];
+  const jsonData = await response.json();
+  if (
+    jsonData &&
+    jsonData.RunningNowItems &&
+    jsonData.RunningNowItems.length > 0
+  ) {
+    items = jsonData.RunningNowItems.map((x: any) => {
+      let item: RunningNowItem = {
+        Asset: x["Asset"],
+        OperationId: x["OperationId"],
+        PartNumber: x["PartNumber"],
+        IdentifierCode: x["IdentifierCode"],
+        TimeSinceLastRun: +x["TimeSinceLastRun"],
+        TimeSincePartChange: +x["TimeSincePartChange"],
+        QtyRunSincePartChange: +x["QtyRunSincePartChange"],
+        QtyFailed: +x["QtyFailed"],
+        PreviousPartNumber: x["PreviousPartNumber"],
+        LastRunTime: new Date(x["LastRunTime"]),
+        TimeOfPartChange: new Date(x["TimeOfPartChange"]),
+        TimeSinceLastEtl: +x["TimeSinceLastEtl"],
+      };
+      return item;
+    });
+    items = items.sort((a, b) => a.Asset.localeCompare(b.Asset));
+  }
+  return items;
 }

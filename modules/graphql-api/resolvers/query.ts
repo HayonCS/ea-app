@@ -88,6 +88,11 @@ const queryResolvers: QueryResolvers = {
     return data;
   },
 
+  getAssetsRunningNow: async (parent, args, ctx) => {
+    const assets = await ctx.get(MesProcessDataPort).getAssetsRunningNow();
+    return assets;
+  },
+
   getUserAppData: async (parent, args, ctx) => {
     const appData = await ctx.get(UserAppDataPort).getUserAppData(args.userId);
     return appData;

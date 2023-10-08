@@ -608,7 +608,6 @@ export const Statistics: React.FC<{}> = () => {
   React.useEffect(() => {
     setRowSelectionModelAssetOperator([]);
     let rows = [...rowsAssetOperator];
-    console.log(filtersAssetOperator);
     if (filtersAssetOperator.assets.length > 0) {
       rows = rows.filter((x) => filtersAssetOperator.assets.includes(x.Asset));
     }
@@ -643,8 +642,6 @@ export const Statistics: React.FC<{}> = () => {
     } else {
       setFilterOperatorUserInfo(userTeamInfo);
     }
-
-    console.log(rows);
 
     setRowsFilteredAssetOperator(rows);
     // setNewRows(rows);

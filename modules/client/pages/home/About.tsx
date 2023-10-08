@@ -49,13 +49,13 @@ export const About: React.FC<{}> = (props) => {
         <Typography component="span">
           <Box className={classes.body}>
             {
-              "It utilizes MUI X React components for UI and Typescript/NodeJS for backend."
+              "It utilizes MUI X React components for UI and Node.js for backend."
             }
           </Box>
         </Typography>
         <Typography component="span">
           <Box className={classes.body}>
-            {"Data is mutated and queried using MES REST API endpoints."}
+            {"Data is mutated and queried using a GraphQL API."}
           </Box>
         </Typography>
         <Typography component="span" className={classes.body} />

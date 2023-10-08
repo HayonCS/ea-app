@@ -430,6 +430,19 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
             display: "flex",
           }}
         >
+          <Typography style={{ fontSize: "24px", marginRight: "8px" }}>
+            {"Asset:"}
+          </Typography>
+          <Typography style={{ fontSize: "24px", fontWeight: "bold" }}>
+            {assetName}
+          </Typography>
+        </div>
+        <div
+          style={{
+            marginLeft: "auto",
+            display: "flex",
+          }}
+        >
           <Typography style={{ fontSize: "16px", marginRight: "8px" }}>
             {"Last Run:"}
           </Typography>

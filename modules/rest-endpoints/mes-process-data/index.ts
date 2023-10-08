@@ -1,6 +1,11 @@
 import * as Hexagonal from "atomic-object/hexagonal";
 import { MesProcessDataPort } from "./port";
-import { ProcessDataExport, getProcessDataExport } from "./mes-process-data";
+import {
+  ProcessDataExport,
+  RunningNowItem,
+  getAssetsRunningNow,
+  getProcessDataExport,
+} from "./mes-process-data";
 
 export type MesProcessData = {
   getProcessDataExport: (
@@ -8,6 +13,8 @@ export type MesProcessData = {
     startDate: string,
     endDate: string
   ) => Promise<ProcessDataExport[]>;
+
+  getAssetsRunningNow: () => Promise<RunningNowItem[]>;
 };
 
 export const mesProcessDataAdapter = Hexagonal.adapter({
@@ -21,6 +28,10 @@ export const mesProcessDataAdapter = Hexagonal.adapter({
         endDate: string
       ) => {
         return await getProcessDataExport(asset, startDate, endDate);
+      },
+
+      getAssetsRunningNow: async () => {
+        return await getAssetsRunningNow();
       },
     };
   },

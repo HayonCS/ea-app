@@ -7,6 +7,8 @@ import SwipeableViews from "react-swipeable-views";
 import { useSelector } from "react-redux";
 import { ASSETLIST } from "client/utilities/definitions";
 import { Selectors } from "client/redux/selectors";
+import { useGetAssetsRunningNowQuery } from "client/graphql/types.gen";
+import { RunningNowItem } from "rest-endpoints/mes-process-data/mes-process-data";
 
 const useStyles = makeStyles(() => ({
   app: {
@@ -80,8 +82,38 @@ export const DashboardPage: React.FC<{}> = () => {
 
   const [tabValue, setTabValue] = React.useState(0);
 
+  const currentUser = useSelector(Selectors.App.currentUserInfo);
   const userDataRedux = useSelector(Selectors.App.currentUserAppData);
   const assetListRedux = useSelector(Selectors.App.assetList);
+
+  const [assetsRunningNow, setAssetsRunningNow] = React.useState<
+    RunningNowItem[]
+  >([]);
+
+  const runningNowQuery = useGetAssetsRunningNowQuery({
+    fetchPolicy: "cache-and-network",
+  });
+
+  React.useEffect(() => {
+    if (
+      runningNowQuery.called &&
+      !runningNowQuery.loading &&
+      !runningNowQuery.error &&
+      runningNowQuery.data &&
+      runningNowQuery.data.getAssetsRunningNow
+    ) {
+      let assets = runningNowQuery.data.getAssetsRunningNow;
+      const date = new Date();
+      assets = assets.filter(
+        (x) => date.getTime() - new Date(x.LastRunTime).getTime() <= 600000
+      );
+      assets = assets.filter(
+        (value, index, self) =>
+          index === self.findIndex((t) => t.Asset === value.Asset)
+      );
+      setAssetsRunningNow(assets);
+    }
+  }, [runningNowQuery]);
 
   return (
     <div className={classes.app}>
@@ -131,13 +163,34 @@ export const DashboardPage: React.FC<{}> = () => {
                       fontWeight: "bold",
                     }}
                   >
-                    <Person style={{ marginRight: "4px" }} />
-                    My Assets
+                    <PrecisionManufacturing style={{ marginRight: "4px" }} />
+                    Running Now
                   </div>
                 }
                 className={classes.tabStyle}
                 {...tabProps(1)}
               />
+              {currentUser.employeeId !== "" &&
+                currentUser.employeeId !== "undefined" &&
+                currentUser.employeeId !== "00000" && (
+                  <Tab
+                    label={
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          fontSize: "16px",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        <Person style={{ marginRight: "4px" }} />
+                        My Assets
+                      </div>
+                    }
+                    className={classes.tabStyle}
+                    {...tabProps(2)}
+                  />
+                )}
             </Tabs>
           </Paper>
           <SwipeableViews
@@ -172,18 +225,18 @@ export const DashboardPage: React.FC<{}> = () => {
             <TabPanel value={tabValue} index={1}>
               <div style={{ height: "calc(100vh - 216px)" }}>
                 <div style={{ height: "30px" }} />
-                {[...(userDataRedux?.assetList ?? [])]
-                  .sort((a, b) => a.localeCompare(b))
-                  .map((asset, i) => {
+                {[...assetsRunningNow]
+                  .sort((a, b) => a.Asset.localeCompare(b.Asset))
+                  .map((item, i) => {
                     return (
                       <Box key={i} className={classes.linkStyle}>
                         <Link
                           onClick={() => {
-                            navigate(`/dashboard/${asset}`);
+                            navigate(`/dashboard/${item.Asset}`);
                           }}
                           style={{ cursor: "pointer" }}
                         >
-                          {asset}
+                          {item.Asset}
                         </Link>
                       </Box>
                     );
@@ -191,6 +244,32 @@ export const DashboardPage: React.FC<{}> = () => {
                 <div style={{ height: "30px" }} />
               </div>
             </TabPanel>
+            {currentUser.employeeId !== "" &&
+              currentUser.employeeId !== "undefined" &&
+              currentUser.employeeId !== "00000" && (
+                <TabPanel value={tabValue} index={2}>
+                  <div style={{ height: "calc(100vh - 216px)" }}>
+                    <div style={{ height: "30px" }} />
+                    {[...(userDataRedux?.assetList ?? [])]
+                      .sort((a, b) => a.localeCompare(b))
+                      .map((asset, i) => {
+                        return (
+                          <Box key={i} className={classes.linkStyle}>
+                            <Link
+                              onClick={() => {
+                                navigate(`/dashboard/${asset}`);
+                              }}
+                              style={{ cursor: "pointer" }}
+                            >
+                              {asset}
+                            </Link>
+                          </Box>
+                        );
+                      })}
+                    <div style={{ height: "30px" }} />
+                  </div>
+                </TabPanel>
+              )}
           </SwipeableViews>
         </div>
       </Paper>

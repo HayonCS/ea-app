@@ -44,11 +44,6 @@ import { UserPicturePort } from "rest-endpoints/user-picture/port";
 import { userPictureAdapter } from "rest-endpoints/user-picture";
 import { EmployeeInfoPort } from "rest-endpoints/employee-directory/port";
 import { employeeInfoAdapter } from "rest-endpoints/employee-directory";
-import { WikiDocumentPort } from "domain-services/wiki-document/wiki-document-port";
-import { wikiDocumentGitAdapter } from "domain-services/wiki-document/git/adapter-port";
-import { wikiDocumentStaticAdapter } from "domain-services/wiki-document/__tests__/adapter-port";
-import { HelpContextPort } from "domain-services/help-context/help-context-port";
-import { helpContextCachedAdapter } from "domain-services/help-context/cached/adapter-port";
 import { AssetsBiPort } from "domain-services/assets-bi/port";
 import { assetsBiAdapter } from "domain-services/assets-bi";
 import { UserAppDataPort } from "domain-services/user-app-data/port";
@@ -113,13 +108,6 @@ const ContextBase = Hexagonal.contextClass((c) =>
     .add(UserPicturePort, userPictureAdapter)
     .add(EmployeeInfoPort, employeeInfoAdapter)
     .add(EmployeeDirectoryRedisPort, employeeDirectoryRedisAdapter)
-    .add(
-      WikiDocumentPort,
-      process.env.NODE_ENV === "test"
-        ? wikiDocumentStaticAdapter
-        : wikiDocumentGitAdapter
-    )
-    .add(HelpContextPort, helpContextCachedAdapter)
     .add(AssetsBiPort, assetsBiAdapter)
     .add(UserAppDataPort, userAppDataAdapter)
 );

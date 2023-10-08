@@ -5,6 +5,7 @@ import {
   UserLumenInfo,
 } from "./DataTypes";
 import { dateToString } from "./DateUtility";
+import { useGetProcessDataRedisQuery } from "client/graphql/types.gen";
 
 export const getAssetListRedis = async () => {
   try {
@@ -155,57 +156,46 @@ export const getProcessDataExport = async (asset: string, date: Date) => {
   return undefined;
 };
 
-export const getProcessDataExportRange = async (
-  asset: string,
-  startDate: Date,
-  endDate: Date
-) => {
+const processDataRedis = async (asset: string, date: string) => {
   try {
-    const start = dateToString(startDate);
-    const end = dateToString(endDate);
-    // const url = `http://localhost:8000/api/processdata/${asset}/${start}/${end}`;
-    const url = `http://zvm-msgprod/MES/ProcessDataExportApi/api/v1/processdataexport/processDataExport?Assets=${asset}&StartDate=${start}&EndDate=${end}&TopNRows=-1&UserMetadataKeys=line%2Clabel%2Coperator%2Cdescription%2Ccycletime%2Crevision%2Csender%2Ctestplan%2Cbarcode`;
+    const url = `http://${window.location.host}/graphql`;
+    const body = JSON.stringify({
+      query: `query { getProcessDataRedis(asset: \"${asset}\", date: \"${date}\") }`,
+    });
     const response = await fetch(url, {
-      method: "GET",
+      method: "POST",
       headers: {
-        Accept: "application/json",
+        "Content-Type": "application/json",
       },
+      body: body,
     });
     if (!response.ok) {
       throw new Error(`Error! status: ${response.status}`);
     }
-    const jsonData = await response.json();
-    if (jsonData && jsonData.length > 0) {
-      let finalData: ProcessDataExport[] = jsonData.map((x: any) => {
-        // let data: ProcessDataExport = { ...x };
-        // console.log(x["KeyToValueDictionary"]["OPENDTIME"]);
-        // console.log(new Date(x["KeyToValueDictionary"]["OPENDTIME"]));
-        let data: ProcessDataExport = {
-          MetaDataId: x["MetaDataId"],
-          Asset: x["KeyToValueDictionary"]["ASSET"],
-          IdentifierCode: x["KeyToValueDictionary"]["IDENTIFIERCODE"],
-          IdentifierCode2: x["KeyToValueDictionary"]["IDENTIFIERCODE2"],
-          PartNumber: x["KeyToValueDictionary"]["PARTNUMBER"],
-          OpEndTime: new Date(x["KeyToValueDictionary"]["OPENDTIME"]),
-          PassFail: x["KeyToValueDictionary"]["PASSFAIL"],
-          OperationId: x["KeyToValueDictionary"]["OPERATIONID"],
-          Line: x["KeyToValueDictionary"]["LINE"],
-          Label: x["KeyToValueDictionary"]["LABEL"],
-          Operator: x["KeyToValueDictionary"]["OPERATOR"],
-          Description: x["KeyToValueDictionary"]["DESCRIPTION"],
-          CycleTime: x["KeyToValueDictionary"]["CYCLETIME"],
-          Revision: x["KeyToValueDictionary"]["REVISION"],
-          Sender: x["KeyToValueDictionary"]["SENDER"],
-          TestPlan: x["KeyToValueDictionary"]["TESTPLAN"],
-          Barcode: x["KeyToValueDictionary"]["BARCODE"],
-        };
-        data.OpEndTime = new Date(x["KeyToValueDictionary"]["OPENDTIME"]);
-        return data;
-      });
-      finalData = finalData.filter((x) => x.Operator && x.Operator !== "");
-      finalData = finalData.sort(
-        (a, b) => a.OpEndTime.getTime() - b.OpEndTime.getTime()
+    const result = await response.json();
+    if (result && result.data && result.data.getProcessDataRedis) {
+      let finalData: ProcessDataExport[] = result.data.getProcessDataRedis.map(
+        (x: any) => {
+          let data: ProcessDataExport = { ...x };
+          data.OpEndTime = new Date(x.OpEndTime);
+          return data;
+        }
       );
+      finalData = finalData.filter((x) => x.Operator && x.Operator !== "");
+      finalData = finalData.filter(
+        (x) =>
+          !x.PartNumber.includes("I") &&
+          !x.PartNumber.includes("E") &&
+          !x.PartNumber.includes("U") &&
+          !x.PartNumber.includes("0000")
+      );
+      if (asset.includes("PCB")) {
+        finalData = finalData.filter(
+          (x) =>
+            (x.Description && x.Description === "Main_Board") ||
+            (x.CycleTime && x.CycleTime !== "")
+        );
+      }
       return finalData;
     }
   } catch (error) {
@@ -213,6 +203,103 @@ export const getProcessDataExportRange = async (
   }
   return undefined;
 };
+
+export const getProcessDataExportRange = async (
+  asset: string,
+  startDate: Date,
+  endDate: Date
+) => {
+  try {
+    // const start = dateToString(startDate);
+    // const end = dateToString(endDate);
+
+    let totalData: ProcessDataExport[] = [];
+    for (
+      let start = new Date(startDate);
+      start.getTime() <= endDate.getTime();
+      start.setDate(start.getDate() + 1)
+    ) {
+      const date = dateToString(start);
+      const data = await processDataRedis(asset, date);
+      if (data) totalData = totalData.concat(data);
+
+      //   const result = await apolloClient.query({
+      //     query: qr ,
+      //     variables: {}
+      // })
+      // console.log(data);
+    }
+
+    totalData = totalData.filter((x) => x.Operator && x.Operator !== "");
+    totalData = totalData.sort(
+      (a, b) => a.OpEndTime.getTime() - b.OpEndTime.getTime()
+    );
+    return totalData;
+  } catch (error) {
+    console.log(error);
+  }
+  return undefined;
+};
+
+// export const getProcessDataExportRange = async (
+//   asset: string,
+//   startDate: Date,
+//   endDate: Date
+// ) => {
+//   try {
+//     const start = dateToString(startDate);
+//     const end = dateToString(endDate);
+//     // const url = `http://localhost:8000/api/processdata/${asset}/${start}/${end}`;
+//     const url = `http://zvm-msgprod/MES/ProcessDataExportApi/api/v1/processdataexport/processDataExport?Assets=${asset}&StartDate=${start}&EndDate=${end}&TopNRows=-1&UserMetadataKeys=line%2Clabel%2Coperator%2Cdescription%2Ccycletime%2Crevision%2Csender%2Ctestplan%2Cbarcode`;
+//     const response = await fetch(url, {
+//       method: "GET",
+//       headers: {
+//         Accept: "application/json",
+//       },
+//     });
+
+//     if (!response.ok) {
+//       throw new Error(`Error! status: ${response.status}`);
+//     }
+//     const jsonData = await response.json();
+//     if (jsonData && jsonData.length > 0) {
+//       let finalData: ProcessDataExport[] = jsonData.map((x: any) => {
+//         // let data: ProcessDataExport = { ...x };
+//         // console.log(x["KeyToValueDictionary"]["OPENDTIME"]);
+//         // console.log(new Date(x["KeyToValueDictionary"]["OPENDTIME"]));
+//         let data: ProcessDataExport = {
+//           MetaDataId: x["MetaDataId"],
+//           Asset: x["KeyToValueDictionary"]["ASSET"],
+//           IdentifierCode: x["KeyToValueDictionary"]["IDENTIFIERCODE"],
+//           IdentifierCode2: x["KeyToValueDictionary"]["IDENTIFIERCODE2"],
+//           PartNumber: x["KeyToValueDictionary"]["PARTNUMBER"],
+//           OpEndTime: new Date(x["KeyToValueDictionary"]["OPENDTIME"]),
+//           PassFail: x["KeyToValueDictionary"]["PASSFAIL"],
+//           OperationId: x["KeyToValueDictionary"]["OPERATIONID"],
+//           Line: x["KeyToValueDictionary"]["LINE"],
+//           Label: x["KeyToValueDictionary"]["LABEL"],
+//           Operator: x["KeyToValueDictionary"]["OPERATOR"],
+//           Description: x["KeyToValueDictionary"]["DESCRIPTION"],
+//           CycleTime: x["KeyToValueDictionary"]["CYCLETIME"],
+//           Revision: x["KeyToValueDictionary"]["REVISION"],
+//           Sender: x["KeyToValueDictionary"]["SENDER"],
+//           TestPlan: x["KeyToValueDictionary"]["TESTPLAN"],
+//           Barcode: x["KeyToValueDictionary"]["BARCODE"],
+//         };
+//         data.OpEndTime = new Date(x["KeyToValueDictionary"]["OPENDTIME"]);
+//         return data;
+//       });
+//       finalData = finalData.filter((x) => x.Operator && x.Operator !== "");
+//       finalData = finalData.sort(
+//         (a, b) => a.OpEndTime.getTime() - b.OpEndTime.getTime()
+//       );
+//       return finalData;
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
+//   return undefined;
+// };
 
 // export const getProcessOperatorTotalsRange = async (
 //   asset: string,

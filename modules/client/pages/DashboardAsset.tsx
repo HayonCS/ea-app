@@ -30,6 +30,12 @@ import {
 } from "../utils/DataTypes";
 import { getHHMMSS } from "../utils/DateUtility";
 import { useParams } from "react-router";
+import { useGetAssetByNameQuery } from "client/graphql/types.gen";
+import { useSelector } from "react-redux";
+import { Selectors } from "client/redux/selectors";
+import { UserInformation } from "core/schemas/user-information.gen";
+import { UserDisplayHover } from "client/components/user-display/UserDisplayHover";
+import { OperatorDisplayDashboard } from "client/components/user-display/OperatorDisplayDashboard";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -92,7 +98,46 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
 
   const classes = useStyles();
 
+  const [assetName, setAssetName] = React.useState("");
   const [assetInformation, setAssetInformation] = React.useState<BiAssetInfo>();
+
+  const [operatorInfo, setOperatorInfo] = React.useState<UserInformation>();
+
+  const assetInfo = useGetAssetByNameQuery({
+    variables: {
+      assetName: assetName,
+    },
+    skip: !assetName,
+    fetchPolicy: "cache-and-network",
+  });
+
+  const employeeDirectoryRedux = useSelector(
+    Selectors.App.employeeActiveDirectory
+  );
+
+  React.useEffect(() => {
+    if (props.asset) setAssetName(props.asset);
+    else if (asset) setAssetName(asset);
+  }, [props, asset]);
+
+  React.useEffect(() => {
+    if (
+      assetInfo.called &&
+      !assetInfo.loading &&
+      !assetInfo.error &&
+      assetInfo.data &&
+      assetInfo.data.getAssetByName
+    ) {
+      const info: BiAssetInfo = {
+        ...assetInfo.data.getAssetByName,
+      };
+      setAssetInformation((i) => info);
+    }
+  }, [assetInfo]);
+
+  // React.useEffect(() => {
+  //   console.log("INFO: " + JSON.stringify(assetInformation));
+  // }, [assetInformation]);
 
   const [assetProcessData, setAssetProcessData] = React.useState<
     ProcessDataExport[]
@@ -138,6 +183,20 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
     Efficiency: 100,
   });
 
+  React.useEffect(() => {
+    if (
+      employeeDirectoryRedux.length > 0 &&
+      dashboardData.Operator &&
+      dashboardData.Operator !== "00000"
+    ) {
+      const foundIndex = employeeDirectoryRedux.findIndex((userInfo) => {
+        return userInfo.employeeId === dashboardData.Operator;
+      });
+
+      if (foundIndex > -1) setOperatorInfo(employeeDirectoryRedux[foundIndex]);
+    }
+  }, [employeeDirectoryRedux, dashboardData]);
+
   const [graphData, setGraphData] = React.useState<GraphData[]>([]);
 
   const [loading, setLoading] = React.useState(true);
@@ -157,6 +216,7 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
       );
       setAssetProcessData(processData);
       const processOps = getFinalProcessDataOperator(processData);
+      // console.log(assetInformation);
       const processTotal = await getFinalProcessDataOperatorTotals(
         processOps,
         assetInformation?.orgCode ?? "14"
@@ -211,29 +271,29 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
     setDashboardData(data);
   };
 
-  React.useEffect(() => {
-    (async () => {
-      const assetInfo = await getBiAssetInfo(props.asset ?? asset ?? "");
-      if (assetInfo) {
-        setAssetInformation(assetInfo);
-      }
-    })();
-  }, [props]);
+  // React.useEffect(() => {
+  //   (async () => {
+  //     const assetInfo = await getBiAssetInfo(props.asset ?? asset ?? "");
+  //     if (assetInfo) {
+  //       setAssetInformation(assetInfo);
+  //     }
+  //   })();
+  // }, [props]);
 
   React.useEffect(() => {
-    void retrieveAssetData();
-  }, []);
+    if (assetInformation) void retrieveAssetData();
+  }, [assetInformation]);
 
   React.useEffect(() => {
-    // const intervalId = setInterval(() => {
-    //   retrieveAssetData();
-    // }, 3000);
     const intervalId = setInterval(async () => {
-      await retrieveAssetData();
+      if (assetInformation) await retrieveAssetData();
     }, 3000);
+    // const intervalId = setInterval(async () => {
+    //   await retrieveAssetData();
+    // }, 3000);
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [assetInformation]);
 
   React.useEffect(() => {
     let gData: GraphData[] = [];
@@ -386,23 +446,30 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
         >
           {"Operator:"}
         </Typography>
-        <Typography
-          style={{
-            alignSelf: "center",
-            fontSize: "64px",
-            fontWeight: "bold",
-            color: "#003BFF",
-          }}
-        >
-          {dashboardData.Operator}
-        </Typography>
+        {operatorInfo ? (
+          <div style={{ display: "flex" }}>
+            <OperatorDisplayDashboard userInfo={operatorInfo} />
+          </div>
+        ) : (
+          <Typography
+            style={{
+              alignSelf: "center",
+              fontSize: "64px",
+              fontWeight: "bold",
+              color: "#003BFF",
+            }}
+          >
+            {dashboardData.Operator}
+          </Typography>
+        )}
+
         <Typography
           style={{
             alignSelf: "center",
             fontSize: "112px",
             fontWeight: "bold",
             color: "#000",
-            paddingLeft: "calc(100vw / 2 - 530px)",
+            paddingLeft: "calc(100vw / 2 - 630px)",
             marginTop: "-30px",
             marginLeft: "60px",
           }}
@@ -796,6 +863,7 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
             <YAxis
               stroke="#000"
               style={{ fontSize: "1rem" }}
+              interval={2}
               domain={[
                 0,
                 Math.round(

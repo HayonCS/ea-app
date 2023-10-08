@@ -27,10 +27,10 @@ export interface BiAssetInfo {
   line: string;
   dateCreated: string;
   notes: string;
-  reportGroupName?: string;
-  reportGroupID: string;
+  reportGroupName?: string | null;
+  reportGroupID?: string | null;
   excludeFromHealth: boolean;
-  legacyLocation?: string;
+  legacyLocation?: string | null;
   autoUpdate: boolean;
   recordLastUpdated: string;
   updatedBy: string;

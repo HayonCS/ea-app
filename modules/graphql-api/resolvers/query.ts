@@ -23,12 +23,12 @@ import { EmployeeInfoPort } from "rest-endpoints/employee-directory/port";
 import { notNilType } from "helpers/nil-helpers";
 import { LocalPathUtils } from "domain-services/local-path-data/LocalPathUtils";
 import { LocalPathManager } from "domain-services/local-path-data/LocalPathManager";
-import { HelpContextBusinessLogic } from "domain-services/help-context/business-logic/help-context-business-logic";
 import { AssetsBiPort } from "domain-services/assets-bi/port";
 import { UserAppDataPort } from "domain-services/user-app-data/port";
 import { EmployeeDirectoryRedisPort } from "domain-services/employee-directory-redis/port";
 import { MesProcessDataPort } from "rest-endpoints/mes-process-data/port";
 import { ProcessDataRedisPort } from "domain-services/process-data-redis/port";
+import { MesBiPort } from "rest-endpoints/mes-bi/port";
 // import { UserSettings } from "core/schemas/user-settings.gen";
 
 const queryResolvers: QueryResolvers = {
@@ -60,6 +60,16 @@ const queryResolvers: QueryResolvers = {
   assetListBi: async (parent, args, ctx) => {
     const assetList = await ctx.get(AssetsBiPort).getAssetList();
     return assetList;
+  },
+
+  getAssetsName: async (parent, args, ctx) => {
+    const assets = await ctx.get(MesBiPort).getAssetsName(args.nameOrKeyword);
+    return assets;
+  },
+
+  getAssetByName: async (parent, args, ctx) => {
+    const asset = await ctx.get(MesBiPort).getAssetByName(args.assetName);
+    return asset;
   },
 
   getProcessDataExport: async (parent, args, ctx) => {
@@ -513,10 +523,6 @@ const queryResolvers: QueryResolvers = {
         ],
       };
     });
-  },
-
-  helpInformation: async (parent, args, ctx): Promise<HelpInfo> => {
-    return HelpContextBusinessLogic.query(parent, args.context, ctx);
   },
 };
 

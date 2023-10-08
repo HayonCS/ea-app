@@ -145,8 +145,6 @@ export const AppBarMenu: React.FC<{}> = () => {
   });
 
   const employeeDirectory = useGetEmployeeDirectoryQuery({
-    skip:
-      userInfo === "Error" || userInfo === "Loading" || userInfo === "Unknown",
     fetchPolicy: "cache-and-network",
   });
 

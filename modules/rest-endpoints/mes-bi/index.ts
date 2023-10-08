@@ -1,13 +1,18 @@
 import * as Hexagonal from "atomic-object/hexagonal";
 import { MesBiPort } from "./port";
-import { AssetInfo, getAssetsAll, getAssetsName } from "./mes-bi";
+import {
+  AssetInfo,
+  getAssetByName,
+  getAssetsAll,
+  getAssetsName,
+} from "./mes-bi";
 
 export type MesBi = {
   getAssetsAll: () => Promise<AssetInfo[]>;
 
-  getAssetsName: (
-    nameOrKeyword: string
-  ) => Promise<AssetInfo[]>;
+  getAssetsName: (nameOrKeyword: string) => Promise<AssetInfo[]>;
+
+  getAssetByName: (assetName: string) => Promise<AssetInfo | undefined>;
 };
 
 export const mesBiAdapter = Hexagonal.adapter({
@@ -20,6 +25,9 @@ export const mesBiAdapter = Hexagonal.adapter({
       },
       getAssetsName: async (nameOrKeyword: string) => {
         return await getAssetsName(nameOrKeyword);
+      },
+      getAssetByName: async (assetName: string) => {
+        return await getAssetByName(assetName);
       },
     };
   },

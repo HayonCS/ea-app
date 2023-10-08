@@ -403,8 +403,8 @@ export const Statistics: React.FC<{}> = () => {
           canceled = true;
           break;
         }
-        processDataTotal = processDataTotal.concat([...processData]);
-        finalOperatorData = finalOperatorData.concat([...operatorTotals]);
+        processDataTotal = processDataTotal.concat(processData);
+        finalOperatorData = finalOperatorData.concat(operatorTotals);
         progress += step;
         setLoadingProgressAssetOperator(progress);
       } else {
@@ -543,7 +543,7 @@ export const Statistics: React.FC<{}> = () => {
         return obj;
       });
       setRowSelectionModelAssetPart([]);
-      setRowsAssetPart(finalPartData);
+      // setRowsAssetPart(finalPartData);
       setProcessDataAssetPart(rawDataTotal);
       setLoadingProgressAssetPart(100);
       setLoadingAssetPart(false);
@@ -569,7 +569,7 @@ export const Statistics: React.FC<{}> = () => {
         variant: "success",
         autoHideDuration: 3000,
       });
-      // setRowsAssetPart(finalPartData);
+      setRowsAssetPart(finalPartData);
     } else {
       setLoadingProgressAssetPart(0);
       setLoadingAssetPart(false);
@@ -626,11 +626,11 @@ export const Statistics: React.FC<{}> = () => {
       const myTeam = [...userTeamInfo].map((x) => x.employeeId);
       rows = rows.filter((x) => myTeam.includes(x.Operator));
     }
-    rows = rows.map((row, i) => {
-      let newRow = { ...row };
-      newRow.id = i + 1;
-      return newRow;
-    });
+    // rows = rows.map((row, i) => {
+    //   let newRow = { ...row };
+    //   newRow.id = i + 1;
+    //   return newRow;
+    // });
     // if (rows.length > 0) {
     //   rows.push({
     //     ...rows[rows.length - 1],
@@ -866,17 +866,17 @@ export const Statistics: React.FC<{}> = () => {
       flex: 1,
       renderCell: (cellValue) => {
         const id = cellValue.value as string;
-        return <UserDisplayClick userId={id} />;
-        // const foundIndex = operatorEmployeeInfo.findIndex((userInfo) => {
-        //   return userInfo.employeeId === id;
-        // });
+        // return <UserDisplayClick userId={id} />;
+        const foundIndex = operatorEmployeeInfo.findIndex((userInfo) => {
+          return userInfo.employeeId === id;
+        });
 
-        // return foundIndex > -1 ? (
-        //   <UserDisplayClickGentex userInfo={operatorEmployeeInfo[foundIndex]} />
-        // ) : (
-        //   // <UserDisplayClick userId={"-1"} />
-        //   <div className={classes.cellStyle}>{cellValue.value}</div>
-        // );
+        return foundIndex > -1 ? (
+          <UserDisplayClickGentex userInfo={operatorEmployeeInfo[foundIndex]} />
+        ) : (
+          // <UserDisplayClick userId={"-1"} />
+          <div className={classes.cellStyle}>{cellValue.value}</div>
+        );
       },
     },
     {
@@ -2208,31 +2208,31 @@ export const Statistics: React.FC<{}> = () => {
                             printOptions: { disableToolbarButton: true },
                           },
                         }}
-                        // columnVisibilityModel={
-                        //   columnVisibilityModelAssetOperator
-                        // }
-                        // onColumnVisibilityModelChange={(model) => {
-                        //   setColumnVisibilityModelAssetOperator(model);
-                        // }}
-                        // rowSelectionModel={rowSelectionModelAssetOperator}
-                        // onRowSelectionModelChange={(model) => {
-                        //   setRowSelectionModelAssetOperator(model);
-                        // }}
-                        // onCellClick={(params) => {
-                        //   if (params.field !== "Operator") {
-                        //     let newSelections = [
-                        //       ...(rowSelectionModelAssetOperator as number[]),
-                        //     ];
-                        //     const rowId = params.id as number;
-                        //     if (newSelections.includes(rowId)) {
-                        //       const index = newSelections.indexOf(rowId);
-                        //       if (index > -1) newSelections.splice(index, 1);
-                        //     } else newSelections.push(rowId);
-                        //     setRowSelectionModelAssetOperator(
-                        //       newSelections as GridInputRowSelectionModel
-                        //     );
-                        //   }
-                        // }}
+                        columnVisibilityModel={
+                          columnVisibilityModelAssetOperator
+                        }
+                        onColumnVisibilityModelChange={(model) => {
+                          setColumnVisibilityModelAssetOperator(model);
+                        }}
+                        rowSelectionModel={rowSelectionModelAssetOperator}
+                        onRowSelectionModelChange={(model) => {
+                          setRowSelectionModelAssetOperator(model);
+                        }}
+                        onCellClick={(params) => {
+                          if (params.field !== "Operator") {
+                            let newSelections = [
+                              ...(rowSelectionModelAssetOperator as number[]),
+                            ];
+                            const rowId = params.id as number;
+                            if (newSelections.includes(rowId)) {
+                              const index = newSelections.indexOf(rowId);
+                              if (index > -1) newSelections.splice(index, 1);
+                            } else newSelections.push(rowId);
+                            setRowSelectionModelAssetOperator(
+                              newSelections as GridInputRowSelectionModel
+                            );
+                          }
+                        }}
                       />
                     </div>
                   </Collapse>
@@ -2634,38 +2634,38 @@ export const Statistics: React.FC<{}> = () => {
                         // rowCount={rowsFilteredAssetPart.length}
                         checkboxSelection={true}
                         disableRowSelectionOnClick={true}
-                        // slots={{
-                        //   toolbar: CustomToolbarAssetPart,
-                        //   // footer: CustomFooterAssetOperator,
-                        // }}
-                        // slotProps={{
-                        //   toolbar: {
-                        //     printOptions: { disableToolbarButton: true },
-                        //   },
-                        // }}
-                        // columnVisibilityModel={columnVisibilityModelAssetPart}
-                        // onColumnVisibilityModelChange={(model) => {
-                        //   setColumnVisibilityModelAssetPart(model);
-                        // }}
-                        // rowSelectionModel={rowSelectionModelAssetPart}
-                        // onRowSelectionModelChange={(model) => {
-                        //   setRowSelectionModelAssetPart(model);
-                        // }}
-                        // onCellClick={(params) => {
-                        //   if (params.field !== "Operator") {
-                        //     let newSelections = [
-                        //       ...(rowSelectionModelAssetPart as number[]),
-                        //     ];
-                        //     const rowId = params.id as number;
-                        //     if (newSelections.includes(rowId)) {
-                        //       const index = newSelections.indexOf(rowId);
-                        //       if (index > -1) newSelections.splice(index, 1);
-                        //     } else newSelections.push(rowId);
-                        //     setRowSelectionModelAssetPart(
-                        //       newSelections as GridInputRowSelectionModel
-                        //     );
-                        //   }
-                        // }}
+                        slots={{
+                          toolbar: CustomToolbarAssetPart,
+                          // footer: CustomFooterAssetOperator,
+                        }}
+                        slotProps={{
+                          toolbar: {
+                            printOptions: { disableToolbarButton: true },
+                          },
+                        }}
+                        columnVisibilityModel={columnVisibilityModelAssetPart}
+                        onColumnVisibilityModelChange={(model) => {
+                          setColumnVisibilityModelAssetPart(model);
+                        }}
+                        rowSelectionModel={rowSelectionModelAssetPart}
+                        onRowSelectionModelChange={(model) => {
+                          setRowSelectionModelAssetPart(model);
+                        }}
+                        onCellClick={(params) => {
+                          if (params.field !== "Operator") {
+                            let newSelections = [
+                              ...(rowSelectionModelAssetPart as number[]),
+                            ];
+                            const rowId = params.id as number;
+                            if (newSelections.includes(rowId)) {
+                              const index = newSelections.indexOf(rowId);
+                              if (index > -1) newSelections.splice(index, 1);
+                            } else newSelections.push(rowId);
+                            setRowSelectionModelAssetPart(
+                              newSelections as GridInputRowSelectionModel
+                            );
+                          }
+                        }}
                       />
                     </div>
                   </Collapse>

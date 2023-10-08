@@ -50,6 +50,16 @@ export const UserDisplayClickGentex: React.FC<{
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
+  const [pictureUrl, setPictureUrl] = React.useState(
+    `https://api.gentex.com/user/image/v1/${props.userInfo.employeeId}`
+  );
+
+  const handleBadPicture = () => {
+    setPictureUrl(
+      `https://lumen.gentex.com/InnovatorImage/images/customer/employee/0000${props.userInfo.employeeId}.jpg`
+    );
+  };
+
   const formattedName = React.useMemo(() => {
     const formatName = formatUserName(
       props.userInfo.firstName + "." + props.userInfo.lastName
@@ -58,6 +68,12 @@ export const UserDisplayClickGentex: React.FC<{
       props.userInfo.jobTitle?.includes("Former")
       ? `(${formatName})`
       : formatName;
+  }, [props]);
+
+  React.useEffect(() => {
+    setPictureUrl(
+      `https://api.gentex.com/user/image/v1/${props.userInfo.employeeId}`
+    );
   }, [props]);
 
   return (
@@ -69,7 +85,8 @@ export const UserDisplayClickGentex: React.FC<{
         <div className={classes.button}>
           <Avatar
             alt={formattedName}
-            src={`https://api.gentex.com/user/image/v1/${props.userInfo.employeeId}`}
+            src={pictureUrl}
+            imgProps={{ onError: handleBadPicture }}
             style={{ cursor: "pointer" }}
           />
           <Typography
@@ -107,8 +124,9 @@ export const UserDisplayClickGentex: React.FC<{
               }}
             >
               <Avatar
-                src={`https://api.gentex.com/user/image/v1/${props.userInfo.employeeId}`}
+                src={pictureUrl}
                 alt={formattedName}
+                imgProps={{ onError: handleBadPicture }}
                 style={{ width: "84px", height: "84px" }}
               />
             </div>

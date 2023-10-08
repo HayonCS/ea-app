@@ -35,7 +35,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const UserDisplayHover: React.FC<{
+export const OperatorDisplayDashboard: React.FC<{
   userInfo: UserInformation;
 }> = (props) => {
   const classes = useStyles();
@@ -88,14 +88,14 @@ export const UserDisplayHover: React.FC<{
           alt={formattedName}
           src={pictureUrl}
           imgProps={{ onError: handleBadPicture }}
-          style={{ cursor: "pointer" }}
+          style={{ cursor: "pointer", width: "84px", height: "84px" }}
         />
         <Typography
           variant="body1"
           className={classes.title}
           component={"span"}
         >
-          <Box fontWeight="600" fontSize="14px">
+          <Box fontWeight="600" fontSize="36px">
             {formattedName.toUpperCase()}
           </Box>
         </Typography>

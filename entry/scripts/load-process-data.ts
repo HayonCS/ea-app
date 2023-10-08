@@ -51,9 +51,10 @@ async function loadInitialData() {
         console.log(`Added "${key}" to Redis.`);
       }
     }
-    return "Done loading initial data. Updating data now...";
+    // return "Done loading initial data. Updating data now...";
   }
-  return "Failed loading initial process data!";
+  return "Done loading initial data. Updating data now...";
+  // return "Failed loading initial process data!";
 }
 
 async function updateProcessData() {
@@ -105,10 +106,11 @@ async function updateProcessData() {
 }
 
 async function loadData() {
+  void updateProcessData();
   await loadInitialData().then(async (output) => {
     console.info(output);
     if (!output.includes("Failed")) {
-      await updateProcessData();
+      // await updateProcessData();
     }
   });
 }

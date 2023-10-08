@@ -16,12 +16,15 @@ export type AssetInfo = {
   autoUpdate: boolean;
   recordLastUpdated: string;
   updatedBy: string;
-}
+};
 
-export async function getAssetsName(nameOrKeyword: string): Promise<AssetInfo[]> {
+export async function getAssetsName(
+  nameOrKeyword: string
+): Promise<AssetInfo[]> {
   const url =
     config.get<string>("mesRestApi.mesBiEndpoint") +
-    "assets?assetName=" + nameOrKeyword;
+    "assets?assetName=" +
+    nameOrKeyword;
 
   const response = await fetch(url, {
     method: "GET",
@@ -33,12 +36,30 @@ export async function getAssetsName(nameOrKeyword: string): Promise<AssetInfo[]>
 
   const result = await response.json();
   return result as AssetInfo[];
+}
+
+export async function getAssetByName(
+  assetName: string
+): Promise<AssetInfo | undefined> {
+  const url =
+    config.get<string>("mesRestApi.mesBiEndpoint") +
+    "assets?assetName=" +
+    assetName;
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  });
+
+  const result: AssetInfo[] = await response.json();
+  return result.length > 0 ? result[0] : undefined;
 }
 
 export async function getAssetsAll(): Promise<AssetInfo[]> {
-  const url =
-    config.get<string>("mesRestApi.mesBiEndpoint") +
-    "assets/";
+  const url = config.get<string>("mesRestApi.mesBiEndpoint") + "assets/";
 
   const response = await fetch(url, {
     method: "GET",
@@ -51,4 +72,3 @@ export async function getAssetsAll(): Promise<AssetInfo[]> {
   const result = await response.json();
   return result as AssetInfo[];
 }
-

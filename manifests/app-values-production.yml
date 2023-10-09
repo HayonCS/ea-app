@@ -1,0 +1,95 @@
+ingress:
+  hostName: eabackend.gentex.com
+
+env:
+  - name: APP_ENDPOINT
+    value: "prod"
+  - name: PROD_DATABASE_SERVER
+    value: P-DB-MFG-TESTPLAN
+  - name: ENG_DATABASE_SERVER
+    value: P-DB-ENG-TESTPLAN
+  - name: PROD_DATABASE_NAME
+    value: TestPlan
+  - name: ENG_DATABASE_NAME
+    value: TestPlan
+  - name: REDIS_URL
+    value: eabackend-redis-production-master
+  - name: NODE_ENV
+    value: production
+  - name: PORT
+    value: "3001"
+  - name: SVN_URL
+    value: http://vcs.gentex.com/svn/testers/deployment/exports
+  - name: SVN_REPO
+    value: products
+  - name: SMB_SHARE
+    value: \\znas1.gentex.com\Production
+  - name: SMB_DOMAIN
+    value: gentex.com
+  - name: SMB_VERSIONED_LIBRARY_BASEPATH
+    value: TM/Libraries
+  - name: AUTH_LOCAL
+    value: "false"
+  - name: OAUTH_REDIRECT_URI
+    value: https://testplaneditor.gentex.com/auth/callback
+  - name: OAUTH_SCOPES
+    value: "profile offline_access user.read calendars.read"
+  - name: OAUTH_AUTHORITY
+    value: https://login.microsoftonline.com/
+  - name: OAUTH_AUTHORITY_COMMON
+    value: https://login.microsoftonline.com/common/
+  - name: OAUTH_ID_METADATA
+    value: v2.0/.well-known/openid-configuration
+  - name: OAUTH_AUTHORIZE_ENDPOINT
+    value: oauth2/v2.0/authorize
+  - name: OAUTH_TOKEN_ENDPOINT
+    value: oauth2/v2.0/token
+  - name: MES_SECURITY_ENDPOINT
+    value: http://zvm-msgprod/SecurityWeb/api/v1/
+  - name: MES_USER_PICTURE
+    value: https://api.gentex.com/user/image/v1/
+  - name: MES_EMPLOYEE_DIRECTORY
+    value: https://api.gentex.com/employeedemo/v1/employees/
+  - name: SSL_ENABLED
+    value: "false"
+  - name: TP_LOCKOUT_TIME_MS
+    value: "3600000"
+  - name: GIT_WIKI_URL
+    value: https://gentex@dev.azure.com/gentex/gtm_core_software/_git/GTM-Core-Software.wiki
+  - name: GIT_WIKI_PATH
+    value: EABackEnd-Web-App/EABackEnd.md
+
+secrets:
+  - name: eabackend
+    create: false
+    keys:
+      - name: PROD_DATABASE_USER
+        envName: PROD_DATABASE_USER
+      - name: ENG_DATABASE_USER
+        key: ENG_DATABASE_USER
+      - name: PROD_DATABASE_PASSWORD
+        key: PROD_DATABASE_PASSWORD
+      - name: ENG_DATABASE_PASSWORD
+        key: ENG_DATABASE_PASSWORD
+      - name: SERVER_SECRET
+        key: SERVER_SECRET
+      - name: SMB_USERNAME
+        key: SMB_USERNAME
+      - name: SMB_PASSWORD
+        key: SMB_PASSWORD
+      - name: SVN_USER
+        key: SVN_USER
+      - name: SVN_PASSWORD
+        key: SVN_PASSWORD
+      - name: OAUTH_APP_ID
+        key: OAUTH_APP_ID
+      - name: OAUTH_APP_PASSWORD
+        key: OAUTH_APP_PASSWORD
+      - name: OATH_TENANT_ID
+        key: OATH_TENANT_ID
+      - name: JWT_SECRET
+        key: JWT_SECRET
+      - name: APP_SPECIFIC_KEYS
+        key: APP_SPECIFIC_KEYS
+      - name: GIT_WIKI_TOKEN
+        key: GIT_WIKI_TOKEN

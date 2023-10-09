@@ -23,13 +23,73 @@ function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+async function getCurrentDate() {
+  try {
+    const url = "https://google.com/";
+
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
+
+    console.log("START");
+
+    if (!response.ok) throw new Error("Error getting current date!");
+
+    const jsonData = await response.json();
+
+    console.log("JSONDATA: ");
+    console.log(jsonData);
+
+    if (jsonData) {
+      const result = Helper.Deserialize(JSON.stringify(response.json()));
+      console.log("RESULT: " + result);
+    }
+
+    // const result = Helper.Deserialize(JSON.stringify(response.json()));
+
+    // return result;
+  } catch (error) {
+    console.log(error.message);
+    return new Date();
+  }
+}
+
+class Helper {
+  public static Deserialize(data: string): any {
+    return JSON.parse(data, Helper.ReviveDateTime);
+  }
+
+  private static ReviveDateTime(key: any, value: any): any {
+    if (typeof value === "string") {
+      let a = /\/Date\((\d*)\)\//.exec(value);
+      if (a) {
+        return new Date(+a[1]);
+      }
+    }
+
+    return value;
+  }
+}
+
 async function loadInitialData() {
   let assets: AssetInfo[] = JSON.parse(
     (await redis.get("biAssetList")) ?? "[]"
   );
 
   console.log("Loading asset data into redis...");
-  const endDate = new Date();
+  let endDate = new Date();
+  // let endDate = new Date(new Date().toLocaleString("en", { timeZone: "America/Detroit" }));
+
+  // console.log(endDate);
+  // console.log(new Date().toLocaleString("en", { timeZone: "America/Detroit" }));
+
+  // console.log(await getCurrentDate());
+  await getCurrentDate();
+
   let startDate = new Date(endDate);
   startDate.setDate(startDate.getDate() - 100);
   for (
@@ -63,7 +123,10 @@ async function updateProcessData() {
       const assetList: AssetInfo[] = JSON.parse(
         (await redis.get("biAssetList")) ?? "[]"
       );
-      const endDate = new Date();
+      // const endDate = new Date();
+      const endDate = new Date(
+        new Date().toLocaleString("en", { timeZone: "America/Detroit" })
+      );
       const startDate = new Date(endDate);
       let endDatePrev = new Date(endDate);
       let startDatePrev = new Date(endDate);

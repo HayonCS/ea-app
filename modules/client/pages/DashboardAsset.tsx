@@ -224,7 +224,7 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
         processOps,
         assetInformation?.orgCode ?? "14"
       );
-      console.log(processData);
+      // console.log(processData);
       if (processTotal) {
         setAssetDataTotal(processTotal);
         if (processTotal.length > 0) {

@@ -62,7 +62,10 @@ export async function getProcessDataExport(
   let processData: ProcessDataExport[] = [];
   const jsonData = await response.json();
   if (jsonData && jsonData.length > 0) {
+    let lastOperator = "";
     processData = jsonData.map((x: any) => {
+      if (x["KeyToValueDictionary"]["OPERATOR"])
+        lastOperator = x["KeyToValueDictionary"]["OPERATOR"];
       let data: ProcessDataExport = {
         MetaDataId: x["MetaDataId"],
         Asset: x["KeyToValueDictionary"]["ASSET"],
@@ -74,7 +77,7 @@ export async function getProcessDataExport(
         OperationId: x["KeyToValueDictionary"]["OPERATIONID"],
         Line: x["KeyToValueDictionary"]["LINE"],
         Label: x["KeyToValueDictionary"]["LABEL"],
-        Operator: x["KeyToValueDictionary"]["OPERATOR"],
+        Operator: x["KeyToValueDictionary"]["OPERATOR"] ?? lastOperator,
         Description: x["KeyToValueDictionary"]["DESCRIPTION"],
         CycleTime: x["KeyToValueDictionary"]["CYCLETIME"],
         Revision: x["KeyToValueDictionary"]["REVISION"],

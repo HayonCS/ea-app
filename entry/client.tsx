@@ -11,7 +11,6 @@ import { Provider } from "react-redux";
 import { ThemeProvider } from "@mui/styles";
 import { CssBaseline } from "@mui/material";
 import { AppTheme } from "client/styles/mui-theme";
-import { checkAuthStatus } from "client/redux/actions/thunks/authentication-thunks";
 import { FlagsProvider } from "react-feature-flags";
 import { featureFlags } from "./feature-flags";
 

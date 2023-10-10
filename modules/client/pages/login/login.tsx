@@ -13,7 +13,6 @@ import { UserInformation } from "core/schemas/user-information.gen";
 import { getUserInformation } from "client/user-utils";
 import { useUserInformation } from "client/components/hooks/UserInformation";
 import { Selectors } from "client/redux/selectors";
-import { login } from "client/redux/actions/thunks/authentication-thunks";
 
 const useStyles = makeStyles(() => ({
   app: {

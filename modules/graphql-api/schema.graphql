@@ -13,28 +13,9 @@ scalar TesterType
 scalar UserSettings
 scalar UserAppData
 scalar Object
-scalar SavedUserRecord
 scalar EmployeeInfoResponse
 scalar ProcessDataExport
 scalar RunningNowItem
-
-"""
-Represents an individual user.
-"""
-type User {
-  """
-  The unique identifier for the user.
-  """
-  id: Int!
-  """
-  Users first name
-  """
-  firstName: String!
-  """
-  Users last name
-  """
-  lastName: String!
-}
 
 type AssetInfo {
   assetName: String!
@@ -102,13 +83,6 @@ type Evaluation {
   tolerance: String
   updateTestMetrics: String
   value: String
-}
-
-"""
-An input type for providing a user id.
-"""
-input UserIdWhereInput {
-  userId: String!
 }
 
 """
@@ -996,17 +970,6 @@ type Query {
   serverInfo: ServerState!
 
   """
-  Used to query a user record for the provided username.  The corresponding user record contains all information
-  stored in the user table for the username including the database id key.
-  """
-  userTable(domain: Domain!, username: String!): SavedUserRecord
-
-  """
-  Returns user records for each user table entry within the requested domain.
-  """
-  allUsers(domain: Domain!): [SavedUserRecord]
-
-  """
   Returns the path to the user picture associated with the employee that has the given user id.
   """
   userPicture(employeeId: String!): UserPictureResponse!
@@ -1030,11 +993,6 @@ type Query {
   Provides a list of all reserved test plan keywords.
   """
   reservedKeywords: ReservedKeywords!
-
-  """
-  Given a user, returns all recent test plans that they have either viewed or modified.
-  """
-  recentTestPlans(where: UserIdWhereInput!): RecentTestPlans!
 
   """
   Request information about an individual test plan using a unique test plan input (name and revision)
@@ -1085,11 +1043,6 @@ type Query {
   jobStatus(jobIdentifiers: [JobIdentifier!]!): JobStatus!
 
   """
-  Request station watcher user information given the user name input.
-  """
-  userStationWatcher(userName: String!): StationWatcherUser!
-
-  """
   Request information about all of the available station watchers.
   """
   stationWatchers: [StationWatcherMessage!]!
@@ -1126,16 +1079,6 @@ type Query {
     testerType: TesterType!
     includeHidden: Boolean
   ): [TestPlanSearchResult]!
-
-  """
-  Retrieve the user settings for the given user.  Will provide default settings if no changes have been made.
-  """
-  getUserSettings(where: UserIdWhereInput!): UserSettings!
-}
-
-enum UserInputType {
-  ID
-  Username
 }
 
 type Mutation {
@@ -1152,38 +1095,6 @@ type Mutation {
     testPlanName: String!
     domain: Domain!
   ): RecentTestPlans!
-
-  """
-  A mutation used to update the User Table with a user entry. This can be used to add or modify information.
-  """
-  updateUserTable(
-    employeeNumber: String!
-    firstName: String!
-    lastName: String!
-    username: String!
-    email: String!
-    cellPhone: String!
-    workPhone: String!
-    location: String!
-    locationId: String!
-    shift: String!
-    jobTitle: String!
-    managerEmployeeNumber: String!
-    level: Int!
-    erphrLocation: Object!
-    isManager: Boolean!
-    status: String!
-    salaryType: String!
-    employeeType: String!
-    personType: String!
-    payGroup: String!
-    preferredLocale: String!
-    preferredDisplayLang: String!
-    preferredCurrency: String!
-    primaryTimezone: String!
-    fullTime: Boolean!
-    partTime: Boolean!
-  ): SavedUserRecord!
 
   """
   A mutation called to create a new Test Plan in the TestPlan Database.  Returns data about the Test Plan upon successful creation.
@@ -1203,11 +1114,6 @@ type Mutation {
     metadata: TestPlanMetadata!
     jobUuid: String!
   ): Job!
-
-  saveUserSettings(
-    where: UserIdWhereInput!
-    userSettings: UserSettings!
-  ): Boolean!
 
   """
   Sets a key/value pair within redis which locks a given test plan for a specific user.  This will fail if

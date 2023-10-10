@@ -4,7 +4,6 @@ import * as _ from "lodash-es";
 import * as bodyParser from "body-parser";
 import * as compression from "compression";
 import * as config from "config";
-//import * as db from "../db";
 import * as express from "express";
 import * as jwt from "jsonwebtoken";
 import * as passport from "passport";
@@ -22,16 +21,11 @@ import { Logger } from "atomic-object/logger";
 import { executableSchema } from "graphql-api";
 import { execute, subscribe } from "graphql";
 import { jwtConfig } from "./jwt-config";
-import { isSavedUserRecord, isSavedUserRecordAndAppKey } from "core/auth";
 import { checkForAppKey } from "./app-key-config";
-
-require("./passport");
 
 ErrorNotifier.setup(config.get("rollbar.serverAccessToken"));
 
 const Arena = require("bull-arena");
-//const knex = db.getConnection();
-//const knexLogger = require("knex-logger");
 const enforce = require("express-sslify");
 const expressStaticGzip = require("express-static-gzip");
 const cookieSession = require("cookie-session");
@@ -164,11 +158,6 @@ export function startServer() {
     }
   );
 
-  app.get(
-    AuthRoutes.CHECK_AUTH,
-    passport.authenticate("jwt", { session: false })
-  );
-
   app.use(
     "/arena",
     new Arena(
@@ -207,125 +196,6 @@ export function startServer() {
       }
     }
   );
-
-  // app.use(
-  //   "/graphql",
-  //   bodyParser.json(),
-  //   passport.authenticate("jwt", { session: false }),
-  //   graphqlExpress((req) => {
-  //     let userNameForContext: string | undefined = undefined;
-  //     let appKeyForContext: string | undefined = undefined;
-
-  //     if (req) {
-  //       const headerToken = req.headers.authorization;
-  //       if (!headerToken) {
-  //         throw new Error("Not authorized for graphql queries: Missing token.");
-  //       }
-
-  //       const decoded = jwt.verify(
-  //         headerToken.replace("Bearer ", ""),
-  //         jwtConfig.secret
-  //       );
-
-  //       if (!decoded) {
-  //         throw new Error(
-  //           "Not authorized for graphql queries: Token could not be decoded."
-  //         );
-  //       }
-
-  //       if (!isSavedUserRecord(decoded)) {
-  //         throw new Error(
-  //           "Not authorized for graphql queries: Token is not a user record."
-  //         );
-  //       }
-
-  //       userNameForContext = _.get(decoded, "Name", undefined);
-  //       if (!userNameForContext) {
-  //         throw new Error(
-  //           "Not authorized for graphql queries: User name not provided in token."
-  //         );
-  //       }
-
-  //       //Check the app specific key (for clients who authenticated against the /auth/graphql endpoint)
-  //       if (isSavedUserRecordAndAppKey(decoded)) {
-  //         const app_specific_key = _.get(decoded, "AppKey", undefined);
-  //         if (!app_specific_key) {
-  //           throw new Error(
-  //             "Not authorized for graphql queries: App key not provided in token."
-  //           );
-  //         }
-
-  //         if (!checkForAppKey(app_specific_key)) {
-  //           throw new Error(
-  //             `Not authorized for graphql queries: Unknown app key: "${app_specific_key}".`
-  //           );
-  //         }
-
-  //         appKeyForContext = app_specific_key;
-
-  //         //Check for token expiration
-  //         const tokenIssuedDate = _.get(decoded, "iat", undefined);
-  //         if (!tokenIssuedDate) {
-  //           throw new Error(
-  //             "Not authorized for graphql queries: Issued at time not provided in token."
-  //           );
-  //         }
-
-  //         const tokenExpirationDate = _.get(decoded, "exp", undefined);
-  //         if (!tokenExpirationDate) {
-  //           throw new Error(
-  //             "Not authorized for graphql queries: Expiration time not provided in token."
-  //           );
-  //         }
-  //       }
-
-  //       //Make sure the user is an active Gentex employee
-  //       const employeeNumber = _.get(decoded, "EmployeeNumber", undefined);
-  //       if (!employeeNumber) {
-  //         throw new Error(
-  //           `Not authorized for graphql queries: User "${userNameForContext}" is an inactive Gentex employee.`
-  //         );
-  //       }
-
-  //       //Prevent read only users from running mutations
-  //       const isUserReadOnly = _.get(decoded, "ReadOnly", true);
-  //       if (isUserReadOnly) {
-  //         const reqBody: string | undefined = _.get(
-  //           req,
-  //           "body.query",
-  //           undefined
-  //         );
-  //         if (!reqBody) {
-  //           throw new Error(
-  //             "Not authorized for graphql queries: Request body is missing."
-  //           );
-  //         }
-
-  //         const requestCheck = reqBody.toLowerCase();
-  //         if (
-  //           requestCheck.includes("mutation") &&
-  //           !requestCheck.includes("introspectionquery")
-  //         ) {
-  //           throw new Error(
-  //             `Not authorized for graphql mutations: User "${userNameForContext}" has read only permissions in the Test Plan database.`
-  //           );
-  //         }
-  //       }
-  //     }
-
-  //     return {
-  //       schema: executableSchema,
-  //       context: new Context({
-  //         userName: userNameForContext, //userName must be provided for use by the graphql-api resolvers
-  //         appKey: appKeyForContext, //appKey must be provided for logging which application performed a mutation
-  //       }),
-  //       formatError: (e: GraphQLError) => {
-  //         Logger.error(e);
-  //         return formatError(e);
-  //       },
-  //     };
-  //   })
-  // );
 
   app.use(
     "/graphql",

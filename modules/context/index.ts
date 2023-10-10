@@ -12,20 +12,16 @@ import { BullJobRunner } from "atomic-object/jobs/bull-runner";
 import { JobRunnerPort } from "atomic-object/jobs/ports";
 import * as Logger from "atomic-object/logger";
 import { BaseLoggerPort, LoggerPort } from "atomic-object/logger/ports";
-import { Domain } from "atomic-object/records/knex";
-import { KnexPort } from "atomic-object/records/knex/ports";
 import { ClientState } from "client/graphql/state-link";
 import { reservedKeywordsRepositoryAdapter } from "domain-services/reserved-keywords";
 import { ReservedKeywordsPort } from "domain-services/reserved-keywords/port";
 import { versionedLibrariesRepositoryAdapter } from "domain-services/versioned-libraries";
 import { VersionedLibrariesPort } from "domain-services/versioned-libraries/port";
 import { NodeEnvironmentAdapter, NodeEnvironmentPort } from "node-environment";
-import { repositoriesAdapter, RepositoriesPort } from "records";
 import { smbAdapter } from "smb";
 import { SmbPort } from "smb/port";
 import { subversionAdapter } from "subversion";
 import { SubversionPort } from "subversion/port";
-import * as db from "../db";
 import {
   RedisPrefixAdapter,
   RedisPrefixPort,
@@ -58,7 +54,6 @@ import { ProcessDataRedisPort } from "domain-services/process-data-redis/port";
 import { processDataRedisAdapter } from "domain-services/process-data-redis";
 
 export type ContextOpts = {
-  db?: db.Knex;
   initialState?: ClientState;
   smbPrefix?: string;
   redisPrefix?: string;
@@ -81,7 +76,6 @@ const ContextBase = Hexagonal.contextClass((c) =>
     .add(LoggerPort, Logger.loggerAdapter)
     .add(ApolloClientStatePort, () => {})
     .add(ApolloClientPort, apolloClientAdapter)
-    .add(RepositoriesPort, repositoriesAdapter)
     .add(RedisPrefixPort, RedisPrefixAdapter)
     .add(CacheStorePort, cacheStoreAdapter)
     .add(CachePort, cacheAdapter)
@@ -120,7 +114,6 @@ export class Context extends ContextBase {
         (opts.portDefaults as any) ||
         ((x) =>
           x
-            .add(KnexPort, () => opts.db)
             .add(BaseLoggerPort, () => opts.logger)
             .add(ApolloClientStatePort, () => opts.initialState || undefined)
             .add(CacheStorePort, () => opts.cacheStore)
@@ -133,10 +126,6 @@ export class Context extends ContextBase {
     });
   }
 
-  domainDb(domain: Domain): db.Knex {
-    return db.getConnection(domain);
-  }
-
   get userAppData() {
     return this.get(UserAppDataPort);
   }
@@ -147,10 +136,6 @@ export class Context extends ContextBase {
 
   get logger(): Logger.Type {
     return this.get(LoggerPort);
-  }
-
-  get repos() {
-    return this.get(RepositoriesPort);
   }
 
   get mesSecurity() {

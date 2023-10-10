@@ -1,11 +1,10 @@
 import * as React from "react";
-import { logout } from "client/redux/actions/thunks/authentication-thunks";
 import { clearAuthToken } from "client/auth";
 
 export const LogOut: React.FC<{}> = () => {
   React.useEffect(() => {
     clearAuthToken();
-    logout();
+    // logout();
   });
 
   /**

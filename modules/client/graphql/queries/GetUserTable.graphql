@@ -1,3 +1,0 @@
-query GetUserTable($domain: Domain!, $username: String!) {
-  userTable(domain: $domain, username: $username)
-}

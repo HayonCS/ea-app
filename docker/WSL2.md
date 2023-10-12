@@ -24,7 +24,7 @@ tr:nth-child(2n) {
 
 ## Introduction
 
-This document covers the instructions for running TPE containers without Docker Desktop and only using WSL2 and the Docker Engine on Linux.
+This document covers the instructions for running EABackEnd containers without Docker Desktop and only using WSL2 and the Docker Engine on Linux.
 
 | System        | Description                                                                                                                                         | How to Access                          |
 | :------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------- |
@@ -73,23 +73,23 @@ sudo service docker start
 
 ### Docker Compose
 
-Have the TPE code checked out someplace relative to the C: drive. For example on the Host (PowerShell):
+Have the EABackEnd code checked out someplace relative to the C: drive. For example on the Host (PowerShell):
 
 ```
     cd \
     mkdir dev
     cd dev
-    git clone <url of tpe> tpe
+    git clone <url of EABackEnd> EABackEnd
 ```
 
 After checking this out, log into WSL. Note that the Docker Daemon should have been started. Run the following:
 
 ```
-cd /mnt/c/dev/tpe
+cd /mnt/c/dev/eabackend
 docker-compose up -d
 ```
 
-That will build and bring the TPE image up. At this point, follow the default instructions on initializing the TPE app.
+That will build and bring the EABackEnd image up. At this point, follow the default instructions on initializing the EABackEnd app.
 
 ## WSL2 Reference
 
@@ -153,14 +153,14 @@ The main condition when the port forwarding script will need to be run is when y
 
 Port forwarding with WSL2 is done via a script located in:
 
-     `%TPE_APP%/scripts/wsl_port_forwarding.py`
+     `%EABackEnd_APP%/scripts/wsl_port_forwarding.py`
 
 The running of this script is done on the HOST machine. The HOST machine is the machine where we run docker-compose. This script will need to be run as an administrator. Suggestion would be to follow these steps:
 
     1. In the Windows Start menu, search for PowerShell and right click on it, select Run As Administrator.
-    2. In the PowerShell window, type the following (replacing TPE_DIRECTORY with your own location for the TPE app):
+    2. In the PowerShell window, type the following (replacing EABackEnd_DIRECTORY with your own location for the EABackEnd app):
         ```
-        cd %TPE_APP%
+        cd %EABackEnd_APP%
         python .\scripts\wsl_port_forwarding.py
         ```
     3. If this successfully runs, the user should see the following:

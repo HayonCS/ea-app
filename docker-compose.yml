@@ -23,40 +23,11 @@ services:
       - MSSQL_CLI_TELEMETRY_OPTOUT=True
       - SA_PASSWORD=YourStrongPassw0rd
 
-  sql-server:
-    build: docker/sql-server
-    ipc: host
-    volumes:
-      - sqlserverdata:/var/opt/mssql
-      - ./mssql-data:/var/opt/mssql-external
-    environment:
-      - ACCEPT_EULA=y
-      - SA_PASSWORD=YourStrongPassw0rd
-    ports:
-      - "1433:1433"
-
-  subversion:
-    build: docker/subversion
-    volumes:
-      - subversiondata:/home/svn
-    ports:
-      - "80:80"
-      - "3690:3690"
-
   redis:
     image: redis:4
     ipc: host
     ports:
       - "6379:6379"
-
-  samba:
-    build: docker/samba
-    volumes:
-      - sambadata:/var/opt/samba
-    tmpfs:
-      - /tmp
-    restart: unless-stopped
-    tty: true
 
   rest-endpoints:
     build: docker/rest-endpoints

@@ -31,7 +31,7 @@ All development should be done inside a Docker container. This allows for a cons
 
 [Install WSL2 on Windows](https://docs.microsoft.com/en-us/windows/wsl/install)
 
-[Run Docker inside WSL2](docker/AlternateWSL2.md)
+[Run Docker inside WSL2](docker/WSL2.md)
 
 ## Build and run your Docker containers
 
@@ -43,7 +43,7 @@ All development should be done inside a Docker container. This allows for a cons
 6. Copy `.env.example` to `.env`. This will define your environment variables while running and testing the app in the Docker container.
 7. Run `yarn build` to build the codebase including utility scripts and generated types.
 8. Run `yarn initial` to create and seed all the data into redis.
-9. Open another terminal and run `yarn redis:load:processdata` to seed and update Mes Process Data into redis for querying statistics.
+9. After remote connecting to the project in VSCode (instructions after gitconfig setup), open another terminal and run `yarn redis:load:processdata` to seed and update Mes Process Data into redis for querying statistics.
 
 ## Configure git
 
@@ -130,8 +130,6 @@ This repository is structured to encourage a view of the whole repository as one
 ### Modules:
 
 - `client` – React/redux front-end.
-- `db` – Core knex database connection helpers
-- `records` – Database record types and repositories, with base record and repository classes in `record`. Depends on `db`
 - `graphql` – Graphql schema and implementation. Depends on `records` and `db`
 - `server` – Express.js server that serves the client and graphql api. Depends on `graphql`
 - `helpers` – Generic helpers that can be used in any other module – no dependencies

@@ -1,9 +1,0 @@
-query GetTestPlanRevision($domain: Domain!, $where: TestPlanWhereUniqueInput!) {
-  testPlanRevision(domain: $domain, where: $where) {
-    RevNumber
-    LastEditor
-    LastEdit
-    RevLabel
-    LogMessage
-  }
-}

@@ -13,10 +13,6 @@ import { JobRunnerPort } from "atomic-object/jobs/ports";
 import * as Logger from "atomic-object/logger";
 import { BaseLoggerPort, LoggerPort } from "atomic-object/logger/ports";
 import { ClientState } from "client/graphql/state-link";
-import { reservedKeywordsRepositoryAdapter } from "domain-services/reserved-keywords";
-import { ReservedKeywordsPort } from "domain-services/reserved-keywords/port";
-import { versionedLibrariesRepositoryAdapter } from "domain-services/versioned-libraries";
-import { VersionedLibrariesPort } from "domain-services/versioned-libraries/port";
 import { NodeEnvironmentAdapter, NodeEnvironmentPort } from "node-environment";
 import { smbAdapter } from "smb";
 import { SmbPort } from "smb/port";
@@ -93,8 +89,6 @@ const ContextBase = Hexagonal.contextClass((c) =>
     .add(SubversionPort, subversionAdapter)
     .add(SmbPrefixPort, SmbPrefixAdapter)
     .add(SmbPort, smbAdapter)
-    .add(ReservedKeywordsPort, reservedKeywordsRepositoryAdapter)
-    .add(VersionedLibrariesPort, versionedLibrariesRepositoryAdapter)
     .add(MesSecurityPort, mesSecurityAdapter)
     .add(MesBiPort, mesBiAdapter)
     .add(MesProcessDataPort, mesProcessDataAdapter)
@@ -172,10 +166,6 @@ export class Context extends ContextBase {
 
   get smb() {
     return this.get(SmbPort);
-  }
-
-  get versionedLibraries() {
-    return this.get(VersionedLibrariesPort);
   }
 
   get apolloClient() {

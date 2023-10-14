@@ -1,3 +1,0 @@
-query GetTestPlanLockState($domain: Domain!, $testPlanName: String!) {
-  testPlanLockState(domain: $domain, testPlanName: $testPlanName)
-}

@@ -1,4 +1,4 @@
-import { Mutation, Query, Subscription } from "client/graphql/types.gen";
+import { Mutation, Query } from "client/graphql/types.gen";
 
 export const rawSchema = require("./schema.graphql");
 
@@ -6,5 +6,4 @@ export const rawSchema = require("./schema.graphql");
 export interface SchemaMap {
   Query: Query;
   Mutation: Mutation;
-  Subscription: Subscription;
 }

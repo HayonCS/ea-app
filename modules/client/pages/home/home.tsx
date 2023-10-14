@@ -78,6 +78,10 @@ export const HomePage: React.FC<{
 
   const [tabValue, setTabValue] = React.useState(props.tabIndex ?? 0);
 
+  React.useEffect(() => {
+    if (props.tabIndex) setTabValue(props.tabIndex);
+  }, [props]);
+
   return (
     <div className={classes.app}>
       <header className={classes.appHeader}>

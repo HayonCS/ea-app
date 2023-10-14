@@ -67,7 +67,10 @@ export function App() {
 
         <Route path="/" element={<Navigate to="/home" />} />
 
-        <Route path="/home" element={ProtectedElement(<HomePage />)} />
+        <Route
+          path="/home"
+          element={ProtectedElement(<HomePage tabIndex={0} />)}
+        />
         <Route
           path="/resources"
           element={ProtectedElement(<HomePage tabIndex={1} />)}

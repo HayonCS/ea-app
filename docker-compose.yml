@@ -17,10 +17,6 @@ services:
       - "9229:9229" # Debug express server
       - "9230:9230" # Debug bull worker
     environment:
-      - MSSQL_CLI_SERVER=sql-server
-      - MSSQL_CLI_USER=SA
-      - MSSQL_CLI_PASSWORD=YourStrongPassw0rd
-      - MSSQL_CLI_TELEMETRY_OPTOUT=True
       - SA_PASSWORD=YourStrongPassw0rd
 
   redis:

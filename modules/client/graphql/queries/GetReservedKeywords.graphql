@@ -1,5 +1,0 @@
-query GetReservedKeywords {
-  reservedKeywords {
-    keywords
-  }
-}

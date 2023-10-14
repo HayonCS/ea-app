@@ -62,7 +62,6 @@ const internalResolver = {
 
     const customTypeImports = `
 import * as DateTimeIso from "core/date-time-iso";
-import { Phase } from "core/schemas/phase";
 `;
     code = customTypeImports + code;
 

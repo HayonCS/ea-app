@@ -82,6 +82,8 @@ async function loadInitialData() {
 
   console.log("Loading asset data into redis...");
   let endDate = new Date();
+  endDate.setHours(endDate.getHours() + 23);
+  console.log(endDate);
   // let endDate = new Date(new Date().toLocaleString("en", { timeZone: "America/Detroit" }));
 
   // console.log(endDate);
@@ -123,7 +125,9 @@ async function updateProcessData() {
       const assetList: AssetInfo[] = JSON.parse(
         (await redis.get("biAssetList")) ?? "[]"
       );
-      const endDate = new Date();
+      let endDate = new Date();
+      endDate.setHours(endDate.getHours() + 23);
+      console.log(endDate);
       // const endDate = new Date(
       //   new Date().toLocaleString("en", { timeZone: "America/Detroit" })
       // );

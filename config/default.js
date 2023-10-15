@@ -11,16 +11,6 @@ const WORKER_CONCURRENCY =
 module.exports = {
   environment: process.env.NODE_ENV,
 
-  prodDatabaseServer: process.env.PROD_DATABASE_SERVER,
-  prodDatabaseName: process.env.PROD_DATABASE_NAME,
-  prodDatabaseUser: process.env.PROD_DATABASE_USER,
-  prodDatabasePassword: process.env.PROD_DATABASE_PASSWORD,
-
-  engDatabaseServer: process.env.ENG_DATABASE_SERVER,
-  engDatabaseName: process.env.ENG_DATABASE_NAME,
-  engDatabaseUser: process.env.ENG_DATABASE_USER,
-  engDatabasePassword: process.env.ENG_DATABASE_PASSWORD,
-
   minify:
     process.env.MINIFY != null
       ? process.env.MINIFY === "true"
@@ -94,22 +84,6 @@ module.exports = {
     workers: WORKER_CONCURRENCY,
   },
 
-  subversion: {
-    repoName: process.env.SVN_REPO,
-    baseUrl: process.env.SVN_URL,
-    username: process.env.SVN_USER,
-    password: process.env.SVN_PASSWORD,
-  },
-
-  smb: {
-    versionedLibraries: {
-      share: process.env.SMB_SHARE,
-      domain: process.env.SMB_DOMAIN,
-      username: process.env.SMB_USERNAME,
-      password: process.env.SMB_PASSWORD,
-      basePath: process.env.SMB_VERSIONED_LIBRARY_BASEPATH,
-    },
-  },
   mesRestApi: {
     mesSecurityEndpoint: process.env.MES_SECURITY_ENDPOINT,
     mesBiEndpoint: process.env.MES_BI_ENDPOINT,
@@ -117,9 +91,5 @@ module.exports = {
     employeeDirectoryEndpoint: process.env.MES_EMPLOYEE_DIRECTORY,
     mesRegistryEndpoint: process.env.MES_REGISTRY_ENDPOINT,
     mesProcessDataEndpoint: process.env.MES_PROCESS_DATA_ENDPOINT,
-  },
-  tpLockout: {
-    enableLockout: process.env.ENABLE_LOCKOUT ?? "true",
-    tpLockoutLengthMs: process.env.TP_LOCKOUT_TIME_MS,
   },
 };

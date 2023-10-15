@@ -140,11 +140,6 @@ module.exports = {
       "process.env.ROLLBAR_CLIENT_ACCESS_TOKEN": JSON.stringify(
         config.get("rollbar.clientAccessToken")
       ),
-
-      // Enable Lockout Feature
-      "process.env.ENABLE_LOCKOUT": JSON.stringify(
-        config.get("tpLockout.enableLockout")
-      ),
     }),
 
     // Process index.html and insert script and stylesheet tags for us.

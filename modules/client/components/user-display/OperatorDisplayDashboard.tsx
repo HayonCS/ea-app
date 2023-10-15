@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Avatar, Box, Paper, Popover, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { formatUserName, formatUserPhone } from "client/utilities/DataUtility";
+import { formatUserName, formatUserPhone } from "client/user-utils";
 import { UserInformation } from "core/schemas/user-information.gen";
 
 const useStyles = makeStyles(() => ({

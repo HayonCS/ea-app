@@ -46,7 +46,7 @@ import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import * as dayjs from "dayjs";
 import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
-import { getHHMMSS } from "../../utilities/DateUtility";
+import { getHHMMSS } from "../../utilities/date-util";
 import { UserDisplayHover } from "client/components/user-display/UserDisplayHover";
 import {
   getProcessDataExport,
@@ -59,11 +59,11 @@ import {
   ProcessDataExport,
   ProcessDataOperatorTotals,
   ProcessDataRawData,
-} from "../../utilities/DataTypes";
+} from "../../utilities/types";
 import {
   getFinalProcessDataOperator,
   getFinalProcessDataOperatorTotals,
-} from "../../utilities/DataUtility";
+} from "../../utilities/process-data";
 import { getEmployeeInfoGentex } from "../../utilities/mes";
 import { enqueueSnackbar } from "notistack";
 import { UserInformation } from "core/schemas/user-information.gen";
@@ -157,14 +157,10 @@ export const OperatorAsset: React.FC<{}> = (props) => {
   const classes = useStyles();
 
   const [loadingAssetOperator, setLoadingAssetOperator] = React.useState(false);
-  const [
-    loadingProgressAssetOperator,
-    setLoadingProgressAssetOperator,
-  ] = React.useState(0);
-  const [
-    cancelingLoadingAssetOperator,
-    setCancelingLoadingAssetOperator,
-  ] = React.useState(false);
+  const [loadingProgressAssetOperator, setLoadingProgressAssetOperator] =
+    React.useState(0);
+  const [cancelingLoadingAssetOperator, setCancelingLoadingAssetOperator] =
+    React.useState(false);
 
   const [operatorEmployeeInfo, setOperatorEmployeeInfo] = React.useState<
     UserInformation[]
@@ -177,41 +173,31 @@ export const OperatorAsset: React.FC<{}> = (props) => {
     assets: string[];
     parts: string[];
   }>({ operators: [], assets: [], parts: [] });
-  const [
-    filtersAssetOperatorRadio,
-    setFiltersAssetOperatorRadio,
-  ] = React.useState("AllOperators");
+  const [filtersAssetOperatorRadio, setFiltersAssetOperatorRadio] =
+    React.useState("AllOperators");
   const [selectedAssetsOperator, setSelectedAssetsOperator] = React.useState<
     string[]
   >([]);
-  const [
-    checkboxDateAssetOperator,
-    setCheckboxDateAssetOperator,
-  ] = React.useState(false);
+  const [checkboxDateAssetOperator, setCheckboxDateAssetOperator] =
+    React.useState(false);
   const [startDateAssetOperator, setStartDateAssetOperator] = React.useState(
     new Date()
   );
   const [endDateAssetOperator, setEndDateAssetOperator] = React.useState(
     new Date()
   );
-  const [
-    processDataAssetOperator,
-    setProcessDataAssetOperator,
-  ] = React.useState<ProcessDataRawData[]>([]);
+  const [processDataAssetOperator, setProcessDataAssetOperator] =
+    React.useState<ProcessDataRawData[]>([]);
   const [rowsAssetOperator, setRowsAssetOperator] = React.useState<
     ProcessDataOperatorTotals[]
   >([]);
-  const [
-    rowsFilteredAssetOperator,
-    setRowsFilteredAssetOperator,
-  ] = React.useState<ProcessDataOperatorTotals[]>([]);
-  const [
-    paginationModelAssetOperator,
-    setPaginationModelAssetOperator,
-  ] = React.useState<GridPaginationModel>({
-    page: 0,
-    pageSize: 100,
-  });
+  const [rowsFilteredAssetOperator, setRowsFilteredAssetOperator] =
+    React.useState<ProcessDataOperatorTotals[]>([]);
+  const [paginationModelAssetOperator, setPaginationModelAssetOperator] =
+    React.useState<GridPaginationModel>({
+      page: 0,
+      pageSize: 100,
+    });
   const [
     columnVisibilityModelAssetOperator,
     setColumnVisibilityModelAssetOperator,
@@ -220,33 +206,25 @@ export const OperatorAsset: React.FC<{}> = (props) => {
     recipe: false,
     changeover: false,
   });
-  const [
-    rowSelectionModelAssetOperator,
-    setRowSelectionModelAssetOperator,
-  ] = React.useState<GridInputRowSelectionModel>([]);
-  const [
-    footerStatsAssetOperator,
-    setFooterStatsAssetOperator,
-  ] = React.useState<FooterStatsTotals>({
-    Rows: 0,
-    Parts: 0,
-    Passes: 0,
-    Fails: 0,
-    RunActual: 0,
-    RunTheory: 0,
-    Efficiency: 0,
-    PartsPerHour: 0,
-  });
+  const [rowSelectionModelAssetOperator, setRowSelectionModelAssetOperator] =
+    React.useState<GridInputRowSelectionModel>([]);
+  const [footerStatsAssetOperator, setFooterStatsAssetOperator] =
+    React.useState<FooterStatsTotals>({
+      Rows: 0,
+      Parts: 0,
+      Passes: 0,
+      Fails: 0,
+      RunActual: 0,
+      RunTheory: 0,
+      Efficiency: 0,
+      PartsPerHour: 0,
+    });
 
-  const [
-    showRawDataAssetOperator,
-    setShowRawDataAssetOperator,
-  ] = React.useState(false);
+  const [showRawDataAssetOperator, setShowRawDataAssetOperator] =
+    React.useState(false);
   const [filterPanelOpen, setFilterPanelOpen] = React.useState(false);
-  const [
-    filterPanelCloseHoverState,
-    setFilterPanelCloseHoverState,
-  ] = React.useState(false);
+  const [filterPanelCloseHoverState, setFilterPanelCloseHoverState] =
+    React.useState(false);
 
   // const loadStatsAssetOperator = async () => {
   //   enqueueSnackbar("Loading data for operators by assets...", {

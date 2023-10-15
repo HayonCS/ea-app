@@ -5,13 +5,13 @@ import {
   ProcessDataExport,
   ProcessDataExportRaw,
   UserInfoGentex,
-} from "./DataTypes";
-import { dateToString } from "./DateUtility";
+} from "./types";
+import { dateToString } from "./date-util";
 import { getUserInfoLumen } from "./redis";
 
 export const getPartCycleTime = async (
   partNumber: string,
-  orgCode: string,
+  orgCode: number,
   assetType?: "Combo" | "Combo2" | "MonoRail" | "Press"
 ) => {
   try {
@@ -49,7 +49,7 @@ export const getPartCycleTime = async (
       }
     }
   } catch (error) {
-    console.log(error);
+    console.info(error);
   }
   return 0;
 };
@@ -100,7 +100,7 @@ export const getEmployeeInfoGentex = async (userId: string) => {
     if (userInfo) {
       return userInfo;
     }
-    console.log("ERROR: " + error);
+    console.info("ERROR: " + error);
     return undefined;
   }
 };
@@ -142,7 +142,7 @@ export const getEmployeeInfoFromUserInfo = async (userId: string) => {
     }
     return undefined;
   } catch (error) {
-    console.log(error);
+    console.info(error);
     return undefined;
   }
 };
@@ -170,7 +170,7 @@ export const getUserInfoGentex = async (
       return result;
     }
   } catch (error) {
-    console.log(error);
+    console.info(error);
   }
   return undefined;
 };
@@ -185,7 +185,7 @@ export const getProcessDataExport = async (
     end.setDate(end.getDate() + 1);
     const dateStart = dateToString(startDate);
     const dateEnd = dateToString(end);
-    const url = `http://zvm-msgprod.gentex.com/MES/ProcessDataExportApi/api/v1/processdataexport/processDataExport?Assets=${asset}&StartDate=${dateStart}&EndDate=${dateEnd}&TopNRows=-1&UserMetadataKeys=Operator%2Cline%2Clabel%2Cdescription%2Ccycletime%2Crevision%2Csender%2Ctestplan%2Cbarcode`;
+    const url = `http://zvm-msgprod/MES/ProcessDataExportApi/api/v1/processdataexport/processDataExport?Assets=${asset}&StartDate=${dateStart}&EndDate=${dateEnd}&TopNRows=-1&UserMetadataKeys=line%2Clabel%2Coperator%2Cdescription%2Ccycletime%2Crevision%2Csender%2Ctestplan%2Cbarcode`;
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -195,11 +195,8 @@ export const getProcessDataExport = async (
     if (!response.ok) {
       throw new Error(`Error! status: ${response.status}`);
     }
-    const result = await response.json();
-    let lastOperator = "";
-    let processData: ProcessDataExport[] = result.map((item: any) => {
-      if (item.KeyToValueDictionary.OPERATOR)
-        lastOperator = item.KeyToValueDictionary.OPERATOR;
+    const result: ProcessDataExportRaw[] = await response.json();
+    let processData: ProcessDataExport[] = result.map((item) => {
       return {
         MetaDataId: item.MetaDataId,
         Asset: item.KeyToValueDictionary.ASSET,
@@ -211,7 +208,7 @@ export const getProcessDataExport = async (
         OperationId: item.KeyToValueDictionary.OPERATIONID,
         Line: item.KeyToValueDictionary.LINE,
         Label: item.KeyToValueDictionary.LABEL,
-        Operator: item.KeyToValueDictionary.OPERATOR ?? lastOperator,
+        Operator: item.KeyToValueDictionary.OPERATOR,
         Description: item.KeyToValueDictionary.DESCRIPTION,
         CycleTime: item.KeyToValueDictionary.CYCLETIME,
         Revision: item.KeyToValueDictionary.REVISION,
@@ -241,79 +238,10 @@ export const getProcessDataExport = async (
 
     return processData;
   } catch (error) {
-    console.log("ERROR: " + error);
+    console.info("ERROR: " + error);
     return undefined;
   }
 };
-
-// export const getProcessDataExport = async (
-//   asset: string,
-//   startDate: Date,
-//   endDate: Date
-// ) => {
-//   try {
-//     const end = new Date(endDate);
-//     end.setDate(end.getDate() + 1);
-//     const dateStart = dateToString(startDate);
-//     const dateEnd = dateToString(end);
-//     const url = `http://zvm-msgprod.gentex.com/MES/ProcessDataExportApi/api/v1/processdataexport/processDataExport?Assets=${asset}&StartDate=${dateStart}&EndDate=${dateEnd}&TopNRows=-1&UserMetadataKeys=Operator%2Cline%2Clabel%2Cdescription%2Ccycletime%2Crevision%2Csender%2Ctestplan%2Cbarcode`;
-//     const response = await fetch(url, {
-//       method: "GET",
-//       headers: {
-//         Accept: "application/json",
-//       },
-//     });
-//     if (!response.ok) {
-//       throw new Error(`Error! status: ${response.status}`);
-//     }
-//     const result = await response.json();
-//     console.log(result);
-//     let processData: ProcessDataExport[] = result.map((item: any) => {
-//       return {
-//         MetaDataId: item.MetaDataId,
-//         Asset: item.KeyToValueDictionary.ASSET,
-//         IdentifierCode: item.KeyToValueDictionary.IDENTIFIERCODE,
-//         IdentifierCode2: item.KeyToValueDictionary.IDENTIFIERCODE2,
-//         PartNumber: item.KeyToValueDictionary.PARTNUMBER,
-//         OpEndTime: new Date(item.KeyToValueDictionary.OPENDTIME),
-//         PassFail: item.KeyToValueDictionary.PASSFAIL === "PASS" ? true : false,
-//         OperationId: item.KeyToValueDictionary.OPERATIONID,
-//         Line: item.KeyToValueDictionary.LINE,
-//         Label: item.KeyToValueDictionary.LABEL,
-//         Operator: item.KeyToValueDictionary.OPERATOR,
-//         Description: item.KeyToValueDictionary.DESCRIPTION,
-//         CycleTime: item.KeyToValueDictionary.CYCLETIME,
-//         Revision: item.KeyToValueDictionary.REVISION,
-//         Sender: item.KeyToValueDictionary.SENDER,
-//         TestPlan: item.KeyToValueDictionary.TESTPLAN,
-//         Barcode: item.KeyToValueDictionary.BARCODE,
-//       };
-//     });
-//     processData = processData.filter(
-//       (x) =>
-//         !x.PartNumber.includes("I") &&
-//         !x.PartNumber.includes("E") &&
-//         !x.PartNumber.includes("U") &&
-//         !x.PartNumber.includes("0000")
-//     );
-//     if (asset.includes("PCB")) {
-//       processData = processData.filter(
-//         (x) =>
-//           (x.Description && x.Description === "Main_Board") ||
-//           (x.CycleTime && x.CycleTime !== "")
-//       );
-//     }
-
-//     processData = processData.sort(
-//       (a, b) => a.OpEndTime.getTime() - b.OpEndTime.getTime()
-//     );
-
-//     return processData;
-//   } catch (error) {
-//     console.log("ERROR: " + error);
-//     return undefined;
-//   }
-// };
 
 export const getBiAssetInfo = async (asset: string) => {
   try {
@@ -333,7 +261,7 @@ export const getBiAssetInfo = async (asset: string) => {
       return result[0];
     }
   } catch (error) {
-    console.log(error);
+    console.info(error);
   }
   return undefined;
 };

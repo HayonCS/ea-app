@@ -16,7 +16,7 @@ import {
 import { makeStyles } from "@mui/styles";
 import { UserDisplayClickGentex } from "client/components/user-display/UserDisplayClickGentex";
 import { UserDisplayHover } from "client/components/user-display/UserDisplayHover";
-import { formatUserName } from "../../utilities/DataUtility";
+import { formatUserName } from "../../user-utils";
 import { enqueueSnackbar } from "notistack";
 import { UserInformation } from "core/schemas/user-information.gen";
 

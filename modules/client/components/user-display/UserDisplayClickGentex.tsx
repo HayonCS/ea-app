@@ -1,8 +1,7 @@
 import * as React from "react";
 import { Avatar, Box, Button, Paper, Popover, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { formatUserName, formatUserPhone } from "client/utilities/DataUtility";
-import { openInNewTab } from "client/utilities/WebUtility";
+import { formatUserName, formatUserPhone } from "client/user-utils";
 import { UserInformation } from "core/schemas/user-information.gen";
 
 const useStyles = makeStyles(() => ({
@@ -34,6 +33,11 @@ const useStyles = makeStyles(() => ({
     paddingLeft: "10px",
   },
 }));
+
+const openInNewTab = (url: string) => {
+  const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+  if (newWindow) newWindow.opener = null;
+};
 
 export const UserDisplayClickGentex: React.FC<{
   userInfo: UserInformation;

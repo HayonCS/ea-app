@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { ASSETLIST } from "client/utils/definitions";
+import { ASSETLIST } from "client/utilities/definitions";
 import { useSelector } from "react-redux";
 import { enqueueSnackbar } from "notistack";
 import { Selectors } from "client/redux/selectors";

@@ -11,24 +11,6 @@ export const RedisPrefixAdapter = Hexagonal.adapter({
   build: () => config.get<string>("redis.prefix"),
 });
 
-export const SmbPrefixPort = Hexagonal.port<string, "smb prefix">("smb prefix");
-export type SmbPrefixPort = typeof SmbPrefixPort;
-export const SmbPrefixAdapter = Hexagonal.adapter({
-  port: SmbPrefixPort,
-  requires: [],
-  build: () => "",
-});
-
-export const SubversionSuffixPort = Hexagonal.port<string, "subversion suffix">(
-  "subversion suffix"
-);
-export type SubversionSuffixPort = typeof SubversionSuffixPort;
-export const SubversionSuffixAdapter = Hexagonal.adapter({
-  port: SubversionSuffixPort,
-  requires: [],
-  build: () => "",
-});
-
 export const UserNamePort = Hexagonal.port<string | undefined, "User Name">(
   "User Name"
 );

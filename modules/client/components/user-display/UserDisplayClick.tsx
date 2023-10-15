@@ -9,10 +9,9 @@ import {
   Typography,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { formatUserName, formatUserPhone } from "client/utils/DataUtility";
-import { getEmployeeInfoGentex } from "client/utils/mes";
-import { openInNewTab } from "client/utils/WebUtility";
-import { EmployeeInfoGentex } from "client/utils/DataTypes";
+import { formatUserName, formatUserPhone } from "client/user-utils";
+import { getEmployeeInfoGentex } from "client/utilities/mes";
+import { EmployeeInfoGentex } from "client/utilities/types";
 import { useUserPicture } from "../hooks/UserPicture";
 import { useUserInformation } from "../hooks/UserInformation";
 
@@ -45,6 +44,11 @@ const useStyles = makeStyles(() => ({
     paddingLeft: "10px",
   },
 }));
+
+const openInNewTab = (url: string) => {
+  const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+  if (newWindow) newWindow.opener = null;
+};
 
 export const UserDisplayClick: React.FC<{
   userId: string;

@@ -1,7 +1,6 @@
 import * as React from "react";
-import { Box, Link, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { openInNewTab } from "client/utils/WebUtility";
 
 const useStyles = makeStyles(() => ({
   root: {

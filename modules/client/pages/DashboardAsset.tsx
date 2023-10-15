@@ -18,17 +18,17 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { getBiAssetInfo, getProcessDataExport } from "../utils/mes";
+import { getBiAssetInfo, getProcessDataExport } from "../utilities/mes";
 import {
   getFinalProcessDataOperator,
   getFinalProcessDataOperatorTotals,
-} from "../utils/DataUtility";
+} from "../utilities/process-data";
 import {
   BiAssetInfo,
   ProcessDataExport,
   ProcessDataOperatorTotals,
-} from "../utils/DataTypes";
-import { getHHMMSS } from "../utils/DateUtility";
+} from "../utilities/types";
+import { getHHMMSS } from "../utilities/date-util";
 import { useParams } from "react-router";
 import { useGetAssetByNameQuery } from "client/graphql/types.gen";
 import { useSelector } from "react-redux";
@@ -222,7 +222,7 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
       // console.log(assetInformation);
       const processTotal = await getFinalProcessDataOperatorTotals(
         processOps,
-        assetInformation?.orgCode ?? "14"
+        assetInformation?.orgCode ? +assetInformation.orgCode : 14
       );
       // console.log(processData);
       if (processTotal) {

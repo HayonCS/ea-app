@@ -3,14 +3,10 @@ import { Box, Fab, Paper, Tab, Tabs, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import SwipeableViews from "react-swipeable-views";
 import { GeneralSettingsPanel } from "./General";
-import {
-  getUserDataFromRedis,
-  saveUserDataToRedis,
-} from "client/utilities/redis";
-import { compareObjectArrays } from "client/utilities/DataUtility";
+import { compareObjectArrays } from "client/utilities/process-data";
 import { AssetsSettingsPanel } from "./Assets";
 import { TeamSettingsPanel } from "./Team";
-import { useSelector, shallowEqual, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Dispatch } from "redux";
 import { enqueueSnackbar } from "notistack";
 import { Selectors } from "client/redux/selectors";

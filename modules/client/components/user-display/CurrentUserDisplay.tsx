@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useNavigate } from "react-router-dom";
-import { formatUserName, formatUserPhone } from "client/utilities/DataUtility";
+import { formatUserName, formatUserPhone } from "client/user-utils";
 // import { EmployeeInfoGentex } from "client/utilities/DataTypes";
 // import { useSelector } from "react-redux";
 import { USER_COOKIE_NAME } from "client/utilities/definitions";

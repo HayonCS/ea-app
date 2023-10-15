@@ -43,7 +43,7 @@ import {
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import * as dayjs from "dayjs";
-import { getHHMMSS } from "client/utilities/DateUtility";
+import { getHHMMSS } from "client/utilities/date-util";
 import { UserDisplayHover } from "client/components/user-display/UserDisplayHover";
 import { getProcessDataExportRange } from "client/utilities/redis";
 import { useSelector } from "react-redux";
@@ -53,13 +53,13 @@ import {
   ProcessDataExport,
   ProcessDataOperatorTotals,
   ProcessDataRawData,
-} from "client/utilities/DataTypes";
+} from "client/utilities/types";
 import {
   getFinalProcessDataOperator,
   getFinalProcessDataOperatorTotals,
   getFinalProcessDataPart,
   getFinalProcessDataPartTotals,
-} from "client/utilities/DataUtility";
+} from "client/utilities/process-data";
 import { getEmployeeInfoGentex } from "client/utilities/mes";
 import { enqueueSnackbar } from "notistack";
 import { DateTimeHover } from "./DateTimeHover";

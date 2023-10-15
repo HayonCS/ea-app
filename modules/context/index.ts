@@ -14,17 +14,9 @@ import * as Logger from "atomic-object/logger";
 import { BaseLoggerPort, LoggerPort } from "atomic-object/logger/ports";
 import { ClientState } from "client/graphql/state-link";
 import { NodeEnvironmentAdapter, NodeEnvironmentPort } from "node-environment";
-import { smbAdapter } from "smb";
-import { SmbPort } from "smb/port";
-import { subversionAdapter } from "subversion";
-import { SubversionPort } from "subversion/port";
 import {
   RedisPrefixAdapter,
   RedisPrefixPort,
-  SmbPrefixAdapter,
-  SmbPrefixPort,
-  SubversionSuffixAdapter,
-  SubversionSuffixPort,
   UserNameAdapter,
   UserNamePort,
   AppKeyPort,
@@ -85,10 +77,6 @@ const ContextBase = Hexagonal.contextClass((c) =>
         () => ctx.clone()
       );
     })
-    .add(SubversionSuffixPort, SubversionSuffixAdapter)
-    .add(SubversionPort, subversionAdapter)
-    .add(SmbPrefixPort, SmbPrefixAdapter)
-    .add(SmbPort, smbAdapter)
     .add(MesSecurityPort, mesSecurityAdapter)
     .add(MesBiPort, mesBiAdapter)
     .add(MesProcessDataPort, mesProcessDataAdapter)
@@ -112,9 +100,7 @@ export class Context extends ContextBase {
             .add(ApolloClientStatePort, () => opts.initialState || undefined)
             .add(CacheStorePort, () => opts.cacheStore)
             .add(JobRunnerPort, () => opts.jobs)
-            .add(SmbPrefixPort, () => opts.smbPrefix)
             .add(RedisPrefixPort, () => opts.redisPrefix)
-            .add(SubversionSuffixPort, () => opts.subversionSuffix)
             .add(UserNamePort, () => opts.userName)
             .add(AppKeyPort, () => opts.appKey)),
     });
@@ -160,24 +146,12 @@ export class Context extends ContextBase {
     return this.get(EmployeeDirectoryRedisPort);
   }
 
-  get subversion() {
-    return this.get(SubversionPort);
-  }
-
-  get smb() {
-    return this.get(SmbPort);
-  }
-
   get apolloClient() {
     return this.get(ApolloClientPort);
   }
 
   get redisPrefix() {
     return this.get(RedisPrefixPort);
-  }
-
-  get smbPrefix() {
-    return this.get(SmbPrefixPort);
   }
 
   get cache() {

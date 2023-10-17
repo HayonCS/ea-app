@@ -10,6 +10,8 @@ services:
       - subversiondata:/home/svn
       - sambadata:/var/opt/samba
       - ./samba-data:/var/opt/samba-external
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
     ports:
       - "3000:3000" # Webpack dev server
       - "3001:3001" # Express server
@@ -31,8 +33,6 @@ services:
       - "3070:3070"
 
 volumes:
-  - "/etc/timezone:/etc/timezone:ro"
-  - "/etc/localtime:/etc/localtime:ro"
   devappdata:
   devconfigdata:
   sqlserverdata:

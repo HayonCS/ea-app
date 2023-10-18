@@ -65,15 +65,21 @@ async function loadInitialData() {
     let end = new Date(start);
     end.setDate(end.getDate() + 1);
     for (let i = 0; i < assets.length; ++i) {
-      const processData = await getProcessDataExport(
-        assets[i].assetName,
-        dateToString(start),
-        dateToString(end)
-      );
-      if (processData) {
-        const key = `${assets[i].assetName}:${dateToString(start)}`;
-        await redis.set(key, JSON.stringify(processData));
-        console.log(`Added "${key}" to Redis.`);
+      try {
+        const processData = await getProcessDataExport(
+          assets[i].assetName,
+          dateToString(start),
+          dateToString(end)
+        );
+        if (processData) {
+          const key = `${assets[i].assetName}:${dateToString(start)}`;
+          await redis.set(key, JSON.stringify(processData));
+          console.log(`Added "${key}" to Redis.`);
+        }
+      } catch (error) {
+        console.log(error.message);
+        --i;
+        continue;
       }
     }
     // return "Done loading initial data. Updating data now...";

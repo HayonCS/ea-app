@@ -922,7 +922,13 @@ export const Statistics: React.FC<{}> = () => {
             className={classes.cellStyle}
             style={{
               backgroundColor:
-                value >= 95 ? "rgb(0, 200, 0)" : value >= 85 ? "orange" : "red",
+                value >= 95
+                  ? "rgb(0, 200, 0)"
+                  : value >= 85
+                  ? "orange"
+                  : value > 0
+                  ? "red"
+                  : "#DFDFDF",
               paddingLeft: "8px",
               marginRight: "8px",
             }}

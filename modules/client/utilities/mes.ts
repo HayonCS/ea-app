@@ -232,6 +232,10 @@ export const getProcessDataExport = async (
       );
     }
 
+    processData = processData.filter(
+      (x) => x.Operator && x.Operator !== undefined && x.Operator !== ""
+    );
+
     processData = processData.sort(
       (a, b) => a.OpEndTime.getTime() - b.OpEndTime.getTime()
     );

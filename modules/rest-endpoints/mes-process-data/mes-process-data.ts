@@ -62,10 +62,10 @@ export async function getProcessDataExport(
   let processData: ProcessDataExport[] = [];
   const jsonData = await response.json();
   if (jsonData && jsonData.length > 0) {
-    let lastOperator = "";
+    // let lastOperator = "";
     processData = jsonData.map((x: any) => {
-      if (x["KeyToValueDictionary"]["OPERATOR"])
-        lastOperator = x["KeyToValueDictionary"]["OPERATOR"];
+      // const op = x["KeyToValueDictionary"]["OPERATOR"];
+      // if (op && op !== undefined && op !== null) lastOperator = op;
       let data: ProcessDataExport = {
         MetaDataId: x["MetaDataId"],
         Asset: x["KeyToValueDictionary"]["ASSET"],
@@ -77,7 +77,7 @@ export async function getProcessDataExport(
         OperationId: x["KeyToValueDictionary"]["OPERATIONID"],
         Line: x["KeyToValueDictionary"]["LINE"],
         Label: x["KeyToValueDictionary"]["LABEL"],
-        Operator: x["KeyToValueDictionary"]["OPERATOR"] ?? lastOperator,
+        Operator: x["KeyToValueDictionary"]["OPERATOR"],
         Description: x["KeyToValueDictionary"]["DESCRIPTION"],
         CycleTime: x["KeyToValueDictionary"]["CYCLETIME"],
         Revision: x["KeyToValueDictionary"]["REVISION"],
@@ -85,10 +85,12 @@ export async function getProcessDataExport(
         TestPlan: x["KeyToValueDictionary"]["TESTPLAN"],
         Barcode: x["KeyToValueDictionary"]["BARCODE"],
       };
-      data.OpEndTime = new Date(x["KeyToValueDictionary"]["OPENDTIME"]);
+      // data.OpEndTime = new Date(x["KeyToValueDictionary"]["OPENDTIME"]);
       return data;
     });
-    processData = processData.filter((x) => x.Operator && x.Operator !== "");
+    processData = processData.filter(
+      (x) => x.Operator && x.Operator !== undefined && x.Operator !== ""
+    );
     processData = processData.sort(
       (a, b) => a.OpEndTime.getTime() - b.OpEndTime.getTime()
     );

@@ -29,7 +29,7 @@ import { AppBarMenu } from "./components/app-bar/AppBar";
 import { DashboardAsset } from "./pages/DashboardAsset";
 import { DashboardPage } from "./pages/Dashboard";
 import { Statistics } from "./pages/statistics/statistics";
-import { HomePage } from "./pages/home/home";
+import { HomePage } from "./pages/home";
 import { Settings } from "./pages/settings/settings";
 import { Login } from "./pages/login/login";
 import { asyncComponent } from "react-async-component";

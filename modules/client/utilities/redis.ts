@@ -178,7 +178,7 @@ export const getProcessDataExportRange = async (
       // console.log(data);
     }
 
-    totalData = totalData.filter((x) => x.Operator && x.Operator !== "");
+    // totalData = totalData.filter((x) => x.Operator && x.Operator !== "");
     totalData = totalData.sort(
       (a, b) => a.OpEndTime.getTime() - b.OpEndTime.getTime()
     );

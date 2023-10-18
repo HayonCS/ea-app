@@ -12,13 +12,24 @@ export const getFinalProcessDataOperator = (
   let failCount = 0;
   let lastOp = "";
   let lastPart = "";
+  let lastLine = "";
   const data: ProcessDataOperator[] = processData.map((x, i) => {
-    if (lastPart !== x.PartNumber || lastOp !== x.Operator) {
+    // if (!x.Operator && lastOp !== "") {
+
+    // }
+    if (
+      lastPart !== x.PartNumber ||
+      (x.Operator &&
+        x.Operator !== undefined &&
+        x.Operator !== "" &&
+        lastOp !== x.Operator)
+    ) {
       passCount = 0;
       failCount = 0;
     }
     lastPart = x.PartNumber;
-    lastOp = x.Operator ?? "";
+    lastOp = x.Operator ?? lastOp;
+    lastLine = x.Line ?? lastLine;
     if (x.PassFail) passCount += 1;
     else failCount += 1;
 
@@ -32,9 +43,9 @@ export const getFinalProcessDataOperator = (
       Passes: passCount,
       Fails: failCount,
       OperationId: x.OperationId,
-      Line: x.Line,
+      Line: lastLine,
       Label: x.Label,
-      Operator: x.Operator,
+      Operator: lastOp,
       Description: x.Description,
       CycleTime: x.CycleTime,
       Revision: x.Revision,

@@ -2,6 +2,7 @@ import * as IORedis from "ioredis";
 import * as config from "config";
 import { AssetInfo } from "rest-endpoints/mes-bi/mes-bi";
 import { getProcessDataExport } from "rest-endpoints/mes-process-data/mes-process-data";
+import { getCurrentDateTime } from "rest-endpoints/world-time/world-time";
 
 var redis = new IORedis.Redis(config.get("redis.url"));
 
@@ -23,36 +24,13 @@ function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function getCurrentDate() {
-  try {
-    const url = "https://worldtimeapi.org/api/timezone/America/Detroit";
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-    });
-    if (!response.ok) throw new Error("Error getting current date!");
-    const jsonData = await response.json();
-    if (jsonData) {
-      let date = new Date(jsonData["datetime"]);
-      date.setHours(date.getHours() - 4);
-      return date;
-    }
-  } catch (error) {
-    console.log(error.message);
-  }
-  return new Date();
-}
-
 async function loadInitialData() {
   let assets: AssetInfo[] = JSON.parse(
     (await redis.get("biAssetList")) ?? "[]"
   );
 
   console.log("Loading asset data into redis...");
-  const endDate = await getCurrentDate();
+  const endDate = await getCurrentDateTime();
   console.log(endDate);
 
   let startDate = new Date(endDate);
@@ -94,7 +72,7 @@ async function updateProcessData() {
       const assetList: AssetInfo[] = JSON.parse(
         (await redis.get("biAssetList")) ?? "[]"
       );
-      const endDate = await getCurrentDate();
+      const endDate = await getCurrentDateTime();
       console.log(endDate);
       const startDate = new Date(endDate);
       let endDatePrev = new Date(endDate);

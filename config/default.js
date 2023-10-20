@@ -96,5 +96,6 @@ module.exports = {
     employeeDirectoryEndpoint: process.env.MES_EMPLOYEE_DIRECTORY,
     mesRegistryEndpoint: process.env.MES_REGISTRY_ENDPOINT,
     mesProcessDataEndpoint: process.env.MES_PROCESS_DATA_ENDPOINT,
+    worldTimeEndpoint: process.env.WORLD_TIME_ENDPOINT,
   },
 };

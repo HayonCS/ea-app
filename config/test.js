@@ -22,5 +22,6 @@ module.exports = {
     employeeDirectoryEndpoint: "http://rest-endpoints:3070/employees/",
     mesRegistryEndpoint: "http://rest-endpoints:3070/mes/",
     mesProcessDataEndpoint: "http://rest-endpoints:3070/processData",
+    worldTimeEndpoint: "http://worldtimeapi.org/api/",
   },
 };

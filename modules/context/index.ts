@@ -44,6 +44,8 @@ import { employeeDirectoryRedisAdapter } from "domain-services/employee-director
 import { ProcessDataRedisPort } from "domain-services/process-data-redis/port";
 import { processDataRedisAdapter } from "domain-services/process-data-redis";
 import { repositoriesAdapter, RepositoriesPort } from "records";
+import { WorldTimePort } from "rest-endpoints/world-time/port";
+import { worldTimeAdapter } from "rest-endpoints/world-time";
 
 export type ContextOpts = {
   db?: db.Knex;
@@ -92,6 +94,7 @@ const ContextBase = Hexagonal.contextClass((c) =>
     .add(EmployeeDirectoryRedisPort, employeeDirectoryRedisAdapter)
     .add(AssetsBiPort, assetsBiAdapter)
     .add(UserAppDataPort, userAppDataAdapter)
+    .add(WorldTimePort, worldTimeAdapter)
 );
 
 /** The graphql context type for this app.  */
@@ -159,6 +162,10 @@ export class Context extends ContextBase {
 
   get employeeDirectoryRedis() {
     return this.get(EmployeeDirectoryRedisPort);
+  }
+
+  get worldTime() {
+    return this.get(WorldTimePort);
   }
 
   get apolloClient() {

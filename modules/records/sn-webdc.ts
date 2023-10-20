@@ -68,6 +68,32 @@ function dateToString(date: Date) {
   return dateStr + "T" + timeStr + "Z";
 }
 
+function mapSqlData(data: any) {
+  const result: SnRow[] = data.map((x: any) => {
+    const row: SnRow = {
+      SNID: x["SNID"],
+      PNID: x["PNID"],
+      AssetID: x["ASSET_ID"],
+      TestDateTime: new Date(x["TESTDATETIME"]),
+      Failed: x["FAILED"],
+      Retest: x["RETEST"],
+      Traceable: x["TRACEABLE"],
+      TagCount: x["TAGCNT"],
+      SN: x["SN"],
+      RevID: x["REVID"],
+      FailCount: x["FAILCNT"],
+      FailedTags: x["FAILEDTAGS"],
+      OperID: x["OPERID"],
+      Barcode: x["BARCODE"],
+      MetaDataID: x["METADATAID"],
+      OperatorID: x["OPERATORID"],
+      OperationID: x["OPERATIONID"],
+    };
+    return row;
+  });
+  return result;
+}
+
 export class SnRecordRepository extends RepositoryBase(SnRecord) {
   showColumns = async () => {
     const sqlData = await this.db.raw(
@@ -82,28 +108,50 @@ export class SnRecordRepository extends RepositoryBase(SnRecord) {
     const sqlData = await this.db.raw(
       `SELECT * FROM SN WHERE TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
     );
-    const result: SnRow[] = sqlData.map((x: any) => {
-      const row: SnRow = {
-        SNID: x["SNID"],
-        PNID: x["PNID"],
-        AssetID: x["ASSET_ID"],
-        TestDateTime: new Date(x["TESTDATETIME"]),
-        Failed: x["FAILED"],
-        Retest: x["RETEST"],
-        Traceable: x["TRACEABLE"],
-        TagCount: x["TAGCNT"],
-        SN: x["SN"],
-        RevID: x["REVID"],
-        FailCount: x["FAILCNT"],
-        FailedTags: x["FAILEDTAGS"],
-        OperID: x["OPERID"],
-        Barcode: x["BARCODE"],
-        MetaDataID: x["METADATAID"],
-        OperatorID: x["OPERATORID"],
-        OperationID: x["OPERATIONID"],
-      };
-      return row;
-    });
+    const result = mapSqlData(sqlData);
+    return result;
+  };
+
+  getRowsByAssetDateRange = async (
+    assetId: number,
+    startDate: Date,
+    endDate: Date
+  ) => {
+    const start = dateToString(startDate);
+    const end = dateToString(endDate);
+    const sqlData = await this.db.raw(
+      `SELECT * FROM SN WHERE ASSET_ID = ${assetId} AND TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
+    );
+    const result = mapSqlData(sqlData);
+    return result;
+  };
+
+  getRowsByPartDateRange = async (
+    partId: number,
+    startDate: Date,
+    endDate: Date
+  ) => {
+    const start = dateToString(startDate);
+    const end = dateToString(endDate);
+    const sqlData = await this.db.raw(
+      `SELECT * FROM SN WHERE PNID = ${partId} AND TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
+    );
+    const result = mapSqlData(sqlData);
+    return result;
+  };
+
+  getRowsByAssetPartDateRange = async (
+    assetId: number,
+    partId: number,
+    startDate: Date,
+    endDate: Date
+  ) => {
+    const start = dateToString(startDate);
+    const end = dateToString(endDate);
+    const sqlData = await this.db.raw(
+      `SELECT * FROM SN WHERE ASSET_ID = ${assetId} AND PNID = ${partId} AND TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
+    );
+    const result = mapSqlData(sqlData);
     return result;
   };
 

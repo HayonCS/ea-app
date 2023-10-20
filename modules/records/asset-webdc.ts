@@ -63,6 +63,30 @@ export class AssetRecordRepository extends RepositoryBase(AssetRecord) {
     return sqlData;
   };
 
+  getRows = async () => {
+    const sqlData = await this.db.raw(`SELECT * FROM ASSET`);
+    const result: AssetRow[] = sqlData.map((x: any) => {
+      const row: AssetRow = {
+        AssetID: x["ASSET_ID"],
+        Asset: x["ASSET"],
+        OperationID: x["OPERATIONID"],
+        Line: x["LINE"],
+      };
+      return row;
+    });
+    return result;
+  };
+
+  getAssetById = async (assetId: number) => {
+    const sqlData = await this.db.raw(
+      `SELECT ASSET FROM ASSET WHERE ASSET_ID = ${assetId}`
+    );
+    if (sqlData && sqlData.length > 0) {
+      return sqlData[0]["ASSET"] as string;
+    }
+    return "";
+  };
+
   // showTables = async () => {
   //   // const tables = await this.db.raw(
   //   //   `SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'SN'`

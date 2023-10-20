@@ -56,7 +56,8 @@
     "dev:storybook": "cross-env STORYBOOK_MODE=true App_ENDPOINT=prod start-storybook -s ./ -p 9001 -c .storybook --ci",
     "redis:load:assets": "sudo NODE_ENV=development node ./dist/scripts/load-asset-list-bi.js",
     "redis:load:employees": "sudo NODE_ENV=development node ./dist/scripts/load-employee-directory.js",
-    "redis:load:processdata": "sudo NODE_ENV=development node ./dist/scripts/load-process-data.js"
+    "redis:load:processdata": "sudo NODE_ENV=development node ./dist/scripts/load-process-data.js",
+    "testscript": "sudo NODE_ENV=development node ./dist/scripts/test-script.js"
   },
   "dependencies": {
     "@apollo/client": "^3.8.4",

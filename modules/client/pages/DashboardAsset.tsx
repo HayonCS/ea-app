@@ -285,7 +285,11 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
   // }, [props]);
 
   React.useEffect(() => {
-    if (assetInformation) void retrieveAssetData();
+    if (assetInformation) {
+      (async () => {
+        await retrieveAssetData();
+      })();
+    }
   }, [assetInformation]);
 
   React.useEffect(() => {

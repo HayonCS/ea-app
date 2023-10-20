@@ -14,6 +14,9 @@ import * as Logger from "atomic-object/logger";
 import { BaseLoggerPort, LoggerPort } from "atomic-object/logger/ports";
 import { ClientState } from "client/graphql/state-link";
 import { NodeEnvironmentAdapter, NodeEnvironmentPort } from "node-environment";
+import { KnexPort } from "atomic-object/records/knex/ports";
+import { Domain } from "atomic-object/records/knex";
+import * as db from "../db";
 import {
   RedisPrefixAdapter,
   RedisPrefixPort,
@@ -40,8 +43,10 @@ import { EmployeeDirectoryRedisPort } from "domain-services/employee-directory-r
 import { employeeDirectoryRedisAdapter } from "domain-services/employee-directory-redis";
 import { ProcessDataRedisPort } from "domain-services/process-data-redis/port";
 import { processDataRedisAdapter } from "domain-services/process-data-redis";
+import { repositoriesAdapter, RepositoriesPort } from "records";
 
 export type ContextOpts = {
+  db?: db.Knex;
   initialState?: ClientState;
   smbPrefix?: string;
   redisPrefix?: string;
@@ -64,6 +69,7 @@ const ContextBase = Hexagonal.contextClass((c) =>
     .add(LoggerPort, Logger.loggerAdapter)
     .add(ApolloClientStatePort, () => {})
     .add(ApolloClientPort, apolloClientAdapter)
+    .add(RepositoriesPort, repositoriesAdapter)
     .add(RedisPrefixPort, RedisPrefixAdapter)
     .add(CacheStorePort, cacheStoreAdapter)
     .add(CachePort, cacheAdapter)
@@ -96,6 +102,7 @@ export class Context extends ContextBase {
         (opts.portDefaults as any) ||
         ((x) =>
           x
+            .add(KnexPort, () => opts.db)
             .add(BaseLoggerPort, () => opts.logger)
             .add(ApolloClientStatePort, () => opts.initialState || undefined)
             .add(CacheStorePort, () => opts.cacheStore)
@@ -104,6 +111,10 @@ export class Context extends ContextBase {
             .add(UserNamePort, () => opts.userName)
             .add(AppKeyPort, () => opts.appKey)),
     });
+  }
+
+  domainDb(domain: Domain): db.Knex {
+    return db.getConnection(domain);
   }
 
   get userAppData() {
@@ -116,6 +127,10 @@ export class Context extends ContextBase {
 
   get logger(): Logger.Type {
     return this.get(LoggerPort);
+  }
+
+  get repos() {
+    return this.get(RepositoriesPort);
   }
 
   get mesSecurity() {

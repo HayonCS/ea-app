@@ -11,6 +11,11 @@ const WORKER_CONCURRENCY =
 module.exports = {
   environment: process.env.NODE_ENV,
 
+  webdcDatabaseServer: process.env.WEBDC_DATABASE_SERVER,
+  webdcDatabaseName: process.env.WEBDC_DATABASE_NAME,
+  webdcDatabaseUser: process.env.WEBDC_DATABASE_USER,
+  webdcDatabasePassword: process.env.WEBDC_DATABASE_PASSWORD,
+
   minify:
     process.env.MINIFY != null
       ? process.env.MINIFY === "true"

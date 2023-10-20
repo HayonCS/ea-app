@@ -1,4 +1,9 @@
 module.exports = {
+  webdcDatabaseServer: "sql-server",
+  webdcDatabaseName: "test-combo",
+  webdcDatabaseUser: "SA",
+  webdcDatabasePassword: "YourStrongPassw0rd",
+
   redis: {
     url: "redis://redis:6379/0",
     prefix: process.env.REDIS_PREFIX || "",

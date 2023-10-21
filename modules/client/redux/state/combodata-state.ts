@@ -3,12 +3,12 @@
 import { AssetRow, PnRow } from "records/combodata";
 
 //Limit this state to things users will want to undo/redo only.
-export type WebdcState = {
+export type ComboDataState = {
   partData: PnRow[];
   assetData: AssetRow[];
 };
 
-export const initialWebdcState: WebdcState = {
+export const initialComboDataState: ComboDataState = {
   partData: [],
   assetData: [],
 };

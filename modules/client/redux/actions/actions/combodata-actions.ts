@@ -1,10 +1,10 @@
 import { ActionType } from "client/redux/types";
 import { AssetRow, PnRow } from "records/combodata";
 
-export const WebdcActions = {
+export const ComboDataActions = {
   partData: (partData: PnRow[]) =>
     ({
-      type: "Webdc/partData",
+      type: "ComboData/partData",
       payload: {
         partData,
       },
@@ -12,11 +12,11 @@ export const WebdcActions = {
 
   assetData: (assetData: AssetRow[]) =>
     ({
-      type: "Webdc/assetData",
+      type: "ComboData/assetData",
       payload: {
         assetData,
       },
     } as const),
 };
 
-export type WebdcActions = ActionType<typeof WebdcActions>;
+export type ComboDataActions = ActionType<typeof ComboDataActions>;

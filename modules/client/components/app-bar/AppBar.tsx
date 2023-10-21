@@ -112,11 +112,11 @@ export const AppBarMenu: React.FC<{}> = () => {
 
   const dispatch = useDispatch<Dispatch<Actions>>();
   const setPartDataRedux = React.useCallback(
-    (partData: PnRow[]) => dispatch(Actions.Webdc.partData(partData)),
+    (partData: PnRow[]) => dispatch(Actions.ComboData.partData(partData)),
     [dispatch]
   );
   const setAssetDataRedux = React.useCallback(
-    (assetData: AssetRow[]) => dispatch(Actions.Webdc.assetData(assetData)),
+    (assetData: AssetRow[]) => dispatch(Actions.ComboData.assetData(assetData)),
     [dispatch]
   );
   const setAssetListRedux = React.useCallback(

@@ -2,14 +2,14 @@ import { Action } from "redux";
 import { PureState } from "client/redux/state";
 import { ThunkAction } from "redux-thunk";
 import { AppActions } from "./actions/app-actions";
-import { WebdcActions } from "./actions/webdc-actions";
+import { ComboDataActions } from "./actions/combodata-actions";
 
 export const Actions = {
   App: AppActions,
-  Webdc: WebdcActions,
+  ComboData: ComboDataActions,
 };
 
-export type Actions = AppActions | WebdcActions;
+export type Actions = AppActions | ComboDataActions;
 
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,

@@ -1,12 +1,15 @@
 import { AppState, initialAppState } from "client/redux/state/app-state";
-import { WebdcState, initialWebdcState } from "client/redux/state/webdc-state";
+import {
+  ComboDataState,
+  initialComboDataState,
+} from "client/redux/state/combodata-state";
 
 export type PureState = {
   App: AppState;
-  Webdc: WebdcState;
+  ComboData: ComboDataState;
 };
 
 export const InitialState: PureState = {
   App: initialAppState,
-  Webdc: initialWebdcState,
+  ComboData: initialComboDataState,
 };

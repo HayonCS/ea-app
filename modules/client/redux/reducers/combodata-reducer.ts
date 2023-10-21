@@ -2,19 +2,19 @@ import { initialAppState } from "../state/app-state";
 import { MainReducer } from "./main-reducer";
 import { InitialState } from "client/redux/state";
 
-export const webdcReducer: MainReducer<"Webdc"> = (
-  state = InitialState.Webdc,
+export const comboDataReducer: MainReducer<"ComboData"> = (
+  state = InitialState.ComboData,
   action
 ): typeof state => {
   switch (action.type) {
-    case "Webdc/partData": {
+    case "ComboData/partData": {
       const { partData } = action.payload;
       return {
         ...state,
         partData: partData,
       };
     }
-    case "Webdc/assetData": {
+    case "ComboData/assetData": {
       const { assetData } = action.payload;
       return {
         ...state,

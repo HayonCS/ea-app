@@ -28,7 +28,7 @@ export interface SavedSnRecord extends UnsavedSnRecord {
   SnID: SnID;
 }
 
-type SnRow = {
+export type SnRow = {
   SNID: number;
   PNID: number;
   AssetID: number;

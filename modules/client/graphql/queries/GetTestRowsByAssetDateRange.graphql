@@ -1,0 +1,7 @@
+query GetTestRowsByAssetDateRange(
+  $assetId: Int!
+  $start: String!
+  $end: String!
+) {
+  testRowsByAssetDateRange(assetId: $assetId, start: $start, end: $end)
+}

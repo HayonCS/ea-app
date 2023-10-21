@@ -9,6 +9,7 @@ import { EmployeeDirectoryRedisPort } from "domain-services/employee-directory-r
 import { MesProcessDataPort } from "rest-endpoints/mes-process-data/port";
 import { ProcessDataRedisPort } from "domain-services/process-data-redis/port";
 import { MesBiPort } from "rest-endpoints/mes-bi/port";
+import { RepositoriesPort } from "records";
 
 const queryResolvers: QueryResolvers = {
   mesUserInfo: async (parent, args, ctx) => {
@@ -80,6 +81,87 @@ const queryResolvers: QueryResolvers = {
       .get(UserPicturePort)
       .userPicture(args.employeeId || "00000");
     return userPicturePath;
+  },
+
+  partDataWebdc: async (parent, args, ctx) => {
+    const partData = await ctx
+      .get(RepositoriesPort)
+      .domain("WebDC", async (domCtx) => {
+        const rows = await domCtx.pn.getRows();
+        return rows;
+      });
+    return partData;
+  },
+
+  assetDataWebdc: async (parent, args, ctx) => {
+    const partData = await ctx
+      .get(RepositoriesPort)
+      .domain("WebDC", async (domCtx) => {
+        const rows = await domCtx.asset.getRows();
+        return rows;
+      });
+    return partData;
+  },
+
+  testRowsDateRange: async (parent, args, ctx) => {
+    const testRows = await ctx
+      .get(RepositoriesPort)
+      .domain("WebDC", async (domCtx) => {
+        const start = new Date(args.start);
+        const end = new Date(args.end);
+        const rows = await domCtx.sn.getRowsDateRange(start, end);
+        return rows;
+      });
+    return testRows;
+  },
+
+  testRowsByPartDateRange: async (parent, args, ctx) => {
+    const testRows = await ctx
+      .get(RepositoriesPort)
+      .domain("WebDC", async (domCtx) => {
+        const start = new Date(args.start);
+        const end = new Date(args.end);
+        const rows = await domCtx.sn.getRowsByPartDateRange(
+          args.partId,
+          start,
+          end
+        );
+        return rows;
+      });
+    return testRows;
+  },
+
+  testRowsByAssetDateRange: async (parent, args, ctx) => {
+    const testRows = await ctx
+      .get(RepositoriesPort)
+      .domain("WebDC", async (domCtx) => {
+        const start = new Date(args.start);
+        const end = new Date(args.end);
+        const rows = await domCtx.sn.getRowsByAssetDateRange(
+          args.assetId,
+          start,
+          end
+        );
+        return rows;
+      });
+    return testRows;
+  },
+
+  testRowsByAssetPartDateRange: async (parent, args, ctx) => {
+    const testRows = await ctx
+      .get(RepositoriesPort)
+      .domain("WebDC", async (domCtx) => {
+        const start = new Date(args.start);
+        const end = new Date(args.end);
+        const rows = await domCtx.sn.getRowsByAssetPartDateRange(
+          args.assetId,
+          args.partId,
+          start,
+          end
+        );
+        return rows;
+      });
+    return testRows;
   },
 };
 

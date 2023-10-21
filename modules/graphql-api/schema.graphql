@@ -7,6 +7,9 @@ scalar UserAppData
 scalar EmployeeInfoResponse
 scalar ProcessDataExport
 scalar RunningNowItem
+scalar PartDataRow
+scalar AssetDataRow
+scalar SerialDataRow
 
 """
 A type used to represent a Bi Asset's information.
@@ -142,6 +145,31 @@ type Query {
   Returns the path to the user picture associated with the employee that has the given user id.
   """
   userPicture(employeeId: String!): UserPictureResponse!
+
+  partDataWebdc: [PartDataRow!]!
+
+  assetDataWebdc: [AssetDataRow!]!
+
+  testRowsDateRange(start: String!, end: String!): [SerialDataRow!]!
+
+  testRowsByAssetDateRange(
+    assetId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
+  testRowsByPartDateRange(
+    partId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
+  testRowsByAssetPartDateRange(
+    assetId: Int!
+    partId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
 }
 
 ####################################################################################################

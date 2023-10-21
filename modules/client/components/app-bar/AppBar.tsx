@@ -42,10 +42,14 @@ import { getAssetList } from "domain-services/assets-bi/assets-bi";
 import { getUserAppData } from "domain-services/user-app-data/user-app-data";
 import { getUserInformation } from "client/user-utils";
 import {
+  useGetAssetDataWebdcQuery,
   useGetAssetListBiQuery,
   useGetEmployeeDirectoryQuery,
+  useGetPartDataWebdcQuery,
   useGetUserAppDataQuery,
 } from "client/graphql/types.gen";
+import { PnRow } from "records/pn-webdc";
+import { AssetRow } from "records/asset-webdc";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -108,6 +112,14 @@ export const AppBarMenu: React.FC<{}> = () => {
   // const currentUserAppDataRedux = useSelector(Selectors.App.currentUserAppData);
 
   const dispatch = useDispatch<Dispatch<Actions>>();
+  const setPartDataRedux = React.useCallback(
+    (partData: PnRow[]) => dispatch(Actions.Webdc.partData(partData)),
+    [dispatch]
+  );
+  const setAssetDataRedux = React.useCallback(
+    (assetData: AssetRow[]) => dispatch(Actions.Webdc.assetData(assetData)),
+    [dispatch]
+  );
   const setAssetListRedux = React.useCallback(
     (assetList: string[]) => dispatch(Actions.App.assetList(assetList)),
     [dispatch]
@@ -136,6 +148,13 @@ export const AppBarMenu: React.FC<{}> = () => {
   const [username, setUsername] = React.useState<string>();
 
   const userInfo = useUserInformation(username ?? "");
+
+  const partDataWebdc = useGetPartDataWebdcQuery({
+    fetchPolicy: "cache-and-network",
+  });
+  const assetDataWebdc = useGetAssetDataWebdcQuery({
+    fetchPolicy: "cache-and-network",
+  });
 
   const assetList = useGetAssetListBiQuery({
     // skip:
@@ -183,6 +202,36 @@ export const AppBarMenu: React.FC<{}> = () => {
 
       setDrawerState(open);
     };
+
+  React.useEffect(() => {
+    if (
+      partDataWebdc &&
+      partDataWebdc.called &&
+      !partDataWebdc.error &&
+      !partDataWebdc.loading &&
+      partDataWebdc.data &&
+      partDataWebdc.data.partDataWebdc &&
+      partDataWebdc.data.partDataWebdc.length > 0
+    ) {
+      console.log(partDataWebdc.data.partDataWebdc);
+      setPartDataRedux(partDataWebdc.data.partDataWebdc);
+    }
+  }, [partDataWebdc]);
+
+  React.useEffect(() => {
+    if (
+      assetDataWebdc &&
+      assetDataWebdc.called &&
+      !assetDataWebdc.error &&
+      !assetDataWebdc.loading &&
+      assetDataWebdc.data &&
+      assetDataWebdc.data.assetDataWebdc &&
+      assetDataWebdc.data.assetDataWebdc.length > 0
+    ) {
+      console.log(assetDataWebdc.data.assetDataWebdc);
+      setAssetDataRedux(assetDataWebdc.data.assetDataWebdc);
+    }
+  }, [assetDataWebdc]);
 
   React.useEffect(() => {
     const user = document.cookie

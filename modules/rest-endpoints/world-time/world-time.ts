@@ -27,7 +27,7 @@ export async function getCurrentDateTime() {
       timezone.utc_offset.length - 3
     );
     let date = new Date(timezone.datetime);
-    date.setHours(date.getHours() + offset);
+    // date.setHours(date.getHours() + offset);
     return date;
   } else {
     return new Date();

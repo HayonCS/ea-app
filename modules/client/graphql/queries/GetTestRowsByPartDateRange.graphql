@@ -1,0 +1,7 @@
+query GetTestRowsByPartDateRange(
+  $partId: Int!
+  $start: String!
+  $end: String!
+) {
+  testRowsByPartDateRange(partId: $partId, start: $start, end: $end)
+}

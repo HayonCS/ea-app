@@ -20,6 +20,9 @@ generates:
             - 'import { UserAppData } from "core/schemas/user-app-data.gen"'
             - 'import { EmployeeInfoResponse } from "rest-endpoints/employee-directory/employee-directory"'
             - 'import { ProcessDataExport, RunningNowItem } from "rest-endpoints/mes-process-data/mes-process-data"'
+            - 'import { PnRow } from "records/pn-webdc"'
+            - 'import { AssetRow } from "records/asset-webdc"'
+            - 'import { SnRow } from "records/sn-webdc"'
       - "typescript":
           scalars:
             IsoDateTime: DateTimeIso.Type
@@ -29,6 +32,9 @@ generates:
             EmployeeInfoResponse: EmployeeInfoResponse
             ProcessDataExport: ProcessDataExport
             RunningNowItem: RunningNowItem
+            PartDataRow: PnRow
+            AssetDataRow: AssetRow
+            SerialDataRow: SnRow
       - "typescript-operations"
       - "typescript-react-apollo"
       - "typescript-resolvers":
@@ -46,6 +52,9 @@ generates:
             - 'import { UserAppData } from "core/schemas/user-app-data.gen"'
             - 'import { EmployeeInfoResponse } from "rest-endpoints/employee-directory/employee-directory"'
             - 'import { ProcessDataExport, RunningNowItem } from "rest-endpoints/mes-process-data/mes-process-data"'
+            - 'import { PnRow } from "records/pn-webdc"'
+            - 'import { AssetRow } from "records/asset-webdc"'
+            - 'import { SnRow } from "records/sn-webdc"'
       - "typescript":
           scalars:
             IsoDateTime: DateTimeIso.Type
@@ -55,6 +64,9 @@ generates:
             EmployeeInfoResponse: EmployeeInfoResponse
             ProcessDataExport: ProcessDataExport
             RunningNowItem: RunningNowItem
+            PartDataRow: PnRow
+            AssetDataRow: AssetRow
+            SerialDataRow: SnRow
       - "typescript-operations"
       - "typescript-resolvers":
           contextType: context#ApiContext

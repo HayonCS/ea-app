@@ -5,30 +5,18 @@ import { PnRecord } from "records/core";
 export type PnID = Flavor<number, "Pn id">;
 
 export interface UnsavedPnRecord {
-  SNID: number;
   PNID: number;
-  AssetID: number;
-  TestDateTime: Date;
-  Failed: boolean;
-  Retest: boolean;
+  PartNumber: string;
+  Retired: boolean;
+  Oldest: Date;
   Traceable: boolean;
-  TagCnt: number;
-  SN: string | null;
-  RevID: number | null;
-  FailCnt: number | null;
-  FailedTags: string | null;
-  OperID: number | null;
-  Barcode: string | null;
-  MetaDataID: string | null;
-  OperatorID: number | null;
-  OperationID: string | null;
 }
 
 export interface SavedPnRecord extends UnsavedPnRecord {
   PnID: PnID;
 }
 
-type PnRow = {
+export type PnRow = {
   PNID: number;
   PartNumber: string;
   Retired: boolean;

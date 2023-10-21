@@ -5,30 +5,17 @@ import { AssetRecord } from "records/core";
 export type AssetID = Flavor<number, "Asset id">;
 
 export interface UnsavedAssetRecord {
-  SNID: number;
-  PNID: number;
   AssetID: number;
-  TestDateTime: Date;
-  Failed: boolean;
-  Retest: boolean;
-  Traceable: boolean;
-  TagCnt: number;
-  SN: string | null;
-  RevID: number | null;
-  FailCnt: number | null;
-  FailedTags: string | null;
-  OperID: number | null;
-  Barcode: string | null;
-  MetaDataID: string | null;
-  OperatorID: number | null;
+  Asset: string;
   OperationID: string | null;
+  Line: string | null;
 }
 
 export interface SavedAssetRecord extends UnsavedAssetRecord {
   AssetID: AssetID;
 }
 
-type AssetRow = {
+export type AssetRow = {
   AssetID: number;
   Asset: string;
   OperationID: string | null;

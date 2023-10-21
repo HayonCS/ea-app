@@ -1,0 +1,3 @@
+query GetTestRowsDateRange($start: String!, $end: String!) {
+  testRowsDateRange(start: $start, end: $end)
+}

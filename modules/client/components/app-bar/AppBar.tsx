@@ -48,8 +48,7 @@ import {
   useGetPartDataWebdcQuery,
   useGetUserAppDataQuery,
 } from "client/graphql/types.gen";
-import { PnRow } from "records/pn-webdc";
-import { AssetRow } from "records/asset-webdc";
+import { AssetRow, PnRow } from "records/combodata";
 
 const useStyles = makeStyles(() => ({
   root: {

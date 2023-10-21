@@ -87,7 +87,7 @@ const queryResolvers: QueryResolvers = {
     const partData = await ctx
       .get(RepositoriesPort)
       .domain("WebDC", async (domCtx) => {
-        const rows = await domCtx.pn.getRows();
+        const rows = await domCtx.combodata.pn.getRows();
         return rows;
       });
     return partData;
@@ -97,7 +97,7 @@ const queryResolvers: QueryResolvers = {
     const partData = await ctx
       .get(RepositoriesPort)
       .domain("WebDC", async (domCtx) => {
-        const rows = await domCtx.asset.getRows();
+        const rows = await domCtx.combodata.asset.getRows();
         return rows;
       });
     return partData;
@@ -109,7 +109,7 @@ const queryResolvers: QueryResolvers = {
       .domain("WebDC", async (domCtx) => {
         const start = new Date(args.start);
         const end = new Date(args.end);
-        const rows = await domCtx.sn.getRowsDateRange(start, end);
+        const rows = await domCtx.combodata.sn.getRowsDateRange(start, end);
         return rows;
       });
     return testRows;
@@ -121,7 +121,7 @@ const queryResolvers: QueryResolvers = {
       .domain("WebDC", async (domCtx) => {
         const start = new Date(args.start);
         const end = new Date(args.end);
-        const rows = await domCtx.sn.getRowsByPartDateRange(
+        const rows = await domCtx.combodata.sn.getRowsByPartDateRange(
           args.partId,
           start,
           end
@@ -137,7 +137,7 @@ const queryResolvers: QueryResolvers = {
       .domain("WebDC", async (domCtx) => {
         const start = new Date(args.start);
         const end = new Date(args.end);
-        const rows = await domCtx.sn.getRowsByAssetDateRange(
+        const rows = await domCtx.combodata.sn.getRowsByAssetDateRange(
           args.assetId,
           start,
           end
@@ -153,7 +153,7 @@ const queryResolvers: QueryResolvers = {
       .domain("WebDC", async (domCtx) => {
         const start = new Date(args.start);
         const end = new Date(args.end);
-        const rows = await domCtx.sn.getRowsByAssetPartDateRange(
+        const rows = await domCtx.combodata.sn.getRowsByAssetPartDateRange(
           args.assetId,
           args.partId,
           start,

@@ -7,7 +7,7 @@ void (async () => {
   const result = await context
     .get(RepositoriesPort)
     .domain("WebDC", async (ctx) => {
-      const r = await ctx.combodata.asset.showColumns();
+      const r = await ctx.processdata.asset.showColumns();
       return r;
     });
   console.log(result);

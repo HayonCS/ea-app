@@ -44,18 +44,17 @@ function intersection(a: string[], b: string[]) {
 }
 
 export const AssetsSettingsPanel: React.FC<{
-  assets?: string[];
+  totalAssets: string[];
+  userAssets?: string[];
   onChange?: (assets: string[]) => void;
 }> = (props) => {
   const classes = useStyles();
 
   const [loadedProps, setLoadedProps] = React.useState(false);
 
-  const assetListRedux = useSelector(Selectors.App.assetList);
-
   const [checked, setChecked] = React.useState<string[]>([]);
-  const [left, setLeft] = React.useState<string[]>(assetListRedux ?? ASSETLIST);
-  const [right, setRight] = React.useState<string[]>(props.assets ?? []);
+  const [left, setLeft] = React.useState<string[]>(props.totalAssets);
+  const [right, setRight] = React.useState<string[]>(props.userAssets ?? []);
 
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
@@ -63,12 +62,12 @@ export const AssetsSettingsPanel: React.FC<{
   const [searchValue, setSearchValue] = React.useState("");
 
   React.useEffect(() => {
-    if (props.assets && !loadedProps) {
-      setRight(props.assets);
-      setLeft(not(assetListRedux ?? ASSETLIST, props.assets));
+    if (props.userAssets && !loadedProps) {
+      setRight(props.userAssets);
+      setLeft(not(props.totalAssets, props.userAssets));
       setLoadedProps(true);
     }
-  }, [props, loadedProps, assetListRedux]);
+  }, [props, loadedProps]);
 
   const handleToggle = (value: string) => () => {
     const currentIndex = checked.indexOf(value);

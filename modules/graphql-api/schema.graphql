@@ -146,25 +146,50 @@ type Query {
   """
   userPicture(employeeId: String!): UserPictureResponse!
 
-  partDataWebdc: [PartDataRow!]!
+  comboPartData: [PartDataRow!]!
 
-  assetDataWebdc: [AssetDataRow!]!
+  comboAssetData: [AssetDataRow!]!
 
-  testRowsDateRange(start: String!, end: String!): [SerialDataRow!]!
+  processPartData: [PartDataRow!]!
 
-  testRowsByAssetDateRange(
+  processAssetData: [AssetDataRow!]!
+
+  comboRowsDateRange(start: String!, end: String!): [SerialDataRow!]!
+
+  comboRowsByAssetDateRange(
     assetId: Int!
     start: String!
     end: String!
   ): [SerialDataRow!]!
 
-  testRowsByPartDateRange(
+  comboRowsByPartDateRange(
     partId: Int!
     start: String!
     end: String!
   ): [SerialDataRow!]!
 
-  testRowsByAssetPartDateRange(
+  comboRowsByAssetPartDateRange(
+    assetId: Int!
+    partId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
+  processRowsDateRange(start: String!, end: String!): [SerialDataRow!]!
+
+  processRowsByAssetDateRange(
+    assetId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
+  processRowsByPartDateRange(
+    partId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
+  processRowsByAssetPartDateRange(
     assetId: Int!
     partId: Int!
     start: String!

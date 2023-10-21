@@ -70,7 +70,9 @@ function dateToString(date: Date) {
   return dateStr + "T" + timeStr + "Z";
 }
 
-export class AssetRecordRepository extends RepositoryBase(ComboDataRecord) {
+export class AssetComboRecordRepository extends RepositoryBase(
+  ComboDataRecord
+) {
   showColumns = async () => {
     const sqlData = await this.db.raw(
       `SELECT * FROM COMBODATA.INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'ASSET'`
@@ -128,7 +130,7 @@ export class AssetRecordRepository extends RepositoryBase(ComboDataRecord) {
   //   };
 }
 
-export class PnRecordRepository extends RepositoryBase(ComboDataRecord) {
+export class PnComboRecordRepository extends RepositoryBase(ComboDataRecord) {
   showColumns = async () => {
     const sqlData = await this.db.raw(
       `SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'PN'`
@@ -172,7 +174,7 @@ export class PnRecordRepository extends RepositoryBase(ComboDataRecord) {
   };
 }
 
-export class SnRecordRepository extends RepositoryBase(ComboDataRecord) {
+export class SnComboRecordRepository extends RepositoryBase(ComboDataRecord) {
   showColumns = async () => {
     const sqlData = await this.db.raw(
       `SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'SN'`

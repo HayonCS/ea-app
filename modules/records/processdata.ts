@@ -70,10 +70,12 @@ function dateToString(date: Date) {
   return dateStr + "T" + timeStr + "Z";
 }
 
-export class AssetRecordRepository extends RepositoryBase(ProcessDataRecord) {
+export class AssetProcessRecordRepository extends RepositoryBase(
+  ProcessDataRecord
+) {
   showColumns = async () => {
     const sqlData = await this.db.raw(
-      `SELECT * FROM PROCESSDATA.INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'ASSET'`
+      `SELECT * FROM PROCESSDATA.INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'SN'`
     );
     return sqlData;
   };
@@ -128,7 +130,9 @@ export class AssetRecordRepository extends RepositoryBase(ProcessDataRecord) {
   //   };
 }
 
-export class PnRecordRepository extends RepositoryBase(ProcessDataRecord) {
+export class PnProcessRecordRepository extends RepositoryBase(
+  ProcessDataRecord
+) {
   showColumns = async () => {
     const sqlData = await this.db.raw(
       `SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'PN'`
@@ -172,7 +176,9 @@ export class PnRecordRepository extends RepositoryBase(ProcessDataRecord) {
   };
 }
 
-export class SnRecordRepository extends RepositoryBase(ProcessDataRecord) {
+export class SnProcessRecordRepository extends RepositoryBase(
+  ProcessDataRecord
+) {
   showColumns = async () => {
     const sqlData = await this.db.raw(
       `SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'SN'`

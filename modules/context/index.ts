@@ -39,8 +39,6 @@ import { MesBiPort } from "rest-endpoints/mes-bi/port";
 import { mesBiAdapter } from "rest-endpoints/mes-bi";
 import { MesProcessDataPort } from "rest-endpoints/mes-process-data/port";
 import { mesProcessDataAdapter } from "rest-endpoints/mes-process-data";
-import { EmployeeDirectoryRedisPort } from "domain-services/employee-directory-redis/port";
-import { employeeDirectoryRedisAdapter } from "domain-services/employee-directory-redis";
 import { ProcessDataRedisPort } from "domain-services/process-data-redis/port";
 import { processDataRedisAdapter } from "domain-services/process-data-redis";
 import { repositoriesAdapter, RepositoriesPort } from "records";
@@ -91,7 +89,6 @@ const ContextBase = Hexagonal.contextClass((c) =>
     .add(ProcessDataRedisPort, processDataRedisAdapter)
     .add(UserPicturePort, userPictureAdapter)
     .add(EmployeeInfoPort, employeeInfoAdapter)
-    .add(EmployeeDirectoryRedisPort, employeeDirectoryRedisAdapter)
     .add(AssetsBiPort, assetsBiAdapter)
     .add(UserAppDataPort, userAppDataAdapter)
     .add(WorldTimePort, worldTimeAdapter)
@@ -158,10 +155,6 @@ export class Context extends ContextBase {
 
   get employeeDirectory() {
     return this.get(EmployeeInfoPort);
-  }
-
-  get employeeDirectoryRedis() {
-    return this.get(EmployeeDirectoryRedisPort);
   }
 
   get worldTime() {

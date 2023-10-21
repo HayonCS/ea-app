@@ -75,6 +75,9 @@ export const Settings: React.FC<{}> = () => {
 
   const [loadedRedux, setLoadedRedux] = React.useState(false);
 
+  const comboAssetData = useSelector(Selectors.ComboData.assetData);
+  const processAssetData = useSelector(Selectors.ProcessData.assetData);
+
   const currentUser = useSelector(Selectors.App.currentUserInfo);
   const teamInfoRedux = useSelector(Selectors.App.currentUserTeamInfo);
   const userAppDataRedux = useSelector(Selectors.App.currentUserAppData);
@@ -107,6 +110,7 @@ export const Settings: React.FC<{}> = () => {
   const [currentTeamGentex, setCurrentTeamGentex] = React.useState<
     UserInformation[]
   >([]);
+  const [assetsTotal, setAssetsTotal] = React.useState<string[]>([]);
 
   const [setUserAppData] = useSetUserAppDataMutation();
 
@@ -147,25 +151,13 @@ export const Settings: React.FC<{}> = () => {
     }
   };
 
-  // const saveUserData = async () => {
-  //   if (currentUser) {
-  //     const result = await saveUserDataToRedis(currentUser, currentUserData);
-  //     if (result) {
-  //       setRedisUserData(currentUserData);
-  //       updateReduxUserData(currentUserData);
-  //       updateReduxTeamGentex(currentTeamGentex);
-  //       enqueueSnackbar("Saved user settings successfully!", {
-  //         variant: "success",
-  //         autoHideDuration: 7000,
-  //       });
-  //     } else {
-  //       enqueueSnackbar("Failed to save user settings!", {
-  //         variant: "error",
-  //         autoHideDuration: 7000,
-  //       });
-  //     }
-  //   }
-  // };
+  React.useEffect(() => {
+    const comboAssets = comboAssetData.map((x) => x.Asset);
+    const processAssets = processAssetData.map((x) => x.Asset);
+    let totalAssets = [...comboAssets, ...processAssets];
+    totalAssets = totalAssets.sort((a, b) => a.localeCompare(b));
+    setAssetsTotal(totalAssets);
+  }, [comboAssetData, processAssetData]);
 
   React.useEffect(() => {
     if (userAppDataRedux && !loadedRedux) {
@@ -306,7 +298,8 @@ export const Settings: React.FC<{}> = () => {
           <TabPanel value={tabValue} index={2}>
             <Paper className={classes.tabPaperStyle}>
               <AssetsSettingsPanel
-                assets={currentUserData.assetList}
+                totalAssets={assetsTotal}
+                userAssets={currentUserData.assetList}
                 onChange={(assets) => {
                   const sortedAssets = assets.sort((a, b) =>
                     a.localeCompare(b)

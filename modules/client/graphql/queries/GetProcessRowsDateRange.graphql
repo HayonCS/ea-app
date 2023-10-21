@@ -1,0 +1,3 @@
+query GetProcessRowsDateRange($start: String!, $end: String!) {
+  processRowsDateRange(start: $start, end: $end)
+}

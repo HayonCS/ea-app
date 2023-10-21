@@ -42,11 +42,13 @@ import { getAssetList } from "domain-services/assets-bi/assets-bi";
 import { getUserAppData } from "domain-services/user-app-data/user-app-data";
 import { getUserInformation } from "client/user-utils";
 import {
-  useGetAssetDataWebdcQuery,
+  useGetComboAssetDataQuery,
   useGetAssetListBiQuery,
   useGetEmployeeDirectoryQuery,
-  useGetPartDataWebdcQuery,
+  useGetComboPartDataQuery,
   useGetUserAppDataQuery,
+  useGetProcessPartDataQuery,
+  useGetProcessAssetDataQuery,
 } from "client/graphql/types.gen";
 import { AssetRow, PnRow } from "records/combodata";
 
@@ -111,14 +113,24 @@ export const AppBarMenu: React.FC<{}> = () => {
   // const currentUserAppDataRedux = useSelector(Selectors.App.currentUserAppData);
 
   const dispatch = useDispatch<Dispatch<Actions>>();
-  const setPartDataRedux = React.useCallback(
+  const setComboPartDataRedux = React.useCallback(
     (partData: PnRow[]) => dispatch(Actions.ComboData.partData(partData)),
     [dispatch]
   );
-  const setAssetDataRedux = React.useCallback(
+  const setComboAssetDataRedux = React.useCallback(
     (assetData: AssetRow[]) => dispatch(Actions.ComboData.assetData(assetData)),
     [dispatch]
   );
+  const setProcessPartDataRedux = React.useCallback(
+    (partData: PnRow[]) => dispatch(Actions.ProcessData.partData(partData)),
+    [dispatch]
+  );
+  const setProcessAssetDataRedux = React.useCallback(
+    (assetData: AssetRow[]) =>
+      dispatch(Actions.ProcessData.assetData(assetData)),
+    [dispatch]
+  );
+
   const setAssetListRedux = React.useCallback(
     (assetList: string[]) => dispatch(Actions.App.assetList(assetList)),
     [dispatch]
@@ -148,10 +160,16 @@ export const AppBarMenu: React.FC<{}> = () => {
 
   const userInfo = useUserInformation(username ?? "");
 
-  const partDataWebdc = useGetPartDataWebdcQuery({
+  const comboPartData = useGetComboPartDataQuery({
     fetchPolicy: "cache-and-network",
   });
-  const assetDataWebdc = useGetAssetDataWebdcQuery({
+  const comboAssetData = useGetComboAssetDataQuery({
+    fetchPolicy: "cache-and-network",
+  });
+  const processPartData = useGetProcessPartDataQuery({
+    fetchPolicy: "cache-and-network",
+  });
+  const processAssetData = useGetProcessAssetDataQuery({
     fetchPolicy: "cache-and-network",
   });
 
@@ -204,33 +222,59 @@ export const AppBarMenu: React.FC<{}> = () => {
 
   React.useEffect(() => {
     if (
-      partDataWebdc &&
-      partDataWebdc.called &&
-      !partDataWebdc.error &&
-      !partDataWebdc.loading &&
-      partDataWebdc.data &&
-      partDataWebdc.data.partDataWebdc &&
-      partDataWebdc.data.partDataWebdc.length > 0
+      comboPartData &&
+      comboPartData.called &&
+      !comboPartData.error &&
+      !comboPartData.loading &&
+      comboPartData.data &&
+      comboPartData.data.comboPartData &&
+      comboPartData.data.comboPartData.length > 0
     ) {
-      console.log(partDataWebdc.data.partDataWebdc);
-      setPartDataRedux(partDataWebdc.data.partDataWebdc);
+      setComboPartDataRedux(comboPartData.data.comboPartData);
     }
-  }, [partDataWebdc]);
+  }, [comboPartData]);
 
   React.useEffect(() => {
     if (
-      assetDataWebdc &&
-      assetDataWebdc.called &&
-      !assetDataWebdc.error &&
-      !assetDataWebdc.loading &&
-      assetDataWebdc.data &&
-      assetDataWebdc.data.assetDataWebdc &&
-      assetDataWebdc.data.assetDataWebdc.length > 0
+      comboAssetData &&
+      comboAssetData.called &&
+      !comboAssetData.error &&
+      !comboAssetData.loading &&
+      comboAssetData.data &&
+      comboAssetData.data.comboAssetData &&
+      comboAssetData.data.comboAssetData.length > 0
     ) {
-      console.log(assetDataWebdc.data.assetDataWebdc);
-      setAssetDataRedux(assetDataWebdc.data.assetDataWebdc);
+      setComboAssetDataRedux(comboAssetData.data.comboAssetData);
     }
-  }, [assetDataWebdc]);
+  }, [comboAssetData]);
+
+  React.useEffect(() => {
+    if (
+      processPartData &&
+      processPartData.called &&
+      !processPartData.error &&
+      !processPartData.loading &&
+      processPartData.data &&
+      processPartData.data.processPartData &&
+      processPartData.data.processPartData.length > 0
+    ) {
+      setProcessPartDataRedux(processPartData.data.processPartData);
+    }
+  }, [processPartData]);
+
+  React.useEffect(() => {
+    if (
+      processAssetData &&
+      processAssetData.called &&
+      !processAssetData.error &&
+      !processAssetData.loading &&
+      processAssetData.data &&
+      processAssetData.data.processAssetData &&
+      processAssetData.data.processAssetData.length > 0
+    ) {
+      setProcessAssetDataRedux(processAssetData.data.processAssetData);
+    }
+  }, [processAssetData]);
 
   React.useEffect(() => {
     const user = document.cookie

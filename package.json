@@ -30,7 +30,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "execute": "cross-env NODE_ENV=production yarn build:server && cross-env PORT=3001 concurrently \"yarn dev:agent\" \"yarn server:local\"",
-    "initial": "yarn redis:load:assets && yarn redis:load:employees",
+    "initial": "yarn redis:load:assets",
     "build:jsonschema": "node scripts/json-schema-types.js",
     "build:graphql": "gql-gen -o",
     "build:client": "webpack --config ./webpack/client.config.js",
@@ -55,7 +55,6 @@
     "dev:production": "yarn build:production && yarn server:production",
     "dev:storybook": "cross-env STORYBOOK_MODE=true App_ENDPOINT=prod start-storybook -s ./ -p 9001 -c .storybook --ci",
     "redis:load:assets": "sudo NODE_ENV=development node ./dist/scripts/load-asset-list-bi.js",
-    "redis:load:employees": "sudo NODE_ENV=development node ./dist/scripts/load-employee-directory.js",
     "redis:load:processdata": "sudo NODE_ENV=development node ./dist/scripts/load-process-data.js",
     "testscript": "sudo NODE_ENV=development node ./dist/scripts/test-script.js"
   },

@@ -205,6 +205,11 @@ export const Statistics: React.FC<{}> = () => {
 
   const classes = useStyles();
 
+  const comboPartData = useSelector(Selectors.ComboData.partData);
+  const comboAssetData = useSelector(Selectors.ComboData.assetData);
+  const processPartData = useSelector(Selectors.ProcessData.partData);
+  const processAssetData = useSelector(Selectors.ProcessData.assetData);
+
   // const teamGentexRedux = useSelector(Selectors.App.currentUserTeamInfo);
   const employeeDirectory = useSelector(Selectors.App.employeeActiveDirectory);
   const userDataRedux = useSelector(Selectors.App.currentUserAppData);

@@ -1,10 +1,10 @@
-query GetTestRowsByAssetPartDateRange(
+query GetComboRowsByAssetPartDateRange(
   $assetId: Int!
   $partId: Int!
   $start: String!
   $end: String!
 ) {
-  testRowsByAssetPartDateRange(
+  comboRowsByAssetPartDateRange(
     assetId: $assetId
     partId: $partId
     start: $start

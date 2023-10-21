@@ -20,9 +20,7 @@ generates:
             - 'import { UserAppData } from "core/schemas/user-app-data.gen"'
             - 'import { EmployeeInfoResponse } from "rest-endpoints/employee-directory/employee-directory"'
             - 'import { ProcessDataExport, RunningNowItem } from "rest-endpoints/mes-process-data/mes-process-data"'
-            - 'import { PnRow } from "records/pn-webdc"'
-            - 'import { AssetRow } from "records/asset-webdc"'
-            - 'import { SnRow } from "records/sn-webdc"'
+            - 'import { AssetRow, PnRow, SnRow } from "records/combodata"'
       - "typescript":
           scalars:
             IsoDateTime: DateTimeIso.Type
@@ -52,9 +50,7 @@ generates:
             - 'import { UserAppData } from "core/schemas/user-app-data.gen"'
             - 'import { EmployeeInfoResponse } from "rest-endpoints/employee-directory/employee-directory"'
             - 'import { ProcessDataExport, RunningNowItem } from "rest-endpoints/mes-process-data/mes-process-data"'
-            - 'import { PnRow } from "records/pn-webdc"'
-            - 'import { AssetRow } from "records/asset-webdc"'
-            - 'import { SnRow } from "records/sn-webdc"'
+            - 'import { AssetRow, PnRow, SnRow } from "records/combodata"'
       - "typescript":
           scalars:
             IsoDateTime: DateTimeIso.Type

@@ -1,6 +1,5 @@
 import { ActionType } from "client/redux/types";
-import { AssetRow } from "records/asset-webdc";
-import { PnRow } from "records/pn-webdc";
+import { AssetRow, PnRow } from "records/combodata";
 
 export const WebdcActions = {
   partData: (partData: PnRow[]) =>

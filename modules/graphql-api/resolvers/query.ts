@@ -204,6 +204,22 @@ const queryResolvers: QueryResolvers = {
     return testRows;
   },
 
+  comboRowsByAssetsDateRange: async (parent, args, ctx) => {
+    const testRows = await ctx
+      .get(RepositoriesPort)
+      .domain("WebDC", async (domCtx) => {
+        const start = new Date(args.start);
+        const end = new Date(args.end);
+        const rows = await domCtx.combodata.sn.getRowsByAssetsDateRange(
+          args.assetIds,
+          start,
+          end
+        );
+        return rows;
+      });
+    return testRows;
+  },
+
   comboRowsByPartDateRange: async (parent, args, ctx) => {
     const testRows = await ctx
       .get(RepositoriesPort)
@@ -228,6 +244,22 @@ const queryResolvers: QueryResolvers = {
         const end = new Date(args.end);
         const rows = await domCtx.combodata.sn.getRowsByOperatorDateRange(
           args.operatorId,
+          start,
+          end
+        );
+        return rows;
+      });
+    return testRows;
+  },
+
+  comboRowsByOperatorsDateRange: async (parent, args, ctx) => {
+    const testRows = await ctx
+      .get(RepositoriesPort)
+      .domain("WebDC", async (domCtx) => {
+        const start = new Date(args.start);
+        const end = new Date(args.end);
+        const rows = await domCtx.combodata.sn.getRowsByOperatorsDateRange(
+          args.operatorIds,
           start,
           end
         );

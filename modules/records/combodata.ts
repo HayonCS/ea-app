@@ -248,6 +248,23 @@ export class SnComboRecordRepository extends RepositoryBase(ComboDataRecord) {
     return result;
   };
 
+  getRowsByAssetsDateRange = async (
+    assetIds: number[],
+    startDate: Date,
+    endDate: Date
+  ) => {
+    let totalRows: SnRow[] = [];
+    for (const assetId of assetIds) {
+      const rows = await this.getRowsByAssetDateRange(
+        assetId,
+        startDate,
+        endDate
+      );
+      totalRows = totalRows.concat(rows);
+    }
+    return totalRows;
+  };
+
   getRowsByPartDateRange = async (
     partId: number,
     startDate: Date,
@@ -316,6 +333,23 @@ export class SnComboRecordRepository extends RepositoryBase(ComboDataRecord) {
       return row;
     });
     return result;
+  };
+
+  getRowsByOperatorsDateRange = async (
+    operatorIds: number[],
+    startDate: Date,
+    endDate: Date
+  ) => {
+    let totalRows: SnRow[] = [];
+    for (const operatorId of operatorIds) {
+      const rows = await this.getRowsByOperatorDateRange(
+        operatorId,
+        startDate,
+        endDate
+      );
+      totalRows = totalRows.concat(rows);
+    }
+    return totalRows;
   };
 
   getRowsByAssetPartDateRange = async (

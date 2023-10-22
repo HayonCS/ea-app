@@ -162,6 +162,12 @@ type Query {
     end: String!
   ): [SerialDataRow!]!
 
+  comboRowsByAssetsDateRange(
+    assetIds: [Int!]!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
   comboRowsByPartDateRange(
     partId: Int!
     start: String!
@@ -170,6 +176,12 @@ type Query {
 
   comboRowsByOperatorDateRange(
     operatorId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
+  comboRowsByOperatorsDateRange(
+    operatorIds: [Int!]!
     start: String!
     end: String!
   ): [SerialDataRow!]!

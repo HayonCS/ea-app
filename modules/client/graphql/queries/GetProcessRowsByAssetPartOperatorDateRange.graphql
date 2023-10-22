@@ -1,0 +1,15 @@
+query GetProcessRowsByAssetPartOperatorDateRange(
+  $assetId: Int!
+  $partId: Int!
+  $operatorId: Int!
+  $start: String!
+  $end: String!
+) {
+  processRowsByAssetPartOperatorDateRange(
+    assetId: $assetId
+    partId: $partId
+    operatorId: $operatorId
+    start: $start
+    end: $end
+  )
+}

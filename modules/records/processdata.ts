@@ -287,6 +287,41 @@ export class SnProcessRecordRepository extends RepositoryBase(
     return result;
   };
 
+  getRowsByOperatorDateRange = async (
+    operatorId: number,
+    startDate: Date,
+    endDate: Date
+  ) => {
+    const start = dateToString(startDate);
+    const end = dateToString(endDate);
+    const sqlData = await this.db.raw(
+      `SELECT * FROM PROCESSDATA.dbo.SN WHERE OPERATORID = ${operatorId} AND TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
+    );
+    const result: SnRow[] = sqlData.map((x: any) => {
+      const row: SnRow = {
+        SNID: x["SNID"],
+        PNID: x["PNID"],
+        AssetID: x["ASSET_ID"],
+        TestDateTime: new Date(x["TESTDATETIME"]),
+        Failed: x["FAILED"],
+        Retest: x["RETEST"],
+        Traceable: x["TRACEABLE"],
+        TagCount: x["TAGCNT"],
+        SN: x["SN"],
+        RevID: x["REVID"],
+        FailCount: x["FAILCNT"],
+        FailedTags: x["FAILEDTAGS"],
+        OperID: x["OPERID"],
+        Barcode: x["BARCODE"],
+        MetaDataID: x["METADATAID"],
+        OperatorID: x["OPERATORID"],
+        OperationID: x["OPERATIONID"],
+      };
+      return row;
+    });
+    return result;
+  };
+
   getRowsByAssetPartDateRange = async (
     assetId: number,
     partId: number,
@@ -297,6 +332,115 @@ export class SnProcessRecordRepository extends RepositoryBase(
     const end = dateToString(endDate);
     const sqlData = await this.db.raw(
       `SELECT * FROM PROCESSDATA.dbo.SN WHERE ASSET_ID = ${assetId} AND PNID = ${partId} AND TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
+    );
+    const result: SnRow[] = sqlData.map((x: any) => {
+      const row: SnRow = {
+        SNID: x["SNID"],
+        PNID: x["PNID"],
+        AssetID: x["ASSET_ID"],
+        TestDateTime: new Date(x["TESTDATETIME"]),
+        Failed: x["FAILED"],
+        Retest: x["RETEST"],
+        Traceable: x["TRACEABLE"],
+        TagCount: x["TAGCNT"],
+        SN: x["SN"],
+        RevID: x["REVID"],
+        FailCount: x["FAILCNT"],
+        FailedTags: x["FAILEDTAGS"],
+        OperID: x["OPERID"],
+        Barcode: x["BARCODE"],
+        MetaDataID: x["METADATAID"],
+        OperatorID: x["OPERATORID"],
+        OperationID: x["OPERATIONID"],
+      };
+      return row;
+    });
+    return result;
+  };
+
+  getRowsByAssetOperatorDateRange = async (
+    assetId: number,
+    operatorId: number,
+    startDate: Date,
+    endDate: Date
+  ) => {
+    const start = dateToString(startDate);
+    const end = dateToString(endDate);
+    const sqlData = await this.db.raw(
+      `SELECT * FROM PROCESSDATA.dbo.SN WHERE ASSET_ID = ${assetId} AND OPERATORID = ${operatorId} AND TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
+    );
+    const result: SnRow[] = sqlData.map((x: any) => {
+      const row: SnRow = {
+        SNID: x["SNID"],
+        PNID: x["PNID"],
+        AssetID: x["ASSET_ID"],
+        TestDateTime: new Date(x["TESTDATETIME"]),
+        Failed: x["FAILED"],
+        Retest: x["RETEST"],
+        Traceable: x["TRACEABLE"],
+        TagCount: x["TAGCNT"],
+        SN: x["SN"],
+        RevID: x["REVID"],
+        FailCount: x["FAILCNT"],
+        FailedTags: x["FAILEDTAGS"],
+        OperID: x["OPERID"],
+        Barcode: x["BARCODE"],
+        MetaDataID: x["METADATAID"],
+        OperatorID: x["OPERATORID"],
+        OperationID: x["OPERATIONID"],
+      };
+      return row;
+    });
+    return result;
+  };
+
+  getRowsByPartOperatorDateRange = async (
+    partId: number,
+    operatorId: number,
+    startDate: Date,
+    endDate: Date
+  ) => {
+    const start = dateToString(startDate);
+    const end = dateToString(endDate);
+    const sqlData = await this.db.raw(
+      `SELECT * FROM PROCESSDATA.dbo.SN WHERE PNID = ${partId} AND OPERATORID = ${operatorId} AND TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
+    );
+    const result: SnRow[] = sqlData.map((x: any) => {
+      const row: SnRow = {
+        SNID: x["SNID"],
+        PNID: x["PNID"],
+        AssetID: x["ASSET_ID"],
+        TestDateTime: new Date(x["TESTDATETIME"]),
+        Failed: x["FAILED"],
+        Retest: x["RETEST"],
+        Traceable: x["TRACEABLE"],
+        TagCount: x["TAGCNT"],
+        SN: x["SN"],
+        RevID: x["REVID"],
+        FailCount: x["FAILCNT"],
+        FailedTags: x["FAILEDTAGS"],
+        OperID: x["OPERID"],
+        Barcode: x["BARCODE"],
+        MetaDataID: x["METADATAID"],
+        OperatorID: x["OPERATORID"],
+        OperationID: x["OPERATIONID"],
+      };
+      return row;
+    });
+    return result;
+  };
+
+  getRowsByAssetPartOperatorDateRange = async (
+    assetId: number,
+    partId: number,
+    operatorId: number,
+    startDate: Date,
+    endDate: Date
+  ) => {
+    const start = dateToString(startDate);
+    const end = dateToString(endDate);
+    const sqlData = await this.db.raw(
+      `SELECT * FROM PROCESSDATA.dbo.SN WHERE ASSET_ID = ${assetId} AND PNID = ${partId} AND OPERATORID = ${operatorId} AND TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
     );
     const result: SnRow[] = sqlData.map((x: any) => {
       const row: SnRow = {

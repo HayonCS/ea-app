@@ -43,7 +43,7 @@ import {
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import * as dayjs from "dayjs";
-import { dateTimeToString, getHHMMSS } from "client/utilities/date-util";
+import { getHHMMSS } from "client/utilities/date-util";
 import { UserDisplayHover } from "client/components/user-display/UserDisplayHover";
 import { getProcessDataExportRange } from "client/utilities/redis";
 import { useSelector } from "react-redux";
@@ -55,6 +55,8 @@ import {
   ProcessDataRawData,
 } from "client/utilities/types";
 import {
+  getFinalProcessDataOperator,
+  getFinalProcessDataOperatorTotals,
   getFinalProcessDataPart,
   getFinalProcessDataPartTotals,
 } from "client/utilities/process-data";
@@ -65,15 +67,6 @@ import { Selectors } from "client/redux/selectors";
 import { UserInformation } from "core/schemas/user-information.gen";
 import { getUserInformation } from "client/user-utils";
 import { UserDisplayClick } from "client/components/user-display/UserDisplayClick";
-import {
-  useGetComboRowsDateRangeLazyQuery,
-  useGetProcessRowsDateRangeLazyQuery,
-} from "client/graphql/types.gen";
-import {
-  getFinalDataOperator,
-  getFinalProcessDataOperatorTotals,
-} from "client/utilities/webdc-data";
-import { SnRow } from "records/combodata";
 
 const TabPanel = (props: any) => {
   const { children, value, index, ...other } = props;
@@ -221,10 +214,6 @@ export const Statistics: React.FC<{}> = () => {
   const employeeDirectory = useSelector(Selectors.App.employeeActiveDirectory);
   const userDataRedux = useSelector(Selectors.App.currentUserAppData);
 
-  const [comboDataQuery, comboDataResult] = useGetComboRowsDateRangeLazyQuery();
-  const [processDataQuery, processDataResult] =
-    useGetProcessRowsDateRangeLazyQuery();
-
   const [userTeamInfo, setUserTeamInfo] = React.useState<UserInformation[]>([]);
 
   React.useEffect(() => {
@@ -236,10 +225,6 @@ export const Statistics: React.FC<{}> = () => {
   }, [userDataRedux, employeeDirectory]);
 
   const [tabValueStats, setTabValueStats] = React.useState(0);
-
-  const [selectionAssets, setSelectionAssets] = React.useState<string[]>([]);
-  const [selectionAssetsRadio, setSelectionAssetsRadio] =
-    React.useState("AllAssets");
 
   const [loadingAssetOperator, setLoadingAssetOperator] = React.useState(false);
   const [loadingProgressAssetOperator, setLoadingProgressAssetOperator] =
@@ -271,7 +256,8 @@ export const Statistics: React.FC<{}> = () => {
   const [endDateAssetOperator, setEndDateAssetOperator] = React.useState(
     new Date()
   );
-
+  const [processDataAssetOperator, setProcessDataAssetOperator] =
+    React.useState<ProcessDataRawData[]>([]);
   const [rowsAssetOperator, setRowsAssetOperator] = React.useState<
     ProcessDataOperatorTotals[]
   >([]);
@@ -375,147 +361,118 @@ export const Statistics: React.FC<{}> = () => {
     setFilterPanelCloseHoverStateAssetPart,
   ] = React.useState(false);
 
-  // React.useEffect(() => {
-  //   if (selectionAssetsRadio === "AllAssets") {
-  //     const comboAssets = comboAssetData.map((x) => x.Asset);
-  //     const processAssets = processAssetData.map((x) => x.Asset);
-  //     let totalAssets = [...comboAssets, ...processAssets];
-  //     totalAssets = totalAssets.sort((a, b) => a.localeCompare(b));
-  //     setSelectionAssets(totalAssets);
-  //   } else {
-  //     setSelectionAssets(userDataRedux.assetList);
-  //   }
-  // }, [selectionAssetsRadio, comboAssetData, processAssetData]);
-
   const loadStatsAssetOperator = async () => {
-    const start = dateTimeToString(startDateAssetOperator);
-    const end = checkboxDateAssetOperator
-      ? start
-      : dateTimeToString(endDateAssetOperator);
-    void comboDataQuery({
-      variables: {
-        start: start,
-        end: end,
-      },
+    enqueueSnackbar("Loading data for operators by assets...", {
+      variant: "info",
+      autoHideDuration: 3000,
     });
-    // void processDataQuery({
-    //   variables: {
-    //     start: start,
-    //     end: end,
-    //   },
-    // });
-  };
-
-  function groupBy(arr: any, property: any) {
-    return arr.reduce(function(memo: any, x: any) {
-      if (!memo[x[property]]) { memo[x[property]] = []; }
-      memo[x[property]].push(x);
-      return memo;
-    }, {});
-  }
-
-  React.useEffect(() => {
-    void (async () => {
-      console.log(comboDataResult);
-      if (comboDataResult.called || processDataResult.called) {
-        if (comboDataResult.loading || processDataResult.loading) {
-          setLoadingAssetOperator(true);
-          setLoadingProgressAssetOperator(10);
-          enqueueSnackbar("Loading data...", {
-            variant: "info",
-            autoHideDuration: 3000,
-          });
-        } else if (comboDataResult.error || processDataResult.error) {
-          setLoadingAssetOperator(false);
-          setLoadingProgressAssetOperator(0);
-          enqueueSnackbar("Error querying data!", {
-            variant: "error",
-            autoHideDuration: 3000,
-          });
-        } else if (
-          comboDataResult.data &&
-          comboDataResult.data.comboRowsDateRange
-        ) {
-          setLoadingProgressAssetOperator(20);
-          let progress = 20;
-          
-          const comboRows = comboDataResult.data.comboRowsDateRange;
-          const processRows =
-            processDataResult.data?.processRowsDateRange ?? [];
-          let totals: ProcessDataOperatorTotals[] = [];
-          let groupComboRows = groupBy(comboRows, "AssetID");
-const step = 80 / Object.keys(groupComboRows).length;
-          for (const key of Object.keys(groupComboRows)) {
-            const rows: SnRow[] = groupComboRows[key];
-            if (rows) {
-            const comboOp = getFinalDataOperator(
-              comboRows,
-              comboPartData,
-              comboAssetData
-            );
-            // const processOp = getFinalDataOperator(
-            //   processRows,
-            //   processPartData,
-            //   processAssetData
-            // );
-            const comboTotals = await getFinalProcessDataOperatorTotals(
-              comboOp,
-              userDataRedux.orgCode
-            );
-            // const processTotals = await getFinalProcessDataOperatorTotals(
-            //   processOp,
-            //   userDataRedux.orgCode
-            // );
-            totals = totals.concat(comboTotals);     
-            progress += step;
-        setLoadingProgressAssetOperator(progress);         
-            }
-          }
-
-          // const totals = [...comboTotals, ...processTotals];
-          // let totals = comboTotals.concat(processTotals);
-          totals.forEach((x, i) => (x.id = i));
-          setRowSelectionModelAssetOperator([]);
-          setRowsAssetOperator(totals);
-          loadAllEmployeeInfo(totals);
-          setLoadingProgressAssetOperator(100);
-          setLoadingAssetOperator(false);
-          cancelLoadingAssetOperator = false;
-          setCancelingLoadingAssetOperator(false);
-          let opList = [...totals]
-            .map((x) => x.Operator)
-            .filter((v, i, a) => a.indexOf(v) === i);
-          let partList = [...totals]
-            .map((x) => x.PartNumber)
-            .filter((v, i, a) => a.indexOf(v) === i);
-          let assetList = [...totals]
-            .map((x) => x.Asset)
-            .filter((v, i, a) => a.indexOf(v) === i);
-          const opFilter = opList.filter((op) =>
-            filtersAssetOperator.operators.includes(op)
-          );
-          const partFilter = partList.filter((part) =>
-            filtersAssetOperator.parts.includes(part)
-          );
-          const assetFilter = assetList.filter((asset) =>
-            filtersAssetOperator.assets.includes(asset)
-          );
-          setFiltersAssetOperator({
-            operators: opFilter,
-            parts: partFilter,
-            assets: assetFilter,
-          });
-
-          setLoadingAssetOperator(false);
-          setLoadingProgressAssetOperator(0);
-          enqueueSnackbar("Loaded data successfully!", {
-            variant: "success",
-            autoHideDuration: 3000,
-          });
-        }
+    setLoadingProgressAssetOperator(0);
+    setLoadingAssetOperator(true);
+    let canceled = false;
+    let progress = 0;
+    const step = 90 / (selectedAssetsOperator.length * 3);
+    let processDataTotal: ProcessDataExport[] = [];
+    let finalOperatorData: ProcessDataOperatorTotals[] = [];
+    for (let i = 0; i < selectedAssetsOperator.length; ++i) {
+      if (cancelLoadingAssetOperator) {
+        canceled = true;
+        break;
       }
-    })();
-  }, [comboDataResult, processDataResult]);
+      const asset = selectedAssetsOperator[i];
+      const processData = await getProcessDataExportRange(
+        asset,
+        startDateAssetOperator,
+        checkboxDateAssetOperator
+          ? startDateAssetOperator
+          : endDateAssetOperator
+      );
+      if (cancelLoadingAssetOperator) {
+        canceled = true;
+        break;
+      }
+      progress += step;
+      setLoadingProgressAssetOperator(progress);
+      if (processData) {
+        const procDataOperator = await getFinalProcessDataOperator(processData);
+        if (cancelLoadingAssetOperator) {
+          canceled = true;
+          break;
+        }
+        progress += step;
+        setLoadingProgressAssetOperator(progress);
+        const operatorTotals = await getFinalProcessDataOperatorTotals(
+          procDataOperator,
+          userDataRedux.orgCode
+        );
+        if (cancelLoadingAssetOperator) {
+          canceled = true;
+          break;
+        }
+        processDataTotal = processDataTotal.concat(processData);
+        finalOperatorData = finalOperatorData.concat(operatorTotals);
+        progress += step;
+        setLoadingProgressAssetOperator(progress);
+      } else {
+        progress += step * 2;
+        setLoadingProgressAssetOperator(progress);
+      }
+    }
+    if (!canceled) {
+      setLoadingProgressAssetOperator(90);
+      finalOperatorData.forEach((x, i) => (x.id = i));
+      let rawDataTotal = processDataTotal.map((x, i) => {
+        let obj: ProcessDataRawData = {
+          id: i,
+          ...x,
+        };
+        return obj;
+      });
+      setRowSelectionModelAssetOperator([]);
+      setRowsAssetOperator(finalOperatorData);
+      setProcessDataAssetOperator(rawDataTotal);
+      loadAllEmployeeInfo(finalOperatorData);
+      setLoadingProgressAssetOperator(100);
+      setLoadingAssetOperator(false);
+      cancelLoadingAssetOperator = false;
+      setCancelingLoadingAssetOperator(false);
+      let opList = [...finalOperatorData]
+        .map((x) => x.Operator)
+        .filter((v, i, a) => a.indexOf(v) === i);
+      let partList = [...finalOperatorData]
+        .map((x) => x.PartNumber)
+        .filter((v, i, a) => a.indexOf(v) === i);
+      let assetList = [...finalOperatorData]
+        .map((x) => x.Asset)
+        .filter((v, i, a) => a.indexOf(v) === i);
+      const opFilter = opList.filter((op) =>
+        filtersAssetOperator.operators.includes(op)
+      );
+      const partFilter = partList.filter((part) =>
+        filtersAssetOperator.parts.includes(part)
+      );
+      const assetFilter = assetList.filter((asset) =>
+        filtersAssetOperator.assets.includes(asset)
+      );
+      setFiltersAssetOperator({
+        operators: opFilter,
+        parts: partFilter,
+        assets: assetFilter,
+      });
+      enqueueSnackbar("Data loaded successfully!", {
+        variant: "success",
+        autoHideDuration: 3000,
+      });
+    } else {
+      setLoadingProgressAssetOperator(0);
+      setLoadingAssetOperator(false);
+      cancelLoadingAssetOperator = false;
+      setCancelingLoadingAssetOperator(false);
+      enqueueSnackbar("Canceled loading data.", {
+        variant: "info",
+        autoHideDuration: 3000,
+      });
+    }
+  };
 
   const loadStatsAssetPart = async () => {
     enqueueSnackbar("Loading data for parts by assets...", {
@@ -673,10 +630,17 @@ const step = 80 / Object.keys(groupComboRows).length;
       const myTeam = [...userTeamInfo].map((x) => x.employeeId);
       rows = rows.filter((x) => myTeam.includes(x.Operator));
     }
-
-    if (selectionAssetsRadio === "MyAssets") {
-      rows = rows.filter((x) => userDataRedux.assetList.includes(x.Asset));
-    }
+    // rows = rows.map((row, i) => {
+    //   let newRow = { ...row };
+    //   newRow.id = i + 1;
+    //   return newRow;
+    // });
+    // if (rows.length > 0) {
+    //   rows.push({
+    //     ...rows[rows.length - 1],
+    //     id: rows.length + 1,
+    //   });
+    // }
 
     if (filtersAssetOperatorRadio === "AllOperators") {
       setFilterOperatorUserInfo(operatorEmployeeInfo);
@@ -1786,7 +1750,7 @@ const step = 80 / Object.keys(groupComboRows).length;
                     >
                       <InputLabel>Assets</InputLabel>
                       <Select
-                        multiple={true}
+                        multiple
                         value={selectedAssetsOperator}
                         onChange={(
                           event: SelectChangeEvent<
@@ -1811,7 +1775,7 @@ const step = 80 / Object.keys(groupComboRows).length;
                           },
                         }}
                       >
-                        {selectionAssets.map((name) => (
+                        {(userDataRedux?.assetList ?? []).map((name) => (
                           <MenuItem key={name} value={name}>
                             <Checkbox
                               checked={
@@ -1986,15 +1950,14 @@ const step = 80 / Object.keys(groupComboRows).length;
                             >
                               <FormControlLabel
                                 value="AllOperators"
-                                control={<Radio size="small" />}
+                                control={<Radio />}
                                 label="All Operators"
-                                style={{ height: "24px" }}
+                                style={{ height: "16px" }}
                               />
                               <FormControlLabel
                                 value="MyTeam"
-                                control={<Radio size="small" />}
+                                control={<Radio />}
                                 label="My Team"
-                                style={{ height: "24px" }}
                               />
                             </RadioGroup>
                           </FormControl>
@@ -2075,39 +2038,7 @@ const step = 80 / Object.keys(groupComboRows).length;
                             </FormControl>
                           </Tooltip>
                         </div>
-                        <div style={{ marginTop: "20px" }}>
-                          <FormControl>
-                            <RadioGroup
-                              sx={{ gap: 0 }}
-                              defaultValue="AllOperators"
-                              name="radio-buttons-group"
-                              value={selectionAssetsRadio}
-                              onChange={(event) => {
-                                const radioValue = (
-                                  event.target as HTMLInputElement
-                                ).value;
-                                setSelectionAssetsRadio(radioValue);
-                                setSelectedAssetsOperator([]);
-                                // setSelectionAssets({
-                                //   ...selectionAssets,
-                                //   assets: [],
-                                // });
-                              }}
-                            >
-                              <FormControlLabel
-                                value="AllAssets"
-                                control={<Radio size="small" />}
-                                label="All Assets"
-                                style={{ height: "24px" }}
-                              />
-                              <FormControlLabel
-                                value="MyAssets"
-                                control={<Radio size="small" />}
-                                label="My Assets"
-                                style={{ height: "24px" }}
-                              />
-                            </RadioGroup>
-                          </FormControl>
+                        <div style={{ marginTop: "40px" }}>
                           <Tooltip
                             placement="top"
                             title={
@@ -2174,7 +2105,7 @@ const step = 80 / Object.keys(groupComboRows).length;
                             </FormControl>
                           </Tooltip>
                         </div>
-                        <div style={{ marginTop: "60px" }}>
+                        <div style={{ marginTop: "40px" }}>
                           <Tooltip
                             placement="top"
                             title={

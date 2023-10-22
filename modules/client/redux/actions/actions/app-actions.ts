@@ -1,9 +1,10 @@
 import { ActionType } from "client/redux/types";
 import { UserInformation } from "core/schemas/user-information.gen";
 import { UserAppData } from "core/schemas/user-app-data.gen";
+import { AssetInfo } from "rest-endpoints/mes-bi/mes-bi";
 
 export const AppActions = {
-  assetList: (assetList: string[]) =>
+  assetList: (assetList: AssetInfo[]) =>
     ({
       type: "App/assetList",
       payload: {

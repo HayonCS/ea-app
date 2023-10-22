@@ -168,9 +168,37 @@ type Query {
     end: String!
   ): [SerialDataRow!]!
 
+  comboRowsByOperatorDateRange(
+    operatorId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
   comboRowsByAssetPartDateRange(
     assetId: Int!
     partId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
+  comboRowsByAssetOperatorDateRange(
+    assetId: Int!
+    operatorId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
+  comboRowsByPartOperatorDateRange(
+    partId: Int!
+    operatorId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
+  comboRowsByAssetPartOperatorDateRange(
+    assetId: Int!
+    partId: Int!
+    operatorId: Int!
     start: String!
     end: String!
   ): [SerialDataRow!]!
@@ -189,9 +217,37 @@ type Query {
     end: String!
   ): [SerialDataRow!]!
 
+  processRowsByOperatorDateRange(
+    operatorId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
   processRowsByAssetPartDateRange(
     assetId: Int!
     partId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
+  processRowsByAssetOperatorDateRange(
+    assetId: Int!
+    operatorId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
+  processRowsByPartOperatorDateRange(
+    partId: Int!
+    operatorId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
+  processRowsByAssetPartOperatorDateRange(
+    assetId: Int!
+    partId: Int!
+    operatorId: Int!
     start: String!
     end: String!
   ): [SerialDataRow!]!

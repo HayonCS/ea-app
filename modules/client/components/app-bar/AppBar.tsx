@@ -51,6 +51,7 @@ import {
   useGetProcessAssetDataQuery,
 } from "client/graphql/types.gen";
 import { AssetRow, PnRow } from "records/combodata";
+import { AssetInfo } from "rest-endpoints/mes-bi/mes-bi";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -132,7 +133,7 @@ export const AppBarMenu: React.FC<{}> = () => {
   );
 
   const setAssetListRedux = React.useCallback(
-    (assetList: string[]) => dispatch(Actions.App.assetList(assetList)),
+    (assetList: AssetInfo[]) => dispatch(Actions.App.assetList(assetList)),
     [dispatch]
   );
   const setCurrentUserRedux = React.useCallback(
@@ -307,11 +308,37 @@ export const AppBarMenu: React.FC<{}> = () => {
       assetList.data.assetListBi &&
       assetList.data.assetListBi.length > 0
     ) {
-      const assetsFilter = assetList.data.assetListBi.map(
-        (x) => x?.assetName ?? ""
+      let assetsMap: AssetInfo[] = assetList.data.assetListBi.map((x) => {
+        const asset: AssetInfo = {
+          assetName: x?.assetName ?? "",
+          serial: x?.serial ?? "",
+          model: x?.model ?? "",
+          orgCode: x?.orgCode ?? "0",
+          line: x?.line ?? "",
+          dateCreated: x?.dateCreated ?? "",
+          notes: x?.notes ?? "",
+          reportGroupName: x?.reportGroupName ?? "",
+          reportGroupID: x?.reportGroupID ?? "",
+          excludeFromHealth: x?.excludeFromHealth ?? false,
+          legacyLocation: x?.legacyLocation ?? "",
+          autoUpdate: x?.autoUpdate ?? false,
+          recordLastUpdated: x?.recordLastUpdated ?? "",
+          updatedBy: x?.updatedBy ?? "",
+        };
+        return asset;
+      });
+      let assetsBi = assetsMap.filter(
+        (x) =>
+          x &&
+          x.assetName !== "" &&
+          (x.assetName.startsWith("CMB") ||
+            x.assetName.startsWith("MR") ||
+            x.assetName.startsWith("PCB"))
       );
-      const assets: string[] = assetsFilter.filter((x) => x);
-      setAssetListRedux(assets);
+      assetsBi = assetsBi.sort(
+        (a, b) => a?.assetName.localeCompare(b?.assetName ?? "") ?? 0
+      );
+      setAssetListRedux(assetsBi);
     }
   }, [assetList, setAssetListRedux]);
 

@@ -1,0 +1,11 @@
+query GetProcessRowsByOperatorDateRange(
+  $operatorId: Int!
+  $start: String!
+  $end: String!
+) {
+  processRowsByOperatorDateRange(
+    operatorId: $operatorId
+    start: $start
+    end: $end
+  )
+}

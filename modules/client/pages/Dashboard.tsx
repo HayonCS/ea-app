@@ -203,8 +203,8 @@ export const DashboardPage: React.FC<{}> = () => {
             <TabPanel value={tabValue} index={0}>
               <div style={{ height: "calc(100vh - 216px)" }}>
                 <div style={{ height: "30px" }} />
-                {[...(assetListRedux ?? ASSETLIST)]
-                  .sort((a, b) => a.localeCompare(b))
+                {assetListRedux
+                  .sort((a, b) => a.assetName.localeCompare(b.assetName))
                   .map((asset, i) => {
                     return (
                       <Box key={i} className={classes.linkStyle}>
@@ -214,7 +214,7 @@ export const DashboardPage: React.FC<{}> = () => {
                           }}
                           style={{ cursor: "pointer" }}
                         >
-                          {asset}
+                          {asset.assetName}
                         </Link>
                       </Box>
                     );

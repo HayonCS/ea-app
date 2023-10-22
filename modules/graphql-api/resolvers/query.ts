@@ -3,7 +3,6 @@ import * as _ from "lodash-es";
 import { MesSecurityPort } from "rest-endpoints/mes-security/port";
 import { UserPicturePort } from "rest-endpoints/user-picture/port";
 import { EmployeeInfoPort } from "rest-endpoints/employee-directory/port";
-import { AssetsBiPort } from "domain-services/assets-bi/port";
 import { UserAppDataPort } from "domain-services/user-app-data/port";
 import { MesProcessDataPort } from "rest-endpoints/mes-process-data/port";
 import { ProcessDataRedisPort } from "domain-services/process-data-redis/port";
@@ -36,8 +35,20 @@ const queryResolvers: QueryResolvers = {
   },
 
   assetListBi: async (parent, args, ctx) => {
-    const assetList = await ctx.get(AssetsBiPort).getAssetList();
-    return assetList;
+    // const assetList = await ctx.get(MesBiPort).getAssetsAll();
+    // return assetList;
+    const combos = (await ctx.get(MesBiPort).getAssetsName("CMB")).filter((x) =>
+      x.assetName.startsWith("CMB")
+    );
+    const monorails = (await ctx.get(MesBiPort).getAssetsName("MR")).filter(
+      (x) => x.assetName.startsWith("MR")
+    );
+    const presses = (await ctx.get(MesBiPort).getAssetsName("PCB")).filter(
+      (x) => x.assetName.startsWith("PCB")
+    );
+    let assets = [...combos, ...monorails, ...presses];
+    assets = assets.sort((a, b) => a.assetName.localeCompare(b.assetName));
+    return assets;
   },
 
   getAssetsName: async (parent, args, ctx) => {
@@ -155,6 +166,22 @@ const queryResolvers: QueryResolvers = {
     return testRows;
   },
 
+  comboRowsByAssetDateRange: async (parent, args, ctx) => {
+    const testRows = await ctx
+      .get(RepositoriesPort)
+      .domain("WebDC", async (domCtx) => {
+        const start = new Date(args.start);
+        const end = new Date(args.end);
+        const rows = await domCtx.combodata.sn.getRowsByAssetDateRange(
+          args.assetId,
+          start,
+          end
+        );
+        return rows;
+      });
+    return testRows;
+  },
+
   comboRowsByPartDateRange: async (parent, args, ctx) => {
     const testRows = await ctx
       .get(RepositoriesPort)
@@ -171,14 +198,14 @@ const queryResolvers: QueryResolvers = {
     return testRows;
   },
 
-  comboRowsByAssetDateRange: async (parent, args, ctx) => {
+  comboRowsByOperatorDateRange: async (parent, args, ctx) => {
     const testRows = await ctx
       .get(RepositoriesPort)
       .domain("WebDC", async (domCtx) => {
         const start = new Date(args.start);
         const end = new Date(args.end);
-        const rows = await domCtx.combodata.sn.getRowsByAssetDateRange(
-          args.assetId,
+        const rows = await domCtx.combodata.sn.getRowsByOperatorDateRange(
+          args.operatorId,
           start,
           end
         );
@@ -204,6 +231,59 @@ const queryResolvers: QueryResolvers = {
     return testRows;
   },
 
+  comboRowsByAssetOperatorDateRange: async (parent, args, ctx) => {
+    const testRows = await ctx
+      .get(RepositoriesPort)
+      .domain("WebDC", async (domCtx) => {
+        const start = new Date(args.start);
+        const end = new Date(args.end);
+        const rows = await domCtx.combodata.sn.getRowsByAssetOperatorDateRange(
+          args.assetId,
+          args.operatorId,
+          start,
+          end
+        );
+        return rows;
+      });
+    return testRows;
+  },
+
+  comboRowsByPartOperatorDateRange: async (parent, args, ctx) => {
+    const testRows = await ctx
+      .get(RepositoriesPort)
+      .domain("WebDC", async (domCtx) => {
+        const start = new Date(args.start);
+        const end = new Date(args.end);
+        const rows = await domCtx.combodata.sn.getRowsByPartOperatorDateRange(
+          args.partId,
+          args.operatorId,
+          start,
+          end
+        );
+        return rows;
+      });
+    return testRows;
+  },
+
+  comboRowsByAssetPartOperatorDateRange: async (parent, args, ctx) => {
+    const testRows = await ctx
+      .get(RepositoriesPort)
+      .domain("WebDC", async (domCtx) => {
+        const start = new Date(args.start);
+        const end = new Date(args.end);
+        const rows =
+          await domCtx.combodata.sn.getRowsByAssetPartOperatorDateRange(
+            args.assetId,
+            args.partId,
+            args.operatorId,
+            start,
+            end
+          );
+        return rows;
+      });
+    return testRows;
+  },
+
   processRowsDateRange: async (parent, args, ctx) => {
     const testRows = await ctx
       .get(RepositoriesPort)
@@ -211,22 +291,6 @@ const queryResolvers: QueryResolvers = {
         const start = new Date(args.start);
         const end = new Date(args.end);
         const rows = await domCtx.processdata.sn.getRowsDateRange(start, end);
-        return rows;
-      });
-    return testRows;
-  },
-
-  processRowsByPartDateRange: async (parent, args, ctx) => {
-    const testRows = await ctx
-      .get(RepositoriesPort)
-      .domain("WebDC", async (domCtx) => {
-        const start = new Date(args.start);
-        const end = new Date(args.end);
-        const rows = await domCtx.processdata.sn.getRowsByPartDateRange(
-          args.partId,
-          start,
-          end
-        );
         return rows;
       });
     return testRows;
@@ -248,6 +312,38 @@ const queryResolvers: QueryResolvers = {
     return testRows;
   },
 
+  processRowsByPartDateRange: async (parent, args, ctx) => {
+    const testRows = await ctx
+      .get(RepositoriesPort)
+      .domain("WebDC", async (domCtx) => {
+        const start = new Date(args.start);
+        const end = new Date(args.end);
+        const rows = await domCtx.processdata.sn.getRowsByPartDateRange(
+          args.partId,
+          start,
+          end
+        );
+        return rows;
+      });
+    return testRows;
+  },
+
+  processRowsByOperatorDateRange: async (parent, args, ctx) => {
+    const testRows = await ctx
+      .get(RepositoriesPort)
+      .domain("WebDC", async (domCtx) => {
+        const start = new Date(args.start);
+        const end = new Date(args.end);
+        const rows = await domCtx.processdata.sn.getRowsByOperatorDateRange(
+          args.operatorId,
+          start,
+          end
+        );
+        return rows;
+      });
+    return testRows;
+  },
+
   processRowsByAssetPartDateRange: async (parent, args, ctx) => {
     const testRows = await ctx
       .get(RepositoriesPort)
@@ -260,6 +356,60 @@ const queryResolvers: QueryResolvers = {
           start,
           end
         );
+        return rows;
+      });
+    return testRows;
+  },
+
+  processRowsByAssetOperatorDateRange: async (parent, args, ctx) => {
+    const testRows = await ctx
+      .get(RepositoriesPort)
+      .domain("WebDC", async (domCtx) => {
+        const start = new Date(args.start);
+        const end = new Date(args.end);
+        const rows =
+          await domCtx.processdata.sn.getRowsByAssetOperatorDateRange(
+            args.assetId,
+            args.operatorId,
+            start,
+            end
+          );
+        return rows;
+      });
+    return testRows;
+  },
+
+  processRowsByPartOperatorDateRange: async (parent, args, ctx) => {
+    const testRows = await ctx
+      .get(RepositoriesPort)
+      .domain("WebDC", async (domCtx) => {
+        const start = new Date(args.start);
+        const end = new Date(args.end);
+        const rows = await domCtx.processdata.sn.getRowsByPartOperatorDateRange(
+          args.partId,
+          args.operatorId,
+          start,
+          end
+        );
+        return rows;
+      });
+    return testRows;
+  },
+
+  processRowsByAssetPartOperatorDateRange: async (parent, args, ctx) => {
+    const testRows = await ctx
+      .get(RepositoriesPort)
+      .domain("WebDC", async (domCtx) => {
+        const start = new Date(args.start);
+        const end = new Date(args.end);
+        const rows =
+          await domCtx.processdata.sn.getRowsByAssetPartOperatorDateRange(
+            args.assetId,
+            args.partId,
+            args.operatorId,
+            start,
+            end
+          );
         return rows;
       });
     return testRows;

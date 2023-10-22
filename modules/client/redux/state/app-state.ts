@@ -1,10 +1,11 @@
 import { UserAppData } from "core/schemas/user-app-data.gen";
 import { UserInformation } from "core/schemas/user-information.gen";
+import { AssetInfo } from "rest-endpoints/mes-bi/mes-bi";
 
 //Note: Any state added to DocumentState will create entries in the undox stack when changes are dispatched.
 //Limit this state to things users will want to undo/redo only.
 export type AppState = {
-  assetList: string[];
+  assetInfo: AssetInfo[];
   currentUserAppData: UserAppData;
   currentUserInfo: UserInformation;
   currentUserTeamInfo: UserInformation[];
@@ -12,7 +13,7 @@ export type AppState = {
 };
 
 export const initialAppState: AppState = {
-  assetList: [],
+  assetInfo: [],
   currentUserAppData: {
     orgCode: 0,
     assetList: [],

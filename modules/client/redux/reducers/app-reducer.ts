@@ -11,7 +11,7 @@ export const appReducer: MainReducer<"App"> = (
       const { assetList } = action.payload;
       return {
         ...state,
-        assetList: assetList,
+        assetInfo: assetList,
       };
     }
     case "App/currentUserAppData": {
@@ -31,7 +31,7 @@ export const appReducer: MainReducer<"App"> = (
     case "App/clearCurrentUser": {
       return {
         ...state,
-        currentUserInfo: {...initialAppState.currentUserInfo}
+        currentUserInfo: { ...initialAppState.currentUserInfo },
       };
     }
     case "App/userTeamGentex": {

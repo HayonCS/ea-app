@@ -8,6 +8,7 @@ import { MesProcessDataPort } from "rest-endpoints/mes-process-data/port";
 import { ProcessDataRedisPort } from "domain-services/process-data-redis/port";
 import { MesBiPort } from "rest-endpoints/mes-bi/port";
 import { RepositoriesPort } from "records";
+import { SnRow } from "records/processdata";
 
 const queryResolvers: QueryResolvers = {
   mesUserInfo: async (parent, args, ctx) => {
@@ -120,7 +121,7 @@ const queryResolvers: QueryResolvers = {
         return rows;
       });
     assetData = assetData.filter(
-      (x) => x.Asset.includes("CMB") || x.Asset.includes("MR")
+      (x) => x.Asset.startsWith("CMB") || x.Asset.startsWith("MR")
     );
     return assetData;
   },
@@ -150,18 +151,39 @@ const queryResolvers: QueryResolvers = {
         const rows = await domCtx.processdata.asset.getRows();
         return rows;
       });
-    assetData = assetData.filter((x) => x.Asset.includes("PCB"));
+    assetData = assetData.filter((x) => x.Asset.startsWith("PCB"));
     return assetData;
   },
 
   comboRowsDateRange: async (parent, args, ctx) => {
+    // const testRows = await ctx
+    //   .get(RepositoriesPort)
+    //   .domain("WebDC", async (domCtx) => {
+    //     const start = new Date(args.start);
+    //     const end = new Date(args.end);
+    //     const rows = await domCtx.combodata.sn.getRowsDateRange(start, end);
+    //     return rows;
+    //   });
+    // return testRows;
     const testRows = await ctx
       .get(RepositoriesPort)
       .domain("WebDC", async (domCtx) => {
         const start = new Date(args.start);
         const end = new Date(args.end);
-        const rows = await domCtx.combodata.sn.getRowsDateRange(start, end);
-        return rows;
+        let assetList = await domCtx.combodata.asset.getRows();
+        assetList = assetList.filter(
+          (x) => x.Asset.startsWith("CMB") || x.Asset.startsWith("MR")
+        );
+        let totalRows: SnRow[] = [];
+        for (const asset of assetList) {
+          const rows = await domCtx.combodata.sn.getRowsByAssetDateRange(
+            asset.AssetID,
+            start,
+            end
+          );
+          totalRows = totalRows.concat(rows);
+        }
+        return totalRows;
       });
     return testRows;
   },

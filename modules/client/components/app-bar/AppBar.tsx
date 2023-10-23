@@ -49,9 +49,10 @@ import {
   useGetUserAppDataQuery,
   useGetProcessPartDataQuery,
   useGetProcessAssetDataQuery,
+  useGetCycleTimesLineOperationPartQuery,
 } from "client/graphql/types.gen";
 import { AssetRow, PnRow } from "records/combodata";
-import { AssetInfo } from "rest-endpoints/mes-bi/mes-bi";
+import { AssetInfo, LineOperationPart } from "rest-endpoints/mes-bi/mes-bi";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -136,6 +137,11 @@ export const AppBarMenu: React.FC<{}> = () => {
     (assetList: AssetInfo[]) => dispatch(Actions.App.assetList(assetList)),
     [dispatch]
   );
+  const setCycleTimeRedux = React.useCallback(
+    (cycleTimeInfo: LineOperationPart[]) =>
+      dispatch(Actions.App.cycleTimeInfo(cycleTimeInfo)),
+    [dispatch]
+  );
   const setCurrentUserRedux = React.useCallback(
     (userInfo: UserInformation) =>
       dispatch(Actions.App.currentUserInfo(userInfo)),
@@ -161,29 +167,14 @@ export const AppBarMenu: React.FC<{}> = () => {
 
   const userInfo = useUserInformation(username ?? "");
 
-  const comboPartData = useGetComboPartDataQuery({
-    fetchPolicy: "cache-and-network",
-  });
-  const comboAssetData = useGetComboAssetDataQuery({
-    fetchPolicy: "cache-and-network",
-  });
-  const processPartData = useGetProcessPartDataQuery({
-    fetchPolicy: "cache-and-network",
-  });
-  const processAssetData = useGetProcessAssetDataQuery({
-    fetchPolicy: "cache-and-network",
-  });
+  const comboPartData = useGetComboPartDataQuery();
+  const comboAssetData = useGetComboAssetDataQuery();
+  const processPartData = useGetProcessPartDataQuery();
+  const processAssetData = useGetProcessAssetDataQuery();
 
-  const assetList = useGetAssetListBiQuery({
-    // skip:
-    //   userInfo === "Error" || userInfo === "Loading" || userInfo === "Unknown",
-    // skip: location.pathname.includes("login"),
-    fetchPolicy: "cache-and-network",
-  });
-
-  const employeeDirectory = useGetEmployeeDirectoryQuery({
-    fetchPolicy: "cache-and-network",
-  });
+  const assetList = useGetAssetListBiQuery();
+  const cycleTimeInfo = useGetCycleTimesLineOperationPartQuery();
+  const employeeDirectory = useGetEmployeeDirectoryQuery();
 
   const userAppData = useGetUserAppDataQuery({
     variables: {
@@ -231,7 +222,17 @@ export const AppBarMenu: React.FC<{}> = () => {
       comboPartData.data.comboPartData &&
       comboPartData.data.comboPartData.length > 0
     ) {
-      setComboPartDataRedux(comboPartData.data.comboPartData);
+      let partData = comboPartData.data.comboPartData;
+      partData = partData.filter(
+        (x) =>
+          !x.PartNumber.includes("I") &&
+          !x.PartNumber.includes("E") &&
+          !x.PartNumber.includes("U") &&
+          !x.PartNumber.includes("A") &&
+          !x.PartNumber.includes("L") &&
+          !x.PartNumber.includes("0000")
+      );
+      setComboPartDataRedux(partData);
     }
   }, [comboPartData]);
 
@@ -245,6 +246,7 @@ export const AppBarMenu: React.FC<{}> = () => {
       comboAssetData.data.comboAssetData &&
       comboAssetData.data.comboAssetData.length > 0
     ) {
+      // console.log(comboAssetData.data.comboAssetData);
       setComboAssetDataRedux(comboAssetData.data.comboAssetData);
     }
   }, [comboAssetData]);
@@ -341,6 +343,41 @@ export const AppBarMenu: React.FC<{}> = () => {
       setAssetListRedux(assetsBi);
     }
   }, [assetList, setAssetListRedux]);
+
+  React.useEffect(() => {
+    if (
+      cycleTimeInfo &&
+      cycleTimeInfo.called &&
+      !cycleTimeInfo.loading &&
+      cycleTimeInfo.data &&
+      cycleTimeInfo.data.cycleTimesLineOperationPart &&
+      cycleTimeInfo.data.cycleTimesLineOperationPart.length > 0
+    ) {
+      let cyclesMap: LineOperationPart[] =
+        cycleTimeInfo.data.cycleTimesLineOperationPart.map((x) => {
+          const cycle: LineOperationPart = {
+            orgCode: x.orgCode,
+            line: x.line,
+            partNumber: x.partNumber,
+            partNumberAsset: x.partNumberAsset ?? null,
+            ebsOperation: x.ebsOperation,
+            averageCycleTime: x.averageCycleTime,
+            minimumRepeatable: x.minimumRepeatable,
+            historicalReferenceUsageRate:
+              x.historicalReferenceUsageRate ?? null,
+            autoUpdate: x.autoUpdate,
+            recordLastUpdated: x.recordLastUpdated,
+            updatedBy: x.updatedBy,
+            comments: x.comments ?? null,
+          };
+          return cycle;
+        });
+      cyclesMap = cyclesMap.sort((a, b) =>
+        a.partNumber.localeCompare(b.partNumber)
+      );
+      setCycleTimeRedux(cyclesMap);
+    }
+  }, [cycleTimeInfo, setCycleTimeRedux]);
 
   React.useEffect(() => {
     if (

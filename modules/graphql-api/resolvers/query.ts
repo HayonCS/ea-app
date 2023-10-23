@@ -62,6 +62,13 @@ const queryResolvers: QueryResolvers = {
     return asset;
   },
 
+  cycleTimesLineOperationPart: async (parent, args, ctx) => {
+    const cycleTimes = await ctx
+      .get(MesBiPort)
+      .getCycleTimesLineOperationPart();
+    return cycleTimes;
+  },
+
   getProcessDataExport: async (parent, args, ctx) => {
     const processData = await ctx
       .get(MesProcessDataPort)
@@ -108,7 +115,8 @@ const queryResolvers: QueryResolvers = {
         !x.PartNumber.includes("E") &&
         !x.PartNumber.includes("U") &&
         !x.PartNumber.includes("A") &&
-        !x.PartNumber.includes("L")
+        !x.PartNumber.includes("L") &&
+        !x.PartNumber.includes("0000")
     );
     return partData;
   },
@@ -120,9 +128,9 @@ const queryResolvers: QueryResolvers = {
         const rows = await domCtx.combodata.asset.getRows();
         return rows;
       });
-    assetData = assetData.filter(
-      (x) => x.Asset.startsWith("CMB") || x.Asset.startsWith("MR")
-    );
+    // assetData = assetData.filter(
+    //   (x) => x.Asset.startsWith("CMB") || x.Asset.startsWith("MR")
+    // );
     return assetData;
   },
 
@@ -156,36 +164,52 @@ const queryResolvers: QueryResolvers = {
   },
 
   comboRowsDateRange: async (parent, args, ctx) => {
+    let testRows = await ctx
+      .get(RepositoriesPort)
+      .domain("WebDC", async (domCtx) => {
+        const start = new Date(args.start);
+        const end = new Date(args.end);
+        const rows = await domCtx.combodata.sn.getRowsDateRange(
+          start,
+          end,
+          args.assetIds ?? undefined,
+          args.partIds ?? undefined,
+          args.operatorIds ?? undefined
+        );
+        return rows;
+      });
+    testRows = testRows.sort((a, b) => a.AssetID - b.AssetID);
+    // partData = partData.filter(
+    //   (x) =>
+    //     !x.PartNumber.includes("I") &&
+    //     !x.PartNumber.includes("E") &&
+    //     !x.PartNumber.includes("U") &&
+    //     !x.PartNumber.includes("A") &&
+    //     !x.PartNumber.includes("L") &&
+    //     !x.PartNumber.includes("0000")
+    // );
+    return testRows;
     // const testRows = await ctx
     //   .get(RepositoriesPort)
     //   .domain("WebDC", async (domCtx) => {
     //     const start = new Date(args.start);
     //     const end = new Date(args.end);
-    //     const rows = await domCtx.combodata.sn.getRowsDateRange(start, end);
-    //     return rows;
+    //     let assetList = await domCtx.combodata.asset.getRows();
+    //     assetList = assetList.filter(
+    //       (x) => x.Asset.startsWith("CMB") || x.Asset.startsWith("MR")
+    //     );
+    //     let totalRows: SnRow[] = [];
+    //     for (const asset of assetList) {
+    //       const rows = await domCtx.combodata.sn.getRowsByAssetDateRange(
+    //         asset.AssetID,
+    //         start,
+    //         end
+    //       );
+    //       totalRows = totalRows.concat(rows);
+    //     }
+    //     return totalRows;
     //   });
     // return testRows;
-    const testRows = await ctx
-      .get(RepositoriesPort)
-      .domain("WebDC", async (domCtx) => {
-        const start = new Date(args.start);
-        const end = new Date(args.end);
-        let assetList = await domCtx.combodata.asset.getRows();
-        assetList = assetList.filter(
-          (x) => x.Asset.startsWith("CMB") || x.Asset.startsWith("MR")
-        );
-        let totalRows: SnRow[] = [];
-        for (const asset of assetList) {
-          const rows = await domCtx.combodata.sn.getRowsByAssetDateRange(
-            asset.AssetID,
-            start,
-            end
-          );
-          totalRows = totalRows.concat(rows);
-        }
-        return totalRows;
-      });
-    return testRows;
   },
 
   comboRowsByAssetDateRange: async (parent, args, ctx) => {

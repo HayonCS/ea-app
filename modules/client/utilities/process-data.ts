@@ -4,6 +4,7 @@ import {
   ProcessDataOperatorTotals,
 } from "./types";
 import { getPartCycleTime } from "./mes";
+import { LineOperationPart } from "rest-endpoints/mes-bi/mes-bi";
 
 export const getFinalProcessDataOperator = (
   processData: ProcessDataExport[]
@@ -146,7 +147,8 @@ export const getFinalProcessDataPart = (processData: ProcessDataExport[]) => {
 
 export const getFinalProcessDataOperatorTotals = async (
   processData: ProcessDataOperator[],
-  orgCode: number
+  orgCode: number,
+  cycleTimeInfo: LineOperationPart[]
 ) => {
   let processOperators: ProcessDataOperatorTotals[] = [];
   let cycleTimeList: { part: string; asset: string; cycle: number }[] = [];
@@ -161,17 +163,33 @@ export const getFinalProcessDataOperatorTotals = async (
         cycleTime = foundCycle.cycle;
       } else {
         if (row.Asset.includes("CMB2")) {
-          cycleTime = await getPartCycleTime(row.PartNumber, orgCode, "Combo2");
-        } else if (row.Asset.includes("CMB")) {
-          cycleTime = await getPartCycleTime(row.PartNumber, orgCode, "Combo");
-        } else if (row.Asset.includes("MR")) {
-          cycleTime = await getPartCycleTime(
+          cycleTime = getPartCycleTime(
             row.PartNumber,
             orgCode,
-            "MonoRail"
+            "Combo2",
+            cycleTimeInfo
+          );
+        } else if (row.Asset.includes("CMB")) {
+          cycleTime = getPartCycleTime(
+            row.PartNumber,
+            orgCode,
+            "Combo",
+            cycleTimeInfo
+          );
+        } else if (row.Asset.includes("MR")) {
+          cycleTime = getPartCycleTime(
+            row.PartNumber,
+            orgCode,
+            "MonoRail",
+            cycleTimeInfo
           );
         } else if (row.Asset.includes("PCB")) {
-          cycleTime = await getPartCycleTime(row.PartNumber, orgCode, "Press");
+          cycleTime = getPartCycleTime(
+            row.PartNumber,
+            orgCode,
+            "Press",
+            cycleTimeInfo
+          );
         }
         cycleTimeList.push({
           part: row.PartNumber,
@@ -222,17 +240,33 @@ export const getFinalProcessDataOperatorTotals = async (
         cycleTime = foundCycle.cycle;
       } else {
         if (row.Asset.includes("CMB2")) {
-          cycleTime = await getPartCycleTime(row.PartNumber, orgCode, "Combo2");
-        } else if (row.Asset.includes("CMB")) {
-          cycleTime = await getPartCycleTime(row.PartNumber, orgCode, "Combo");
-        } else if (row.Asset.includes("MR")) {
-          cycleTime = await getPartCycleTime(
+          cycleTime = getPartCycleTime(
             row.PartNumber,
             orgCode,
-            "MonoRail"
+            "Combo2",
+            cycleTimeInfo
+          );
+        } else if (row.Asset.includes("CMB")) {
+          cycleTime = getPartCycleTime(
+            row.PartNumber,
+            orgCode,
+            "Combo",
+            cycleTimeInfo
+          );
+        } else if (row.Asset.includes("MR")) {
+          cycleTime = getPartCycleTime(
+            row.PartNumber,
+            orgCode,
+            "MonoRail",
+            cycleTimeInfo
           );
         } else if (row.Asset.includes("PCB")) {
-          cycleTime = await getPartCycleTime(row.PartNumber, orgCode, "Press");
+          cycleTime = getPartCycleTime(
+            row.PartNumber,
+            orgCode,
+            "Press",
+            cycleTimeInfo
+          );
         }
         cycleTimeList.push({
           part: row.PartNumber,
@@ -283,7 +317,8 @@ export const getFinalProcessDataOperatorTotals = async (
 
 export const getFinalProcessDataPartTotals = async (
   processData: ProcessDataOperator[],
-  orgCode: number
+  orgCode: number,
+  cycleTimeInfo: LineOperationPart[]
 ) => {
   let processOperators: ProcessDataOperatorTotals[] = [];
   let cycleTimeList: { part: string; asset: string; cycle: number }[] = [];
@@ -298,17 +333,33 @@ export const getFinalProcessDataPartTotals = async (
         cycleTime = foundCycle.cycle;
       } else {
         if (row.Asset.includes("CMB2")) {
-          cycleTime = await getPartCycleTime(row.PartNumber, orgCode, "Combo2");
-        } else if (row.Asset.includes("CMB")) {
-          cycleTime = await getPartCycleTime(row.PartNumber, orgCode, "Combo");
-        } else if (row.Asset.includes("MR")) {
-          cycleTime = await getPartCycleTime(
+          cycleTime = getPartCycleTime(
             row.PartNumber,
             orgCode,
-            "MonoRail"
+            "Combo2",
+            cycleTimeInfo
+          );
+        } else if (row.Asset.includes("CMB")) {
+          cycleTime = getPartCycleTime(
+            row.PartNumber,
+            orgCode,
+            "Combo",
+            cycleTimeInfo
+          );
+        } else if (row.Asset.includes("MR")) {
+          cycleTime = getPartCycleTime(
+            row.PartNumber,
+            orgCode,
+            "MonoRail",
+            cycleTimeInfo
           );
         } else if (row.Asset.includes("PCB")) {
-          cycleTime = await getPartCycleTime(row.PartNumber, orgCode, "Press");
+          cycleTime = getPartCycleTime(
+            row.PartNumber,
+            orgCode,
+            "Press",
+            cycleTimeInfo
+          );
         }
         cycleTimeList.push({
           part: row.PartNumber,
@@ -359,17 +410,33 @@ export const getFinalProcessDataPartTotals = async (
         cycleTime = foundCycle.cycle;
       } else {
         if (row.Asset.includes("CMB2")) {
-          cycleTime = await getPartCycleTime(row.PartNumber, orgCode, "Combo2");
-        } else if (row.Asset.includes("CMB")) {
-          cycleTime = await getPartCycleTime(row.PartNumber, orgCode, "Combo");
-        } else if (row.Asset.includes("MR")) {
-          cycleTime = await getPartCycleTime(
+          cycleTime = getPartCycleTime(
             row.PartNumber,
             orgCode,
-            "MonoRail"
+            "Combo2",
+            cycleTimeInfo
+          );
+        } else if (row.Asset.includes("CMB")) {
+          cycleTime = getPartCycleTime(
+            row.PartNumber,
+            orgCode,
+            "Combo",
+            cycleTimeInfo
+          );
+        } else if (row.Asset.includes("MR")) {
+          cycleTime = getPartCycleTime(
+            row.PartNumber,
+            orgCode,
+            "MonoRail",
+            cycleTimeInfo
           );
         } else if (row.Asset.includes("PCB")) {
-          cycleTime = await getPartCycleTime(row.PartNumber, orgCode, "Press");
+          cycleTime = getPartCycleTime(
+            row.PartNumber,
+            orgCode,
+            "Press",
+            cycleTimeInfo
+          );
         }
         cycleTimeList.push({
           part: row.PartNumber,

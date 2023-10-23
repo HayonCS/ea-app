@@ -10,6 +10,7 @@ scalar RunningNowItem
 scalar PartDataRow
 scalar AssetDataRow
 scalar SerialDataRow
+scalar Decimal
 
 """
 A type used to represent a Bi Asset's information.
@@ -29,6 +30,21 @@ type AssetInfo {
   autoUpdate: Boolean!
   recordLastUpdated: String!
   updatedBy: String!
+}
+
+type LineOperationPart {
+  orgCode: Int!
+  line: String!
+  partNumber: String!
+  partNumberAsset: String
+  ebsOperation: String!
+  averageCycleTime: Decimal
+  minimumRepeatable: Decimal
+  historicalReferenceUsageRate: String
+  autoUpdate: Boolean!
+  recordLastUpdated: String!
+  updatedBy: String!
+  comments: String
 }
 
 """
@@ -117,6 +133,8 @@ type Query {
   """
   getAssetByName(assetName: String!): AssetInfo
 
+  cycleTimesLineOperationPart: [LineOperationPart!]!
+
   """
   Retrieves a user's app data based on their User ID.
   """
@@ -154,7 +172,13 @@ type Query {
 
   processAssetData: [AssetDataRow!]!
 
-  comboRowsDateRange(start: String!, end: String!): [SerialDataRow!]!
+  comboRowsDateRange(
+    start: String!
+    end: String!
+    assetIds: [Int!]
+    partIds: [Int!]
+    operatorIds: [Int!]
+  ): [SerialDataRow!]!
 
   comboRowsByAssetDateRange(
     assetId: Int!

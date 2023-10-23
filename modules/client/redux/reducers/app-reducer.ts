@@ -14,6 +14,13 @@ export const appReducer: MainReducer<"App"> = (
         assetInfo: assetList,
       };
     }
+    case "App/cycleTimeInfo": {
+      const { cycleTimeInfo } = action.payload;
+      return {
+        ...state,
+        cycleTimeInfo: cycleTimeInfo,
+      };
+    }
     case "App/currentUserAppData": {
       const { userData } = action.payload;
       return {

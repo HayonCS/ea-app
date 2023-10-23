@@ -1,7 +1,7 @@
 import { ActionType } from "client/redux/types";
 import { UserInformation } from "core/schemas/user-information.gen";
 import { UserAppData } from "core/schemas/user-app-data.gen";
-import { AssetInfo } from "rest-endpoints/mes-bi/mes-bi";
+import { AssetInfo, LineOperationPart } from "rest-endpoints/mes-bi/mes-bi";
 
 export const AppActions = {
   assetList: (assetList: AssetInfo[]) =>
@@ -9,6 +9,13 @@ export const AppActions = {
       type: "App/assetList",
       payload: {
         assetList,
+      },
+    } as const),
+  cycleTimeInfo: (cycleTimeInfo: LineOperationPart[]) =>
+    ({
+      type: "App/cycleTimeInfo",
+      payload: {
+        cycleTimeInfo,
       },
     } as const),
   currentUserAppData: (userData: UserAppData) =>

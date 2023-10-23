@@ -182,13 +182,78 @@ export class SnComboRecordRepository extends RepositoryBase(ComboDataRecord) {
     return sqlData;
   };
 
-  getRowsDateRange = async (startDate: Date, endDate: Date) => {
+  getRowsDateRange = async (
+    startDate: Date,
+    endDate: Date,
+    assetIds?: number[],
+    partIds?: number[],
+    operatorIds?: number[]
+  ) => {
     const start = dateToString(startDate);
     const end = dateToString(endDate);
-    const sqlData = await this.db.raw(
-      `SELECT * FROM COMBODATA.dbo.SN WHERE TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
-    );
-    const result: SnRow[] = sqlData.map((x: any) => {
+    // const sqlData = await this.db.raw(
+    //   `SELECT * FROM COMBODATA.dbo.SN WHERE TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
+    // );
+    // const result: SnRow[] = sqlData.map((x: any) => {
+    //   const row: SnRow = {
+    //     SNID: x["SNID"],
+    //     PNID: x["PNID"],
+    //     AssetID: x["ASSET_ID"],
+    //     TestDateTime: new Date(x["TESTDATETIME"]),
+    //     Failed: x["FAILED"],
+    //     Retest: x["RETEST"],
+    //     Traceable: x["TRACEABLE"],
+    //     TagCount: x["TAGCNT"],
+    //     SN: x["SN"],
+    //     RevID: x["REVID"],
+    //     FailCount: x["FAILCNT"],
+    //     FailedTags: x["FAILEDTAGS"],
+    //     OperID: x["OPERID"],
+    //     Barcode: x["BARCODE"],
+    //     MetaDataID: x["METADATAID"],
+    //     OperatorID: x["OPERATORID"],
+    //     OperationID: x["OPERATIONID"],
+    //   };
+    //   return row;
+    // });
+    // return result;
+    const providedAssets = assetIds && assetIds.length > 0;
+    const providedParts = partIds && partIds.length > 0;
+    const providedOperators = operatorIds && operatorIds.length > 0;
+    let connStr = `SELECT * FROM COMBODATA.dbo.SN WHERE `;
+    // str += providedAssets || providedParts || providedOperators ? " WHERE " : ""
+    if (providedAssets) {
+      for (let i = 0; i < assetIds.length; ++i) {
+        if (i === 0) connStr += "(";
+        connStr += `ASSET_ID = ${assetIds[i]}`;
+        if (i < assetIds.length - 1) connStr += " OR ";
+        else if (i === assetIds.length - 1) connStr += ")";
+      }
+      connStr += " AND ";
+    }
+    if (providedParts) {
+      for (let i = 0; i < partIds.length; ++i) {
+        if (i === 0) connStr += "(";
+        connStr += `PNID = ${partIds[i]}`;
+        if (i < partIds.length - 1) connStr += " OR ";
+        else if (i === partIds.length - 1) connStr += ")";
+      }
+      connStr += " AND ";
+    }
+    if (providedOperators) {
+      for (let i = 0; i < operatorIds.length; ++i) {
+        if (i === 0) connStr += "(";
+        connStr += `OPERATORID = ${operatorIds[i]}`;
+        if (i < operatorIds.length - 1) connStr += " OR ";
+        else if (i === operatorIds.length - 1) connStr += ")";
+      }
+      connStr += " AND ";
+    }
+    connStr += `(TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}')`;
+    // console.log(connStr);
+    // const sqlData = await this.db.raw(`SELECT * FROM COMBODATA.dbo.ASSET`);
+    const sqlData = await this.db.raw(connStr);
+    let result: SnRow[] = sqlData.map((x: any) => {
       const row: SnRow = {
         SNID: x["SNID"],
         PNID: x["PNID"],
@@ -210,6 +275,10 @@ export class SnComboRecordRepository extends RepositoryBase(ComboDataRecord) {
       };
       return row;
     });
+    result = result.sort(
+      (a, b) => a.TestDateTime.getTime() - b.TestDateTime.getTime()
+    );
+    result = result.sort((a, b) => a.AssetID - b.AssetID);
     return result;
   };
 

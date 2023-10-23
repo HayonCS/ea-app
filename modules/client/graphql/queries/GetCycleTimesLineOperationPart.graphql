@@ -1,0 +1,16 @@
+query GetCycleTimesLineOperationPart {
+  cycleTimesLineOperationPart {
+    orgCode
+    line
+    partNumber
+    partNumberAsset
+    ebsOperation
+    averageCycleTime
+    minimumRepeatable
+    historicalReferenceUsageRate
+    autoUpdate
+    recordLastUpdated
+    updatedBy
+    comments
+  }
+}

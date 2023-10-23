@@ -1,18 +1,3 @@
-export interface LineOperationPart {
-  orgCode: string;
-  line: string;
-  partNumber: string;
-  partNumberAsset: string | null;
-  ebsOperation: string;
-  averageCycleTime: number;
-  minimumRepeatable: number;
-  historicalReferenceUsageRate: string | null;
-  autoUpdate: boolean;
-  recordLastUpdated: string;
-  updatedBy: string;
-  comments: string | null;
-}
-
 export interface BiAssetInfo {
   assetName: string;
   serial: string;

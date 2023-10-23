@@ -49,11 +49,7 @@ import { getProcessDataExportRange } from "client/utilities/redis";
 import { useSelector } from "react-redux";
 import { UserDisplayClickGentex } from "client/components/user-display/UserDisplayClickGentex";
 import { Close, FilterList } from "@mui/icons-material";
-import {
-  ProcessDataExport,
-  ProcessDataOperatorTotals,
-  ProcessDataRawData,
-} from "client/utilities/types";
+import { ProcessDataExport, ProcessDataRawData } from "client/utilities/types";
 import {
   getFinalProcessDataPart,
   getFinalProcessDataPartTotals,
@@ -70,10 +66,15 @@ import {
   useGetProcessRowsDateRangeLazyQuery,
 } from "client/graphql/types.gen";
 import {
+  StatsDataOperatorRow,
   getFinalDataOperator,
   getFinalProcessDataOperatorTotals,
+  getStatsDataOperatorRows,
 } from "client/utilities/webdc-data";
 import { SnRow } from "records/combodata";
+import { AssetInfoHover } from "./AssetInfoHover";
+import { AssetInfo } from "rest-endpoints/mes-bi/mes-bi";
+import { groupBy } from "client/utilities/array-util";
 
 const TabPanel = (props: any) => {
   const { children, value, index, ...other } = props;
@@ -217,6 +218,9 @@ export const Statistics: React.FC<{}> = () => {
   const processPartData = useSelector(Selectors.ProcessData.partData);
   const processAssetData = useSelector(Selectors.ProcessData.assetData);
 
+  const assetBiData = useSelector(Selectors.App.assetList);
+  const cycleTimeInfo = useSelector(Selectors.App.cycleTimeInfo);
+
   // const teamGentexRedux = useSelector(Selectors.App.currentUserTeamInfo);
   const employeeDirectory = useSelector(Selectors.App.employeeActiveDirectory);
   const userDataRedux = useSelector(Selectors.App.currentUserAppData);
@@ -260,9 +264,8 @@ export const Statistics: React.FC<{}> = () => {
   }>({ operators: [], assets: [], parts: [] });
   const [filtersAssetOperatorRadio, setFiltersAssetOperatorRadio] =
     React.useState("AllOperators");
-  const [selectedAssetsOperator, setSelectedAssetsOperator] = React.useState<
-    string[]
-  >([]);
+  const [selectedAssetsOperator, setSelectedAssetsOperator] =
+    React.useState<string>("");
   const [checkboxDateAssetOperator, setCheckboxDateAssetOperator] =
     React.useState(false);
   const [startDateAssetOperator, setStartDateAssetOperator] = React.useState(
@@ -273,10 +276,10 @@ export const Statistics: React.FC<{}> = () => {
   );
 
   const [rowsAssetOperator, setRowsAssetOperator] = React.useState<
-    ProcessDataOperatorTotals[]
+    StatsDataOperatorRow[]
   >([]);
   const [rowsFilteredAssetOperator, setRowsFilteredAssetOperator] =
-    React.useState<ProcessDataOperatorTotals[]>([]);
+    React.useState<StatsDataOperatorRow[]>([]);
   const [paginationModelAssetOperator, setPaginationModelAssetOperator] =
     React.useState<GridPaginationModel>({
       page: 0,
@@ -325,7 +328,7 @@ export const Statistics: React.FC<{}> = () => {
   //   }
   // }, [selectionAssetsRadio, comboAssetData, processAssetData]);
 
-  const loadStatsAssetOperator = async () => {
+  const loadStatsAllAssetsOperator = async () => {
     const start = dateTimeToString(startDateAssetOperator);
     const end = checkboxDateAssetOperator
       ? start
@@ -336,27 +339,43 @@ export const Statistics: React.FC<{}> = () => {
         end: end,
       },
     });
-    // void processDataQuery({
-    //   variables: {
-    //     start: start,
-    //     end: end,
-    //   },
-    // });
   };
 
-  function groupBy(arr: any, property: any) {
-    return arr.reduce(function (memo: any, x: any) {
-      if (!memo[x[property]]) {
-        memo[x[property]] = [];
-      }
-      memo[x[property]].push(x);
-      return memo;
-    }, {});
-  }
+  const loadStatsUserAssetsOperator = async () => {
+    const start = dateTimeToString(startDateAssetOperator);
+    const end = checkboxDateAssetOperator
+      ? start
+      : dateTimeToString(endDateAssetOperator);
+    const assetData = comboAssetData.filter((x) =>
+      userDataRedux.assetList.includes(x.Asset)
+    );
+    const assetIds = assetData.map((x) => x.AssetID);
+    void comboDataQuery({
+      variables: {
+        start: start,
+        end: end,
+        assetIds: assetIds,
+      },
+    });
+  };
+
+  const loadStatsUserOperatorsAssetsOperator = async () => {
+    const start = dateTimeToString(startDateAssetOperator);
+    const end = checkboxDateAssetOperator
+      ? start
+      : dateTimeToString(endDateAssetOperator);
+    const operatorIds = userDataRedux.operators.map((x) => +x);
+    void comboDataQuery({
+      variables: {
+        start: start,
+        end: end,
+        operatorIds: operatorIds,
+      },
+    });
+  };
 
   React.useEffect(() => {
     void (async () => {
-      console.log(comboDataResult);
       if (comboDataResult.called || processDataResult.called) {
         if (comboDataResult.loading || processDataResult.loading) {
           setLoadingAssetOperator(true);
@@ -382,35 +401,13 @@ export const Statistics: React.FC<{}> = () => {
           const comboRows = comboDataResult.data.comboRowsDateRange;
           const processRows =
             processDataResult.data?.processRowsDateRange ?? [];
-          let totals: ProcessDataOperatorTotals[] = [];
-          let groupComboRows = groupBy(comboRows, "AssetID");
-          const step = 80 / Object.keys(groupComboRows).length;
-          for (const key of Object.keys(groupComboRows)) {
-            const rows: SnRow[] = groupComboRows[key];
-            if (rows) {
-              const comboOp = getFinalDataOperator(
-                comboRows,
-                comboPartData,
-                comboAssetData
-              );
-              // const processOp = getFinalDataOperator(
-              //   processRows,
-              //   processPartData,
-              //   processAssetData
-              // );
-              const comboTotals = await getFinalProcessDataOperatorTotals(
-                comboOp,
-                userDataRedux.orgCode
-              );
-              // const processTotals = await getFinalProcessDataOperatorTotals(
-              //   processOp,
-              //   userDataRedux.orgCode
-              // );
-              totals = totals.concat(comboTotals);
-              progress += step;
-              setLoadingProgressAssetOperator(progress);
-            }
-          }
+          let totals = getStatsDataOperatorRows(
+            comboRows,
+            comboPartData,
+            comboAssetData,
+            cycleTimeInfo,
+            assetBiData
+          );
 
           // const totals = [...comboTotals, ...processTotals];
           // let totals = comboTotals.concat(processTotals);
@@ -457,7 +454,113 @@ export const Statistics: React.FC<{}> = () => {
     })();
   }, [comboDataResult, processDataResult]);
 
-  const loadAllEmployeeInfo = (processData: ProcessDataOperatorTotals[]) => {
+  // React.useEffect(() => {
+  //   void (async () => {
+  //     if (comboDataResult.called || processDataResult.called) {
+  //       if (comboDataResult.loading || processDataResult.loading) {
+  //         setLoadingAssetOperator(true);
+  //         setLoadingProgressAssetOperator(10);
+  //         enqueueSnackbar("Loading data...", {
+  //           variant: "info",
+  //           autoHideDuration: 3000,
+  //         });
+  //       } else if (comboDataResult.error || processDataResult.error) {
+  //         setLoadingAssetOperator(false);
+  //         setLoadingProgressAssetOperator(0);
+  //         enqueueSnackbar("Error querying data!", {
+  //           variant: "error",
+  //           autoHideDuration: 3000,
+  //         });
+  //       } else if (
+  //         comboDataResult.data &&
+  //         comboDataResult.data.comboRowsDateRange
+  //       ) {
+  //         setLoadingProgressAssetOperator(20);
+  //         let progress = 20;
+
+  //         const comboRows = comboDataResult.data.comboRowsDateRange;
+  //         const processRows =
+  //           processDataResult.data?.processRowsDateRange ?? [];
+  //         let totals: ProcessDataOperatorTotals[] = [];
+  //         let groupComboRows = groupBy(comboRows, "AssetID");
+  //         const step = 80 / Object.keys(groupComboRows).length;
+  //         let cycleTimeList: { part: string; asset: string; cycle: number }[] =
+  //           [];
+  //         for (const key of Object.keys(groupComboRows)) {
+  //           const rows: SnRow[] = groupComboRows[key];
+  //           if (rows) {
+  //             const comboOp = getFinalDataOperator(
+  //               comboRows,
+  //               comboPartData,
+  //               comboAssetData
+  //             );
+  //             // const processOp = getFinalDataOperator(
+  //             //   processRows,
+  //             //   processPartData,
+  //             //   processAssetData
+  //             // );
+  //             const comboTotals = await getFinalProcessDataOperatorTotals(
+  //               comboOp,
+  //               userDataRedux.orgCode,
+  //               cycleTimeList,
+  //               cycleTimeInfo
+  //             );
+  //             // const processTotals = await getFinalProcessDataOperatorTotals(
+  //             //   processOp,
+  //             //   userDataRedux.orgCode
+  //             // );
+  //             totals = totals.concat(comboTotals);
+  //             progress += step;
+  //             setLoadingProgressAssetOperator(progress);
+  //           }
+  //         }
+
+  //         // const totals = [...comboTotals, ...processTotals];
+  //         // let totals = comboTotals.concat(processTotals);
+  //         totals.forEach((x, i) => (x.id = i));
+  //         setRowSelectionModelAssetOperator([]);
+  //         setRowsAssetOperator(totals);
+  //         loadAllEmployeeInfo(totals);
+  //         setLoadingProgressAssetOperator(100);
+  //         setLoadingAssetOperator(false);
+  //         cancelLoadingAssetOperator = false;
+  //         setCancelingLoadingAssetOperator(false);
+  //         let opList = [...totals]
+  //           .map((x) => x.Operator)
+  //           .filter((v, i, a) => a.indexOf(v) === i);
+  //         let partList = [...totals]
+  //           .map((x) => x.PartNumber)
+  //           .filter((v, i, a) => a.indexOf(v) === i);
+  //         let assetList = [...totals]
+  //           .map((x) => x.Asset)
+  //           .filter((v, i, a) => a.indexOf(v) === i);
+  //         const opFilter = opList.filter((op) =>
+  //           filtersAssetOperator.operators.includes(op)
+  //         );
+  //         const partFilter = partList.filter((part) =>
+  //           filtersAssetOperator.parts.includes(part)
+  //         );
+  //         const assetFilter = assetList.filter((asset) =>
+  //           filtersAssetOperator.assets.includes(asset)
+  //         );
+  //         setFiltersAssetOperator({
+  //           operators: opFilter,
+  //           parts: partFilter,
+  //           assets: assetFilter,
+  //         });
+
+  //         setLoadingAssetOperator(false);
+  //         setLoadingProgressAssetOperator(0);
+  //         enqueueSnackbar("Loaded data successfully!", {
+  //           variant: "success",
+  //           autoHideDuration: 3000,
+  //         });
+  //       }
+  //     }
+  //   })();
+  // }, [comboDataResult, processDataResult]);
+
+  const loadAllEmployeeInfo = (processData: StatsDataOperatorRow[]) => {
     let allInfo: UserInformation[] = [];
     const ids = processData
       .map((x) => x.Operator)
@@ -488,9 +591,9 @@ export const Statistics: React.FC<{}> = () => {
       rows = rows.filter((x) => myTeam.includes(x.Operator));
     }
 
-    if (selectionAssetsRadio === "MyAssets") {
-      rows = rows.filter((x) => userDataRedux.assetList.includes(x.Asset));
-    }
+    // if (selectionAssetsRadio === "MyAssets") {
+    //   rows = rows.filter((x) => userDataRedux.assetList.includes(x.Asset));
+    // }
 
     if (filtersAssetOperatorRadio === "AllOperators") {
       setFilterOperatorUserInfo(operatorEmployeeInfo);
@@ -588,7 +691,28 @@ export const Statistics: React.FC<{}> = () => {
       description: "Asset",
       width: 110,
       renderCell: (cellValue) => {
-        return <div className={classes.cellStyle}>{cellValue.value}</div>;
+        // return <div className={classes.cellStyle}>{cellValue.value}</div>;
+        const foundAsset: AssetInfo = assetBiData.find(
+          (x) => x.assetName === cellValue.value
+        ) ?? {
+          assetName: "",
+          serial: "",
+          model: "",
+          orgCode: "0",
+          line: "-",
+          dateCreated: "",
+          notes: "",
+          reportGroupID: "",
+          excludeFromHealth: false,
+          autoUpdate: false,
+          recordLastUpdated: "",
+          updatedBy: "",
+        };
+        return (
+          <div className={classes.cellStyle}>
+            <AssetInfoHover assetInfo={foundAsset} />
+          </div>
+        );
       },
     },
     {
@@ -914,33 +1038,24 @@ export const Statistics: React.FC<{}> = () => {
                       <Typography
                         style={{ fontSize: "16px", cursor: "default" }}
                       >
-                        {selectedAssetsOperator.length > 0
-                          ? selectedAssetsOperator.join(", ")
-                          : "Choose some assets"}
+                        {selectedAssetsOperator
+                          ? selectedAssetsOperator
+                          : "Choose where to pull data from"}
                       </Typography>
                     }
                   >
                     <FormControl
                       sx={{ m: 1, width: 200, margin: "4px 20px 0 0" }}
                     >
-                      <InputLabel>Assets</InputLabel>
+                      <InputLabel>Choose...</InputLabel>
                       <Select
-                        multiple={true}
                         value={selectedAssetsOperator}
-                        onChange={(
-                          event: SelectChangeEvent<
-                            typeof selectedAssetsOperator
-                          >
-                        ) => {
-                          const {
-                            target: { value },
-                          } = event;
+                        onChange={(event: SelectChangeEvent) => {
                           setSelectedAssetsOperator(
-                            typeof value === "string" ? value.split(",") : value
+                            event.target.value as string
                           );
                         }}
-                        input={<OutlinedInput label="Assets" />}
-                        renderValue={(selected) => selected.join(", ")}
+                        input={<OutlinedInput label="Choose..." />}
                         MenuProps={{
                           PaperProps: {
                             style: {
@@ -950,16 +1065,9 @@ export const Statistics: React.FC<{}> = () => {
                           },
                         }}
                       >
-                        {selectionAssets.map((name) => (
-                          <MenuItem key={name} value={name}>
-                            <Checkbox
-                              checked={
-                                selectedAssetsOperator.indexOf(name) > -1
-                              }
-                            />
-                            <ListItemText primary={name} />
-                          </MenuItem>
-                        ))}
+                        <MenuItem value={"All Assets"}>All Assets</MenuItem>
+                        <MenuItem value={"My Assets"}>My Assets</MenuItem>
+                        <MenuItem value={"My Team"}>My Team</MenuItem>
                       </Select>
                     </FormControl>
                   </Tooltip>
@@ -1029,7 +1137,14 @@ export const Statistics: React.FC<{}> = () => {
                       variant="contained"
                       color="primary"
                       onClick={() => {
-                        void loadStatsAssetOperator();
+                        if (selectedAssetsOperator === "All Assets") {
+                          void loadStatsAllAssetsOperator();
+                        } else if (selectedAssetsOperator === "My Assets") {
+                          void loadStatsUserAssetsOperator();
+                        } else if (selectedAssetsOperator === "My Team") {
+                          void loadStatsUserOperatorsAssetsOperator();
+                        }
+
                         // setLoadingAssetOperator(true);
                       }}
                       style={{ marginLeft: "50px" }}
@@ -1226,7 +1341,7 @@ export const Statistics: React.FC<{}> = () => {
                                   event.target as HTMLInputElement
                                 ).value;
                                 setSelectionAssetsRadio(radioValue);
-                                setSelectedAssetsOperator([]);
+                                // setSelectedAssetsOperator([]);
                                 // setSelectionAssets({
                                 //   ...selectionAssets,
                                 //   assets: [],

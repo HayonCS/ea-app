@@ -1,55 +1,90 @@
 import {
   BiAssetInfo,
   EmployeeInfoGentex,
-  LineOperationPart,
   ProcessDataExport,
   ProcessDataExportRaw,
   UserInfoGentex,
 } from "./types";
 import { dateToString } from "./date-util";
 import { getUserInfoLumen } from "./redis";
+import { LineOperationPart } from "rest-endpoints/mes-bi/mes-bi";
 
-export const getPartCycleTime = async (
+// export const getPartCycleTime = async (
+//   partNumber: string,
+//   orgCode: number,
+//   assetType?: "Combo" | "Combo2" | "MonoRail" | "Press"
+// ) => {
+//   try {
+//     const url = `https://zvm-msgprod.gentex.com/MES/Client/manufacturingweb/api/v1/bi/cycletimes/lineoperationpart?orgCode=${orgCode}&partNumber=${partNumber}`;
+//     const response = await fetch(url, {
+//       method: "GET",
+//       headers: {
+//         Accept: "application/json",
+//       },
+//     });
+//     if (!response.ok) {
+//       throw new Error(`Error! status: ${response.status}`);
+//     }
+//     const result: LineOperationPart[] = await response.json();
+//     if (result.length > 0) {
+//       for (let i = 0; i < result.length; ++i) {
+//         const op = result[i].ebsOperation;
+//         const cycle = result[i].minimumRepeatable;
+//         switch (assetType) {
+//           case "Combo":
+//             if (op === "O610") return cycle;
+//             break;
+//           case "Combo2":
+//             if (op === "O612") return cycle;
+//             break;
+//           case "MonoRail":
+//             if (op === "O614") return cycle;
+//             break;
+//           case "Press":
+//             if (op === "O540") return cycle;
+//             break;
+//           default:
+//             return cycle;
+//         }
+//       }
+//     }
+//   } catch (error) {
+//     console.info(error);
+//   }
+//   return 0;
+// };
+
+export const getPartCycleTime = (
   partNumber: string,
   orgCode: number,
-  assetType?: "Combo" | "Combo2" | "MonoRail" | "Press"
+  assetType: "Combo" | "Combo2" | "MonoRail" | "Press",
+  cycleTimeInfo: LineOperationPart[]
 ) => {
-  try {
-    const url = `https://zvm-msgprod.gentex.com/MES/Client/manufacturingweb/api/v1/bi/cycletimes/lineoperationpart?orgCode=${orgCode}&partNumber=${partNumber}`;
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
-    });
-    if (!response.ok) {
-      throw new Error(`Error! status: ${response.status}`);
-    }
-    const result: LineOperationPart[] = await response.json();
-    if (result.length > 0) {
-      for (let i = 0; i < result.length; ++i) {
-        const op = result[i].ebsOperation;
-        const cycle = result[i].minimumRepeatable;
-        switch (assetType) {
-          case "Combo":
-            if (op === "O610") return cycle;
-            break;
-          case "Combo2":
-            if (op === "O612") return cycle;
-            break;
-          case "MonoRail":
-            if (op === "O614") return cycle;
-            break;
-          case "Press":
-            if (op === "O540") return cycle;
-            break;
-          default:
-            return cycle;
-        }
+  const result = cycleTimeInfo.filter(
+    (x) => x.partNumber.includes(partNumber) && x.orgCode === orgCode
+  );
+  // const result: LineOperationPart[] = await response.json();
+  if (result.length > 0) {
+    for (let i = 0; i < result.length; ++i) {
+      const op = result[i].ebsOperation;
+      const cycle = result[i].minimumRepeatable;
+      switch (assetType) {
+        case "Combo":
+          if (op === "O610") return cycle;
+          break;
+        case "Combo2":
+          if (op === "O612") return cycle;
+          break;
+        case "MonoRail":
+          if (op === "O614") return cycle;
+          break;
+        case "Press":
+          if (op === "O540") return cycle;
+          break;
+        default:
+          return cycle;
       }
     }
-  } catch (error) {
-    console.info(error);
   }
   return 0;
 };

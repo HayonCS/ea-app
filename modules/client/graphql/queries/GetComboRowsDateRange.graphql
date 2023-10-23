@@ -1,3 +1,15 @@
-query GetComboRowsDateRange($start: String!, $end: String!) {
-  comboRowsDateRange(start: $start, end: $end)
+query GetComboRowsDateRange(
+  $start: String!
+  $end: String!
+  $assetIds: [Int!]
+  $partIds: [Int!]
+  $operatorIds: [Int!]
+) {
+  comboRowsDateRange(
+    start: $start
+    end: $end
+    assetIds: $assetIds
+    partIds: $partIds
+    operatorIds: $operatorIds
+  )
 }

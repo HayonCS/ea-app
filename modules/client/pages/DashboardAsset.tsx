@@ -98,6 +98,8 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
 
   const classes = useStyles();
 
+  const cycleTimeInfo = useSelector(Selectors.App.cycleTimeInfo);
+
   const [assetName, setAssetName] = React.useState("");
   const [assetInformation, setAssetInformation] = React.useState<BiAssetInfo>();
 
@@ -222,7 +224,8 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
       // console.log(assetInformation);
       const processTotal = await getFinalProcessDataOperatorTotals(
         processOps,
-        assetInformation?.orgCode ? +assetInformation.orgCode : 14
+        assetInformation?.orgCode ? +assetInformation.orgCode : 14,
+        cycleTimeInfo
       );
       // console.log(processData);
       if (processTotal) {

@@ -18,6 +18,21 @@ export type AssetInfo = {
   updatedBy: string;
 };
 
+export type LineOperationPart = {
+  orgCode: number;
+  line: string;
+  partNumber: string;
+  partNumberAsset: string | null;
+  ebsOperation: string;
+  averageCycleTime: number;
+  minimumRepeatable: number;
+  historicalReferenceUsageRate: string | null;
+  autoUpdate: boolean;
+  recordLastUpdated: string;
+  updatedBy: string;
+  comments: string | null;
+};
+
 export async function getAssetsName(
   nameOrKeyword: string
 ): Promise<AssetInfo[]> {
@@ -71,4 +86,23 @@ export async function getAssetsAll(): Promise<AssetInfo[]> {
 
   const result = await response.json();
   return result as AssetInfo[];
+}
+
+export async function getCycleTimesLineOperationPart(): Promise<
+  LineOperationPart[]
+> {
+  const url =
+    config.get<string>("mesRestApi.mesBiEndpoint") +
+    "cycletimes/lineoperationpart";
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  });
+
+  const result = await response.json();
+  return result as LineOperationPart[];
 }

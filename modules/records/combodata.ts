@@ -51,6 +51,7 @@ export type SnRow = {
 };
 
 function dateToString(date: Date) {
+  date.setHours(date.getHours() + 4);
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();
@@ -191,38 +192,13 @@ export class SnComboRecordRepository extends RepositoryBase(ComboDataRecord) {
   ) => {
     const start = dateToString(startDate);
     const end = dateToString(endDate);
-    // const sqlData = await this.db.raw(
-    //   `SELECT * FROM COMBODATA.dbo.SN WHERE TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
-    // );
-    // const result: SnRow[] = sqlData.map((x: any) => {
-    //   const row: SnRow = {
-    //     SNID: x["SNID"],
-    //     PNID: x["PNID"],
-    //     AssetID: x["ASSET_ID"],
-    //     TestDateTime: new Date(x["TESTDATETIME"]),
-    //     Failed: x["FAILED"],
-    //     Retest: x["RETEST"],
-    //     Traceable: x["TRACEABLE"],
-    //     TagCount: x["TAGCNT"],
-    //     SN: x["SN"],
-    //     RevID: x["REVID"],
-    //     FailCount: x["FAILCNT"],
-    //     FailedTags: x["FAILEDTAGS"],
-    //     OperID: x["OPERID"],
-    //     Barcode: x["BARCODE"],
-    //     MetaDataID: x["METADATAID"],
-    //     OperatorID: x["OPERATORID"],
-    //     OperationID: x["OPERATIONID"],
-    //   };
-    //   return row;
-    // });
-    // return result;
-    const providedAssets = assetIds && assetIds.length > 0;
-    const providedParts = partIds && partIds.length > 0;
-    const providedOperators = operatorIds && operatorIds.length > 0;
+    // const providedAssets = assetIds && assetIds.length > 0;
+    // const providedParts = partIds && partIds.length > 0;
+    // const providedOperators = operatorIds && operatorIds.length > 0;
+    console.log(`Start: ${start}, End: ${end}`);
     let connStr = `SELECT * FROM COMBODATA.dbo.SN WHERE `;
     // str += providedAssets || providedParts || providedOperators ? " WHERE " : ""
-    if (providedAssets) {
+    if (assetIds && assetIds.length > 0) {
       for (let i = 0; i < assetIds.length; ++i) {
         if (i === 0) connStr += "(";
         connStr += `ASSET_ID = ${assetIds[i]}`;
@@ -230,8 +206,10 @@ export class SnComboRecordRepository extends RepositoryBase(ComboDataRecord) {
         else if (i === assetIds.length - 1) connStr += ")";
       }
       connStr += " AND ";
+    } else if (assetIds) {
+      return [];
     }
-    if (providedParts) {
+    if (partIds && partIds.length > 0) {
       for (let i = 0; i < partIds.length; ++i) {
         if (i === 0) connStr += "(";
         connStr += `PNID = ${partIds[i]}`;
@@ -239,8 +217,10 @@ export class SnComboRecordRepository extends RepositoryBase(ComboDataRecord) {
         else if (i === partIds.length - 1) connStr += ")";
       }
       connStr += " AND ";
+    } else if (partIds) {
+      return [];
     }
-    if (providedOperators) {
+    if (operatorIds && operatorIds.length > 0) {
       for (let i = 0; i < operatorIds.length; ++i) {
         if (i === 0) connStr += "(";
         connStr += `OPERATORID = ${operatorIds[i]}`;
@@ -248,17 +228,21 @@ export class SnComboRecordRepository extends RepositoryBase(ComboDataRecord) {
         else if (i === operatorIds.length - 1) connStr += ")";
       }
       connStr += " AND ";
+    } else if (operatorIds) {
+      return [];
     }
     connStr += `(TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}')`;
     // console.log(connStr);
     // const sqlData = await this.db.raw(`SELECT * FROM COMBODATA.dbo.ASSET`);
     const sqlData = await this.db.raw(connStr);
     let result: SnRow[] = sqlData.map((x: any) => {
+      let date = new Date(x["TESTDATETIME"]);
+      date.setHours(date.getHours() + 4);
       const row: SnRow = {
         SNID: x["SNID"],
         PNID: x["PNID"],
         AssetID: x["ASSET_ID"],
-        TestDateTime: new Date(x["TESTDATETIME"]),
+        TestDateTime: date,
         Failed: x["FAILED"],
         Retest: x["RETEST"],
         Traceable: x["TRACEABLE"],

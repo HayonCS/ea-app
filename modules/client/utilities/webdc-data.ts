@@ -74,6 +74,7 @@ export const getStatsDataOperatorRows = (
         if (statsDataAsset) {
           const groupStatsPart = groupBy(statsDataAsset, "PNID");
           const assetInfo = assetData.find((x) => x.AssetID === +assetKey);
+          // console.log(assetInfo);
           const biInfo = assetBiInfo.find(
             (x) => x.assetName === assetInfo?.Asset
           );
@@ -129,7 +130,7 @@ export const getStatsDataOperatorRows = (
                     1800 * 1000
                 ) {
                   // if more than 30 minutes
-                  // PUSH DATA ROW
+
                   const runActual =
                     (new Date(currStatsPart.TestDateTime).getTime() -
                       startTime.getTime()) /
@@ -211,6 +212,11 @@ export const getStatsDataOperatorRows = (
       }
     }
   }
+  finalStats = finalStats.sort(
+    (a, b) => a.StartTime.getTime() - b.StartTime.getTime()
+  );
+  finalStats = finalStats.sort((a, b) => a.Asset.localeCompare(b.Asset));
+  finalStats.forEach((x, i) => (x.id = i));
   return finalStats;
 };
 

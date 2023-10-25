@@ -239,7 +239,13 @@ type Query {
     end: String!
   ): [SerialDataRow!]!
 
-  processRowsDateRange(start: String!, end: String!): [SerialDataRow!]!
+  processRowsDateRange(
+    start: String!
+    end: String!
+    assetIds: [Int!]
+    partIds: [Int!]
+    operatorIds: [Int!]
+  ): [SerialDataRow!]!
 
   processRowsByAssetDateRange(
     assetId: Int!

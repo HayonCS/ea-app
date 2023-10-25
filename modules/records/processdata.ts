@@ -51,6 +51,7 @@ export type SnRow = {
 };
 
 function dateToString(date: Date) {
+  date.setHours(date.getHours() + 4);
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();
@@ -181,23 +182,71 @@ export class SnProcessRecordRepository extends RepositoryBase(
 ) {
   showColumns = async () => {
     const sqlData = await this.db.raw(
-      `SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'SN'`
+      `SELECT * FROM PROCESSDATA.INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'AppRun'`
     );
+    // const sqlData = await this.db.raw(`SELECT * FROM PROCESSDATA.dbo.REV`);
     return sqlData;
   };
 
-  getRowsDateRange = async (startDate: Date, endDate: Date) => {
+  getRowsDateRange = async (
+    startDate: Date,
+    endDate: Date,
+    assetIds?: number[],
+    partIds?: number[],
+    operatorIds?: number[]
+  ) => {
     const start = dateToString(startDate);
     const end = dateToString(endDate);
-    const sqlData = await this.db.raw(
-      `SELECT * FROM PROCESSDATA.dbo.SN WHERE TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
-    );
-    const result: SnRow[] = sqlData.map((x: any) => {
+    // const providedAssets = assetIds && assetIds.length > 0;
+    // const providedParts = partIds && partIds.length > 0;
+    // const providedOperators = operatorIds && operatorIds.length > 0;
+    let connStr = `SELECT * FROM PROCESSDATA.dbo.SN WHERE `;
+    // str += providedAssets || providedParts || providedOperators ? " WHERE " : ""
+    if (assetIds && assetIds.length > 0) {
+      for (let i = 0; i < assetIds.length; ++i) {
+        if (i === 0) connStr += "(";
+        connStr += `ASSET_ID = ${assetIds[i]}`;
+        if (i < assetIds.length - 1) connStr += " OR ";
+        else if (i === assetIds.length - 1) connStr += ")";
+      }
+      connStr += " AND ";
+    } else if (assetIds) {
+      return [];
+    }
+    if (partIds && partIds.length > 0) {
+      for (let i = 0; i < partIds.length; ++i) {
+        if (i === 0) connStr += "(";
+        connStr += `PNID = ${partIds[i]}`;
+        if (i < partIds.length - 1) connStr += " OR ";
+        else if (i === partIds.length - 1) connStr += ")";
+      }
+      connStr += " AND ";
+    } else if (partIds) {
+      return [];
+    }
+    if (operatorIds && operatorIds.length > 0) {
+      for (let i = 0; i < operatorIds.length; ++i) {
+        if (i === 0) connStr += "(";
+        connStr += `OPERATORID = ${operatorIds[i]}`;
+        if (i < operatorIds.length - 1) connStr += " OR ";
+        else if (i === operatorIds.length - 1) connStr += ")";
+      }
+      connStr += " AND ";
+    } else if (operatorIds) {
+      return [];
+    }
+    connStr += `(TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}' AND REVID IS NOT NULL)`;
+    // console.log(connStr);
+    // const sqlData = await this.db.raw(`SELECT * FROM COMBODATA.dbo.ASSET`);
+    const sqlData = await this.db.raw(connStr);
+    let result: SnRow[] = sqlData.map((x: any) => {
+      let date = new Date(x["TESTDATETIME"]);
+      date.setHours(date.getHours() + 4);
       const row: SnRow = {
         SNID: x["SNID"],
         PNID: x["PNID"],
         AssetID: x["ASSET_ID"],
-        TestDateTime: new Date(x["TESTDATETIME"]),
+        TestDateTime: date,
         Failed: x["FAILED"],
         Retest: x["RETEST"],
         Traceable: x["TRACEABLE"],
@@ -214,7 +263,39 @@ export class SnProcessRecordRepository extends RepositoryBase(
       };
       return row;
     });
+    result = result.sort(
+      (a, b) => a.TestDateTime.getTime() - b.TestDateTime.getTime()
+    );
+    result = result.sort((a, b) => a.AssetID - b.AssetID);
     return result;
+    // const start = dateToString(startDate);
+    // const end = dateToString(endDate);
+    // const sqlData = await this.db.raw(
+    //   `SELECT * FROM PROCESSDATA.dbo.SN WHERE TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
+    // );
+    // const result: SnRow[] = sqlData.map((x: any) => {
+    //   const row: SnRow = {
+    //     SNID: x["SNID"],
+    //     PNID: x["PNID"],
+    //     AssetID: x["ASSET_ID"],
+    //     TestDateTime: new Date(x["TESTDATETIME"]),
+    //     Failed: x["FAILED"],
+    //     Retest: x["RETEST"],
+    //     Traceable: x["TRACEABLE"],
+    //     TagCount: x["TAGCNT"],
+    //     SN: x["SN"],
+    //     RevID: x["REVID"],
+    //     FailCount: x["FAILCNT"],
+    //     FailedTags: x["FAILEDTAGS"],
+    //     OperID: x["OPERID"],
+    //     Barcode: x["BARCODE"],
+    //     MetaDataID: x["METADATAID"],
+    //     OperatorID: x["OPERATORID"],
+    //     OperationID: x["OPERATIONID"],
+    //   };
+    //   return row;
+    // });
+    // return result;
   };
 
   getRowsByAssetDateRange = async (

@@ -167,8 +167,10 @@ const queryResolvers: QueryResolvers = {
     let testRows = await ctx
       .get(RepositoriesPort)
       .domain("WebDC", async (domCtx) => {
-        const start = new Date(args.start);
-        const end = new Date(args.end);
+        let start = new Date(args.start);
+        let end = new Date(args.end);
+        // start.setHours(start.getHours() + 4);
+        // end.setHours(end.getHours() + 4);
         const rows = await domCtx.combodata.sn.getRowsDateRange(
           start,
           end,
@@ -363,14 +365,21 @@ const queryResolvers: QueryResolvers = {
   },
 
   processRowsDateRange: async (parent, args, ctx) => {
-    const testRows = await ctx
+    let testRows = await ctx
       .get(RepositoriesPort)
       .domain("WebDC", async (domCtx) => {
         const start = new Date(args.start);
         const end = new Date(args.end);
-        const rows = await domCtx.processdata.sn.getRowsDateRange(start, end);
+        const rows = await domCtx.processdata.sn.getRowsDateRange(
+          start,
+          end,
+          args.assetIds ?? undefined,
+          args.partIds ?? undefined,
+          args.operatorIds ?? undefined
+        );
         return rows;
       });
+    testRows = testRows.sort((a, b) => a.AssetID - b.AssetID);
     return testRows;
   },
 

@@ -195,7 +195,6 @@ export class SnComboRecordRepository extends RepositoryBase(ComboDataRecord) {
     // const providedAssets = assetIds && assetIds.length > 0;
     // const providedParts = partIds && partIds.length > 0;
     // const providedOperators = operatorIds && operatorIds.length > 0;
-    console.log(`Start: ${start}, End: ${end}`);
     let connStr = `SELECT * FROM COMBODATA.dbo.SN WHERE `;
     // str += providedAssets || providedParts || providedOperators ? " WHERE " : ""
     if (assetIds && assetIds.length > 0) {

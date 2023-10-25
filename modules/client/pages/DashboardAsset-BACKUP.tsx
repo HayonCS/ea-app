@@ -28,23 +28,14 @@ import {
   ProcessDataExport,
   ProcessDataOperatorTotals,
 } from "../utilities/types";
-import { dateTimeToString, getHHMMSS } from "../utilities/date-util";
+import { getHHMMSS } from "../utilities/date-util";
 import { useParams } from "react-router";
-import {
-  useGetAssetByNameQuery,
-  useGetComboRowsDateRangeLazyQuery,
-  useGetProcessRowsDateRangeLazyQuery,
-} from "client/graphql/types.gen";
+import { useGetAssetByNameQuery } from "client/graphql/types.gen";
 import { useSelector } from "react-redux";
 import { Selectors } from "client/redux/selectors";
 import { UserInformation } from "core/schemas/user-information.gen";
 import { UserDisplayHover } from "client/components/user-display/UserDisplayHover";
 import { OperatorDisplayDashboard } from "client/components/user-display/OperatorDisplayDashboard";
-import {
-  StatsDataOperatorRow,
-  getStatsDataOperatorRows,
-} from "client/utilities/webdc-data";
-import { SnRow } from "records/combodata";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -87,7 +78,6 @@ interface DashboardData {
   Fails: number;
   CycleTime: number;
   CycleGoal: number;
-  LastSince: number;
   PartsPerHour: number;
   RunActual: number;
   RunTheory: number;
@@ -104,20 +94,11 @@ interface GraphData {
 export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
   const { asset } = useParams();
 
-  document.title = `Dashboard | ${props.asset ?? asset ?? "?"}`;
+  document.title = `Dashboard | ${props.asset ?? asset}`;
 
   const classes = useStyles();
 
-  const comboAssetData = useSelector(Selectors.ComboData.assetData);
-  const comboPartData = useSelector(Selectors.ComboData.partData);
-  const processAssetData = useSelector(Selectors.ProcessData.assetData);
-  const processPartData = useSelector(Selectors.ProcessData.partData);
   const cycleTimeInfo = useSelector(Selectors.App.cycleTimeInfo);
-  const assetBiData = useSelector(Selectors.App.assetList);
-
-  const [comboDataQuery, comboDataResult] = useGetComboRowsDateRangeLazyQuery();
-  const [processDataQuery, processDataResult] =
-    useGetProcessRowsDateRangeLazyQuery();
 
   const [assetName, setAssetName] = React.useState("");
   const [assetInformation, setAssetInformation] = React.useState<BiAssetInfo>();
@@ -152,16 +133,22 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
       const info: BiAssetInfo = {
         ...assetInfo.data.getAssetByName,
       };
-      setAssetInformation(info);
+      setAssetInformation((i) => info);
     }
   }, [assetInfo]);
 
-  const [assetRawData, setAssetRawData] = React.useState<SnRow[]>([]);
-  const [assetStatsData, setAssetStatsData] = React.useState<
-    StatsDataOperatorRow[]
+  // React.useEffect(() => {
+  //   console.log("INFO: " + JSON.stringify(assetInformation));
+  // }, [assetInformation]);
+
+  const [assetProcessData, setAssetProcessData] = React.useState<
+    ProcessDataExport[]
+  >([]);
+  const [assetDataTotal, setAssetDataTotal] = React.useState<
+    ProcessDataOperatorTotals[]
   >([]);
   const [assetLastData, setAssetLastData] =
-    React.useState<StatsDataOperatorRow>({
+    React.useState<ProcessDataOperatorTotals>({
       id: 0,
       Asset: props.asset ?? asset ?? "",
       PartNumber: "000-0000",
@@ -170,8 +157,13 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
       EndTime: new Date(),
       Passes: 1234,
       Fails: 123,
+      OperationId: "0",
       Line: "",
+      Label: "",
       Operator: "",
+      Revision: "",
+      Sender: "",
+      TestPlan: "",
       CycleTime: 0,
       RunActual: 0,
       RunTheory: 0,
@@ -187,7 +179,6 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
     Fails: 0,
     CycleTime: 0,
     CycleGoal: 0,
-    LastSince: 0,
     PartsPerHour: 0,
     RunActual: 0,
     RunTheory: 0,
@@ -212,45 +203,45 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
 
   const [loading, setLoading] = React.useState(true);
 
-  // const retrieveAssetData = async () => {
-  //   const dateNow = new Date();
-  //   let dateEnd = new Date(dateNow);
-  //   dateEnd.setHours(dateEnd.getHours() - 4);
-  //   // console.log(
-  //   //   `DateNow: ${dateNow.toLocaleString()}, DateEnd: ${dateEnd.toLocaleString()}`
-  //   // );
-  //   let processData = await getProcessDataExport(
-  //     props.asset ?? asset ?? "",
-  //     dateEnd,
-  //     dateNow
-  //   );
-  //   if (processData) {
-  //     processData = processData.sort(
-  //       (a, b) => a.OpEndTime.getTime() - b.OpEndTime.getTime()
-  //     );
-  //     setAssetRawData(processData);
-  //     const processOps = getFinalProcessDataOperator(processData);
-  //     // console.log(assetInformation);
-  //     const processTotal = await getFinalProcessDataOperatorTotals(
-  //       processOps,
-  //       assetInformation?.orgCode ? +assetInformation.orgCode : 14,
-  //       cycleTimeInfo
-  //     );
-  //     // console.log(processData);
-  //     if (processTotal) {
-  //       setAssetStatsData(processTotal);
-  //       if (processTotal.length > 0) {
-  //         setAssetLastData(processTotal[processTotal.length - 1]);
-  //         loadDashboardData(processData, processTotal[processTotal.length - 1]);
-  //       }
-  //     }
-  //     setLoading(false);
-  //   }
-  // };
+  const retrieveAssetData = async () => {
+    const dateNow = new Date();
+    let dateEnd = new Date(dateNow);
+    dateEnd.setHours(dateEnd.getHours() - 4);
+    // console.log(
+    //   `DateNow: ${dateNow.toLocaleString()}, DateEnd: ${dateEnd.toLocaleString()}`
+    // );
+    let processData = await getProcessDataExport(
+      props.asset ?? asset ?? "",
+      dateEnd,
+      dateNow
+    );
+    if (processData) {
+      processData = processData.sort(
+        (a, b) => a.OpEndTime.getTime() - b.OpEndTime.getTime()
+      );
+      setAssetProcessData(processData);
+      const processOps = getFinalProcessDataOperator(processData);
+      // console.log(assetInformation);
+      const processTotal = await getFinalProcessDataOperatorTotals(
+        processOps,
+        assetInformation?.orgCode ? +assetInformation.orgCode : 14,
+        cycleTimeInfo
+      );
+      // console.log(processData);
+      if (processTotal) {
+        setAssetDataTotal(processTotal);
+        if (processTotal.length > 0) {
+          setAssetLastData(processTotal[processTotal.length - 1]);
+          loadDashboardData(processData, processTotal[processTotal.length - 1]);
+        }
+      }
+      setLoading(false);
+    }
+  };
 
   const loadDashboardData = (
-    processData: SnRow[],
-    lastTotal: StatsDataOperatorRow
+    processData: ProcessDataExport[],
+    lastTotal: ProcessDataOperatorTotals
   ) => {
     let data: DashboardData = {
       Operator: lastTotal.Operator,
@@ -260,7 +251,6 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
       Fails: lastTotal.Fails,
       CycleTime: 0,
       CycleGoal: lastTotal.CycleTime,
-      LastSince: 0,
       PartsPerHour: lastTotal.PartsPerHour,
       RunActual: lastTotal.RunActual,
       RunTheory: lastTotal.RunTheory,
@@ -268,15 +258,15 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
     };
     if (processData.length > 1) {
       processData = processData.sort(
-        (a, b) => a.TestDateTime.getTime() - b.TestDateTime.getTime()
+        (a, b) => a.OpEndTime.getTime() - b.OpEndTime.getTime()
       );
 
-      let lastTest = processData[processData.length - 1].TestDateTime;
+      let lastTest = processData[processData.length - 1].OpEndTime;
       let prevTest = new Date(lastTest);
       for (let i = processData.length - 2; i >= 0; --i) {
         const test = processData[i];
-        if (test.TestDateTime.getTime() !== lastTest.getTime()) {
-          prevTest = test.TestDateTime;
+        if (test.OpEndTime.getTime() !== lastTest.getTime()) {
+          prevTest = test.OpEndTime;
           break;
         }
       }
@@ -284,7 +274,6 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
       // console.log(prevTest);
       const cycle = (lastTest.getTime() - prevTest.getTime()) / 1000;
       data.CycleTime = cycle;
-      data.LastSince = (new Date().getTime() - lastTest.getTime()) / 1000;
     }
     setDashboardData(data);
   };
@@ -298,127 +287,34 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
   //   })();
   // }, [props]);
 
-  const retrieveAssetData = () => {
-    let endDate = new Date();
-    let startDate = new Date();
-    startDate.setHours(startDate.getHours() - 24);
-    const start = dateTimeToString(startDate);
-    const end = dateTimeToString(endDate);
-    if (!assetInformation?.assetName.startsWith("PCB")) {
-      const asset = comboAssetData.find(
-        (x) => x.Asset === assetInformation?.assetName
-      );
-      console.log("Querying...");
-      void comboDataQuery({
-        variables: {
-          start: start,
-          end: end,
-          assetIds: asset ? [asset.AssetID] : undefined,
-        },
-      });
-    } else {
-      const asset = processAssetData.find(
-        (x) => x.Asset === assetInformation?.assetName
-      );
-      void processDataQuery({
-        variables: {
-          start: start,
-          end: end,
-          assetIds: asset ? [asset.AssetID] : undefined,
-        },
-      });
-    }
-  };
-
   React.useEffect(() => {
     if (assetInformation) {
-      retrieveAssetData();
+      (async () => {
+        await retrieveAssetData();
+      })();
     }
   }, [assetInformation]);
 
   React.useEffect(() => {
-    const intervalId = setInterval(() => {
-      if (assetInformation) {
-        retrieveAssetData();
-      }
-    }, 1000);
+    const intervalId = setInterval(async () => {
+      if (assetInformation) await retrieveAssetData();
+    }, 3000);
+    // const intervalId = setInterval(async () => {
+    //   await retrieveAssetData();
+    // }, 3000);
+
     return () => clearInterval(intervalId);
   }, [assetInformation]);
 
   React.useEffect(() => {
-    if (
-      comboDataResult.called &&
-      !comboDataResult.error &&
-      !comboDataResult.loading &&
-      comboDataResult.data &&
-      comboDataResult.data.comboRowsDateRange
-    ) {
-      let rawData = comboDataResult.data.comboRowsDateRange;
-      rawData = rawData.map((x) => {
-        return {
-          ...x,
-          TestDateTime: new Date(x.TestDateTime),
-        };
-      });
-      setAssetRawData(rawData);
-      const comboTotal = getStatsDataOperatorRows(
-        rawData,
-        comboPartData,
-        comboAssetData,
-        cycleTimeInfo,
-        assetBiData
-      );
-      setAssetStatsData(comboTotal);
-      if (comboTotal.length > 0) {
-        setAssetLastData(comboTotal[comboTotal.length - 1]);
-        loadDashboardData(rawData, comboTotal[comboTotal.length - 1]);
-        setLoading(false);
-      }
-    }
-  }, [comboDataResult]);
-
-  React.useEffect(() => {
-    if (
-      processDataResult.called &&
-      !processDataResult.error &&
-      !processDataResult.loading &&
-      processDataResult.data &&
-      processDataResult.data.processRowsDateRange
-    ) {
-      let rawData = processDataResult.data.processRowsDateRange;
-      rawData = rawData.map((x) => {
-        return {
-          ...x,
-          TestDateTime: new Date(x.TestDateTime),
-        };
-      });
-      setAssetRawData(rawData);
-      const processTotal = getStatsDataOperatorRows(
-        rawData,
-        processPartData,
-        processAssetData,
-        cycleTimeInfo,
-        assetBiData
-      );
-      setAssetStatsData(processTotal);
-      if (processTotal.length > 0) {
-        setAssetLastData(processTotal[processTotal.length - 1]);
-        loadDashboardData(rawData, processTotal[processTotal.length - 1]);
-        setLoading(false);
-      }
-    }
-  }, [processDataResult]);
-
-  React.useEffect(() => {
     let gData: GraphData[] = [];
-    let allData: SnRow[][] = [];
+    let allData: ProcessDataExport[][] = [];
     for (let i = 0; i < 96; ++i) {
       allData.push([]);
     }
-    assetRawData.forEach((x) => (x.TestDateTime = new Date(x.TestDateTime)));
-    assetRawData.forEach((procData) => {
-      const hr = procData.TestDateTime.getHours();
-      const mins = procData.TestDateTime.getMinutes();
+    assetProcessData.forEach((procData) => {
+      const hr = procData.OpEndTime.getHours();
+      const mins = procData.OpEndTime.getMinutes();
       for (let i = 0; i < 24; ++i) {
         if (hr === i) {
           if (mins <= 15) {
@@ -436,12 +332,12 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
     allData.forEach((procData) => {
       if (procData.length > 1) {
         let work =
-          (procData[procData.length - 1].TestDateTime.getTime() -
-            procData[0].TestDateTime.getTime()) /
+          (procData[procData.length - 1].OpEndTime.getTime() -
+            procData[0].OpEndTime.getTime()) /
           60000;
         let goal = (assetLastData.CycleTime * procData.length) / 60;
         let efficiency = (goal / work) * 100;
-        let date = procData[procData.length - 1].TestDateTime;
+        let date = procData[procData.length - 1].OpEndTime;
         const mins = date.getMinutes();
         const hours = date.getHours();
         date.setMinutes(((((mins + 7.5) / 15) | 0) * 15) % 60);
@@ -472,7 +368,7 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
       }
     }
     setGraphData(gData);
-  }, [assetLastData, assetRawData]);
+  }, [assetLastData, assetProcessData]);
 
   return (
     <div className={classes.root}>
@@ -743,29 +639,6 @@ export const DashboardAsset: React.FC<{ asset?: string }> = (props) => {
               }}
             >
               {(Math.round(dashboardData.CycleGoal * 100) / 100).toFixed(1)}
-            </Typography>
-          </div>
-          <div style={{ display: "flex", marginTop: "-20px" }}>
-            <Typography
-              style={{
-                alignSelf: "center",
-                fontSize: "24px",
-                fontWeight: "bold",
-                color: "#000",
-                paddingRight: "10px",
-              }}
-            >
-              {"Cycle Timer:"}
-            </Typography>
-            <Typography
-              style={{
-                alignSelf: "center",
-                fontSize: "64px",
-                fontWeight: "bold",
-                color: "#003BFF",
-              }}
-            >
-              {(Math.round(dashboardData.LastSince * 100) / 100).toFixed(1)}
             </Typography>
           </div>
         </div>

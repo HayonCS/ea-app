@@ -47,7 +47,7 @@ import { dateTimeToString, getHHMMSS } from "client/utilities/date-util";
 import { UserDisplayHover } from "client/components/user-display/UserDisplayHover";
 import { getProcessDataExportRange } from "client/utilities/redis";
 import { useSelector } from "react-redux";
-import { UserDisplayClickGentex } from "client/components/user-display/UserDisplayClickGentex";
+import { UserDisplayClick } from "client/components/user-display/UserDisplayClick";
 import { Close, FilterList } from "@mui/icons-material";
 import { ProcessDataExport, ProcessDataRawData } from "client/utilities/types";
 import {
@@ -60,7 +60,6 @@ import { DateTimeHover } from "./DateTimeHover";
 import { Selectors } from "client/redux/selectors";
 import { UserInformation } from "core/schemas/user-information.gen";
 import { getUserInformation } from "client/user-utils";
-import { UserDisplayClick } from "client/components/user-display/UserDisplayClick";
 import {
   useGetComboRowsDateRangeLazyQuery,
   useGetProcessRowsDateRangeLazyQuery,
@@ -814,7 +813,7 @@ export const Statistics: React.FC<{}> = () => {
         });
 
         return foundIndex > -1 ? (
-          <UserDisplayClickGentex userInfo={operatorEmployeeInfo[foundIndex]} />
+          <UserDisplayClick userInfo={operatorEmployeeInfo[foundIndex]} />
         ) : (
           // <UserDisplayClick userId={"-1"} />
           <div className={classes.cellStyle}>{cellValue.value}</div>

@@ -149,8 +149,9 @@ export const getStatsDataOperatorRows = (
                   const row: StatsDataOperatorRow = {
                     id: i,
                     Asset: assetInfo?.Asset ?? currStatsPart.AssetID.toString(),
-                    PartNumber:
-                      lastPartInfo?.PartNumber ?? currStatsPart.PNID.toString(),
+                    // PartNumber:
+                    //   lastPartInfo?.PartNumber ?? currStatsPart.PNID.toString(),
+                    PartNumber: lastPartInfo?.PartNumber ?? "",
                     Date: startTime,
                     StartTime: startTime,
                     EndTime: new Date(currStatsPart.TestDateTime),
@@ -164,7 +165,12 @@ export const getStatsDataOperatorRows = (
                     Efficiency: efficiency,
                     PartsPerHour: pph,
                   };
-                  finalStats.push(row);
+                  if (
+                    row.Operator !== "00000" ||
+                    row.Asset.startsWith("CMB-")
+                  ) {
+                    finalStats.push(row);
+                  }
 
                   passCount = 0;
                   failCount = 0;
@@ -188,8 +194,9 @@ export const getStatsDataOperatorRows = (
                   const row: StatsDataOperatorRow = {
                     id: i,
                     Asset: assetInfo?.Asset ?? currStatsPart.AssetID.toString(),
-                    PartNumber:
-                      lastPartInfo?.PartNumber ?? currStatsPart.PNID.toString(),
+                    // PartNumber:
+                    //   lastPartInfo?.PartNumber ?? currStatsPart.PNID.toString(),
+                    PartNumber: lastPartInfo?.PartNumber ?? "",
                     Date: startTime,
                     StartTime: startTime,
                     EndTime: new Date(currStatsPart.TestDateTime),
@@ -203,7 +210,12 @@ export const getStatsDataOperatorRows = (
                     Efficiency: efficiency,
                     PartsPerHour: pph,
                   };
-                  finalStats.push(row);
+                  if (
+                    row.Operator !== "00000" ||
+                    row.Asset.startsWith("CMB-")
+                  ) {
+                    finalStats.push(row);
+                  }
                 }
               }
             }
@@ -216,6 +228,10 @@ export const getStatsDataOperatorRows = (
     (a, b) => a.StartTime.getTime() - b.StartTime.getTime()
   );
   finalStats = finalStats.sort((a, b) => a.Asset.localeCompare(b.Asset));
+  finalStats = finalStats.filter((x) => x.PartNumber);
+  // finalStats = finalStats.filter(
+  //   (x) => x.Operator !== "00000" && !x.Asset.startsWith("CMB-")
+  // );
   finalStats.forEach((x, i) => (x.id = i));
   return finalStats;
 };

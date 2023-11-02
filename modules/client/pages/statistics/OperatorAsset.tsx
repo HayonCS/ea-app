@@ -53,7 +53,7 @@ import {
   getProcessDataExportRange,
 } from "../../utilities/redis";
 import { useSelector, shallowEqual } from "react-redux";
-import { UserDisplayClickGentex } from "client/components/user-display/UserDisplayClickGentex";
+import { UserDisplayClick } from "client/components/user-display/UserDisplayClick";
 import { Close, FilterList } from "@mui/icons-material";
 import {
   ProcessDataExport,
@@ -533,7 +533,7 @@ export const OperatorAsset: React.FC<{}> = (props) => {
         });
 
         return foundIndex > -1 ? (
-          <UserDisplayClickGentex userInfo={operatorEmployeeInfo[foundIndex]} />
+          <UserDisplayClick userInfo={operatorEmployeeInfo[foundIndex]} />
         ) : (
           // <UserDisplayClick userId={"-1"} />
           <div className={classes.cellStyle}>{cellValue.value}</div>

@@ -262,6 +262,10 @@ export class SnComboRecordRepository extends RepositoryBase(ComboDataRecord) {
       (a, b) => a.TestDateTime.getTime() - b.TestDateTime.getTime()
     );
     result = result.sort((a, b) => a.AssetID - b.AssetID);
+    // const ops = result
+    //   .map((x) => x.OperatorID)
+    //   .filter((v, i, a) => a.indexOf(v) === i);
+    // console.log(ops);
     return result;
   };
 

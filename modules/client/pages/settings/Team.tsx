@@ -14,7 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { UserDisplayClickGentex } from "client/components/user-display/UserDisplayClickGentex";
+import { UserDisplayClick } from "client/components/user-display/UserDisplayClick";
 import { UserDisplayHover } from "client/components/user-display/UserDisplayHover";
 import { formatUserName } from "../../user-utils";
 import { enqueueSnackbar } from "notistack";
@@ -346,7 +346,7 @@ export const TeamSettingsPanel: React.FC<{
                           disablePadding={true}
                         >
                           <div style={{ padding: "2px 8px", width: "100%" }}>
-                            <UserDisplayClickGentex userInfo={value} />
+                            <UserDisplayClick userInfo={value} />
                           </div>
                         </ListItem>
                       );

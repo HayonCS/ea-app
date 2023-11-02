@@ -2,16 +2,17 @@ import { Context } from "context";
 import { RepositoriesPort } from "records";
 import { getCurrentDateTime } from "rest-endpoints/world-time/world-time";
 
-// void (async () => {
-//   const context = new Context();
-//   const result = await context
-//     .get(RepositoriesPort)
-//     .domain("WebDC", async (ctx) => {
-//       const r = await ctx.processdata.asset.showColumns();
-//       return r;
-//     });
-//   console.log(result);
-// })();
+void (async () => {
+  const context = new Context();
+  const result = await context
+    .get(RepositoriesPort)
+    .domain("WebDC", async (ctx) => {
+      const r = await ctx.combodata.pn.getRows();
+      return r;
+    });
+  const part = result.find((x) => x.PNID === 3679);
+  console.log(part);
+})();
 
 void (async () => {
   const ctx = new Context();

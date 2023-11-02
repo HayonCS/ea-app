@@ -131,6 +131,7 @@ export const getStatsDataOperatorRows = (
                 ) {
                   // if more than 30 minutes
 
+                  const totalCount = passCount + failCount;
                   const runActual =
                     (new Date(currStatsPart.TestDateTime).getTime() -
                       startTime.getTime()) /
@@ -138,14 +139,13 @@ export const getStatsDataOperatorRows = (
                     60;
                   const runTheory =
                     lastCycleTime > 0
-                      ? ((passCount + failCount) * lastCycleTime) / 60
+                      ? ((totalCount > 0 ? totalCount - 1 : 0) *
+                          lastCycleTime) /
+                        60
                       : 0;
                   const efficiency =
                     runActual > 0 ? (runTheory / runActual) * 100 : 0;
-                  const pph =
-                    runActual > 0
-                      ? (passCount + failCount) / (runActual / 60)
-                      : 0;
+                  const pph = runActual > 0 ? totalCount / (runActual / 60) : 0;
                   const row: StatsDataOperatorRow = {
                     id: i,
                     Asset: assetInfo?.Asset ?? currStatsPart.AssetID.toString(),
@@ -181,16 +181,16 @@ export const getStatsDataOperatorRows = (
                       startTime.getTime()) /
                     1000 /
                     60;
+                  const totalCount = passCount + failCount;
                   const runTheory =
                     lastCycleTime > 0
-                      ? ((passCount + failCount) * lastCycleTime) / 60
+                      ? ((totalCount > 0 ? totalCount - 1 : 0) *
+                          lastCycleTime) /
+                        60
                       : 0;
                   const efficiency =
                     runActual > 0 ? (runTheory / runActual) * 100 : 0;
-                  const pph =
-                    runActual > 0
-                      ? (passCount + failCount) / (runActual / 60)
-                      : 0;
+                  const pph = runActual > 0 ? totalCount / (runActual / 60) : 0;
                   const row: StatsDataOperatorRow = {
                     id: i,
                     Asset: assetInfo?.Asset ?? currStatsPart.AssetID.toString(),

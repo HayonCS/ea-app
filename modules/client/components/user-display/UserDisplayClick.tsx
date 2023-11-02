@@ -1,17 +1,8 @@
 import * as React from "react";
-import {
-  Avatar,
-  Box,
-  Button,
-  Paper,
-  Popover,
-  Skeleton,
-  Typography,
-} from "@mui/material";
+import { Avatar, Box, Button, Paper, Popover, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { formatUserName, formatUserPhone } from "client/user-utils";
-import { getEmployeeInfoGentex } from "client/utilities/mes";
-import { EmployeeInfoGentex } from "client/utilities/types";
+import { UserInformation } from "core/schemas/user-information.gen";
 import { useUserPicture } from "../hooks/UserPicture";
 import { useUserInformation } from "../hooks/UserInformation";
 
@@ -51,7 +42,7 @@ const openInNewTab = (url: string) => {
 };
 
 export const UserDisplayClick: React.FC<{
-  userId: string;
+  userInfo: UserInformation;
 }> = (props) => {
   const classes = useStyles();
 
@@ -65,64 +56,26 @@ export const UserDisplayClick: React.FC<{
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
-  // const [pictureUrl, setPictureUrl] = React.useState("");
-  const userInfo = useUserInformation(props.userId);
-  const pictureUrl = useUserPicture(props.userId);
-  // const [userInfo, setUserInfo] = React.useState<EmployeeInfoGentex>();
+  const [pictureUrl, setPictureUrl] = React.useState("");
+
+  const [userInformation, setUserInformation] =
+    React.useState<UserInformation>();
+
+  const handleBadPicture = () => {
+    setPictureUrl(
+      `https://lumen.gentex.com/InnovatorImage/images/customer/employee/0000${props.userInfo.employeeId}.jpg`
+    );
+  };
 
   const formattedName = React.useMemo(() => {
     const formatName = formatUserName(
-      userInfo !== "Error" && userInfo !== "Unknown" && userInfo !== "Loading"
-        ? userInfo.firstName + "." + userInfo.lastName
-        : "first.last"
+      props.userInfo.firstName + "." + props.userInfo.lastName
     ).replace(/[0-9]/g, "");
-    return userInfo !== "Error" &&
-      userInfo !== "Loading" &&
-      userInfo !== "Unknown" &&
-      (userInfo.location === "Inactive" ||
-        userInfo.jobTitle?.includes("Former"))
+    return props.userInfo.location === "Inactive" ||
+      props.userInfo.jobTitle?.includes("Former")
       ? `(${formatName})`
       : formatName;
-  }, [userInfo]);
-
-  // React.useEffect(() => {
-  //   if (!userInfo) {
-  //     const loadInfo = async () => {
-  //       if (props.userId !== "-1") {
-  //         const info = await getEmployeeInfoGentex(props.userId);
-  //         if (info) {
-  //           setUserInfo(info);
-  //         }
-  //       } else {
-  //         const blank: EmployeeInfoGentex = {
-  //           employeeNumber: "00000",
-  //           firstName: "Loading",
-  //           lastName: "",
-  //           username: "unknown",
-  //           email: "unknown@gentex.com",
-  //           cellPhone: "+16167721800",
-  //           workPhone: "",
-  //           location: "Unknown",
-  //           locationId: "",
-  //           shift: "0",
-  //           jobTitle: "unknown",
-  //         };
-  //         setUserInfo(blank);
-  //       }
-  //     };
-  //     void loadInfo();
-  //   }
-  // }, [props, userInfo]);
-
-  // React.useEffect(() => {
-  //   if (userInfo) {
-  //     setPictureUrl(
-  //       `https://api.gentex.com/user/image/v1/${userInfo?.employeeNumber}`
-  //     );
-  //   } else {
-  //     setPictureUrl(`https://api.gentex.com/user/image/v1/00000`);
-  //   }
-  // }, [userInfo]);
+  }, [props]);
 
   return (
     <div className={classes.root}>
@@ -131,31 +84,21 @@ export const UserDisplayClick: React.FC<{
         style={{ width: "100%", margin: "0", padding: "0", color: "#000" }}
       >
         <div className={classes.button}>
-          {userInfo ? (
-            <Avatar
-              alt={formattedName}
-              src={pictureUrl}
-              style={{ cursor: "pointer" }}
-            />
-          ) : (
-            <Skeleton variant="circular" width={40} height={40} />
-          )}
-
-          {userInfo ? (
-            <Typography
-              variant="body1"
-              className={classes.title}
-              component={"span"}
-            >
-              <Box fontWeight="600" fontSize="14px">
-                {formattedName.toUpperCase()}
-              </Box>
-            </Typography>
-          ) : (
-            <div className={classes.title}>
-              <Skeleton width={150} height={20} />
-            </div>
-          )}
+          <Avatar
+            alt={formattedName}
+            src={pictureUrl}
+            imgProps={{ onError: handleBadPicture }}
+            style={{ cursor: "pointer" }}
+          />
+          <Typography
+            variant="body1"
+            className={classes.title}
+            component={"span"}
+          >
+            <Box fontWeight="600" fontSize="14px">
+              {formattedName.toUpperCase()}
+            </Box>
+          </Typography>
         </div>
       </Button>
 
@@ -181,74 +124,38 @@ export const UserDisplayClick: React.FC<{
                 borderRight: "2px solid rgba(0, 0, 0, 0.2)",
               }}
             >
-              {userInfo ? (
-                <Avatar
-                  src={pictureUrl}
-                  alt={formattedName}
-                  style={{ width: "84px", height: "84px" }}
-                />
-              ) : (
-                <Skeleton variant="circular" width={84} height={84} />
-              )}
+              <Avatar
+                src={pictureUrl}
+                alt={formattedName}
+                imgProps={{ onError: handleBadPicture }}
+                style={{ width: "84px", height: "84px" }}
+              />
             </div>
             <Typography className={classes.userInfoDetails} component={"span"}>
-              {userInfo !== "Error" &&
-              userInfo !== "Loading" &&
-              userInfo !== "Unknown" ? (
-                <>
-                  <div style={{ display: "flex" }}>
-                    <Box fontWeight="600" fontSize="15px">
-                      {formattedName}
-                    </Box>
-                    <Box fontWeight="500" fontSize="15px" marginLeft={1}>
-                      {`(${userInfo.employeeId})`}
-                    </Box>
-                  </div>
-                  {userInfo && (
-                    <div>
-                      <Box fontWeight="600" fontSize="15px">
-                        {userInfo.location}
-                      </Box>
-                      <Box fontWeight="600" fontSize="15px">
-                        {userInfo.jobTitle}
-                      </Box>
-                      <Box fontWeight="600" fontSize="15px">
-                        {formatUserPhone(userInfo.cellPhone)}
-                      </Box>
-                    </div>
-                  )}
+              <div style={{ display: "flex" }}>
+                <Box fontWeight="600" fontSize="15px">
+                  {formattedName}
+                </Box>
+                <Box fontWeight="500" fontSize="15px" marginLeft={1}>
+                  {`(${props.userInfo.employeeId})`}
+                </Box>
+              </div>
+              <div>
+                <Box fontWeight="600" fontSize="15px">
+                  {props.userInfo.location}
+                </Box>
+                <Box fontWeight="600" fontSize="15px">
+                  {props.userInfo.jobTitle}
+                </Box>
+                {props.userInfo.cellPhone && (
                   <Box fontWeight="600" fontSize="15px">
-                    {userInfo ? userInfo.email : "unknown@gentex.com"}
+                    {formatUserPhone(props.userInfo.cellPhone)}
                   </Box>
-                </>
-              ) : (
-                <>
-                  <div style={{ display: "flex" }}>
-                    <Box fontWeight="600" fontSize="15px">
-                      {formattedName}
-                    </Box>
-                    <Box fontWeight="500" fontSize="15px" marginLeft={1}>
-                      {`(${props.userId})`}
-                    </Box>
-                  </div>
-                  {userInfo && (
-                    <div>
-                      <Box fontWeight="600" fontSize="15px">
-                        {"Unknown"}
-                      </Box>
-                      <Box fontWeight="600" fontSize="15px">
-                        {"Inactive"}
-                      </Box>
-                      <Box fontWeight="600" fontSize="15px">
-                        {formatUserPhone("+16167721800")}
-                      </Box>
-                    </div>
-                  )}
-                  <Box fontWeight="600" fontSize="15px">
-                    {"unknown@gentex.com"}
-                  </Box>
-                </>
-              )}
+                )}
+              </div>
+              <Box fontWeight="600" fontSize="15px">
+                {props.userInfo.email}
+              </Box>
             </Typography>
           </div>
           <div
@@ -261,9 +168,9 @@ export const UserDisplayClick: React.FC<{
             <Button
               variant="outlined"
               color="primary"
-              onClick={(event) => {
+              onClick={() => {
                 openInNewTab(
-                  `https://lumen.gentex.com/PROD/Person/${props.userId}`
+                  `https://lumen.gentex.com/PROD/Person/${props.userInfo.employeeId}`
                 );
               }}
             >

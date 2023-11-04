@@ -44,6 +44,8 @@ import { processDataRedisAdapter } from "domain-services/process-data-redis";
 import { repositoriesAdapter, RepositoriesPort } from "records";
 import { WorldTimePort } from "rest-endpoints/world-time/port";
 import { worldTimeAdapter } from "rest-endpoints/world-time";
+import { UserInfoPort } from "domain-services/user-information/port";
+import { userInfoAdapter } from "domain-services/user-information";
 
 export type ContextOpts = {
   db?: db.Knex;
@@ -90,6 +92,7 @@ const ContextBase = Hexagonal.contextClass((c) =>
     .add(UserPicturePort, userPictureAdapter)
     .add(EmployeeInfoPort, employeeInfoAdapter)
     .add(AssetsBiPort, assetsBiAdapter)
+    .add(UserInfoPort, userInfoAdapter)
     .add(UserAppDataPort, userAppDataAdapter)
     .add(WorldTimePort, worldTimeAdapter)
 );
@@ -155,6 +158,10 @@ export class Context extends ContextBase {
 
   get employeeDirectory() {
     return this.get(EmployeeInfoPort);
+  }
+
+  get userInfo() {
+    return this.get(UserInfoPort);
   }
 
   get worldTime() {

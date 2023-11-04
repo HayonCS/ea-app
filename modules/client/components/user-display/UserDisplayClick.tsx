@@ -42,7 +42,8 @@ const openInNewTab = (url: string) => {
 };
 
 export const UserDisplayClick: React.FC<{
-  userInfo: UserInformation;
+  employeeId?: string;
+  userInfo?: UserInformation;
 }> = (props) => {
   const classes = useStyles();
 
@@ -58,24 +59,54 @@ export const UserDisplayClick: React.FC<{
 
   const [pictureUrl, setPictureUrl] = React.useState("");
 
-  const [userInformation, setUserInformation] =
-    React.useState<UserInformation>();
+  const [userInformation, setUserInformation] = React.useState<
+    UserInformation | undefined
+  >(props.userInfo);
+
+  const userPicture = useUserPicture(
+    props.userInfo?.employeeId ?? props.employeeId ?? ""
+  );
+  const userInfoHook = useUserInformation(
+    props.userInfo ? "" : props.employeeId ?? ""
+  );
 
   const handleBadPicture = () => {
     setPictureUrl(
-      `https://lumen.gentex.com/InnovatorImage/images/customer/employee/0000${props.userInfo.employeeId}.jpg`
+      `https://lumen.gentex.com/InnovatorImage/images/customer/employee/0000${
+        props.userInfo?.employeeId ?? props.employeeId ?? ""
+      }.jpg`
     );
   };
 
   const formattedName = React.useMemo(() => {
     const formatName = formatUserName(
-      props.userInfo.firstName + "." + props.userInfo.lastName
+      userInformation?.firstName + "." + userInformation?.lastName
     ).replace(/[0-9]/g, "");
-    return props.userInfo.location === "Inactive" ||
-      props.userInfo.jobTitle?.includes("Former")
+    return userInformation?.location === "Inactive" ||
+      userInformation?.jobTitle.includes("Former")
       ? `(${formatName})`
       : formatName;
-  }, [props]);
+  }, [props, userInformation]);
+
+  React.useEffect(() => {
+    if (userPicture !== "Error" && userPicture !== "Loading") {
+      setPictureUrl(userPicture);
+    }
+  }, [userPicture]);
+
+  React.useEffect(() => {
+    if (props.userInfo) {
+      setUserInformation(props.userInfo);
+    } else if (
+      userInfoHook !== "Error" &&
+      userInfoHook !== "Loading" &&
+      userInfoHook !== "Unknown"
+    ) {
+      setUserInformation(userInfoHook);
+    } else if (userInfoHook === "Unknown") {
+      console.log("UNKNOWN USER");
+    }
+  }, [props, userInfoHook]);
 
   return (
     <div className={classes.root}>
@@ -137,24 +168,24 @@ export const UserDisplayClick: React.FC<{
                   {formattedName}
                 </Box>
                 <Box fontWeight="500" fontSize="15px" marginLeft={1}>
-                  {`(${props.userInfo.employeeId})`}
+                  {`(${userInformation?.employeeId})`}
                 </Box>
               </div>
               <div>
                 <Box fontWeight="600" fontSize="15px">
-                  {props.userInfo.location}
+                  {userInformation?.location}
                 </Box>
                 <Box fontWeight="600" fontSize="15px">
-                  {props.userInfo.jobTitle}
+                  {userInformation?.jobTitle}
                 </Box>
-                {props.userInfo.cellPhone && (
+                {userInformation?.cellPhone && (
                   <Box fontWeight="600" fontSize="15px">
-                    {formatUserPhone(props.userInfo.cellPhone)}
+                    {formatUserPhone(userInformation?.cellPhone)}
                   </Box>
                 )}
               </div>
               <Box fontWeight="600" fontSize="15px">
-                {props.userInfo.email}
+                {userInformation?.email}
               </Box>
             </Typography>
           </div>
@@ -170,7 +201,7 @@ export const UserDisplayClick: React.FC<{
               color="primary"
               onClick={() => {
                 openInNewTab(
-                  `https://lumen.gentex.com/PROD/Person/${props.userInfo.employeeId}`
+                  `https://lumen.gentex.com/PROD/Person/${userInformation?.employeeId}`
                 );
               }}
             >

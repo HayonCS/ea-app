@@ -19,6 +19,8 @@ import { UserDisplayHover } from "client/components/user-display/UserDisplayHove
 import { formatUserName } from "../../user-utils";
 import { enqueueSnackbar } from "notistack";
 import { UserInformation } from "core/schemas/user-information.gen";
+import { useSelector } from "react-redux";
+import { Selectors } from "client/redux/selectors";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -39,12 +41,13 @@ const useStyles = makeStyles(() => ({
 }));
 
 export const TeamSettingsPanel: React.FC<{
-  operators?: string[];
-  teamGentex?: UserInformation[];
+  userOperators?: string[];
   employeeDirectory?: UserInformation[];
   onChange?: (operators: string[]) => void;
 }> = (props) => {
   const classes = useStyles();
+
+  const employeeDirectory = useSelector(Selectors.App.employeeActiveDirectory);
 
   const [loadedProps, setLoadedProps] = React.useState(false);
 
@@ -54,25 +57,17 @@ export const TeamSettingsPanel: React.FC<{
   // const [userOperatorsGentex, setUserOperatorsGentex] = React.useState<
   //   UserInformation[]
   // >([]);
-  const [employeeDirectoryGentex, setEmployeeDirectoryGentex] = React.useState<
-    UserInformation[]
-  >([]);
+  // const [employeeDirectoryGentex, setEmployeeDirectoryGentex] = React.useState<
+  //   UserInformation[]
+  // >([]);
 
   const [editing, setEditing] = React.useState(false);
 
   React.useEffect(() => {
-    if (
-      props.operators &&
-      props.teamGentex &&
-      props.employeeDirectory &&
-      !loadedProps
-    ) {
-      const operators = [...props.operators].sort((a, b) => a.localeCompare(b));
-      // const teamGentex = props.teamGentex.sort(
-      //   (a, b) =>
-      //     a.firstName.localeCompare(b.firstName) ||
-      //     a.lastName.localeCompare(b.lastName)
-      // );
+    if (props.userOperators && props.employeeDirectory && !loadedProps) {
+      const operators = [...props.userOperators].sort((a, b) =>
+        a.localeCompare(b)
+      );
       const empDirectory = props.employeeDirectory.sort(
         (a, b) =>
           a.firstName.localeCompare(b.firstName) ||
@@ -82,7 +77,6 @@ export const TeamSettingsPanel: React.FC<{
         operators.includes(x.employeeId)
       );
       setUserOperators(opInfo);
-      // setUserOperatorsGentex(teamGentex);
       setEmployeeDirectoryGentex(empDirectory);
       setLoadedProps(true);
     }

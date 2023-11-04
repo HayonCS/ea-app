@@ -9,7 +9,6 @@ export type AppState = {
   cycleTimeInfo: LineOperationPart[];
   currentUserAppData: UserAppData;
   currentUserInfo: UserInformation;
-  currentUserTeamInfo: UserInformation[];
   employeeActiveDirectory: UserInformation[];
 };
 
@@ -59,6 +58,5 @@ export const initialAppState: AppState = {
     isServiceAccount: false,
     pager: "00000",
   },
-  currentUserTeamInfo: [],
   employeeActiveDirectory: [],
 };

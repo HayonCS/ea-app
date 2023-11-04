@@ -9,6 +9,7 @@ import { ProcessDataRedisPort } from "domain-services/process-data-redis/port";
 import { MesBiPort } from "rest-endpoints/mes-bi/port";
 import { RepositoriesPort } from "records";
 import { SnRow } from "records/processdata";
+import { UserInfoPort } from "domain-services/user-information/port";
 
 const queryResolvers: QueryResolvers = {
   mesUserInfo: async (parent, args, ctx) => {
@@ -33,6 +34,20 @@ const queryResolvers: QueryResolvers = {
     //   .getEmployeeDirectory();
     const directory = await ctx.get(EmployeeInfoPort).employeeDirectory();
     return directory;
+  },
+
+  getUserInfo: async (parent, args, ctx) => {
+    const user = await ctx
+      .get(UserInfoPort)
+      .getUserInfo(args.userIdOrUsername, args.includeGroups ?? undefined);
+    return user;
+  },
+
+  getUsersInfo: async (parent, args, ctx) => {
+    const users = await ctx
+      .get(UserInfoPort)
+      .getUsersInfo(args.userIdsOrUsernames, args.includeGroups ?? undefined);
+    return users;
   },
 
   assetListBi: async (parent, args, ctx) => {

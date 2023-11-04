@@ -395,6 +395,7 @@ export const Statistics: React.FC<{}> = () => {
     const start = dateTimeToString(startDate);
     const end = dateTimeToString(endDate);
     const operatorIds = userAppData.operators.map((x) => +x);
+    console.log(operatorIds);
     void comboDataQuery({
       variables: {
         start: start,
@@ -740,10 +741,13 @@ export const Statistics: React.FC<{}> = () => {
       width: 110,
       renderCell: (cellValue) => {
         // return <div className={classes.cellStyle}>{cellValue.value}</div>;
-        const foundAsset: AssetInfo = assetBiData.find(
+        const foundAsset =
+          comboAssetData.find((x) => x.Asset === cellValue.value) ??
+          processAssetData.find((x) => x.Asset === cellValue.value);
+        const foundAssetInfo: AssetInfo = assetBiData.find(
           (x) => x.assetName === cellValue.value
         ) ?? {
-          assetName: "",
+          assetName: foundAsset?.Asset ?? "-",
           serial: "",
           model: "",
           orgCode: "0",
@@ -758,7 +762,7 @@ export const Statistics: React.FC<{}> = () => {
         };
         return (
           <div className={classes.cellStyle}>
-            <AssetInfoHover assetInfo={foundAsset} />
+            <AssetInfoHover assetInfo={foundAssetInfo} />
           </div>
         );
       },
@@ -815,8 +819,8 @@ export const Statistics: React.FC<{}> = () => {
         return foundIndex > -1 ? (
           <UserDisplayClick userInfo={operatorEmployeeInfo[foundIndex]} />
         ) : (
-          // <UserDisplayClick userId={"-1"} />
-          <div className={classes.cellStyle}>{cellValue.value}</div>
+          <UserDisplayClick employeeId={id} />
+          // <div className={classes.cellStyle}>{cellValue.value}</div>
         );
       },
     },

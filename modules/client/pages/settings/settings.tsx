@@ -79,18 +79,12 @@ export const Settings: React.FC<{}> = () => {
   const processAssetData = useSelector(Selectors.ProcessData.assetData);
 
   const currentUser = useSelector(Selectors.App.currentUserInfo);
-  const teamInfoRedux = useSelector(Selectors.App.currentUserTeamInfo);
   const userAppDataRedux = useSelector(Selectors.App.currentUserAppData);
   const employeeDirectoryRedux = useSelector(
     Selectors.App.employeeActiveDirectory
   );
 
   const dispatch = useDispatch<Dispatch<Actions>>();
-  const updateReduxTeamGentex = React.useCallback(
-    (teamGentex: UserInformation[]) =>
-      dispatch(Actions.App.currentUserTeamInfo(teamGentex)),
-    [dispatch]
-  );
   const updateReduxUserData = React.useCallback(
     (userData: UserAppData) =>
       dispatch(Actions.App.currentUserAppData(userData)),
@@ -107,9 +101,6 @@ export const Settings: React.FC<{}> = () => {
     assetList: [],
     operators: [],
   });
-  const [currentTeamGentex, setCurrentTeamGentex] = React.useState<
-    UserInformation[]
-  >([]);
   const [assetsTotal, setAssetsTotal] = React.useState<string[]>([]);
 
   const [setUserAppData] = useSetUserAppDataMutation();
@@ -134,7 +125,6 @@ export const Settings: React.FC<{}> = () => {
         ) {
           setRedisUserData(currentUserData);
           updateReduxUserData(currentUserData);
-          updateReduxTeamGentex(currentTeamGentex);
           enqueueSnackbar("Saved user settings successfully!", {
             variant: "success",
             autoHideDuration: 7000,
@@ -284,13 +274,11 @@ export const Settings: React.FC<{}> = () => {
           <TabPanel value={tabValue} index={1}>
             <Paper className={classes.tabPaperStyle}>
               <TeamSettingsPanel
-                operators={currentUserData.operators}
-                teamGentex={teamInfoRedux}
-                employeeDirectory={employeeDirectoryRedux}
+                userOperators={currentUserData.operators}
+                // employeeDirectory={employeeDirectoryRedux}
                 onChange={(operators) => {
                   const userData = { ...currentUserData, operators: operators };
                   setCurrentUserData(userData);
-                  // setCurrentTeamGentex(teamGentex);
                 }}
               />
             </Paper>

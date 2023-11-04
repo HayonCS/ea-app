@@ -41,13 +41,6 @@ export const appReducer: MainReducer<"App"> = (
         currentUserInfo: { ...initialAppState.currentUserInfo },
       };
     }
-    case "App/userTeamGentex": {
-      const { teamInfo } = action.payload;
-      return {
-        ...state,
-        currentUserTeamInfo: teamInfo,
-      };
-    }
     case "App/employeeActiveDirectory": {
       const { activeDirectory } = action.payload;
       return {

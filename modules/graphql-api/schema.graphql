@@ -5,6 +5,7 @@ scalar Object
 scalar UserSettings
 scalar UserAppData
 scalar EmployeeInfoResponse
+scalar UserInformation
 scalar ProcessDataExport
 scalar RunningNowItem
 scalar PartDataRow
@@ -139,6 +140,16 @@ type Query {
   Retrieves a user's app data based on their User ID.
   """
   getUserAppData(userId: String!): UserAppData!
+
+  getUserInfo(
+    userIdOrUsername: String!
+    includeGroups: Boolean
+  ): UserInformation
+
+  getUsersInfo(
+    userIdsOrUsernames: [String!]!
+    includeGroups: Boolean
+  ): [UserInformation!]!
 
   """
   Returns MES Process Data based on an asset's name, start date, and end date.

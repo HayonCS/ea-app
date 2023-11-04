@@ -36,13 +36,6 @@ export const AppActions = {
     ({
       type: "App/clearCurrentUser",
     } as const),
-  currentUserTeamInfo: (teamInfo: UserInformation[]) =>
-    ({
-      type: "App/userTeamGentex",
-      payload: {
-        teamInfo,
-      },
-    } as const),
   employeeActiveDirectory: (activeDirectory: UserInformation[]) =>
     ({
       type: "App/employeeActiveDirectory",

@@ -8,7 +8,7 @@ export const knexConfig = {
       database: config.get("webdcDatabaseName"),
       user: config.get("webdcDatabaseUser"),
       password: config.get("webdcDatabasePassword"),
-      requestTimeout: 60000,
+      requestTimeout: 300000,
       enableArithAbort: true,
     },
   },

@@ -39,8 +39,8 @@ export async function getMesUserInfo(
   });
 
   const defaultUser: MesUserInfo = {
-    employeeId: "",
-    username: "",
+    employeeId: !isNaN(+currentUserId) ? currentUserId : "",
+    username: isNaN(+currentUserId) ? currentUserId : "",
     firstName: "",
     lastName: "",
     emailAddress: "",

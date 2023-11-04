@@ -63,6 +63,7 @@ import { getUserInformation } from "client/user-utils";
 import {
   useGetComboRowsDateRangeLazyQuery,
   useGetProcessRowsDateRangeLazyQuery,
+  useGetUsersInfoLazyQuery,
 } from "client/graphql/types.gen";
 import {
   StatsDataOperatorRow,
@@ -225,6 +226,7 @@ export const Statistics: React.FC<{}> = () => {
   const [comboDataQuery, comboDataResult] = useGetComboRowsDateRangeLazyQuery();
   const [processDataQuery, processDataResult] =
     useGetProcessRowsDateRangeLazyQuery();
+  const [usersInfoQuery, usersInfoResult] = useGetUsersInfoLazyQuery();
 
   const [userTeamInfo, setUserTeamInfo] = React.useState<UserInformation[]>([]);
 
@@ -395,7 +397,6 @@ export const Statistics: React.FC<{}> = () => {
     const start = dateTimeToString(startDate);
     const end = dateTimeToString(endDate);
     const operatorIds = userAppData.operators.map((x) => +x);
-    console.log(operatorIds);
     void comboDataQuery({
       variables: {
         start: start,
@@ -503,121 +504,43 @@ export const Statistics: React.FC<{}> = () => {
     })();
   }, [comboDataResult, processDataResult]);
 
-  // React.useEffect(() => {
-  //   void (async () => {
-  //     if (comboDataResult.called || processDataResult.called) {
-  //       if (comboDataResult.loading || processDataResult.loading) {
-  //         setLoadingAssetOperator(true);
-  //         setLoadingProgressAssetOperator(10);
-  //         enqueueSnackbar("Loading data...", {
-  //           variant: "info",
-  //           autoHideDuration: 3000,
-  //         });
-  //       } else if (comboDataResult.error || processDataResult.error) {
-  //         setLoadingAssetOperator(false);
-  //         setLoadingProgressAssetOperator(0);
-  //         enqueueSnackbar("Error querying data!", {
-  //           variant: "error",
-  //           autoHideDuration: 3000,
-  //         });
-  //       } else if (
-  //         comboDataResult.data &&
-  //         comboDataResult.data.comboRowsDateRange
-  //       ) {
-  //         setLoadingProgressAssetOperator(20);
-  //         let progress = 20;
-
-  //         const comboRows = comboDataResult.data.comboRowsDateRange;
-  //         const processRows =
-  //           processDataResult.data?.processRowsDateRange ?? [];
-  //         let totals: ProcessDataOperatorTotals[] = [];
-  //         let groupComboRows = groupBy(comboRows, "AssetID");
-  //         const step = 80 / Object.keys(groupComboRows).length;
-  //         let cycleTimeList: { part: string; asset: string; cycle: number }[] =
-  //           [];
-  //         for (const key of Object.keys(groupComboRows)) {
-  //           const rows: SnRow[] = groupComboRows[key];
-  //           if (rows) {
-  //             const comboOp = getFinalDataOperator(
-  //               comboRows,
-  //               comboPartData,
-  //               comboAssetData
-  //             );
-  //             // const processOp = getFinalDataOperator(
-  //             //   processRows,
-  //             //   processPartData,
-  //             //   processAssetData
-  //             // );
-  //             const comboTotals = await getFinalProcessDataOperatorTotals(
-  //               comboOp,
-  //               userDataRedux.orgCode,
-  //               cycleTimeList,
-  //               cycleTimeInfo
-  //             );
-  //             // const processTotals = await getFinalProcessDataOperatorTotals(
-  //             //   processOp,
-  //             //   userDataRedux.orgCode
-  //             // );
-  //             totals = totals.concat(comboTotals);
-  //             progress += step;
-  //             setLoadingProgressAssetOperator(progress);
-  //           }
-  //         }
-
-  //         // const totals = [...comboTotals, ...processTotals];
-  //         // let totals = comboTotals.concat(processTotals);
-  //         totals.forEach((x, i) => (x.id = i));
-  //         setRowSelectionModelAssetOperator([]);
-  //         setRowsAssetOperator(totals);
-  //         loadAllEmployeeInfo(totals);
-  //         setLoadingProgressAssetOperator(100);
-  //         setLoadingAssetOperator(false);
-  //         cancelLoadingAssetOperator = false;
-  //         setCancelingLoadingAssetOperator(false);
-  //         let opList = [...totals]
-  //           .map((x) => x.Operator)
-  //           .filter((v, i, a) => a.indexOf(v) === i);
-  //         let partList = [...totals]
-  //           .map((x) => x.PartNumber)
-  //           .filter((v, i, a) => a.indexOf(v) === i);
-  //         let assetList = [...totals]
-  //           .map((x) => x.Asset)
-  //           .filter((v, i, a) => a.indexOf(v) === i);
-  //         const opFilter = opList.filter((op) =>
-  //           filtersAssetOperator.operators.includes(op)
-  //         );
-  //         const partFilter = partList.filter((part) =>
-  //           filtersAssetOperator.parts.includes(part)
-  //         );
-  //         const assetFilter = assetList.filter((asset) =>
-  //           filtersAssetOperator.assets.includes(asset)
-  //         );
-  //         setFiltersAssetOperator({
-  //           operators: opFilter,
-  //           parts: partFilter,
-  //           assets: assetFilter,
-  //         });
-
-  //         setLoadingAssetOperator(false);
-  //         setLoadingProgressAssetOperator(0);
-  //         enqueueSnackbar("Loaded data successfully!", {
-  //           variant: "success",
-  //           autoHideDuration: 3000,
-  //         });
-  //       }
-  //     }
-  //   })();
-  // }, [comboDataResult, processDataResult]);
-
   const loadAllEmployeeInfo = (processData: StatsDataOperatorRow[]) => {
-    let allInfo: UserInformation[] = [];
     const ids = processData
       .map((x) => x.Operator)
       .filter((v, i, a) => a.indexOf(v) === i)
       .sort((a, b) => a.localeCompare(b));
-    allInfo = employeeDirectory.filter((x) => ids.includes(x.employeeId));
-    setOperatorEmployeeInfo(allInfo);
+    const usersInfo = employeeDirectory.filter((x) =>
+      ids.includes(x.employeeId)
+    );
+    setOperatorEmployeeInfo(usersInfo);
+    const opInfoIds = usersInfo.map((x) => x.employeeId);
+    const missingIds = ids.filter((x) => opInfoIds.indexOf(x) < 0);
+    void usersInfoQuery({
+      variables: {
+        userIdsOrUsernames: missingIds,
+        includeGroups: false,
+      },
+    });
   };
+
+  React.useEffect(() => {
+    if (
+      usersInfoResult.called &&
+      !usersInfoResult.error &&
+      !usersInfoResult.loading &&
+      usersInfoResult.data &&
+      usersInfoResult.data.getUsersInfo
+    ) {
+      const usersInfo = usersInfoResult.data.getUsersInfo;
+      setOperatorEmployeeInfo((x) =>
+        [...usersInfo, ...x].sort(
+          (a, b) =>
+            a.firstName.localeCompare(b.firstName) ||
+            a.lastName.localeCompare(b.lastName)
+        )
+      );
+    }
+  }, [usersInfoResult]);
 
   React.useEffect(() => {
     setRowSelectionModelAssetOperator([]);

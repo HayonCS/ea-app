@@ -80,9 +80,6 @@ export const Settings: React.FC<{}> = () => {
 
   const currentUser = useSelector(Selectors.App.currentUserInfo);
   const userAppDataRedux = useSelector(Selectors.App.currentUserAppData);
-  const employeeDirectoryRedux = useSelector(
-    Selectors.App.employeeActiveDirectory
-  );
 
   const dispatch = useDispatch<Dispatch<Actions>>();
   const updateReduxUserData = React.useCallback(
@@ -274,8 +271,7 @@ export const Settings: React.FC<{}> = () => {
           <TabPanel value={tabValue} index={1}>
             <Paper className={classes.tabPaperStyle}>
               <TeamSettingsPanel
-                userOperators={currentUserData.operators}
-                // employeeDirectory={employeeDirectoryRedux}
+                operators={currentUserData.operators}
                 onChange={(operators) => {
                   const userData = { ...currentUserData, operators: operators };
                   setCurrentUserData(userData);

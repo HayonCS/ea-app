@@ -147,11 +147,6 @@ export const AppBarMenu: React.FC<{}> = () => {
       dispatch(Actions.App.currentUserInfo(userInfo)),
     [dispatch]
   );
-  const setCurrentUserTeamRedux = React.useCallback(
-    (teamInfo: UserInformation[]) =>
-      dispatch(Actions.App.currentUserTeamInfo(teamInfo)),
-    [dispatch]
-  );
   const setCurrentUserAppDataRedux = React.useCallback(
     (userData: UserAppData) =>
       dispatch(Actions.App.currentUserAppData(userData)),
@@ -410,12 +405,7 @@ export const AppBarMenu: React.FC<{}> = () => {
         }
       }
     }
-  }, [
-    setCurrentUserAppDataRedux,
-    setCurrentUserTeamRedux,
-    userAppData,
-    userInfo,
-  ]);
+  }, [setCurrentUserAppDataRedux, userAppData, userInfo]);
 
   React.useEffect(() => {
     if (

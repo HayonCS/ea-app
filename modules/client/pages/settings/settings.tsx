@@ -274,7 +274,7 @@ export const Settings: React.FC<{}> = () => {
           <TabPanel value={tabValue} index={1}>
             <Paper className={classes.tabPaperStyle}>
               <TeamSettingsPanel
-                userOperators={currentUserData.operators}
+                operators={currentUserData.operators}
                 // employeeDirectory={employeeDirectoryRedux}
                 onChange={(operators) => {
                   const userData = { ...currentUserData, operators: operators };

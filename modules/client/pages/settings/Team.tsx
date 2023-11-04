@@ -21,6 +21,7 @@ import { enqueueSnackbar } from "notistack";
 import { UserInformation } from "core/schemas/user-information.gen";
 import { useSelector } from "react-redux";
 import { Selectors } from "client/redux/selectors";
+import { useGetUsersInfoLazyQuery } from "client/graphql/types.gen";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -41,46 +42,79 @@ const useStyles = makeStyles(() => ({
 }));
 
 export const TeamSettingsPanel: React.FC<{
-  userOperators?: string[];
-  employeeDirectory?: UserInformation[];
+  operators: string[];
   onChange?: (operators: string[]) => void;
 }> = (props) => {
   const classes = useStyles();
 
-  const employeeDirectory = useSelector(Selectors.App.employeeActiveDirectory);
+  const [usersInfoQuery, usersInfoResult] = useGetUsersInfoLazyQuery();
 
-  const [loadedProps, setLoadedProps] = React.useState(false);
+  const employeeDirectoryRedux = useSelector(
+    Selectors.App.employeeActiveDirectory
+  );
 
+  const [employeeDirectoryList, setEmployeeDirectoryList] = React.useState<
+    UserInformation[]
+  >([]);
   const [userOperators, setUserOperators] = React.useState<UserInformation[]>(
     []
   );
-  // const [userOperatorsGentex, setUserOperatorsGentex] = React.useState<
-  //   UserInformation[]
-  // >([]);
-  // const [employeeDirectoryGentex, setEmployeeDirectoryGentex] = React.useState<
-  //   UserInformation[]
-  // >([]);
-
   const [editing, setEditing] = React.useState(false);
 
+  const [loadedProps, setLoadedProps] = React.useState(false);
+
   React.useEffect(() => {
-    if (props.userOperators && props.employeeDirectory && !loadedProps) {
-      const operators = [...props.userOperators].sort((a, b) =>
-        a.localeCompare(b)
-      );
-      const empDirectory = props.employeeDirectory.sort(
+    if (!loadedProps) {
+      const operators = [...props.operators].sort((a, b) => a.localeCompare(b));
+      const employeeDirectory = employeeDirectoryRedux.sort(
         (a, b) =>
           a.firstName.localeCompare(b.firstName) ||
           a.lastName.localeCompare(b.lastName)
       );
-      const opInfo = empDirectory.filter((x) =>
+      const operatorInfo = employeeDirectory.filter((x) =>
         operators.includes(x.employeeId)
       );
-      setUserOperators(opInfo);
-      setEmployeeDirectoryGentex(empDirectory);
+      setUserOperators(operatorInfo);
+      setEmployeeDirectoryList(employeeDirectory);
+      const operatorInfoIds = operatorInfo.map((x) => x.employeeId);
+      const missingOpIds = operators.filter(
+        (x) => operatorInfoIds.indexOf(x) < 0
+      );
+      void usersInfoQuery({
+        variables: {
+          userIdsOrUsernames: missingOpIds,
+          includeGroups: false,
+        },
+      });
       setLoadedProps(true);
     }
-  }, [props, loadedProps]);
+  }, [props, loadedProps, employeeDirectoryRedux]);
+
+  React.useEffect(() => {
+    if (
+      usersInfoResult.called &&
+      !usersInfoResult.error &&
+      !usersInfoResult.loading &&
+      usersInfoResult.data &&
+      usersInfoResult.data.getUsersInfo
+    ) {
+      const usersInfo = usersInfoResult.data.getUsersInfo;
+      setUserOperators((x) =>
+        [...usersInfo, ...x].sort(
+          (a, b) =>
+            a.firstName.localeCompare(b.firstName) ||
+            a.lastName.localeCompare(b.lastName)
+        )
+      );
+      setEmployeeDirectoryList((x) =>
+        [...usersInfo, ...x].sort(
+          (a, b) =>
+            a.firstName.localeCompare(b.firstName) ||
+            a.lastName.localeCompare(b.lastName)
+        )
+      );
+    }
+  }, [usersInfoResult]);
 
   const [checked, setChecked] = React.useState<string[]>([]);
 
@@ -144,32 +178,34 @@ export const TeamSettingsPanel: React.FC<{
         return;
       }
       if (selectedValue) {
+        const newOps = [...userOperators, selectedValue].sort(
+          (a, b) =>
+            a.firstName.localeCompare(b.firstName) ||
+            a.lastName.localeCompare(b.lastName)
+        );
+        const newOpsInfo = newOps.map((x) => x.employeeId);
+        // const newGentex = [...userOperatorsGentex, selectedValue].sort(
+        //   (a, b) =>
+        //     a.firstName.localeCompare(b.firstName) ||
+        //     a.lastName.localeCompare(b.lastName)
+        // );
+        setUserOperators(newOps);
+        // setUserOperatorsGentex(newGentex);
+        setInputValue("");
+        setSelectedValue(null);
+        setAutocompleteOpen(false);
         if (props.onChange) {
-          const newOps = [...userOperators, selectedValue].sort((a, b) =>
-            a.employeeId.localeCompare(b.employeeId)
-          );
-          const newOpsInfo = newOps.map((x) => x.employeeId);
-          // const newGentex = [...userOperatorsGentex, selectedValue].sort(
-          //   (a, b) =>
-          //     a.firstName.localeCompare(b.firstName) ||
-          //     a.lastName.localeCompare(b.lastName)
-          // );
-          setUserOperators(newOps);
-          // setUserOperatorsGentex(newGentex);
-          setInputValue("");
-          setSelectedValue(null);
-          setAutocompleteOpen(false);
           props.onChange(newOpsInfo);
-          enqueueSnackbar(
-            `Added ${formatUserName(
-              selectedValue.firstName + "." + selectedValue.lastName
-            )} (${selectedValue.employeeId}) to your team.`,
-            {
-              variant: "info",
-              autoHideDuration: 3000,
-            }
-          );
         }
+        enqueueSnackbar(
+          `Added ${formatUserName(
+            selectedValue.firstName + "." + selectedValue.lastName
+          )} (${selectedValue.employeeId}) to your team.`,
+          {
+            variant: "info",
+            autoHideDuration: 3000,
+          }
+        );
       } else {
         setErrorSearch(true);
       }
@@ -234,7 +270,14 @@ export const TeamSettingsPanel: React.FC<{
                   autoHighlight={true}
                   id="autocomplete-employee-directory"
                   options={
-                    !selectedValue ? employeeDirectoryGentex : [selectedValue]
+                    !selectedValue
+                      ? employeeDirectoryList.filter(
+                          (x) =>
+                            !userOperators.some(
+                              (y) => y.employeeId === x.employeeId
+                            )
+                        )
+                      : [selectedValue]
                   }
                   getOptionLabel={(option) =>
                     `${formatUserName(

@@ -1,6 +1,10 @@
 import { Flavor } from "helpers";
 import { RepositoryBase } from "records/core";
 import { ComboDataRecord } from "records/core";
+import {
+  getCurrentDateTime,
+  getCurrentTimeOffset,
+} from "rest-endpoints/world-time/world-time";
 
 export type ComboDataID = Flavor<number, "Combodata id">;
 
@@ -50,8 +54,14 @@ export type SnRow = {
   OperationID: string | null;
 };
 
-function dateToString(date: Date) {
-  date.setHours(date.getHours() + 4);
+async function dateToString(date: Date) {
+  const currentTime = await getCurrentDateTime();
+  console.log("Param: " + date);
+  console.log("Current: " + currentTime);
+  console.log("Now: " + new Date());
+  // const timeDiff = (currentTime.getTime() - new Date().getTime()) / 3600000;
+  // date.setHours(date.getHours() + timeDiff);
+  // date.setHours(date.getHours() + 4);
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();
@@ -184,14 +194,15 @@ export class SnComboRecordRepository extends RepositoryBase(ComboDataRecord) {
   };
 
   getRowsDateRange = async (
-    startDate: Date,
-    endDate: Date,
+    startDate: string,
+    endDate: string,
     assetIds?: number[],
     partIds?: number[],
     operatorIds?: number[]
   ) => {
-    const start = dateToString(startDate);
-    const end = dateToString(endDate);
+    const timeOffset = await getCurrentTimeOffset();
+    // const start = await dateToString(startDate);
+    // const end = await dateToString(endDate);
     // const providedAssets = assetIds && assetIds.length > 0;
     // const providedParts = partIds && partIds.length > 0;
     // const providedOperators = operatorIds && operatorIds.length > 0;
@@ -230,13 +241,13 @@ export class SnComboRecordRepository extends RepositoryBase(ComboDataRecord) {
     } else if (operatorIds) {
       return [];
     }
-    connStr += `(TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}')`;
+    connStr += `(TESTDATETIME >= '${startDate}' AND TESTDATETIME <= '${endDate}')`;
     // console.log(connStr);
     // const sqlData = await this.db.raw(`SELECT * FROM COMBODATA.dbo.ASSET`);
     const sqlData = await this.db.raw(connStr);
     let result: SnRow[] = sqlData.map((x: any) => {
       let date = new Date(x["TESTDATETIME"]);
-      date.setHours(date.getHours() + 4);
+      date.setHours(date.getHours() + timeOffset);
       const row: SnRow = {
         SNID: x["SNID"],
         PNID: x["PNID"],
@@ -274,8 +285,8 @@ export class SnComboRecordRepository extends RepositoryBase(ComboDataRecord) {
     startDate: Date,
     endDate: Date
   ) => {
-    const start = dateToString(startDate);
-    const end = dateToString(endDate);
+    const start = await dateToString(startDate);
+    const end = await dateToString(endDate);
     const sqlData = await this.db.raw(
       `SELECT * FROM COMBODATA.dbo.SN WHERE ASSET_ID = ${assetId} AND TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
     );
@@ -326,8 +337,8 @@ export class SnComboRecordRepository extends RepositoryBase(ComboDataRecord) {
     startDate: Date,
     endDate: Date
   ) => {
-    const start = dateToString(startDate);
-    const end = dateToString(endDate);
+    const start = await dateToString(startDate);
+    const end = await dateToString(endDate);
     const sqlData = await this.db.raw(
       `SELECT * FROM COMBODATA.dbo.SN WHERE PNID = ${partId} AND TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
     );
@@ -361,8 +372,8 @@ export class SnComboRecordRepository extends RepositoryBase(ComboDataRecord) {
     startDate: Date,
     endDate: Date
   ) => {
-    const start = dateToString(startDate);
-    const end = dateToString(endDate);
+    const start = await dateToString(startDate);
+    const end = await dateToString(endDate);
     const sqlData = await this.db.raw(
       `SELECT * FROM COMBODATA.dbo.SN WHERE OPERATORID = ${operatorId} AND TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
     );
@@ -414,8 +425,8 @@ export class SnComboRecordRepository extends RepositoryBase(ComboDataRecord) {
     startDate: Date,
     endDate: Date
   ) => {
-    const start = dateToString(startDate);
-    const end = dateToString(endDate);
+    const start = await dateToString(startDate);
+    const end = await dateToString(endDate);
     const sqlData = await this.db.raw(
       `SELECT * FROM COMBODATA.dbo.SN WHERE ASSET_ID = ${assetId} AND PNID = ${partId} AND TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
     );
@@ -450,8 +461,8 @@ export class SnComboRecordRepository extends RepositoryBase(ComboDataRecord) {
     startDate: Date,
     endDate: Date
   ) => {
-    const start = dateToString(startDate);
-    const end = dateToString(endDate);
+    const start = await dateToString(startDate);
+    const end = await dateToString(endDate);
     const sqlData = await this.db.raw(
       `SELECT * FROM COMBODATA.dbo.SN WHERE ASSET_ID = ${assetId} AND OPERATORID = ${operatorId} AND TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
     );
@@ -486,8 +497,8 @@ export class SnComboRecordRepository extends RepositoryBase(ComboDataRecord) {
     startDate: Date,
     endDate: Date
   ) => {
-    const start = dateToString(startDate);
-    const end = dateToString(endDate);
+    const start = await dateToString(startDate);
+    const end = await dateToString(endDate);
     const sqlData = await this.db.raw(
       `SELECT * FROM COMBODATA.dbo.SN WHERE PNID = ${partId} AND OPERATORID = ${operatorId} AND TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
     );
@@ -523,8 +534,8 @@ export class SnComboRecordRepository extends RepositoryBase(ComboDataRecord) {
     startDate: Date,
     endDate: Date
   ) => {
-    const start = dateToString(startDate);
-    const end = dateToString(endDate);
+    const start = await dateToString(startDate);
+    const end = await dateToString(endDate);
     const sqlData = await this.db.raw(
       `SELECT * FROM COMBODATA.dbo.SN WHERE ASSET_ID = ${assetId} AND PNID = ${partId} AND OPERATORID = ${operatorId} AND TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
     );

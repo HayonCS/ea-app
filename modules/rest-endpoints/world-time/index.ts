@@ -3,12 +3,15 @@ import { WorldTimePort } from "./port";
 import {
   TimeZoneInfo,
   getCurrentDateTime,
+  getCurrentTimeOffset,
   getTimeZone,
   getTimeZones,
 } from "./world-time";
 
 export type WorldTime = {
   getCurrentDateTime: () => Promise<Date>;
+
+  getCurrentTimeOffset: () => Promise<number>;
 
   getTimeZone: (timezone: string) => Promise<TimeZoneInfo | undefined>;
 
@@ -22,6 +25,10 @@ export const worldTimeAdapter = Hexagonal.adapter({
     return {
       getCurrentDateTime: async () => {
         return await getCurrentDateTime();
+      },
+
+      getCurrentTimeOffset: async () => {
+        return await getCurrentTimeOffset();
       },
 
       getTimeZone: async (timezone: string) => {

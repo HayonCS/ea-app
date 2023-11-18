@@ -27,10 +27,24 @@ export async function getCurrentDateTime() {
       timezone.utc_offset.length - 3
     );
     let date = new Date(timezone.datetime);
+    // let date = new Date("1970-01-01T00:00:00.000Z");
+    // date.setTime(date.getTime() + timezone.unixtime * 1000);
     // date.setHours(date.getHours() + offset);
     return date;
   } else {
     return new Date();
+  }
+}
+
+export async function getCurrentTimeOffset() {
+  const timezone = await getTimeZone("America/Detroit");
+  if (timezone) {
+    const offset = Math.abs(
+      +timezone.utc_offset.substring(0, timezone.utc_offset.length - 3)
+    );
+    return offset;
+  } else {
+    return 0;
   }
 }
 

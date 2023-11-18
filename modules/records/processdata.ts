@@ -1,6 +1,7 @@
 import { Flavor } from "helpers";
 import { RepositoryBase } from "records/core";
 import { ProcessDataRecord } from "records/core";
+import { getCurrentTimeOffset } from "rest-endpoints/world-time/world-time";
 
 export type ProcessDataID = Flavor<number, "Processdata id">;
 
@@ -189,14 +190,15 @@ export class SnProcessRecordRepository extends RepositoryBase(
   };
 
   getRowsDateRange = async (
-    startDate: Date,
-    endDate: Date,
+    startDate: string,
+    endDate: string,
     assetIds?: number[],
     partIds?: number[],
     operatorIds?: number[]
   ) => {
-    const start = dateToString(startDate);
-    const end = dateToString(endDate);
+    const timeOffset = await getCurrentTimeOffset();
+    // const start = dateToString(startDate);
+    // const end = dateToString(endDate);
     // const providedAssets = assetIds && assetIds.length > 0;
     // const providedParts = partIds && partIds.length > 0;
     // const providedOperators = operatorIds && operatorIds.length > 0;
@@ -235,13 +237,13 @@ export class SnProcessRecordRepository extends RepositoryBase(
     } else if (operatorIds) {
       return [];
     }
-    connStr += `(TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}' AND REVID IS NOT NULL)`;
+    connStr += `(TESTDATETIME >= '${startDate}' AND TESTDATETIME <= '${endDate}' AND REVID IS NOT NULL)`;
     // console.log(connStr);
     // const sqlData = await this.db.raw(`SELECT * FROM COMBODATA.dbo.ASSET`);
     const sqlData = await this.db.raw(connStr);
     let result: SnRow[] = sqlData.map((x: any) => {
       let date = new Date(x["TESTDATETIME"]);
-      date.setHours(date.getHours() + 4);
+      date.setHours(date.getHours() + timeOffset);
       const row: SnRow = {
         SNID: x["SNID"],
         PNID: x["PNID"],

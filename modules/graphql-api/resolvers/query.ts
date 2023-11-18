@@ -182,13 +182,13 @@ const queryResolvers: QueryResolvers = {
     let testRows = await ctx
       .get(RepositoriesPort)
       .domain("WebDC", async (domCtx) => {
-        let start = new Date(args.start);
-        let end = new Date(args.end);
+        // let start = new Date(args.start);
+        // let end = new Date(args.end);
         // start.setHours(start.getHours() + 4);
         // end.setHours(end.getHours() + 4);
         const rows = await domCtx.combodata.sn.getRowsDateRange(
-          start,
-          end,
+          args.start,
+          args.end,
           args.assetIds ?? undefined,
           args.partIds ?? undefined,
           args.operatorIds ?? undefined
@@ -383,11 +383,11 @@ const queryResolvers: QueryResolvers = {
     let testRows = await ctx
       .get(RepositoriesPort)
       .domain("WebDC", async (domCtx) => {
-        const start = new Date(args.start);
-        const end = new Date(args.end);
+        // const start = new Date(args.start);
+        // const end = new Date(args.end);
         const rows = await domCtx.processdata.sn.getRowsDateRange(
-          start,
-          end,
+          args.start,
+          args.end,
           args.assetIds ?? undefined,
           args.partIds ?? undefined,
           args.operatorIds ?? undefined

@@ -127,7 +127,7 @@ export const getStatsDataOperatorRows = (
                   i < statsDataPart.length - 1 &&
                   new Date(statsDataPart[i + 1].TestDateTime).getTime() -
                     new Date(statsDataPart[i].TestDateTime).getTime() >
-                    1800 * 1000
+                    300 * 1000
                 ) {
                   // if more than 30 minutes
 

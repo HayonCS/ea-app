@@ -1,0 +1,16 @@
+{
+    "Defaults": {
+        "allSegmentsInspection": "700-0428_C2St5_AllSegmentsOn_new.xml",
+        "displayFilmInspection": "700-0428_C2St5_DetectDisplayFilm.xml",
+        "evenSegmentsInspection": "700-0428_C2St5_AllEvenSegmentsOn_new.xml",
+        "oddSegmentsInspection": "700-0428_C2St5_AllOddSegmentsOn_new.xml",
+        "zeroSegmentsInspection": "700-0428_C2St5_AllSegmentsOff_new.xml"
+    },
+    "Defaults-COPY": {
+        "allSegmentsInspection": "700-0428_C2St5_AllSegmentsOn_new.xml",
+        "displayFilmInspection": "700-0428_C2St5_DetectDisplayFilm.xml",
+        "evenSegmentsInspection": "700-0428_C2St5_AllEvenSegmentsOn_new.xml",
+        "oddSegmentsInspection": "700-0428_C2St5_AllOddSegmentsOn_new.xml",
+        "zeroSegmentsInspection": "700-0428_C2St5_AllSegmentsOff_new.xml"
+    }
+}

@@ -1,0 +1,13 @@
+query GetComboRowsByPartOperatorDateRange(
+  $partId: Int!
+  $operatorId: Int!
+  $start: String!
+  $end: String!
+) {
+  comboRowsByPartOperatorDateRange(
+    partId: $partId
+    operatorId: $operatorId
+    start: $start
+    end: $end
+  )
+}

@@ -1,0 +1,29 @@
+securityContext:
+  allowPrivilegeEscalation: false
+  runAsNonRoot: true
+  runAsUser: 8080
+dockerImage: gpm.gentex.com/docker-gtm-core/library/eabackend
+ingress:
+  enabled: true
+  path: /
+  port: 3001
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: "/"
+    nginx.ingress.kubernetes.io/proxy-body-size: "100m"
+livenessProbe:
+  enabled: false
+owner: MFG
+ports:
+  - name: container
+    port: 3001
+    protocol: TCP
+readinessProbe:
+  enabled: false
+replicaCount: 1
+resources:
+  limits:
+    cpu: 1
+    memory: 2048Mi
+  requests:
+    cpu: 500m
+    memory: 1024Mi

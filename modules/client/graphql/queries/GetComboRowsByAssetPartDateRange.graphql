@@ -1,0 +1,13 @@
+query GetComboRowsByAssetPartDateRange(
+  $assetId: Int!
+  $partId: Int!
+  $start: String!
+  $end: String!
+) {
+  comboRowsByAssetPartDateRange(
+    assetId: $assetId
+    partId: $partId
+    start: $start
+    end: $end
+  )
+}

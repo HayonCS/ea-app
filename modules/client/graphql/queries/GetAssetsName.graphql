@@ -1,0 +1,18 @@
+query GetAssetsName($nameOrKeyword: String!) {
+  getAssetsName(nameOrKeyword: $nameOrKeyword) {
+    assetName
+    serial
+    model
+    orgCode
+    line
+    dateCreated
+    notes
+    reportGroupName
+    reportGroupID
+    excludeFromHealth
+    legacyLocation
+    autoUpdate
+    recordLastUpdated
+    updatedBy
+  }
+}

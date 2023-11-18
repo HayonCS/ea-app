@@ -1,0 +1,4854 @@
+{
+    "705-3798-001": [
+        {
+            "EcoNum": "Defaults",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 115.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 100.0,
+                    "MeasuredValue": 107.0,
+                    "TagName": "13p8ADC"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 135.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 120.0,
+                    "MeasuredValue": 127.0,
+                    "TagName": "16VADC"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "CaptureRange_5"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_D9G"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_D9R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_DWA"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 9000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "Comp_Int_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 15000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 3000.0,
+                    "MeasuredValue": 9000.0,
+                    "TagName": "Comp_Int_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 9000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "Comp_Int_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 630.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 608.0,
+                    "TagName": "Comp_Wave_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 590.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 580.0,
+                    "TagName": "Comp_Wave_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 630.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 608.0,
+                    "TagName": "Comp_Wave_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.436,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.104,
+                    "MeasuredValue": 0.27,
+                    "TagName": "D9G_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 4000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 2000.0,
+                    "TagName": "D9G_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "D9G_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9G_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9G_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "D9R_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 35000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 5000.0,
+                    "MeasuredValue": 15000.0,
+                    "TagName": "D9R_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "D9R_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9R_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9R_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "DWA1_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 2000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "DWA1_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "DWA1_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA1_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA1_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "DWA2_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 2000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "DWA2_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "DWA2_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA2_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA2_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 52.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 42.0,
+                    "MeasuredValue": 47.0,
+                    "TagName": "ECADCNorm"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 40.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 5.0,
+                    "MeasuredValue": 17.0,
+                    "TagName": "ECADCShrt"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 255.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 245.0,
+                    "MeasuredValue": 250.0,
+                    "TagName": "ECTmpAlt"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 80.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 30.0,
+                    "MeasuredValue": 45.0,
+                    "TagName": "ECTmpNom"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.533,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.433,
+                    "MeasuredValue": 0.483,
+                    "TagName": "IEC_PWM125"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.881,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.781,
+                    "MeasuredValue": 0.831,
+                    "TagName": "IEC_PWM200"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.206,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.106,
+                    "MeasuredValue": 0.156,
+                    "TagName": "IEC_PWM50"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.723,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.618,
+                    "MeasuredValue": 0.671,
+                    "TagName": "Q5_Vbe"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.5,
+                    "MeasuredValue": 0.0,
+                    "TagName": "U4_12_N"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 5.0,
+                    "TagName": "U4_12_P"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.5,
+                    "MeasuredValue": 0.0,
+                    "TagName": "U4_5_N"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 5.0,
+                    "TagName": "U4_5_P"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_D9R_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_1"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_3"
+                }
+            ]
+        },
+        {
+            "EcoNum": "E0016083",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 115.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 100.0,
+                    "MeasuredValue": 107.0,
+                    "TagName": "13p8ADC"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 135.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 120.0,
+                    "MeasuredValue": 127.0,
+                    "TagName": "16VADC"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "CaptureRange_5"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_D9G"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_D9R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_DWA"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 9000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "Comp_Int_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 15000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 3000.0,
+                    "MeasuredValue": 9000.0,
+                    "TagName": "Comp_Int_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 9000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "Comp_Int_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 630.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 608.0,
+                    "TagName": "Comp_Wave_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 590.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 580.0,
+                    "TagName": "Comp_Wave_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 630.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 608.0,
+                    "TagName": "Comp_Wave_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.436,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.104,
+                    "MeasuredValue": 0.27,
+                    "TagName": "D9G_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 4000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 2000.0,
+                    "TagName": "D9G_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "D9G_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9G_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9G_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "D9R_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 35000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 5000.0,
+                    "MeasuredValue": 15000.0,
+                    "TagName": "D9R_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "D9R_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9R_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9R_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "DWA1_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 2000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "DWA1_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "DWA1_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA1_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA1_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "DWA2_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 2000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "DWA2_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "DWA2_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA2_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA2_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 52.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 42.0,
+                    "MeasuredValue": 47.0,
+                    "TagName": "ECADCNorm"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 40.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 5.0,
+                    "MeasuredValue": 17.0,
+                    "TagName": "ECADCShrt"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 255.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 245.0,
+                    "MeasuredValue": 250.0,
+                    "TagName": "ECTmpAlt"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 80.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 30.0,
+                    "MeasuredValue": 45.0,
+                    "TagName": "ECTmpNom"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.533,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.433,
+                    "MeasuredValue": 0.483,
+                    "TagName": "IEC_PWM125"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.881,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.781,
+                    "MeasuredValue": 0.831,
+                    "TagName": "IEC_PWM200"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.206,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.106,
+                    "MeasuredValue": 0.156,
+                    "TagName": "IEC_PWM50"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.723,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.618,
+                    "MeasuredValue": 0.671,
+                    "TagName": "Q5_Vbe"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.5,
+                    "MeasuredValue": 0.0,
+                    "TagName": "U4_12_N"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 5.0,
+                    "TagName": "U4_12_P"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.5,
+                    "MeasuredValue": 0.0,
+                    "TagName": "U4_5_N"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 5.0,
+                    "TagName": "U4_5_P"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_D9R_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_1"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_3"
+                }
+            ]
+        },
+        {
+            "EcoNum": "E0016265",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 115.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 100.0,
+                    "MeasuredValue": 107.0,
+                    "TagName": "13p8ADC"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 135.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 120.0,
+                    "MeasuredValue": 127.0,
+                    "TagName": "16VADC"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "CaptureRange_5"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_D9G"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_D9R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_DWA"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 9000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "Comp_Int_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 15000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 3000.0,
+                    "MeasuredValue": 9000.0,
+                    "TagName": "Comp_Int_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 9000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "Comp_Int_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 630.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 608.0,
+                    "TagName": "Comp_Wave_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 590.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 580.0,
+                    "TagName": "Comp_Wave_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 630.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 608.0,
+                    "TagName": "Comp_Wave_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.436,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.104,
+                    "MeasuredValue": 0.27,
+                    "TagName": "D9G_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 4000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 2000.0,
+                    "TagName": "D9G_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "D9G_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9G_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9G_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "D9R_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 35000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 5000.0,
+                    "MeasuredValue": 15000.0,
+                    "TagName": "D9R_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "D9R_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9R_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9R_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "DWA1_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 2000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "DWA1_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "DWA1_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA1_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA1_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "DWA2_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 2000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "DWA2_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "DWA2_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA2_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA2_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 52.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 42.0,
+                    "MeasuredValue": 47.0,
+                    "TagName": "ECADCNorm"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 40.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 5.0,
+                    "MeasuredValue": 17.0,
+                    "TagName": "ECADCShrt"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 255.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 245.0,
+                    "MeasuredValue": 250.0,
+                    "TagName": "ECTmpAlt"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 80.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 30.0,
+                    "MeasuredValue": 45.0,
+                    "TagName": "ECTmpNom"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.533,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.433,
+                    "MeasuredValue": 0.483,
+                    "TagName": "IEC_PWM125"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.881,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.781,
+                    "MeasuredValue": 0.831,
+                    "TagName": "IEC_PWM200"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.206,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.106,
+                    "MeasuredValue": 0.156,
+                    "TagName": "IEC_PWM50"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.723,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.618,
+                    "MeasuredValue": 0.671,
+                    "TagName": "Q5_Vbe"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.5,
+                    "MeasuredValue": 0.0,
+                    "TagName": "U4_12_N"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 5.0,
+                    "TagName": "U4_12_P"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.5,
+                    "MeasuredValue": 0.0,
+                    "TagName": "U4_5_N"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 5.0,
+                    "TagName": "U4_5_P"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_D9R_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_1"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_3"
+                }
+            ]
+        },
+        {
+            "EcoNum": "E0016284",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 115.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 100.0,
+                    "MeasuredValue": 107.0,
+                    "TagName": "13p8ADC"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 135.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 120.0,
+                    "MeasuredValue": 127.0,
+                    "TagName": "16VADC"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "CaptureRange_5"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_D9G"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_D9R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_DWA"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 9000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "Comp_Int_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 15000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 3000.0,
+                    "MeasuredValue": 9000.0,
+                    "TagName": "Comp_Int_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 9000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "Comp_Int_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 630.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 608.0,
+                    "TagName": "Comp_Wave_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 590.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 580.0,
+                    "TagName": "Comp_Wave_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 630.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 608.0,
+                    "TagName": "Comp_Wave_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.436,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.104,
+                    "MeasuredValue": 0.27,
+                    "TagName": "D9G_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 4000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 2000.0,
+                    "TagName": "D9G_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "D9G_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9G_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9G_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "D9R_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 35000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 5000.0,
+                    "MeasuredValue": 15000.0,
+                    "TagName": "D9R_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "D9R_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9R_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9R_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "DWA1_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 2000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "DWA1_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "DWA1_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA1_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA1_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "DWA2_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 2000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "DWA2_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "DWA2_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA2_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA2_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 52.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 42.0,
+                    "MeasuredValue": 47.0,
+                    "TagName": "ECADCNorm"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 40.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 5.0,
+                    "MeasuredValue": 17.0,
+                    "TagName": "ECADCShrt"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 255.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 245.0,
+                    "MeasuredValue": 250.0,
+                    "TagName": "ECTmpAlt"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 80.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 30.0,
+                    "MeasuredValue": 45.0,
+                    "TagName": "ECTmpNom"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.533,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.433,
+                    "MeasuredValue": 0.483,
+                    "TagName": "IEC_PWM125"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.881,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.781,
+                    "MeasuredValue": 0.831,
+                    "TagName": "IEC_PWM200"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.206,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.106,
+                    "MeasuredValue": 0.156,
+                    "TagName": "IEC_PWM50"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.723,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.618,
+                    "MeasuredValue": 0.671,
+                    "TagName": "Q5_Vbe"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.5,
+                    "MeasuredValue": 0.0,
+                    "TagName": "U4_12_N"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 5.0,
+                    "TagName": "U4_12_P"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.5,
+                    "MeasuredValue": 0.0,
+                    "TagName": "U4_5_N"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 5.0,
+                    "TagName": "U4_5_P"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_D9R_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_1"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_3"
+                }
+            ]
+        },
+        {
+            "EcoNum": "E0016475",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 115.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 100.0,
+                    "MeasuredValue": 107.0,
+                    "TagName": "13p8ADC"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 135.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 120.0,
+                    "MeasuredValue": 127.0,
+                    "TagName": "16VADC"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "CaptureRange_5"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_D9G"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_D9R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_DWA"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 9000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "Comp_Int_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 15000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 3000.0,
+                    "MeasuredValue": 9000.0,
+                    "TagName": "Comp_Int_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 9000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "Comp_Int_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 630.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 608.0,
+                    "TagName": "Comp_Wave_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 590.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 580.0,
+                    "TagName": "Comp_Wave_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 630.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 608.0,
+                    "TagName": "Comp_Wave_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.436,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.104,
+                    "MeasuredValue": 0.27,
+                    "TagName": "D9G_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 4000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 2000.0,
+                    "TagName": "D9G_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "D9G_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9G_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9G_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "D9R_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 35000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 5000.0,
+                    "MeasuredValue": 15000.0,
+                    "TagName": "D9R_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "D9R_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9R_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9R_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "DWA1_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 2000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "DWA1_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "DWA1_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA1_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA1_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "DWA2_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 2000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "DWA2_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "DWA2_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA2_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA2_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 52.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 42.0,
+                    "MeasuredValue": 47.0,
+                    "TagName": "ECADCNorm"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 40.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 5.0,
+                    "MeasuredValue": 17.0,
+                    "TagName": "ECADCShrt"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 255.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 245.0,
+                    "MeasuredValue": 250.0,
+                    "TagName": "ECTmpAlt"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 80.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 30.0,
+                    "MeasuredValue": 45.0,
+                    "TagName": "ECTmpNom"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.533,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.433,
+                    "MeasuredValue": 0.483,
+                    "TagName": "IEC_PWM125"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.881,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.781,
+                    "MeasuredValue": 0.831,
+                    "TagName": "IEC_PWM200"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.206,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.106,
+                    "MeasuredValue": 0.156,
+                    "TagName": "IEC_PWM50"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.723,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.618,
+                    "MeasuredValue": 0.671,
+                    "TagName": "Q5_Vbe"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.5,
+                    "MeasuredValue": 0.0,
+                    "TagName": "U4_12_N"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 5.0,
+                    "TagName": "U4_12_P"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.5,
+                    "MeasuredValue": 0.0,
+                    "TagName": "U4_5_N"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 5.0,
+                    "TagName": "U4_5_P"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_D9R_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_1"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_3"
+                }
+            ]
+        },
+        {
+            "EcoNum": "E0016615",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 115.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 100.0,
+                    "MeasuredValue": 107.0,
+                    "TagName": "13p8ADC"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 135.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 120.0,
+                    "MeasuredValue": 127.0,
+                    "TagName": "16VADC"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "CaptureRange_5"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_D9G"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_D9R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_DWA"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 9000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "Comp_Int_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 15000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 3000.0,
+                    "MeasuredValue": 9000.0,
+                    "TagName": "Comp_Int_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 9000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "Comp_Int_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 630.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 608.0,
+                    "TagName": "Comp_Wave_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 590.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 580.0,
+                    "TagName": "Comp_Wave_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 630.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 608.0,
+                    "TagName": "Comp_Wave_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.436,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.104,
+                    "MeasuredValue": 0.27,
+                    "TagName": "D9G_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 4000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 2000.0,
+                    "TagName": "D9G_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "D9G_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9G_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9G_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "D9R_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 35000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 5000.0,
+                    "MeasuredValue": 15000.0,
+                    "TagName": "D9R_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "D9R_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9R_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9R_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "DWA1_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 2000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "DWA1_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "DWA1_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA1_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA1_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "DWA2_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 2000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "DWA2_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "DWA2_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA2_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA2_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 52.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 42.0,
+                    "MeasuredValue": 47.0,
+                    "TagName": "ECADCNorm"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 40.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 5.0,
+                    "MeasuredValue": 17.0,
+                    "TagName": "ECADCShrt"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 255.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 245.0,
+                    "MeasuredValue": 250.0,
+                    "TagName": "ECTmpAlt"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 80.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 30.0,
+                    "MeasuredValue": 45.0,
+                    "TagName": "ECTmpNom"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.533,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.433,
+                    "MeasuredValue": 0.483,
+                    "TagName": "IEC_PWM125"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.881,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.781,
+                    "MeasuredValue": 0.831,
+                    "TagName": "IEC_PWM200"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.206,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.106,
+                    "MeasuredValue": 0.156,
+                    "TagName": "IEC_PWM50"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.723,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.618,
+                    "MeasuredValue": 0.671,
+                    "TagName": "Q5_Vbe"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.5,
+                    "MeasuredValue": 0.0,
+                    "TagName": "U4_12_N"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 5.0,
+                    "TagName": "U4_12_P"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.5,
+                    "MeasuredValue": 0.0,
+                    "TagName": "U4_5_N"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 5.0,
+                    "TagName": "U4_5_P"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_D9R_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_1"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_3"
+                }
+            ]
+        },
+        {
+            "EcoNum": "E0018036",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 115.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 100.0,
+                    "MeasuredValue": 107.0,
+                    "TagName": "13p8ADC"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 135.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 120.0,
+                    "MeasuredValue": 127.0,
+                    "TagName": "16VADC"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "CaptureRange_5"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_D9G"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_D9R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_DWA"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 9000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "Comp_Int_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 15000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 3000.0,
+                    "MeasuredValue": 9000.0,
+                    "TagName": "Comp_Int_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 9000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "Comp_Int_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 630.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 608.0,
+                    "TagName": "Comp_Wave_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 590.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 580.0,
+                    "TagName": "Comp_Wave_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 630.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 608.0,
+                    "TagName": "Comp_Wave_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.436,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.104,
+                    "MeasuredValue": 0.27,
+                    "TagName": "D9G_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 4000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 2000.0,
+                    "TagName": "D9G_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "D9G_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9G_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9G_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "D9R_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 35000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 5000.0,
+                    "MeasuredValue": 15000.0,
+                    "TagName": "D9R_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "D9R_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9R_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9R_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "DWA1_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 2000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "DWA1_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "DWA1_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA1_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA1_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "DWA2_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 2000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "DWA2_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "DWA2_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA2_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA2_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 52.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 42.0,
+                    "MeasuredValue": 47.0,
+                    "TagName": "ECADCNorm"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 40.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 5.0,
+                    "MeasuredValue": 17.0,
+                    "TagName": "ECADCShrt"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 255.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 245.0,
+                    "MeasuredValue": 250.0,
+                    "TagName": "ECTmpAlt"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 80.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 30.0,
+                    "MeasuredValue": 45.0,
+                    "TagName": "ECTmpNom"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.533,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.433,
+                    "MeasuredValue": 0.483,
+                    "TagName": "IEC_PWM125"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.881,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.781,
+                    "MeasuredValue": 0.831,
+                    "TagName": "IEC_PWM200"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.206,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.106,
+                    "MeasuredValue": 0.156,
+                    "TagName": "IEC_PWM50"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.723,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.618,
+                    "MeasuredValue": 0.671,
+                    "TagName": "Q5_Vbe"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.5,
+                    "MeasuredValue": 0.0,
+                    "TagName": "U4_12_N"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 5.0,
+                    "TagName": "U4_12_P"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.5,
+                    "MeasuredValue": 0.0,
+                    "TagName": "U4_5_N"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 5.0,
+                    "TagName": "U4_5_P"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_D9R_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_1"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_3"
+                }
+            ]
+        },
+        {
+            "EcoNum": "E0018056",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 115.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 100.0,
+                    "MeasuredValue": 107.0,
+                    "TagName": "13p8ADC"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 135.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 120.0,
+                    "MeasuredValue": 127.0,
+                    "TagName": "16VADC"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "CaptureRange_5"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_D9G"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_D9R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_DWA"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 9000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "Comp_Int_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 15000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 3000.0,
+                    "MeasuredValue": 9000.0,
+                    "TagName": "Comp_Int_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 9000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "Comp_Int_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 630.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 608.0,
+                    "TagName": "Comp_Wave_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 590.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 580.0,
+                    "TagName": "Comp_Wave_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 630.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 608.0,
+                    "TagName": "Comp_Wave_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.436,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.104,
+                    "MeasuredValue": 0.27,
+                    "TagName": "D9G_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 4000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 2000.0,
+                    "TagName": "D9G_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "D9G_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9G_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9G_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "D9R_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 35000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 5000.0,
+                    "MeasuredValue": 15000.0,
+                    "TagName": "D9R_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "D9R_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9R_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9R_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "DWA1_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 2000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "DWA1_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "DWA1_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA1_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA1_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "DWA2_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 2000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "DWA2_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "DWA2_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA2_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA2_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 52.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 42.0,
+                    "MeasuredValue": 47.0,
+                    "TagName": "ECADCNorm"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 40.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 5.0,
+                    "MeasuredValue": 17.0,
+                    "TagName": "ECADCShrt"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 255.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 245.0,
+                    "MeasuredValue": 250.0,
+                    "TagName": "ECTmpAlt"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 80.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 30.0,
+                    "MeasuredValue": 45.0,
+                    "TagName": "ECTmpNom"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.533,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.433,
+                    "MeasuredValue": 0.483,
+                    "TagName": "IEC_PWM125"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.881,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.781,
+                    "MeasuredValue": 0.831,
+                    "TagName": "IEC_PWM200"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.206,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.106,
+                    "MeasuredValue": 0.156,
+                    "TagName": "IEC_PWM50"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.723,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.618,
+                    "MeasuredValue": 0.671,
+                    "TagName": "Q5_Vbe"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.5,
+                    "MeasuredValue": 0.0,
+                    "TagName": "U4_12_N"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 5.0,
+                    "TagName": "U4_12_P"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.5,
+                    "MeasuredValue": 0.0,
+                    "TagName": "U4_5_N"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 5.0,
+                    "TagName": "U4_5_P"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_D9R_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_1"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_3"
+                }
+            ]
+        },
+        {
+            "EcoNum": "E0018618",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 115.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 100.0,
+                    "MeasuredValue": 107.0,
+                    "TagName": "13p8ADC"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 135.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 120.0,
+                    "MeasuredValue": 127.0,
+                    "TagName": "16VADC"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "CaptureRange_5"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_D9G"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_D9R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_DWA"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 9000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "Comp_Int_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 15000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 3000.0,
+                    "MeasuredValue": 9000.0,
+                    "TagName": "Comp_Int_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 9000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "Comp_Int_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 630.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 608.0,
+                    "TagName": "Comp_Wave_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 590.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 580.0,
+                    "TagName": "Comp_Wave_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 630.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 608.0,
+                    "TagName": "Comp_Wave_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.436,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.104,
+                    "MeasuredValue": 0.27,
+                    "TagName": "D9G_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 4000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 2000.0,
+                    "TagName": "D9G_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "D9G_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9G_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9G_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "D9R_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 35000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 5000.0,
+                    "MeasuredValue": 15000.0,
+                    "TagName": "D9R_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "D9R_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9R_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9R_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "DWA1_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 2000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "DWA1_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "DWA1_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA1_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA1_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "DWA2_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 2000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "DWA2_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "DWA2_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA2_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA2_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 52.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 42.0,
+                    "MeasuredValue": 47.0,
+                    "TagName": "ECADCNorm"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 40.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 5.0,
+                    "MeasuredValue": 17.0,
+                    "TagName": "ECADCShrt"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 255.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 245.0,
+                    "MeasuredValue": 250.0,
+                    "TagName": "ECTmpAlt"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 80.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 30.0,
+                    "MeasuredValue": 45.0,
+                    "TagName": "ECTmpNom"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.533,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.433,
+                    "MeasuredValue": 0.483,
+                    "TagName": "IEC_PWM125"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.881,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.781,
+                    "MeasuredValue": 0.831,
+                    "TagName": "IEC_PWM200"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.206,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.106,
+                    "MeasuredValue": 0.156,
+                    "TagName": "IEC_PWM50"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.723,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.618,
+                    "MeasuredValue": 0.671,
+                    "TagName": "Q5_Vbe"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.5,
+                    "MeasuredValue": 0.0,
+                    "TagName": "U4_12_N"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 5.0,
+                    "TagName": "U4_12_P"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.5,
+                    "MeasuredValue": 0.0,
+                    "TagName": "U4_5_N"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 5.0,
+                    "TagName": "U4_5_P"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_D9R_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_1"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_3"
+                }
+            ]
+        },
+        {
+            "EcoNum": "E0018665",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 115.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 100.0,
+                    "MeasuredValue": 107.0,
+                    "TagName": "13p8ADC"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 135.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 120.0,
+                    "MeasuredValue": 127.0,
+                    "TagName": "16VADC"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "CaptureRange_5"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_D9G"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_D9R"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_DWA"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.2,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.015,
+                    "TagName": "Comp_Hue_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 9000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "Comp_Int_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 15000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 3000.0,
+                    "MeasuredValue": 9000.0,
+                    "TagName": "Comp_Int_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 9000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "Comp_Int_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 95.0,
+                    "MeasuredValue": 99.0,
+                    "TagName": "Comp_Sat_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 630.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 608.0,
+                    "TagName": "Comp_Wave_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 590.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 580.0,
+                    "TagName": "Comp_Wave_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 630.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 570.0,
+                    "MeasuredValue": 608.0,
+                    "TagName": "Comp_Wave_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_X_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Even"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Full"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Comp_Y_Odd"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.436,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.104,
+                    "MeasuredValue": 0.27,
+                    "TagName": "D9G_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 4000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1000.0,
+                    "MeasuredValue": 2000.0,
+                    "TagName": "D9G_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "D9G_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9G_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9G_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "D9R_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 35000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 5000.0,
+                    "MeasuredValue": 15000.0,
+                    "TagName": "D9R_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "D9R_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9R_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "D9R_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "DWA1_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 2000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "DWA1_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "DWA1_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA1_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA1_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.015,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.015,
+                    "MeasuredValue": 0.006,
+                    "TagName": "DWA2_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 2000.0,
+                    "MeasuredValue": 5000.0,
+                    "TagName": "DWA2_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 90.0,
+                    "MeasuredValue": 97.0,
+                    "TagName": "DWA2_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA2_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "DWA2_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 52.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 42.0,
+                    "MeasuredValue": 47.0,
+                    "TagName": "ECADCNorm"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 40.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 5.0,
+                    "MeasuredValue": 17.0,
+                    "TagName": "ECADCShrt"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 255.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 245.0,
+                    "MeasuredValue": 250.0,
+                    "TagName": "ECTmpAlt"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 80.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 30.0,
+                    "MeasuredValue": 45.0,
+                    "TagName": "ECTmpNom"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.533,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.433,
+                    "MeasuredValue": 0.483,
+                    "TagName": "IEC_PWM125"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.881,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.781,
+                    "MeasuredValue": 0.831,
+                    "TagName": "IEC_PWM200"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.206,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.106,
+                    "MeasuredValue": 0.156,
+                    "TagName": "IEC_PWM50"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.723,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.618,
+                    "MeasuredValue": 0.671,
+                    "TagName": "Q5_Vbe"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.5,
+                    "MeasuredValue": 0.0,
+                    "TagName": "U4_12_N"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 5.0,
+                    "TagName": "U4_12_P"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": -0.5,
+                    "MeasuredValue": 0.0,
+                    "TagName": "U4_5_N"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 5.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.5,
+                    "MeasuredValue": 5.0,
+                    "TagName": "U4_5_P"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_D9R_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 98000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_1"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 99000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "~Capture_Range5_3"
+                }
+            ]
+        }
+    ]
+}

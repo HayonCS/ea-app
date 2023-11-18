@@ -1,0 +1,316 @@
+scalar IsoDate
+scalar IsoTime
+scalar IsoDateTime
+scalar Object
+scalar UserSettings
+scalar UserAppData
+scalar EmployeeInfoResponse
+scalar UserInformation
+scalar ProcessDataExport
+scalar RunningNowItem
+scalar PartDataRow
+scalar AssetDataRow
+scalar SerialDataRow
+scalar Decimal
+
+"""
+A type used to represent a Bi Asset's information.
+"""
+type AssetInfo {
+  assetName: String!
+  serial: String!
+  model: String!
+  orgCode: String!
+  line: String!
+  dateCreated: String!
+  notes: String!
+  reportGroupName: String
+  reportGroupID: String
+  excludeFromHealth: Boolean!
+  legacyLocation: String
+  autoUpdate: Boolean!
+  recordLastUpdated: String!
+  updatedBy: String!
+}
+
+type LineOperationPart {
+  orgCode: Int!
+  line: String!
+  partNumber: String!
+  partNumberAsset: String
+  ebsOperation: String!
+  averageCycleTime: Decimal
+  minimumRepeatable: Decimal
+  historicalReferenceUsageRate: String
+  autoUpdate: Boolean!
+  recordLastUpdated: String!
+  updatedBy: String!
+  comments: String
+}
+
+"""
+A type which represents the json information sent back from the mes user info endpoint.
+This is meant to represent a single user's information.
+"""
+type MesUserInfo {
+  username: String!
+  firstName: String!
+  lastName: String!
+  emailAddress: String!
+  employeeId: String!
+  isServiceAccount: Boolean!
+  pager: String
+  roles: [String!]!
+  distributionLists: [String!]!
+}
+
+type ErphrLocation {
+  locationId: Int
+  locationCode: String
+  description: String
+  inventoryOrgCode: Int
+  inventoryOrgId: Int
+}
+
+"""
+Type used to represent the path for a particular user picture.
+"""
+type UserPictureResponse {
+  picturePath: String!
+}
+
+"""
+A box value representing a Float.
+"""
+type FloatBox {
+  value: Float!
+}
+
+"""
+A box value representing a String.
+"""
+type StringBox {
+  value: String!
+}
+
+"""
+A union type that can either be a Float or a String
+"""
+union FloatOrString = FloatBox | StringBox
+
+####################################################################################################
+
+type Query {
+  """
+  Used to obtain mes user info endpoint information associated with the provided user id input.
+  """
+  mesUserInfo(
+    employeeNumberOrUsername: String!
+    includeGroups: Boolean
+  ): MesUserInfo!
+
+  """
+  Used to obtain employee info endpoint information associated with the provided employee number input.
+  """
+  employeeInfo(employeeNumberOrEmail: String!): EmployeeInfoResponse!
+
+  """
+  Returns all active employee directory information.
+  """
+  employeeDirectory: [EmployeeInfoResponse!]!
+
+  """
+  Returns all assets and their information.
+  """
+  assetListBi: [AssetInfo]!
+
+  """
+  Returns one or more asset(s) information based on their name or keyword.
+  """
+  getAssetsName(nameOrKeyword: String!): [AssetInfo]!
+
+  """
+  Returns a single asset's information based on its name.
+  """
+  getAssetByName(assetName: String!): AssetInfo
+
+  cycleTimesLineOperationPart: [LineOperationPart!]!
+
+  """
+  Retrieves a user's app data based on their User ID.
+  """
+  getUserAppData(userId: String!): UserAppData!
+
+  getUserInfo(
+    userIdOrUsername: String!
+    includeGroups: Boolean
+  ): UserInformation
+
+  getUsersInfo(
+    userIdsOrUsernames: [String!]!
+    includeGroups: Boolean
+  ): [UserInformation!]!
+
+  """
+  Returns MES Process Data based on an asset's name, start date, and end date.
+  """
+  getProcessDataExport(
+    asset: String!
+    startDate: String!
+    endDate: String!
+  ): [ProcessDataExport]!
+
+  """
+  Returns MES Process Data from redis based on asset name and a single date.
+  """
+  getProcessDataRedis(asset: String!, date: String!): [ProcessDataExport]!
+
+  """
+  Returns a list of assets that have been active in the last 24 hours.
+  """
+  getAssetsRunningNow: [RunningNowItem!]!
+
+  """
+  Returns the path to the user picture associated with the employee that has the given user id.
+  """
+  userPicture(employeeId: String!): UserPictureResponse!
+
+  comboPartData: [PartDataRow!]!
+
+  comboAssetData: [AssetDataRow!]!
+
+  processPartData: [PartDataRow!]!
+
+  processAssetData: [AssetDataRow!]!
+
+  comboRowsDateRange(
+    start: String!
+    end: String!
+    assetIds: [Int!]
+    partIds: [Int!]
+    operatorIds: [Int!]
+  ): [SerialDataRow!]!
+
+  comboRowsByAssetDateRange(
+    assetId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
+  comboRowsByAssetsDateRange(
+    assetIds: [Int!]!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
+  comboRowsByPartDateRange(
+    partId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
+  comboRowsByOperatorDateRange(
+    operatorId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
+  comboRowsByOperatorsDateRange(
+    operatorIds: [Int!]!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
+  comboRowsByAssetPartDateRange(
+    assetId: Int!
+    partId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
+  comboRowsByAssetOperatorDateRange(
+    assetId: Int!
+    operatorId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
+  comboRowsByPartOperatorDateRange(
+    partId: Int!
+    operatorId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
+  comboRowsByAssetPartOperatorDateRange(
+    assetId: Int!
+    partId: Int!
+    operatorId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
+  processRowsDateRange(
+    start: String!
+    end: String!
+    assetIds: [Int!]
+    partIds: [Int!]
+    operatorIds: [Int!]
+  ): [SerialDataRow!]!
+
+  processRowsByAssetDateRange(
+    assetId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
+  processRowsByPartDateRange(
+    partId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
+  processRowsByOperatorDateRange(
+    operatorId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
+  processRowsByAssetPartDateRange(
+    assetId: Int!
+    partId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
+  processRowsByAssetOperatorDateRange(
+    assetId: Int!
+    operatorId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
+  processRowsByPartOperatorDateRange(
+    partId: Int!
+    operatorId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+
+  processRowsByAssetPartOperatorDateRange(
+    assetId: Int!
+    partId: Int!
+    operatorId: Int!
+    start: String!
+    end: String!
+  ): [SerialDataRow!]!
+}
+
+####################################################################################################
+
+type Mutation {
+  """
+  Mutation to save a user's app data to redis.
+  """
+  setUserAppData(userId: String!, appData: UserAppData!): Boolean!
+}

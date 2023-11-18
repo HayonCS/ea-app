@@ -1,0 +1,82 @@
+{
+    "Defaults": {
+        "fwDate": "151016",
+        "fwPN": "316-0325-151016",
+        "fwTime": "155547",
+        "memMapMajor": "0682",
+        "memMapMinor": "02",
+        "memMapRevBytes": "41 41 46"
+    },
+    "E0016083": {
+        "fwDate": "151016",
+        "fwPN": "316-0325-151016",
+        "fwTime": "155547",
+        "memMapMajor": "0682",
+        "memMapMinor": "02",
+        "memMapRevBytes": "41 41 47"
+    },
+    "E0016265": {
+        "fwDate": "151016",
+        "fwPN": "316-0325-151016",
+        "fwTime": "155547",
+        "memMapMajor": "0682",
+        "memMapMinor": "02",
+        "memMapRevBytes": "41 41 47"
+    },
+    "E0016284": {
+        "fwDate": "151016",
+        "fwPN": "316-0325-151016",
+        "fwTime": "155547",
+        "memMapMajor": "0682",
+        "memMapMinor": "02",
+        "memMapRevBytes": "41 41 47"
+    },
+    "E0016475": {
+        "fwDate": "151016",
+        "fwPN": "316-0325-151016",
+        "fwTime": "155547",
+        "memMapMajor": "0682",
+        "memMapMinor": "02",
+        "memMapRevBytes": "41 41 46"
+    },
+    "E0016615": {
+        "fwDate": "151016",
+        "fwPN": "316-0325-151016",
+        "fwTime": "155547",
+        "memMapMajor": "0682",
+        "memMapMinor": "02",
+        "memMapRevBytes": "41 41 46"
+    },
+    "E0018036": {
+        "fwDate": "151016",
+        "fwPN": "316-0325-151016",
+        "fwTime": "155547",
+        "memMapMajor": "0682",
+        "memMapMinor": "02",
+        "memMapRevBytes": "41 41 46"
+    },
+    "E0018056": {
+        "fwDate": "151016",
+        "fwPN": "316-0325-151016",
+        "fwTime": "155547",
+        "memMapMajor": "0682",
+        "memMapMinor": "02",
+        "memMapRevBytes": "41 41 46"
+    },
+    "E0018618": {
+        "fwDate": "151016",
+        "fwPN": "316-0325-151016",
+        "fwTime": "155547",
+        "memMapMajor": "0682",
+        "memMapMinor": "02",
+        "memMapRevBytes": "41 41 46"
+    },
+    "E0018665": {
+        "fwDate": "151016",
+        "fwPN": "316-0325-151016",
+        "fwTime": "155547",
+        "memMapMajor": "0682",
+        "memMapMinor": "02",
+        "memMapRevBytes": "41 41 46"
+    }
+}

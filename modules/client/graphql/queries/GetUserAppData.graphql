@@ -1,0 +1,3 @@
+query GetUserAppData($userId: String!) {
+  getUserAppData(userId: $userId)
+}

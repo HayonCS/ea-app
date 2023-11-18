@@ -1,0 +1,334 @@
+{
+    "705-4981-001": [
+        {
+            "EcoNum": "Defaults",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 110.0,
+                    "MeasuredValue": 200.0,
+                    "TagName": "Channel1GAR"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Channel1OPT1"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Channel1OPT2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 110.0,
+                    "MeasuredValue": 150.0,
+                    "TagName": "Channel2OPT1"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 110.0,
+                    "MeasuredValue": 150.0,
+                    "TagName": "Channel3OPT2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 255.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "HLBarCode1"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 255.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "HLBarCode2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 255.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "HLBarCode3"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 255.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "HLBarCode4"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 4.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.0,
+                    "MeasuredValue": 4.0,
+                    "TagName": "HLSW_Major"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "HLSW_Minor"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 8.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 8.0,
+                    "MeasuredValue": 8.0,
+                    "TagName": "HLSW_Plat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 8.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 8.0,
+                    "MeasuredValue": 8.0,
+                    "TagName": "HL_CountryCode"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 4982.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4982.0,
+                    "MeasuredValue": 4982.0,
+                    "TagName": "HL_SubPN"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 13.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 11.0,
+                    "MeasuredValue": 12.0,
+                    "TagName": "St3_HLpwr"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 13.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 10.8,
+                    "MeasuredValue": 11.2,
+                    "TagName": "St3_HLpwr_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 13.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 11.0,
+                    "MeasuredValue": 12.0,
+                    "TagName": "St3_HLpwr_3"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 11.5,
+                    "MeasuredValue": 12.0,
+                    "TagName": "St3_Ign12"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 11.5,
+                    "MeasuredValue": 12.0,
+                    "TagName": "St3_Ign12_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 11.5,
+                    "MeasuredValue": 12.0,
+                    "TagName": "St3_Ign12_3"
+                }
+            ]
+        },
+        {
+            "EcoNum": "Defaults-COPY",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 110.0,
+                    "MeasuredValue": 200.0,
+                    "TagName": "Channel1GAR"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Channel1OPT1"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "Channel1OPT2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 110.0,
+                    "MeasuredValue": 150.0,
+                    "TagName": "Channel2OPT1"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 250.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 110.0,
+                    "MeasuredValue": 150.0,
+                    "TagName": "Channel3OPT2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 255.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "HLBarCode1"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 255.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "HLBarCode2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 255.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "HLBarCode3"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 255.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "HLBarCode4"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 4.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4.0,
+                    "MeasuredValue": 4.0,
+                    "TagName": "HLSW_Major"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.0,
+                    "TagName": "HLSW_Minor"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 8.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 8.0,
+                    "MeasuredValue": 8.0,
+                    "TagName": "HLSW_Plat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 8.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 8.0,
+                    "MeasuredValue": 8.0,
+                    "TagName": "HL_CountryCode"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 4982.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 4982.0,
+                    "MeasuredValue": 4982.0,
+                    "TagName": "HL_SubPN"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 13.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 11.0,
+                    "MeasuredValue": 12.0,
+                    "TagName": "St3_HLpwr"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 13.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 10.8,
+                    "MeasuredValue": 11.2,
+                    "TagName": "St3_HLpwr_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 13.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 11.0,
+                    "MeasuredValue": 12.0,
+                    "TagName": "St3_HLpwr_3"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 11.5,
+                    "MeasuredValue": 12.0,
+                    "TagName": "St3_Ign12"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 11.5,
+                    "MeasuredValue": 12.0,
+                    "TagName": "St3_Ign12_2"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 12.5,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 11.5,
+                    "MeasuredValue": 12.0,
+                    "TagName": "St3_Ign12_3"
+                }
+            ]
+        }
+    ]
+}

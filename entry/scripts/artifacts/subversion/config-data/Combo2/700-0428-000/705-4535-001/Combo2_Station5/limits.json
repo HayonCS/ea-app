@@ -1,0 +1,190 @@
+{
+    "705-4535-001": [
+        {
+            "EcoNum": "Defaults",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 1024.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 12.0,
+                    "MeasuredValue": 90.0,
+                    "TagName": "AmbOff"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1024.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 12.0,
+                    "MeasuredValue": 50.0,
+                    "TagName": "AmbRPW"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 90000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_BB_BacklightsEC"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 6.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "CheckRetestCount"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.195,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.04,
+                    "MeasuredValue": 0.1,
+                    "TagName": "EC_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 90000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 400.0,
+                    "MeasuredValue": 4000.0,
+                    "TagName": "EC_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 70.0,
+                    "MeasuredValue": 95.0,
+                    "TagName": "EC_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.5,
+                    "TagName": "EC_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.5,
+                    "TagName": "EC_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1024.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 12.0,
+                    "MeasuredValue": 50.0,
+                    "TagName": "GlrOff"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1024.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 12.0,
+                    "MeasuredValue": 50.0,
+                    "TagName": "GlrRPW"
+                }
+            ]
+        },
+        {
+            "EcoNum": "Defaults-COPY",
+            "SpecLimits": [
+                {
+                    "Description": "",
+                    "HighLimit": 1024.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 12.0,
+                    "MeasuredValue": 90.0,
+                    "TagName": "AmbOff"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1024.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 12.0,
+                    "MeasuredValue": 50.0,
+                    "TagName": "AmbRPW"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 90000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "Capture_BB_BacklightsEC"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 6.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 1.0,
+                    "MeasuredValue": 1.0,
+                    "TagName": "CheckRetestCount"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 0.195,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.04,
+                    "MeasuredValue": 0.1,
+                    "TagName": "EC_Hue"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 90000.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 400.0,
+                    "MeasuredValue": 4000.0,
+                    "TagName": "EC_Int"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 100.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 70.0,
+                    "MeasuredValue": 95.0,
+                    "TagName": "EC_Sat"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.5,
+                    "TagName": "EC_X"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 0.0,
+                    "MeasuredValue": 0.5,
+                    "TagName": "EC_Y"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1024.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 12.0,
+                    "MeasuredValue": 50.0,
+                    "TagName": "GlrOff"
+                },
+                {
+                    "Description": "",
+                    "HighLimit": 1024.0,
+                    "IgnoreCalcCheck": false,
+                    "LowLimit": 12.0,
+                    "MeasuredValue": 50.0,
+                    "TagName": "GlrRPW"
+                }
+            ]
+        }
+    ]
+}

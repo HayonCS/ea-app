@@ -1,0 +1,112 @@
+{
+    "Defaults": {
+        "ecReleaseStatus": "false",
+        "hlMemoryMapPN": "",
+        "hlMemoryMapRev": "",
+        "hlSubAssemblyPN": "",
+        "memoryMapPN": "",
+        "memoryMapRev": "",
+        "opsManagerPullup": "",
+        "series": "2060",
+        "unlockCmd": ""
+    },
+    "E0016083": {
+        "ecReleaseStatus": "false",
+        "hlMemoryMapPN": "",
+        "hlMemoryMapRev": "",
+        "hlSubAssemblyPN": "",
+        "memoryMapPN": "",
+        "memoryMapRev": "",
+        "opsManagerPullup": "",
+        "series": "2060",
+        "unlockCmd": ""
+    },
+    "E0016265": {
+        "ecReleaseStatus": "true",
+        "hlMemoryMapPN": "305-1047-000",
+        "hlMemoryMapRev": "AAA",
+        "hlSubAssemblyPN": "705-4597-001",
+        "memoryMapPN": "305-1088-000",
+        "memoryMapRev": "AAA",
+        "opsManagerPullup": "6.8k",
+        "series": "2060",
+        "unlockCmd": "Unlock"
+    },
+    "E0016284": {
+        "ecReleaseStatus": "false",
+        "hlMemoryMapPN": "305-1047-000",
+        "hlMemoryMapRev": "AAA",
+        "hlSubAssemblyPN": "705-4597-001",
+        "memoryMapPN": "305-1088-000",
+        "memoryMapRev": "AAA",
+        "opsManagerPullup": "6.8k",
+        "series": "2060",
+        "unlockCmd": "Unlock"
+    },
+    "E0016475": {
+        "ecReleaseStatus": "false",
+        "hlMemoryMapPN": "",
+        "hlMemoryMapRev": "",
+        "hlSubAssemblyPN": "",
+        "memoryMapPN": "",
+        "memoryMapRev": "",
+        "opsManagerPullup": "",
+        "series": "2060",
+        "unlockCmd": ""
+    },
+    "E0016615": {
+        "ecReleaseStatus": "false",
+        "hlMemoryMapPN": "",
+        "hlMemoryMapRev": "",
+        "hlSubAssemblyPN": "",
+        "memoryMapPN": "",
+        "memoryMapRev": "",
+        "opsManagerPullup": "",
+        "series": "2060",
+        "unlockCmd": ""
+    },
+    "E0018036": {
+        "ecReleaseStatus": "false",
+        "hlMemoryMapPN": "305-1047-000",
+        "hlMemoryMapRev": "AAA",
+        "hlSubAssemblyPN": "705-4597-001",
+        "memoryMapPN": "305-1088-001",
+        "memoryMapRev": "AAB",
+        "opsManagerPullup": "6.8k",
+        "series": "2060",
+        "unlockCmd": "Unlock"
+    },
+    "E0018056": {
+        "ecReleaseStatus": "false",
+        "hlMemoryMapPN": "",
+        "hlMemoryMapRev": "",
+        "hlSubAssemblyPN": "",
+        "memoryMapPN": "",
+        "memoryMapRev": "",
+        "opsManagerPullup": "",
+        "series": "2060",
+        "unlockCmd": ""
+    },
+    "E0018618": {
+        "ecReleaseStatus": "false",
+        "hlMemoryMapPN": "",
+        "hlMemoryMapRev": "",
+        "hlSubAssemblyPN": "",
+        "memoryMapPN": "",
+        "memoryMapRev": "",
+        "opsManagerPullup": "",
+        "series": "2060",
+        "unlockCmd": ""
+    },
+    "E0018665": {
+        "ecReleaseStatus": "false",
+        "hlMemoryMapPN": "",
+        "hlMemoryMapRev": "",
+        "hlSubAssemblyPN": "",
+        "memoryMapPN": "",
+        "memoryMapRev": "",
+        "opsManagerPullup": "",
+        "series": "2060",
+        "unlockCmd": ""
+    }
+}

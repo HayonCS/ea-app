@@ -1,0 +1,6 @@
+query GetUserInfo($userIdOrUsername: String!, $includeGroups: Boolean) {
+  getUserInfo(
+    userIdOrUsername: $userIdOrUsername
+    includeGroups: $includeGroups
+  )
+}

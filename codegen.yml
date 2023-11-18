@@ -1,0 +1,81 @@
+generates:
+  modules/client/graphql/types.gen.tsx:
+    config:
+      withHooks: true
+      withComponent: false
+      withHOC: false
+      apolloReactHooksImportFrom: "@apollo/client"
+      apolloClientVersion: 3
+    schema:
+      - "modules/graphql-api/schema.graphql"
+      - "modules/client/graphql/schema.graphql"
+    documents:
+      - "modules/client/graphql/*/*.graphql"
+    plugins:
+      - add:
+          content:
+            - 'import * as DateTimeIso from "core/date-time-iso";'
+            - 'import * as DateIso from "core/date-iso";'
+            - 'import * as TimeIso from "core/time-iso";'
+            - 'import { UserAppData } from "core/schemas/user-app-data.gen"'
+            - 'import { EmployeeInfoResponse } from "rest-endpoints/employee-directory/employee-directory"'
+            - 'import { UserInformation } from "core/schemas/user-information.gen"'
+            - 'import { ProcessDataExport, RunningNowItem } from "rest-endpoints/mes-process-data/mes-process-data"'
+            - 'import { AssetRow, PnRow, SnRow } from "records/combodata"'
+      - "typescript":
+          scalars:
+            IsoDateTime: DateTimeIso.Type
+            IsoDate: DateIso.Type
+            IsoTime: TimeIso.Type
+            UserAppData: UserAppData
+            EmployeeInfoResponse: EmployeeInfoResponse
+            UserInformation: UserInformation
+            ProcessDataExport: ProcessDataExport
+            RunningNowItem: RunningNowItem
+            PartDataRow: PnRow
+            AssetDataRow: AssetRow
+            SerialDataRow: SnRow
+      - "typescript-operations"
+      - "typescript-react-apollo"
+      - "typescript-resolvers":
+          contextType: context#ApiContext
+          defaultMapper: any
+  modules/graphql-api/server-types.gen.ts:
+    schema:
+      - "modules/graphql-api/schema.graphql"
+    plugins:
+      - add:
+          content:
+            - 'import * as DateTimeIso from "core/date-time-iso";'
+            - 'import * as DateIso from "core/date-iso";'
+            - 'import * as TimeIso from "core/time-iso";'
+            - 'import { UserAppData } from "core/schemas/user-app-data.gen"'
+            - 'import { EmployeeInfoResponse } from "rest-endpoints/employee-directory/employee-directory"'
+            - 'import { UserInformation } from "core/schemas/user-information.gen"'
+            - 'import { ProcessDataExport, RunningNowItem } from "rest-endpoints/mes-process-data/mes-process-data"'
+            - 'import { AssetRow, PnRow, SnRow } from "records/combodata"'
+      - "typescript":
+          scalars:
+            IsoDateTime: DateTimeIso.Type
+            IsoDate: DateIso.Type
+            IsoTime: TimeIso.Type
+            UserAppData: UserAppData
+            EmployeeInfoResponse: EmployeeInfoResponse
+            UserInformation: UserInformation
+            ProcessDataExport: ProcessDataExport
+            RunningNowItem: RunningNowItem
+            PartDataRow: PnRow
+            AssetDataRow: AssetRow
+            SerialDataRow: SnRow
+      - "typescript-operations"
+      - "typescript-resolvers":
+          contextType: context#ApiContext
+          defaultMapper: any
+  modules/client/graphql/introspection-result.gen.json:
+    schema:
+      - "modules/graphql-api/schema.graphql"
+      - "modules/client/graphql/schema.graphql"
+    plugins:
+      - "fragment-matcher":
+    config:
+      apolloClientVersion: 3

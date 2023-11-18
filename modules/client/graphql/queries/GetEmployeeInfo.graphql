@@ -1,0 +1,3 @@
+query GetEmployeeInfo($employeeNumberOrEmail: String!) {
+  employeeInfo(employeeNumberOrEmail: $employeeNumberOrEmail)
+}

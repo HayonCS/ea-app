@@ -1,0 +1,3 @@
+query GetProcessDataRedis($asset: String!, $date: String!) {
+  getProcessDataRedis(asset: $asset, date: $date)
+}

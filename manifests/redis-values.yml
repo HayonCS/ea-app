@@ -1,0 +1,36 @@
+cluster:
+  enabled: false
+  slaveCount: 2
+usePassword: false
+password: ""
+master:
+  resources:
+    limits:
+      memory: 256Mi
+      cpu: 256m
+    requests:
+      memory: 128Mi
+      cpu: 100m
+  persistence:
+    enabled: false
+    size: "8Gi"
+    storageClass: ""
+  service:
+    type: "ClusterIP"
+    nodePort: ""
+persistence:
+  existingClaim: ""
+metrics:
+  enabled: false
+slave:
+  persistence:
+    enabled: false
+    size: "8Gi"
+    storageClass: ""
+  service:
+    type: "ClusterIP"
+    nodePort: ""
+sentinel:
+  enabled: false
+  masterSet: "mymaster"
+  quorum: "2"

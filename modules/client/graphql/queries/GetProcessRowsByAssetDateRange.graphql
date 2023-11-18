@@ -1,0 +1,7 @@
+query GetProcessRowsByAssetDateRange(
+  $assetId: Int!
+  $start: String!
+  $end: String!
+) {
+  processRowsByAssetDateRange(assetId: $assetId, start: $start, end: $end)
+}

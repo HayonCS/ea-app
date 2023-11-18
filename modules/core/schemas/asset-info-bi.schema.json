@@ -1,0 +1,62 @@
+{
+  "title": "AssetInfoBi",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "assetName": {
+      "type": "string"
+    },
+    "serial": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string"
+    },
+    "orgCode": {
+      "type": "string"
+    },
+    "line": {
+      "type": "string"
+    },
+    "dateCreated": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "reportGroupName": {
+      "type": "string"
+    },
+    "reportGroupID": {
+      "type": "string"
+    },
+    "excludeFromHealth": {
+      "type": "boolean"
+    },
+    "legacyLocation": {
+      "type": "string"
+    },
+    "autoUpdate": {
+      "type": "boolean"
+    },
+    "recordLastUpdated": {
+      "type": "string"
+    },
+    "updatedBy": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "assetName",
+    "serial",
+    "model",
+    "orgCode",
+    "line",
+    "dateCreated",
+    "notes",
+    "excludeFromHealth",
+    "autoUpdate",
+    "recordLastUpdated",
+    "updatedBy"
+  ]
+}

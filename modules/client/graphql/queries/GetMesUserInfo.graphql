@@ -1,0 +1,19 @@
+query GetMesUserInfo(
+  $employeeNumberOrUsername: String!
+  $includeGroups: Boolean
+) {
+  mesUserInfo(
+    employeeNumberOrUsername: $employeeNumberOrUsername
+    includeGroups: $includeGroups
+  ) {
+    employeeId
+    username
+    firstName
+    lastName
+    emailAddress
+    roles
+    distributionLists
+    isServiceAccount
+    pager
+  }
+}

@@ -1,0 +1,92 @@
+{
+    "Defaults": {
+        "crcBinary": "",
+        "crcScript": "",
+        "firmwareFrb": "",
+        "firmwareFrs": "",
+        "firmwareSVNPath": "",
+        "firmwareSVNRev": "",
+        "hlSubPN": ""
+    },
+    "E0016083": {
+        "crcBinary": "",
+        "crcScript": "",
+        "firmwareFrb": "",
+        "firmwareFrs": "",
+        "firmwareSVNPath": "",
+        "firmwareSVNRev": "",
+        "hlSubPN": ""
+    },
+    "E0016265": {
+        "crcBinary": "$D005A829",
+        "crcScript": "$FDE19584",
+        "firmwareFrb": "316_1071.FRB",
+        "firmwareFrs": "10000.FRS",
+        "firmwareSVNPath": "316-10xx/316-1071/316-1071-040001",
+        "firmwareSVNRev": "426135",
+        "hlSubPN": "4597"
+    },
+    "E0016284": {
+        "crcBinary": "$D005A829",
+        "crcScript": "$FDE19584",
+        "firmwareFrb": "316_1071.FRB",
+        "firmwareFrs": "10000.FRS",
+        "firmwareSVNPath": "316-10xx/316-1071/316-1071-040001",
+        "firmwareSVNRev": "426135",
+        "hlSubPN": "4597"
+    },
+    "E0016475": {
+        "crcBinary": "",
+        "crcScript": "",
+        "firmwareFrb": "",
+        "firmwareFrs": "",
+        "firmwareSVNPath": "",
+        "firmwareSVNRev": "",
+        "hlSubPN": ""
+    },
+    "E0016615": {
+        "crcBinary": "",
+        "crcScript": "",
+        "firmwareFrb": "",
+        "firmwareFrs": "",
+        "firmwareSVNPath": "",
+        "firmwareSVNRev": "",
+        "hlSubPN": ""
+    },
+    "E0018036": {
+        "crcBinary": "$D005A829",
+        "crcScript": "$FDE19584",
+        "firmwareFrb": "316_1071.FRB",
+        "firmwareFrs": "10000.FRS",
+        "firmwareSVNPath": "316-10xx/316-1071/316-1071-040001",
+        "firmwareSVNRev": "426135",
+        "hlSubPN": "4597"
+    },
+    "E0018056": {
+        "crcBinary": "$D005A829",
+        "crcScript": "$FDE19584",
+        "firmwareFrb": "316_1071.FRB",
+        "firmwareFrs": "10000.FRS",
+        "firmwareSVNPath": "316-10xx/316-1071/316-1071-040001",
+        "firmwareSVNRev": "426135",
+        "hlSubPN": "4597"
+    },
+    "E0018618": {
+        "crcBinary": "",
+        "crcScript": "",
+        "firmwareFrb": "",
+        "firmwareFrs": "",
+        "firmwareSVNPath": "",
+        "firmwareSVNRev": "",
+        "hlSubPN": ""
+    },
+    "E0018665": {
+        "crcBinary": "",
+        "crcScript": "",
+        "firmwareFrb": "",
+        "firmwareFrs": "",
+        "firmwareSVNPath": "",
+        "firmwareSVNRev": "",
+        "hlSubPN": ""
+    }
+}

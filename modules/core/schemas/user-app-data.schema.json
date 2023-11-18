@@ -1,0 +1,31 @@
+{
+  "title": "UserAppData",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "orgCode": {
+      "type": "number"
+    },
+    "assetList": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "operators": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string"
+          }
+        ]
+      }
+    }
+  },
+  "required": ["orgCode", "assetList", "operators"]
+}

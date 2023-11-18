@@ -1,0 +1,135 @@
+{
+  "title": "EmployeeInfo",
+  "type": "object",
+
+  "additionalProperties": false,
+  "properties": {
+    "employeeNumber": {
+      "type": "string"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "cellPhone": {
+      "type": "string"
+    },
+    "workPhone": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "locationId": {
+      "type": "number"
+    },
+    "shift": {
+      "type": "number"
+    },
+    "jobTitle": {
+      "type": "string"
+    },
+    "managerEmployeeNumber": {
+      "type": "string"
+    },
+    "erphrLocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "locationId": {
+          "type": "number"
+        },
+        "locationCode": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "inventoryOrgCode": {
+          "type": "number"
+        },
+        "inventoryOrgId": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "locationId",
+        "locationCode",
+        "description",
+        "inventoryOrgCode",
+        "inventoryOrgId"
+      ]
+    },
+    "isManager": {
+      "type": "boolean"
+    },
+    "status": {
+      "type": "string"
+    },
+    "salaryType": {
+      "type": "string"
+    },
+    "employeeType": {
+      "type": "string"
+    },
+    "personType": {
+      "type": "string"
+    },
+    "payGroup": {
+      "type": "string"
+    },
+    "preferredLocale": {
+      "type": "string"
+    },
+    "preferredDisplayLang": {
+      "type": "string"
+    },
+    "preferredCurrency": {
+      "type": "string"
+    },
+    "primaryTimezone": {
+      "type": "string"
+    },
+    "fullTime": {
+      "type": "boolean"
+    },
+    "partTime": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "employeeNumber",
+    "firstName",
+    "lastName",
+    "username",
+    "email",
+    "cellPhone",
+    "workPhone",
+    "location",
+    "locationId",
+    "shift",
+    "jobTitle",
+    "managerEmployeeNumber",
+    "erphrLocation",
+    "isManager",
+    "status",
+    "salaryType",
+    "employeeType",
+    "personType",
+    "payGroup",
+    "preferredLocale",
+    "preferredDisplayLang",
+    "preferredCurrency",
+    "primaryTimezone",
+    "fullTime",
+    "partTime"
+  ]
+}

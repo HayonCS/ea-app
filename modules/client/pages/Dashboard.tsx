@@ -210,7 +210,7 @@ export const DashboardPage: React.FC<{}> = () => {
                       <Box key={i} className={classes.linkStyle}>
                         <Link
                           onClick={() => {
-                            navigate(`/dashboard/${asset}`);
+                            navigate(`/dashboard/${asset.assetName}`);
                           }}
                           style={{ cursor: "pointer" }}
                         >

@@ -1,0 +1,3 @@
+query GetBomRoutings($orgCode: Int!, $partNumbers: [String!]!) {
+  getBomRoutings(orgCode: $orgCode, partNumbers: $partNumbers)
+}

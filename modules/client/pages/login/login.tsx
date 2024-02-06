@@ -1,5 +1,15 @@
 import * as React from "react";
-import { Box, Button, Paper, TextField, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Container,
+  CssBaseline,
+  Paper,
+  TextField,
+  Theme,
+  Typography,
+} from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useNavigate } from "react-router-dom";
 // import { getEmployeeInfoGentex, getUserInfoGentex } from "client/utilities/mes";
@@ -13,16 +23,32 @@ import { UserInformation } from "core/schemas/user-information.gen";
 import { getUserInformation } from "client/user-utils";
 import { useUserInformation } from "client/components/hooks/UserInformation";
 import { Selectors } from "client/redux/selectors";
+import { AppTheme } from "client/styles/mui-theme";
+import { LockOutlined } from "@mui/icons-material";
+import { usingLocalAuth } from "client/auth";
+import { login } from "client/redux/actions/thunks/authentication-thunks";
+import * as AuthRoutes from "client/auth/authentication-routes";
 
-const useStyles = makeStyles(() => ({
-  app: {
-    textAlign: "center",
-  },
-  paperStyle: {
-    alignContent: "center",
+const useStyles = makeStyles((theme: Theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
-    height: "calc(100vh - 48px)",
+    alignItems: "center",
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  inputLabel: {
+    color: theme.palette.primary.main,
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
   },
 }));
 
@@ -33,175 +59,80 @@ export const Login: React.FC<{}> = () => {
 
   const navigate = useNavigate();
 
-  const [error, setError] = React.useState(false);
+  const localAuth = usingLocalAuth();
 
-  const [value, setValue] = React.useState("");
-
-  const [username, setUsername] = React.useState<string>();
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
-  };
-
-  const currentUser = useSelector(Selectors.App.currentUserInfo);
-
+  const [username, setUsername] = React.useState("");
   const dispatch = useDispatch<Dispatch<any>>();
-  const setCurrentUserRedux = React.useCallback(
-    (user: UserInformation) => dispatch(Actions.App.currentUserInfo(user)),
-    [dispatch]
-  );
+  const authenticationType = useSelector(Selectors.Authentication.type);
+  const errorText = useSelector(Selectors.Authentication.errorText);
 
-  const userInfo = useUserInformation(username ?? "");
+  const errorProps =
+    authenticationType === "Error"
+      ? {
+          error: true,
+          helperText: errorText ?? "Error logging in",
+        }
+      : { error: false };
 
   React.useEffect(() => {
-    if (currentUser.employeeId && currentUser.employeeId !== "00000") {
+    if (authenticationType === "Authenticated") {
+      // history.push("/dashboard");
       navigate("/home");
     }
-  }, [currentUser]);
-
-  React.useEffect(() => {
-    if (
-      userInfo !== "Error" &&
-      userInfo !== "Loading" &&
-      userInfo !== "Unknown"
-    ) {
-      if (userInfo.employeeId !== "" && userInfo.employeeId !== "00000") {
-        let cookieDate = new Date();
-        cookieDate.setFullYear(cookieDate.getFullYear() + 1);
-        document.cookie = `${USER_COOKIE_NAME}=${
-          userInfo.username
-        }; expires=${cookieDate.toUTCString()};`;
-        setCurrentUserRedux(userInfo);
-        enqueueSnackbar("Login successful!", {
-          variant: "success",
-          autoHideDuration: 4000,
-        });
-        navigate("/");
-      }
-    } else if (userInfo === "Error") {
-      enqueueSnackbar("Invalid login.", {
-        variant: "error",
-        autoHideDuration: 4000,
-      });
-      setError(true);
-    }
-  }, [userInfo]);
-
-  React.useEffect(() => {
-    if (value.length > 0) {
-      if (!value.includes(".") || value.split(".")[1].length < 1) {
-        setError(true);
-      } else {
-        setError(false);
-      }
-    } else {
-      setError(false);
-    }
-  }, [value]);
-
-  // const tryLogin = () => {
-  //   async function login() {
-  //     const userInfo = await getUserInfoGentex(value);
-  //     if (userInfo) {
-  //       let cookieDate = new Date();
-  //       cookieDate.setFullYear(cookieDate.getFullYear() + 1);
-  //       document.cookie = `${USER_COOKIE_NAME}=${
-  //         userInfo.username
-  //       }; expires=${cookieDate.toUTCString()};`;
-  //       const u: SavedUserRecord = {
-  //         // UserID: userInfo.username,
-  //         UserID: +userInfo.employeeId,
-  //         Name: userInfo.firstName + " " + userInfo.lastName,
-  //         EMail: userInfo.emailAddress,
-  //         EmployeeNumber: userInfo.employeeId,
-  //         Location: "",
-  //         Manager: "",
-  //         Phone: "",
-  //         ReadOnly: false,
-  //       };
-  //       setCurrentUserRedux(u);
-  //       const employeeInfo = await getEmployeeInfoGentex(userInfo.employeeId);
-  //       if (employeeInfo) updateUserGentexRedux(employeeInfo);
-  //       enqueueSnackbar("Login successful!", {
-  //         variant: "success",
-  //         autoHideDuration: 4000,
-  //       });
-  //       navigate("/");
-  //     } else {
-  //       enqueueSnackbar("Invalid login.", {
-  //         variant: "error",
-  //         autoHideDuration: 4000,
-  //       });
-  //       setError(true);
-  //     }
-  //   }
-  //   void login();
-  // };
-
-  const tryLogin = () => {
-    if (value.length > 0) {
-      if (!value.includes(".") || value.split(".")[1].length < 1) {
-        setError(true);
-        enqueueSnackbar(`Invalid login: "${value}"`, {
-          variant: "error",
-          autoHideDuration: 4000,
-        });
-      } else {
-        // dispatch(login(value));
-        setError(false);
-        setUsername(value);
-      }
-    } else {
-      setError(true);
-      enqueueSnackbar(`Invalid login: "${value}"`, {
-        variant: "error",
-        autoHideDuration: 4000,
-      });
-    }
-  };
+  }, [authenticationType]);
 
   return (
-    <div className={classes.app}>
-      <Paper className={classes.paperStyle}>
-        <div style={{ paddingTop: "calc(15vh)" }}>
-          <Typography component={"span"}>
-            <Box fontWeight="900" fontSize="46px">
-              {"Login Page"}
-            </Box>
-          </Typography>
-          <div style={{ paddingTop: "50px" }}>
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlined />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          {localAuth ? "Log In" : "Sign In"}
+        </Typography>
+        <form
+          className={classes.form}
+          noValidate={true}
+          onSubmit={async (event) => {
+            event.preventDefault();
+            if (localAuth) {
+              dispatch(login(username));
+            } else {
+              window.open(AuthRoutes.LOGIN, "_self");
+            }
+          }}
+        >
+          {usingLocalAuth() && (
             <TextField
-              error={error}
-              id="outlined-error"
-              label="Username"
-              placeholder="FirstName.LastName"
+              InputLabelProps={{
+                className: classes.inputLabel,
+              }}
               variant="outlined"
-              value={value}
-              onChange={handleChange}
-              onKeyDown={(event) => {
-                if (event.key === "Enter") {
-                  tryLogin();
-                }
-              }}
+              margin="normal"
+              required={true}
+              fullWidth={true}
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
+              autoFocus={true}
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
+              {...errorProps}
             />
-          </div>
-          <div style={{ paddingTop: "20px" }}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => {
-                tryLogin();
-              }}
-            >
-              <Typography component={"span"}>
-                <Box fontWeight="600" fontSize="16px" color="white">
-                  {"LOGIN"}
-                </Box>
-              </Typography>
-            </Button>
-          </div>
-        </div>
-      </Paper>
-    </div>
+          )}
+          <Button
+            type="submit"
+            fullWidth={true}
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            {localAuth ? "Log In" : "Sign In"}
+          </Button>
+        </form>
+      </div>
+    </Container>
   );
 };

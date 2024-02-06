@@ -19,10 +19,10 @@ ssh-keygen
 
 ## Clone the repo
 
-Find a path on your host machine where you want the `EABackEnd` checkout folder to exist and run:
+Find a path on your host machine where you want the `EAPerformance` checkout folder to exist and run:
 
 ```
-git clone git@ssh.dev.azure.com:v3/gentex/MFG/EABackEnd
+git clone git@ssh.dev.azure.com:v3/gentex/MFG/EAPerformance
 ```
 
 ## Setup Docker Development Environment
@@ -35,13 +35,14 @@ All development should be done inside a Docker container. This allows for a cons
 
 ## Build and run your Docker containers
 
-1. Open a WSL2 instance and navigate to where the EABackEnd repository was cloned on the host machine: i.e. `/mnt/c/dev/EABackEnd`
+1. Open a WSL2 instance and navigate to where the EAPerformance repository was cloned on the host machine: i.e. `/mnt/c/dev/EAPerformance`
 2. Make sure the Docker service is running: `sudo service docker start`
 3. Run `docker-compose up -d` from the root of the project. This will build all the Docker images (if they don't already exist) and start up the Docker containers in the background.
 4. Now, run `docker-compose exec dev /bin/bash -l`. This will give you a bash prompt within the main dev container along with some instructions for adding the SSH key for that container into DevOps.
 5. From the bash prompt, run `project-init`. This will clone the repository and install needed dependencies in the container.
 6. Copy `.env.example` to `.env`. This will define your environment variables while running and testing the app in the Docker container.
 7. Run `yarn build` to build the codebase including utility scripts and generated types.
+8. Run `yarn initial` to seed important data used in the app (BI asset information, active employee directory, etc.).
 
 ## Configure git
 
@@ -78,10 +79,10 @@ vimrc
 - On the left toolbar in VSCode, click on `Remote Explorer`.
 - Select `WSL Targets` from the drop down at the top. Select the `Ubuntu` distro and click the Connect button. The tooltip should say `Connect To WSL`. This will open a new instance of VSCode inside the WSL2 environment. You can close your old instance of VSCode.
 - Click on `Remote Explorer` in the left toolbar again. This time select `Containers` from the drop down at the top. A list should populate showing all the Docker containers running in the WSL2 environment.
-- Click on the main development container, i.e. `/eabackend_dev_1`.
+- Click on the main development container, i.e. `/eaperformance_dev_1`.
 - Click the button on the selected container that looks like a new window icon. The tooltip should say `Attach to Container`.
 - This will open a new instance of VSCode. You can close your old instance of VSCode.
-- Select `Open folder...` and choose `/home/dev/app`. You now have a EABackEnd Linux development environment within a Docker container running inside WSL2 on Windows.
+- Select `Open folder...` and choose `/home/dev/app`. You now have a EAPerformance Linux development environment within a Docker container running inside WSL2 on Windows.
 - If you open a terminal in VSCode, it will now give you a prompt with direct access to the dev container and the Linux filesystem.
 
 ### VSCode Extensions

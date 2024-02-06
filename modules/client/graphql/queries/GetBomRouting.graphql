@@ -1,0 +1,3 @@
+query GetBomRouting($orgCode: Int!, $partNumber: String!) {
+  getBomRouting(orgCode: $orgCode, partNumber: $partNumber)
+}

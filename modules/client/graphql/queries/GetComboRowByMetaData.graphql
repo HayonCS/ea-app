@@ -1,0 +1,3 @@
+query GetComboRowByMetaData($metaDataId: String!) {
+  comboRowByMetaData(metaDataId: $metaDataId)
+}

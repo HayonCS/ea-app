@@ -1,216 +1,122 @@
 import * as React from "react";
 import { makeStyles } from "@mui/styles";
 import { useNavigate } from "react-router-dom";
-import { Fab, Paper, Tab, Tabs, Typography } from "@mui/material";
-import { Build, Dashboard, Equalizer, Home, Info } from "@mui/icons-material";
-import SwipeableViews from "react-swipeable-views";
-import { Resources } from "./Resources";
-import { About } from "./About";
+import { Chip, Fab, Stack, Typography } from "@mui/material";
+import { Dashboard, Equalizer } from "@mui/icons-material";
 
 const useStyles = makeStyles(() => ({
-  app: {
+  root: {
+    width: "100%",
+    height: "calc(100vh - 48px)",
     textAlign: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    // backgroundImage: `url(/images/ea-background.jpg)`,
+    // backgroundSize: "cover",
+    // backgroundPosition: "bottom",
+  },
+  background: {
+    height: "100%",
+    width: "177.77777778vh",
+    minWidth: "100%",
+    minHeight: "56.25vw",
+    position: "absolute",
+    left: 0,
+    top: 0,
+    zIndex: "-1",
   },
   appHeader: {
-    backgroundColor: "#282c34",
-    height: "144px",
+    height: "300px",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
     textAlign: "center",
-    fontSize: "calc(10px + 2vmin)",
-    color: "white",
+    cursor: "default",
+    userSelect: "none",
+    whiteSpace: "nowrap",
   },
-  paperStyle: {
-    alignItems: "center",
+  mainBody: {
+    display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
-    height: "calc(100vh - 192px)",
-  },
-  gridLayout: {
-    display: "grid",
-    rowGap: "20px",
-    marginBottom: "30px",
-  },
-  tabBar: {
-    flexGrow: 1,
-    backgroundColor: "primary",
-  },
-  tabStyle: {
-    fontWeight: "bolder",
-    fontSize: "1rem",
+    alignItems: "center",
+    height: "calc(100vh - 260px)",
   },
 }));
 
-const TabPanel = (props: any) => {
-  const { children, value, index, ...other } = props;
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`tabpanel-${index}`}
-      aria-labelledby={`tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Typography component={"span"}>{children}</Typography>
-      )}
-    </div>
-  );
-};
-
-const tabProps = (index: any) => {
-  return {
-    id: `tab-${index}`,
-    "aria-controls": `tabpanel-${index}`,
-  };
-};
-
-export const HomePage: React.FC<{
-  tabIndex?: number;
-}> = (props) => {
-  document.title = "EA App";
+export const HomePage: React.FC<{}> = () => {
+  document.title = "Home | EA Performance";
 
   const classes = useStyles();
 
   const navigate = useNavigate();
 
-  const [tabValue, setTabValue] = React.useState(props.tabIndex ?? 0);
-
-  React.useEffect(() => {
-    if (props.tabIndex) setTabValue(props.tabIndex);
-  }, [props]);
-
   return (
-    <div className={classes.app}>
+    <div className={classes.root}>
+      <video
+        id="plexus-background"
+        className={classes.background}
+        autoPlay
+        muted
+        loop
+      >
+        <source src="videos/plexus-background.webm" type="video/webm" />
+      </video>
       <header className={classes.appHeader}>
-        <div style={{ cursor: "default", userSelect: "none" }}>
-          <Typography style={{ fontSize: "48px", fontWeight: "bold" }}>
-            {"EA APP"}
-          </Typography>
-        </div>
+        <Typography
+          style={{ fontSize: "72px", fontWeight: "bold", color: "#FFF" }}
+        >
+          {"EA PERFORMANCE"}
+        </Typography>
+        <Typography
+          style={{ fontSize: "12px", fontWeight: "400", color: "#FFF" }}
+        >
+          {"Historical performance metrics and live dashboard displays."}
+        </Typography>
       </header>
-      <Paper className={classes.paperStyle}>
-        <div className={classes.gridLayout}>
-          <Paper className={classes.tabBar}>
-            <Tabs
-              value={tabValue}
-              onChange={(event, newValue) => {
-                setTabValue(newValue);
-              }}
-              indicatorColor="primary"
-              textColor="primary"
-              centered
-            >
-              <Tab
-                label={
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      fontSize: "16px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    <Home style={{ marginRight: "4px" }} />
-                    Home
-                  </div>
-                }
-                className={classes.tabStyle}
-                {...tabProps(0)}
-              />
-              <Tab
-                label={
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      fontSize: "16px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    <Build style={{ marginRight: "4px" }} />
-                    Resources
-                  </div>
-                }
-                className={classes.tabStyle}
-                {...tabProps(1)}
-              />
-              <Tab
-                label={
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      fontSize: "16px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    <Info style={{ marginRight: "4px" }} />
-                    About
-                  </div>
-                }
-                className={classes.tabStyle}
-                {...tabProps(2)}
-              />
-            </Tabs>
-          </Paper>
-          <SwipeableViews
-            axis={"x"}
-            index={tabValue}
-            onChangeIndex={(index) => {
-              setTabValue(index);
+      <div className={classes.mainBody}>
+        <Fab
+          variant="extended"
+          color="primary"
+          style={{ transform: "scale(1.25)", marginBottom: "60px" }}
+          sx={{ backgroundColor: "rgba(255, 255, 255, 0.3)" }}
+          onClick={() => {
+            navigate("/statistics");
+          }}
+        >
+          <Equalizer style={{ paddingRight: "8px" }} />
+          {"STATISTICS"}
+        </Fab>
+        <Fab
+          variant="extended"
+          color="primary"
+          style={{ transform: "scale(1.25)", marginBottom: "80px" }}
+          sx={{ backgroundColor: "rgba(255, 255, 255, 0.3)" }}
+          onClick={() => {
+            navigate("/dashboard");
+          }}
+        >
+          <Dashboard style={{ paddingRight: "8px" }} />
+          {"DASHBOARD"}
+        </Fab>
+        <Stack direction="row" spacing={2}>
+          <Chip
+            label="Resources"
+            color="primary"
+            sx={{ backgroundColor: "rgba(255, 255, 255, 0.1)", width: "90px" }}
+            onClick={() => {
+              navigate("/resources");
             }}
-          >
-            <TabPanel value={tabValue} index={0}>
-              <div style={{ height: "calc(100vh - 260px)" }}>
-                <div style={{ height: "30px" }} />
-                <Typography
-                  style={{
-                    fontSize: "24px",
-                    fontWeight: "bold",
-                    cursor: "default",
-                    userSelect: "none",
-                  }}
-                >
-                  {"Welcome to EA!"}
-                </Typography>
-                <div style={{ height: "60px" }} />
-                <Fab
-                  variant="extended"
-                  color="primary"
-                  style={{ transform: "scale(1.25)" }}
-                  onClick={() => {
-                    navigate("/statistics");
-                  }}
-                >
-                  <Equalizer style={{ paddingRight: "8px" }} />
-                  {"STATISTICS"}
-                </Fab>
-                <div style={{ height: "70px" }} />
-                <Fab
-                  variant="extended"
-                  color="primary"
-                  style={{ transform: "scale(1.25)" }}
-                  onClick={() => {
-                    navigate("/dashboard");
-                  }}
-                >
-                  <Dashboard style={{ paddingRight: "8px" }} />
-                  {"DASHBOARD"}
-                </Fab>
-              </div>
-            </TabPanel>
-            <TabPanel value={tabValue} index={1}>
-              <Resources />
-            </TabPanel>
-            <TabPanel value={tabValue} index={2}>
-              <About />
-            </TabPanel>
-          </SwipeableViews>
-        </div>
-      </Paper>
+          />
+          <Chip
+            label="About"
+            color="primary"
+            sx={{ backgroundColor: "rgba(255, 255, 255, 0.1)", width: "90px" }}
+            onClick={() => {
+              navigate("/about");
+            }}
+          />
+        </Stack>
+      </div>
     </div>
   );
 };

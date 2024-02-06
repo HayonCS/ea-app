@@ -18,6 +18,7 @@ import { makeStyles } from "@mui/styles";
 import {
   Build,
   Close,
+  Construction,
   Dashboard,
   Equalizer,
   Home,
@@ -27,7 +28,7 @@ import {
 import { Chevron } from "client/icons/Chevron";
 import { GentexLogo } from "client/icons/GentexLogo";
 import { GentexBlue } from "client/styles/app-theme";
-import { CurrentUserDisplay } from "client/components/user-display/CurrentUserDisplay";
+import { CurrentUserDisplay } from "client/components/info-display/CurrentUserDisplay";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
@@ -50,9 +51,17 @@ import {
   useGetProcessPartDataQuery,
   useGetProcessAssetDataQuery,
   useGetCycleTimesLineOperationPartQuery,
+  useGetBomRoutingsLazyQuery,
+  useGetAllBomRoutingsQuery,
+  useGetLineConfigurationsAllQuery,
 } from "client/graphql/types.gen";
 import { AssetRow, PnRow } from "records/combodata";
-import { AssetInfo, LineOperationPart } from "rest-endpoints/mes-bi/mes-bi";
+import {
+  AssetInfo,
+  LineConfiguration,
+  LineOperationPart,
+} from "rest-endpoints/mes-bi/mes-bi";
+import { BomRouting } from "rest-endpoints/mes-bom/mes-bom";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -74,6 +83,7 @@ const useStyles = makeStyles(() => ({
     color: "#FFF !important",
     marginRight: "30px !important",
     cursor: "pointer !important",
+    userSelect: "none",
   },
   menuButton: {
     marginRight: 1,
@@ -110,9 +120,16 @@ export const AppBarMenu: React.FC<{}> = () => {
   const location = useLocation();
 
   // const assetListRedux = useSelector(Selectors.App.assetList);
-  const currentUserRedux = useSelector(Selectors.App.currentUserInfo);
+  // const currentUserRedux = useSelector(Selectors.App.currentUserInfo);
   // const currentUserTeamRedux = useSelector(Selectors.App.currentUserTeamInfo);
   // const currentUserAppDataRedux = useSelector(Selectors.App.currentUserAppData);
+  // const comboPartDataRedux = useSelector(Selectors.ComboData.partData);
+  // const processPartDataRedux = useSelector(Selectors.ProcessData.partData);
+  const comboAssetDataRedux = useSelector(Selectors.ComboData.assetData);
+  const processAssetDataRedux = useSelector(Selectors.ProcessData.assetData);
+  const authenticatedUser = useSelector(
+    Selectors.Authentication.currentUserName
+  );
 
   const dispatch = useDispatch<Dispatch<Actions>>();
   const setComboPartDataRedux = React.useCallback(
@@ -142,6 +159,16 @@ export const AppBarMenu: React.FC<{}> = () => {
       dispatch(Actions.App.cycleTimeInfo(cycleTimeInfo)),
     [dispatch]
   );
+  const setBomRoutingsRedux = React.useCallback(
+    (bomRoutings: BomRouting[]) =>
+      dispatch(Actions.App.bomRoutings(bomRoutings)),
+    [dispatch]
+  );
+  const setLineConfigurationsRedux = React.useCallback(
+    (lineConfigurations: LineConfiguration[]) =>
+      dispatch(Actions.App.lineConfigurations(lineConfigurations)),
+    [dispatch]
+  );
   const setCurrentUserRedux = React.useCallback(
     (userInfo: UserInformation) =>
       dispatch(Actions.App.currentUserInfo(userInfo)),
@@ -158,20 +185,38 @@ export const AppBarMenu: React.FC<{}> = () => {
     [dispatch]
   );
 
-  const [username, setUsername] = React.useState<string>();
+  const userInfo = useUserInformation(authenticatedUser);
 
-  const userInfo = useUserInformation(username ?? "");
+  const comboPartQuery = useGetComboPartDataQuery({
+    fetchPolicy: "cache-and-network",
+  });
+  const comboAssetQuery = useGetComboAssetDataQuery({
+    fetchPolicy: "cache-and-network",
+  });
+  const processPartQuery = useGetProcessPartDataQuery({
+    fetchPolicy: "cache-and-network",
+  });
+  const processAssetQuery = useGetProcessAssetDataQuery({
+    fetchPolicy: "cache-and-network",
+  });
 
-  const comboPartData = useGetComboPartDataQuery();
-  const comboAssetData = useGetComboAssetDataQuery();
-  const processPartData = useGetProcessPartDataQuery();
-  const processAssetData = useGetProcessAssetDataQuery();
+  const assetListQuery = useGetAssetListBiQuery({
+    fetchPolicy: "cache-and-network",
+  });
+  const cycleTimeQuery = useGetCycleTimesLineOperationPartQuery({
+    fetchPolicy: "cache-and-network",
+  });
+  const bomRoutingsQuery = useGetAllBomRoutingsQuery({
+    fetchPolicy: "cache-and-network",
+  });
+  const lineConfigurationsQuery = useGetLineConfigurationsAllQuery({
+    fetchPolicy: "cache-and-network",
+  });
 
-  const assetList = useGetAssetListBiQuery();
-  const cycleTimeInfo = useGetCycleTimesLineOperationPartQuery();
-  const employeeDirectory = useGetEmployeeDirectoryQuery();
-
-  const userAppData = useGetUserAppDataQuery({
+  const employeeDirectoryQuery = useGetEmployeeDirectoryQuery({
+    fetchPolicy: "cache-and-network",
+  });
+  const userAppDataQuery = useGetUserAppDataQuery({
     variables: {
       userId:
         userInfo !== "Error" && userInfo !== "Loading" && userInfo !== "Unknown"
@@ -209,15 +254,15 @@ export const AppBarMenu: React.FC<{}> = () => {
 
   React.useEffect(() => {
     if (
-      comboPartData &&
-      comboPartData.called &&
-      !comboPartData.error &&
-      !comboPartData.loading &&
-      comboPartData.data &&
-      comboPartData.data.comboPartData &&
-      comboPartData.data.comboPartData.length > 0
+      comboPartQuery &&
+      comboPartQuery.called &&
+      !comboPartQuery.error &&
+      !comboPartQuery.loading &&
+      comboPartQuery.data &&
+      comboPartQuery.data.comboPartData &&
+      comboPartQuery.data.comboPartData.length > 0
     ) {
-      let partData = comboPartData.data.comboPartData;
+      let partData = comboPartQuery.data.comboPartData;
       partData = partData.filter(
         (x) =>
           !x.PartNumber.includes("I") &&
@@ -229,62 +274,70 @@ export const AppBarMenu: React.FC<{}> = () => {
       );
       setComboPartDataRedux(partData);
     }
-  }, [comboPartData]);
+  }, [comboPartQuery]);
 
   React.useEffect(() => {
     if (
-      comboAssetData &&
-      comboAssetData.called &&
-      !comboAssetData.error &&
-      !comboAssetData.loading &&
-      comboAssetData.data &&
-      comboAssetData.data.comboAssetData &&
-      comboAssetData.data.comboAssetData.length > 0
+      comboAssetQuery &&
+      comboAssetQuery.called &&
+      !comboAssetQuery.error &&
+      !comboAssetQuery.loading &&
+      comboAssetQuery.data &&
+      comboAssetQuery.data.comboAssetData &&
+      comboAssetQuery.data.comboAssetData.length > 0
     ) {
-      // console.log(comboAssetData.data.comboAssetData);
-      setComboAssetDataRedux(comboAssetData.data.comboAssetData);
+      // setComboAssetDataRedux(comboAssetData.data.comboAssetData);
+      let assetData = comboAssetQuery.data.comboAssetData;
+      assetData = assetData.filter(
+        (x) =>
+          x.Asset.startsWith("C") ||
+          x.Asset.startsWith("I") ||
+          x.Asset.startsWith("M")
+      );
+      setComboAssetDataRedux(assetData);
     }
-  }, [comboAssetData]);
+  }, [comboAssetQuery]);
 
   React.useEffect(() => {
     if (
-      processPartData &&
-      processPartData.called &&
-      !processPartData.error &&
-      !processPartData.loading &&
-      processPartData.data &&
-      processPartData.data.processPartData &&
-      processPartData.data.processPartData.length > 0
+      processPartQuery &&
+      processPartQuery.called &&
+      !processPartQuery.error &&
+      !processPartQuery.loading &&
+      processPartQuery.data &&
+      processPartQuery.data.processPartData &&
+      processPartQuery.data.processPartData.length > 0
     ) {
-      setProcessPartDataRedux(processPartData.data.processPartData);
+      let partData = processPartQuery.data.processPartData;
+      partData = partData.filter(
+        (x) =>
+          !x.PartNumber.includes("I") &&
+          !x.PartNumber.includes("E") &&
+          !x.PartNumber.includes("U") &&
+          !x.PartNumber.includes("A") &&
+          !x.PartNumber.includes("L") &&
+          !x.PartNumber.includes("0000")
+      );
+      setProcessPartDataRedux(partData);
     }
-  }, [processPartData]);
+  }, [processPartQuery]);
 
   React.useEffect(() => {
     if (
-      processAssetData &&
-      processAssetData.called &&
-      !processAssetData.error &&
-      !processAssetData.loading &&
-      processAssetData.data &&
-      processAssetData.data.processAssetData &&
-      processAssetData.data.processAssetData.length > 0
+      processAssetQuery &&
+      processAssetQuery.called &&
+      !processAssetQuery.error &&
+      !processAssetQuery.loading &&
+      processAssetQuery.data &&
+      processAssetQuery.data.processAssetData &&
+      processAssetQuery.data.processAssetData.length > 0
     ) {
-      setProcessAssetDataRedux(processAssetData.data.processAssetData);
+      // setProcessAssetDataRedux(processAssetData.data.processAssetData);
+      let assetData = processAssetQuery.data.processAssetData;
+      assetData = assetData.filter((x) => x.Asset.startsWith("PCB"));
+      setProcessAssetDataRedux(assetData);
     }
-  }, [processAssetData]);
-
-  React.useEffect(() => {
-    const user = document.cookie
-      .split("; ")
-      .find((cookie) => cookie.startsWith(`${USER_COOKIE_NAME}=`))
-      ?.split("=")[1];
-    if (user && user !== "undefined") {
-      setUsername(user);
-    } else {
-      setUsername("");
-    }
-  });
+  }, [processAssetQuery]);
 
   React.useEffect(() => {
     if (
@@ -298,14 +351,14 @@ export const AppBarMenu: React.FC<{}> = () => {
 
   React.useEffect(() => {
     if (
-      assetList &&
-      assetList.called &&
-      !assetList.loading &&
-      assetList.data &&
-      assetList.data.assetListBi &&
-      assetList.data.assetListBi.length > 0
+      assetListQuery &&
+      assetListQuery.called &&
+      !assetListQuery.loading &&
+      assetListQuery.data &&
+      assetListQuery.data.assetListBi &&
+      assetListQuery.data.assetListBi.length > 0
     ) {
-      let assetsMap: AssetInfo[] = assetList.data.assetListBi.map((x) => {
+      let assetsMap: AssetInfo[] = assetListQuery.data.assetListBi.map((x) => {
         const asset: AssetInfo = {
           assetName: x?.assetName ?? "",
           serial: x?.serial ?? "",
@@ -324,32 +377,39 @@ export const AppBarMenu: React.FC<{}> = () => {
         };
         return asset;
       });
+      // let assetsBi = assetsMap.filter(
+      //   (x) =>
+      //     (x &&
+      //       x.assetName !== "" &&
+      //       (x.assetName.startsWith("C") ||
+      //         x.assetName.startsWith("MR") ||
+      //         x.assetName.startsWith("PCB"))) ||
+      //     x.assetName.startsWith("I")
+      // );
       let assetsBi = assetsMap.filter(
         (x) =>
-          x &&
-          x.assetName !== "" &&
-          (x.assetName.startsWith("CMB") ||
-            x.assetName.startsWith("MR") ||
-            x.assetName.startsWith("PCB"))
+          comboAssetDataRedux.some((a) => a.Asset === x.assetName) ||
+          processAssetDataRedux.some((a) => a.Asset === x.assetName)
       );
       assetsBi = assetsBi.sort(
         (a, b) => a?.assetName.localeCompare(b?.assetName ?? "") ?? 0
       );
       setAssetListRedux(assetsBi);
     }
-  }, [assetList, setAssetListRedux]);
+  }, [assetListQuery, comboAssetDataRedux, processAssetDataRedux]);
 
   React.useEffect(() => {
     if (
-      cycleTimeInfo &&
-      cycleTimeInfo.called &&
-      !cycleTimeInfo.loading &&
-      cycleTimeInfo.data &&
-      cycleTimeInfo.data.cycleTimesLineOperationPart &&
-      cycleTimeInfo.data.cycleTimesLineOperationPart.length > 0
+      cycleTimeQuery &&
+      cycleTimeQuery.called &&
+      !cycleTimeQuery.loading &&
+      !cycleTimeQuery.error &&
+      cycleTimeQuery.data &&
+      cycleTimeQuery.data.cycleTimesLineOperationPart &&
+      cycleTimeQuery.data.cycleTimesLineOperationPart.length > 0
     ) {
       let cyclesMap: LineOperationPart[] =
-        cycleTimeInfo.data.cycleTimesLineOperationPart.map((x) => {
+        cycleTimeQuery.data.cycleTimesLineOperationPart.map((x) => {
           const cycle: LineOperationPart = {
             orgCode: x.orgCode,
             line: x.line,
@@ -372,7 +432,7 @@ export const AppBarMenu: React.FC<{}> = () => {
       );
       setCycleTimeRedux(cyclesMap);
     }
-  }, [cycleTimeInfo, setCycleTimeRedux]);
+  }, [cycleTimeQuery, setCycleTimeRedux]);
 
   React.useEffect(() => {
     if (
@@ -381,48 +441,33 @@ export const AppBarMenu: React.FC<{}> = () => {
       userInfo !== "Unknown"
     ) {
       if (
-        userAppData &&
-        userAppData.called &&
-        !userAppData.loading &&
-        userAppData.data &&
-        userAppData.data.getUserAppData
+        userAppDataQuery &&
+        userAppDataQuery.called &&
+        !userAppDataQuery.loading &&
+        userAppDataQuery.data &&
+        userAppDataQuery.data.getUserAppData
       ) {
-        if (userAppData.data.getUserAppData.orgCode !== 0) {
-          setCurrentUserAppDataRedux(userAppData.data.getUserAppData);
-          // void (async () => {
-          //   let teamInfo: UserInformation[] = [];
-          //   for (let member of userAppData.data?.getUserAppData.operators ??
-          //     []) {
-          //     const info = await getUserInformation(member);
-          //     if (info) teamInfo.push(info);
-          //     console.log(`Got Info: ${JSON.stringify(info)}`);
-          //   }
-          //   teamInfo = teamInfo.sort((a, b) =>
-          //     a.employeeId.localeCompare(b.employeeId)
-          //   );
-          //   setCurrentUserTeamRedux(teamInfo);
-          // })();
-        }
+        setCurrentUserAppDataRedux(userAppDataQuery.data.getUserAppData);
       }
     }
-  }, [setCurrentUserAppDataRedux, userAppData, userInfo]);
+  }, [setCurrentUserAppDataRedux, userAppDataQuery, userInfo]);
 
   React.useEffect(() => {
     if (
-      employeeDirectory &&
-      employeeDirectory.called &&
-      !employeeDirectory.loading &&
-      employeeDirectory.data &&
-      employeeDirectory.data.employeeDirectory &&
-      employeeDirectory.data.employeeDirectory.length > 0
+      employeeDirectoryQuery &&
+      employeeDirectoryQuery.called &&
+      !employeeDirectoryQuery.loading &&
+      employeeDirectoryQuery.data &&
+      employeeDirectoryQuery.data.employeeDirectory &&
+      employeeDirectoryQuery.data.employeeDirectory.length > 0
     ) {
       let employees: UserInformation[] = [];
       for (
         let i = 0;
-        i < employeeDirectory.data.employeeDirectory.length;
+        i < employeeDirectoryQuery.data.employeeDirectory.length;
         ++i
       ) {
-        const emp = employeeDirectory.data.employeeDirectory[i];
+        const emp = employeeDirectoryQuery.data.employeeDirectory[i];
         employees.push({
           employeeId: emp.employeeNumber,
           firstName: emp.firstName,
@@ -464,7 +509,31 @@ export const AppBarMenu: React.FC<{}> = () => {
       }
       setEmployeeDirectoryRedux(employees);
     }
-  }, [employeeDirectory, setEmployeeDirectoryRedux]);
+  }, [employeeDirectoryQuery, setEmployeeDirectoryRedux]);
+
+  React.useEffect(() => {
+    if (
+      bomRoutingsQuery.called &&
+      !bomRoutingsQuery.loading &&
+      !bomRoutingsQuery.error &&
+      bomRoutingsQuery.data
+    ) {
+      setBomRoutingsRedux(bomRoutingsQuery.data.getAllBomRoutings);
+    }
+  }, [bomRoutingsQuery]);
+
+  React.useEffect(() => {
+    if (
+      lineConfigurationsQuery.called &&
+      !lineConfigurationsQuery.loading &&
+      !lineConfigurationsQuery.error &&
+      lineConfigurationsQuery.data
+    ) {
+      setLineConfigurationsRedux(
+        lineConfigurationsQuery.data.getLineConfigurationsAll
+      );
+    }
+  }, [lineConfigurationsQuery]);
 
   return (
     <div className={classes.root}>
@@ -512,8 +581,7 @@ export const AppBarMenu: React.FC<{}> = () => {
                 display: "flex",
               }}
             >
-              {"EA APP"}
-              {/* <HomeOutlined style={{ color: "#FFF", paddingLeft: "8px" }} /> */}
+              {"EA PERFORMANCE (BETA)"}
             </Box>
           </Typography>
 
@@ -563,7 +631,7 @@ export const AppBarMenu: React.FC<{}> = () => {
             {userInfo !== "Error" &&
             userInfo !== "Loading" &&
             userInfo !== "Unknown" ? (
-              <CurrentUserDisplay username={username ?? ""} />
+              <CurrentUserDisplay username={authenticatedUser} />
             ) : (
               <Button
                 variant="text"
@@ -572,7 +640,7 @@ export const AppBarMenu: React.FC<{}> = () => {
                 }}
               >
                 <Typography component={"span"}>
-                  <Box fontWeight="600" fontSize="16px" color="white">
+                  <Box fontWeight="500" fontSize="16px" color="white">
                     {"LOGIN"}
                   </Box>
                 </Typography>
@@ -644,9 +712,7 @@ export const AppBarMenu: React.FC<{}> = () => {
                     <ListItemIcon style={{ color: "#FFF" }}>
                       <Home />
                     </ListItemIcon>
-                    <Typography
-                      style={{ fontSize: "18px", fontWeight: "bold" }}
-                    >
+                    <Typography style={{ fontSize: "18px", fontWeight: "500" }}>
                       Home Page
                     </Typography>
                   </ListItemButton>
@@ -664,9 +730,7 @@ export const AppBarMenu: React.FC<{}> = () => {
                     <ListItemIcon style={{ color: "#FFF" }}>
                       <Equalizer />
                     </ListItemIcon>
-                    <Typography
-                      style={{ fontSize: "18px", fontWeight: "bold" }}
-                    >
+                    <Typography style={{ fontSize: "18px", fontWeight: "500" }}>
                       Statistics
                     </Typography>
                   </ListItemButton>
@@ -681,9 +745,7 @@ export const AppBarMenu: React.FC<{}> = () => {
                     <ListItemIcon style={{ color: "#FFF" }}>
                       <Dashboard />
                     </ListItemIcon>
-                    <Typography
-                      style={{ fontSize: "18px", fontWeight: "bold" }}
-                    >
+                    <Typography style={{ fontSize: "18px", fontWeight: "500" }}>
                       Dashboard
                     </Typography>
                   </ListItemButton>
@@ -696,11 +758,9 @@ export const AppBarMenu: React.FC<{}> = () => {
                     }}
                   >
                     <ListItemIcon style={{ color: "#FFF" }}>
-                      <Build />
+                      <Construction />
                     </ListItemIcon>
-                    <Typography
-                      style={{ fontSize: "18px", fontWeight: "bold" }}
-                    >
+                    <Typography style={{ fontSize: "18px", fontWeight: "500" }}>
                       Resources
                     </Typography>
                   </ListItemButton>
@@ -715,9 +775,7 @@ export const AppBarMenu: React.FC<{}> = () => {
                     <ListItemIcon style={{ color: "#FFF" }}>
                       <Info />
                     </ListItemIcon>
-                    <Typography
-                      style={{ fontSize: "18px", fontWeight: "bold" }}
-                    >
+                    <Typography style={{ fontSize: "18px", fontWeight: "500" }}>
                       About
                     </Typography>
                   </ListItemButton>

@@ -1,0 +1,3 @@
+query GetFailedTagsByMetaData($metaDataId: String!) {
+  getFailedTagsByMetadata(metaDataId: $metaDataId)
+}

@@ -1,3 +1,5 @@
+process.env["NODE_CONFIG_DIR"] == __dirname;
+
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config({
     silent: false,
@@ -15,6 +17,16 @@ module.exports = {
   webdcDatabaseName: process.env.WEBDC_DATABASE_NAME,
   webdcDatabaseUser: process.env.WEBDC_DATABASE_USER,
   webdcDatabasePassword: process.env.WEBDC_DATABASE_PASSWORD,
+
+  prodDatabaseServer: process.env.PROD_DATABASE_SERVER,
+  prodDatabaseName: process.env.PROD_DATABASE_NAME,
+  prodDatabaseUser: process.env.PROD_DATABASE_USER,
+  prodDatabasePassword: process.env.PROD_DATABASE_PASSWORD,
+
+  engDatabaseServer: process.env.ENG_DATABASE_SERVER,
+  engDatabaseName: process.env.ENG_DATABASE_NAME,
+  engDatabaseUser: process.env.ENG_DATABASE_USER,
+  engDatabasePassword: process.env.ENG_DATABASE_PASSWORD,
 
   minify:
     process.env.MINIFY != null
@@ -92,10 +104,13 @@ module.exports = {
   mesRestApi: {
     mesSecurityEndpoint: process.env.MES_SECURITY_ENDPOINT,
     mesBiEndpoint: process.env.MES_BI_ENDPOINT,
+    mesBomEndpoint: process.env.MES_BOM_ENDPOINT,
     mesUserPictureUrl: process.env.MES_USER_PICTURE,
     employeeDirectoryEndpoint: process.env.MES_EMPLOYEE_DIRECTORY,
     mesRegistryEndpoint: process.env.MES_REGISTRY_ENDPOINT,
     mesProcessDataEndpoint: process.env.MES_PROCESS_DATA_ENDPOINT,
+    mesTestHistoryEndpoint: process.env.MES_TEST_HISTORY_ENDPOINT,
     worldTimeEndpoint: process.env.WORLD_TIME_ENDPOINT,
+    dcToolsEndpoint: process.env.DCTOOLS_ENDPOINT,
   },
 };

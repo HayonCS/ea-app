@@ -47,13 +47,13 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import * as dayjs from "dayjs";
 import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
 import { getHHMMSS } from "../../utilities/date-util";
-import { UserDisplayHover } from "client/components/user-display/UserDisplayHover";
+import { UserDisplayHover } from "client/components/info-display/UserDisplayHover";
 import {
   getProcessDataExport,
   getProcessDataExportRange,
 } from "../../utilities/redis";
 import { useSelector, shallowEqual } from "react-redux";
-import { UserDisplayClick } from "client/components/user-display/UserDisplayClick";
+import { UserDisplayClick } from "client/components/info-display/UserDisplayClick";
 import { Close, FilterList } from "@mui/icons-material";
 import {
   ProcessDataExport,

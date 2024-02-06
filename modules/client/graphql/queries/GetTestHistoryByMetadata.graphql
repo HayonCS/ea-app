@@ -1,0 +1,3 @@
+query GetTestHistoryByMetadata($metaDataId: String!) {
+  getTestHistoryByMetadata(metaDataId: $metaDataId)
+}

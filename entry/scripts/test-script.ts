@@ -1,18 +1,26 @@
 import { Context } from "context";
 import { RepositoriesPort } from "records";
-import { getCurrentDateTime } from "rest-endpoints/world-time/world-time";
+import { getResultFileByMetadata } from "rest-endpoints/dctools/dctools";
 
 void (async () => {
-  const context = new Context();
-  const result = await context
-    .get(RepositoriesPort)
-    .domain("WebDC", async (ctx) => {
-      const r = await ctx.combodata.pn.getRows();
-      return r;
-    });
-  const part = result.find((x) => x.PNID === 3679);
-  console.log(part);
+  const result = await getResultFileByMetadata("14719900018829810");
+  const arr = result.split(/[\t\n]+/);
+  console.log(arr.filter((x) => x.startsWith("*")));
+  // console.log(result);
 })();
+
+// void (async () => {
+//   const context = new Context();
+//   const result = await context
+//     .get(RepositoriesPort)
+//     .domain("WebDC", async (ctx) => {
+//       const r = await ctx.processdata.sn.showColumns();
+//       return r;
+//     });
+//   // const part = result.find((x) => x.PNID === 3679);
+//   // console.log(part);
+//   console.log(result);
+// })();
 
 // void (async () => {
 //   const ctx = new Context();

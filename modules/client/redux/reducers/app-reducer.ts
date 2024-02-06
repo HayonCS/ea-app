@@ -1,6 +1,16 @@
 import { initialAppState } from "../state/app-state";
 import { MainReducer } from "./main-reducer";
 import { InitialState } from "client/redux/state";
+import { Actions } from "client/redux/actions";
+import { PureState } from "client/redux/state";
+
+export type AppReducer<
+  TState extends keyof PureState,
+  TAdditionalActions = Actions
+> = (
+  state: PureState[TState] | undefined,
+  action: Actions | TAdditionalActions
+) => PureState[TState];
 
 export const appReducer: MainReducer<"App"> = (
   state = InitialState.App,
@@ -19,6 +29,20 @@ export const appReducer: MainReducer<"App"> = (
       return {
         ...state,
         cycleTimeInfo: cycleTimeInfo,
+      };
+    }
+    case "App/bomRoutings": {
+      const { bomRoutings } = action.payload;
+      return {
+        ...state,
+        bomRoutings: bomRoutings,
+      };
+    }
+    case "App/lineConfigurations": {
+      const { lineConfigurations } = action.payload;
+      return {
+        ...state,
+        lineConfigurations: lineConfigurations,
       };
     }
     case "App/currentUserAppData": {

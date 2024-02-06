@@ -206,7 +206,9 @@ export const AssetsSettingsPanel: React.FC<{
               {customList(
                 searchValue.length < 1
                   ? left
-                  : left.filter((x) => x.includes(searchValue))
+                  : left.filter((x) =>
+                      x.toLowerCase().includes(searchValue.toLowerCase())
+                    )
               )}
             </Grid>
             <Grid item>

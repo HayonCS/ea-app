@@ -1,7 +1,12 @@
 import { ActionType } from "client/redux/types";
 import { UserInformation } from "core/schemas/user-information.gen";
 import { UserAppData } from "core/schemas/user-app-data.gen";
-import { AssetInfo, LineOperationPart } from "rest-endpoints/mes-bi/mes-bi";
+import {
+  AssetInfo,
+  LineConfiguration,
+  LineOperationPart,
+} from "rest-endpoints/mes-bi/mes-bi";
+import { BomRouting } from "rest-endpoints/mes-bom/mes-bom";
 
 export const AppActions = {
   assetList: (assetList: AssetInfo[]) =>
@@ -16,6 +21,20 @@ export const AppActions = {
       type: "App/cycleTimeInfo",
       payload: {
         cycleTimeInfo,
+      },
+    } as const),
+  bomRoutings: (bomRoutings: BomRouting[]) =>
+    ({
+      type: "App/bomRoutings",
+      payload: {
+        bomRoutings,
+      },
+    } as const),
+  lineConfigurations: (lineConfigurations: LineConfiguration[]) =>
+    ({
+      type: "App/lineConfigurations",
+      payload: {
+        lineConfigurations,
       },
     } as const),
   currentUserAppData: (userData: UserAppData) =>

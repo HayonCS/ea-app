@@ -18,7 +18,7 @@ export const useUserInformation = (
   const [userInformation, setUserInformation] =
     React.useState<UserInformationResponse>("Loading");
 
-  const { data, loading, error } = useGetMesUserInfoQuery({
+  const mesInfoQuery = useGetMesUserInfoQuery({
     skip:
       !employeeNumOrUserName ||
       employeeNumOrUserName === "" ||
@@ -30,10 +30,11 @@ export const useUserInformation = (
     },
   });
 
-  const employeeInfo = useGetEmployeeInfoQuery({
-    skip: !data?.mesUserInfo.employeeId || !!error,
+  const employeeInfoQuery = useGetEmployeeInfoQuery({
+    skip: !mesInfoQuery.data?.mesUserInfo.employeeId || !!mesInfoQuery.error,
     variables: {
-      employeeNumberOrEmail: data?.mesUserInfo.employeeId ?? "00000",
+      employeeNumberOrEmail:
+        mesInfoQuery.data?.mesUserInfo.employeeId ?? "00000",
     },
   });
 
@@ -45,78 +46,67 @@ export const useUserInformation = (
     ) {
       setUserInformation("Unknown");
     } else if (
-      !loading &&
-      !error &&
-      !employeeInfo.loading &&
-      employeeInfo.called &&
-      !employeeInfo.error
+      !mesInfoQuery.loading &&
+      !mesInfoQuery.error &&
+      !employeeInfoQuery.loading &&
+      employeeInfoQuery.called &&
+      !employeeInfoQuery.error
     ) {
-      if (data && employeeInfo.data) {
-        if (data.mesUserInfo && employeeInfo.data.employeeInfo) {
+      if (mesInfoQuery.data && employeeInfoQuery.data) {
+        if (
+          mesInfoQuery.data.mesUserInfo &&
+          employeeInfoQuery.data.employeeInfo
+        ) {
+          const mesInfo = mesInfoQuery.data.mesUserInfo;
+          const employeeInfo = employeeInfoQuery.data.employeeInfo;
           setUserInformation({
-            employeeId: data.mesUserInfo.employeeId!,
-            firstName: data.mesUserInfo.firstName!,
-            lastName: data.mesUserInfo.lastName!,
-            username: data.mesUserInfo.username!,
-            email: data.mesUserInfo.emailAddress!,
-            cellPhone: employeeInfo.data.employeeInfo.cellPhone!,
-            workPhone: employeeInfo.data.employeeInfo.workPhone!,
-            location: employeeInfo.data.employeeInfo.location!,
-            locationId: +employeeInfo.data.employeeInfo.locationId!,
-            shift: +employeeInfo.data.employeeInfo.shift!,
-            jobTitle: employeeInfo.data.employeeInfo.jobTitle!,
-            managerEmployeeId:
-              employeeInfo.data.employeeInfo.managerEmployeeNumber!,
-            level: +employeeInfo.data.employeeInfo.level,
+            employeeId: mesInfo.employeeId!,
+            firstName: mesInfo.firstName!,
+            lastName: mesInfo.lastName!,
+            username: mesInfo.username!,
+            email: mesInfo.emailAddress!,
+            cellPhone: employeeInfo.cellPhone!,
+            workPhone: employeeInfo.workPhone!,
+            location: employeeInfo.location!,
+            locationId: +employeeInfo.locationId!,
+            shift: +employeeInfo.shift!,
+            jobTitle: employeeInfo.jobTitle!,
+            managerEmployeeId: employeeInfo.managerEmployeeNumber!,
+            level: +employeeInfo.level,
             erphrLocation: {
-              locationId:
-                +employeeInfo.data.employeeInfo.erphrLocation.locationId!,
-              locationCode:
-                employeeInfo.data.employeeInfo.erphrLocation.locationCode!,
-              description:
-                employeeInfo.data.employeeInfo.erphrLocation.description!,
-              inventoryOrgCode:
-                +employeeInfo.data.employeeInfo.erphrLocation.inventoryOrgCode!,
-              inventoryOrgId:
-                +employeeInfo.data.employeeInfo.erphrLocation.inventoryOrgId!,
+              locationId: +employeeInfo.erphrLocation.locationId!,
+              locationCode: employeeInfo.erphrLocation.locationCode!,
+              description: employeeInfo.erphrLocation.description!,
+              inventoryOrgCode: +employeeInfo.erphrLocation.inventoryOrgCode!,
+              inventoryOrgId: +employeeInfo.erphrLocation.inventoryOrgId!,
             },
-            isManager: employeeInfo.data.employeeInfo.isManager!,
-            status: employeeInfo.data.employeeInfo.status!,
-            salaryType: employeeInfo.data.employeeInfo.salaryType!,
-            employeeType: employeeInfo.data.employeeInfo.employeeType!,
-            personType: employeeInfo.data.employeeInfo.personType!,
-            payGroup: employeeInfo.data.employeeInfo.payGroup!,
-            preferredLocale: employeeInfo.data.employeeInfo.preferredLocale!,
-            preferredDisplayLang:
-              employeeInfo.data.employeeInfo.preferredDisplayLang!,
-            preferredCurrency:
-              employeeInfo.data.employeeInfo.preferredCurrency!,
-            primaryTimezone: employeeInfo.data.employeeInfo.primaryTimezone!,
-            fullTime: employeeInfo.data.employeeInfo.fullTime!,
-            partTime: employeeInfo.data.employeeInfo.partTime!,
-            roles: data.mesUserInfo.roles!,
-            distributionLists: data.mesUserInfo.distributionLists!,
-            isServiceAccount: data.mesUserInfo.isServiceAccount!,
-            pager: data.mesUserInfo.pager!,
+            isManager: employeeInfo.isManager!,
+            status: employeeInfo.status!,
+            salaryType: employeeInfo.salaryType!,
+            employeeType: employeeInfo.employeeType!,
+            personType: employeeInfo.personType!,
+            payGroup: employeeInfo.payGroup!,
+            preferredLocale: employeeInfo.preferredLocale!,
+            preferredDisplayLang: employeeInfo.preferredDisplayLang!,
+            preferredCurrency: employeeInfo.preferredCurrency!,
+            primaryTimezone: employeeInfo.primaryTimezone!,
+            fullTime: employeeInfo.fullTime!,
+            partTime: employeeInfo.partTime!,
+            roles: mesInfo.roles!,
+            distributionLists: mesInfo.distributionLists!,
+            isServiceAccount: mesInfo.isServiceAccount!,
+            pager: mesInfo.pager!,
           });
         }
       }
-    } else if (loading || employeeInfo.loading) {
+    } else if (mesInfoQuery.loading || employeeInfoQuery.loading) {
       setUserInformation("Loading");
-    } else if (error || employeeInfo.error) {
+    } else if (mesInfoQuery.error || employeeInfoQuery.error) {
       setUserInformation("Error");
-    } else if (!loading) {
+    } else if (!mesInfoQuery.loading) {
       setUserInformation("Error");
     }
-  }, [
-    data,
-    employeeInfo.called,
-    employeeInfo.data,
-    employeeInfo.error,
-    employeeInfo.loading,
-    error,
-    loading,
-  ]);
+  }, [mesInfoQuery, employeeInfoQuery]);
 
   return userInformation;
 };

@@ -26,14 +26,17 @@ import { useSelector } from "react-redux";
 // import { HelpOverlay } from "./components/help/HelpOverlay";
 import { isFeatureEnabled } from "../../entry/feature-flags";
 import { AppBarMenu } from "./components/app-bar/AppBar";
-import { DashboardAsset } from "./pages/DashboardAsset";
-import { DashboardPage } from "./pages/Dashboard";
-import { Statistics } from "./pages/statistics/statistics";
+import { DashboardAsset } from "./pages/dashboard/DashboardAsset";
+import { DashboardPage } from "./pages/dashboard/Dashboard";
+import { Statistics } from "./pages/statistics/Statistics";
 import { HomePage } from "./pages/home";
-import { Settings } from "./pages/settings/settings";
-import { Login } from "./pages/login/login";
+import { Settings } from "./pages/settings/Settings";
+import { Login } from "./pages/login/Login";
 import { asyncComponent } from "react-async-component";
 import { USER_COOKIE_NAME } from "./utilities/definitions";
+import { LogOut } from "./pages/logout/Logout";
+import { ResourcesPage } from "./pages/resources";
+import { AboutPage } from "./pages/about";
 // import { server_url } from "./connection-utils";
 
 //Setup the animation loop.
@@ -48,7 +51,7 @@ requestAnimationFrame(animate);
 
 export function App() {
   return (
-    <div>
+    <div style={{}}>
       <AppBarMenu />
 
       <Routes>
@@ -59,15 +62,23 @@ export function App() {
               (await import("client/pages/login/login")).Login,
             name: "Log In",
           })}
+        />
+        <Route
+          path="/logout"
+          Component={asyncComponent({
+            resolve: async () => (await import("client/pages/logout")).LogOut,
+            name: "Log Out",
+          })}
         /> */}
 
         <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<LogOut />} />
 
         <Route path="/error" Component={ServerErrorPageRouteLoader} />
 
         <Route path="/" element={<Navigate to="/home" />} />
 
-        <Route
+        {/* <Route
           path="/home"
           element={ProtectedElement(<HomePage tabIndex={0} />)}
         />
@@ -78,7 +89,10 @@ export function App() {
         <Route
           path="/about"
           element={ProtectedElement(<HomePage tabIndex={2} />)}
-        />
+        /> */}
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/resources" element={<ResourcesPage />} />
+        <Route path="/about" element={<AboutPage />} />
 
         <Route path="/settings" element={ProtectedElement(<Settings />)} />
 
@@ -87,6 +101,7 @@ export function App() {
         <Route path="/dashboard" element={<DashboardPage />} />
 
         <Route path="/dashboard/:asset" element={<DashboardAsset />} />
+        <Route path="/dashboard/:asset/:tab" element={<DashboardAsset />} />
 
         <Route Component={NotFoundErrorPageRouteLoader} />
       </Routes>
@@ -95,62 +110,33 @@ export function App() {
 }
 
 function ProtectedElement(element: React.ReactNode): React.ReactNode {
-  const currentUser = useSelector(Selectors.App.currentUserInfo);
+  const isAuthenticated = useSelector(
+    Selectors.Authentication.isNotUnauthenticated
+  );
 
   const redirectPath = "/login";
 
-  const user = document.cookie
-    .split("; ")
-    .find((cookie) => cookie.startsWith(`${USER_COOKIE_NAME}=`))
-    ?.split("=")[1];
-
-  if (currentUser.employeeId !== "00000" || (user && user !== "undefined")) {
+  if (isAuthenticated) {
     return element;
   } else {
     return <Navigate to={redirectPath} />;
+    // return <Login />;
   }
-  // return element;
 }
 
-// let ASSET_LIST: string[] = [];
-
-// export function App() {
-//   return (
-//     <div>
-//       <AppBarMenu />
-//       <Routes>
-//         {ASSET_LIST.map((asset, i) => {
-//           return (
-//             <Route
-//               key={i}
-//               path={`/Dashboard/${asset}`}
-//               element={<DashboardAsset asset={asset} />}
-//             />
-//           );
-//         })}
-//         <Route path="/Dashboard" element={<DashboardPage />} />
-//         <Route path="/Stats" element={<Statistics />} />
-//         <Route path="/About" element={<HomePage tabIndex={2} />} />
-//         <Route path="/Resources" element={<HomePage tabIndex={1} />} />
-//         <Route path="/Settings" element={<Settings />} />
-//         <Route path="/Login" element={<Login />} />
-//         <Route path="/" element={<HomePage />} />
-//       </Routes>
-//     </div>
-//   );
-// }
-
-// export const ProtectedRoute: React.FC<RouteProps> = (props) => {
-//   const isAuthenticated = useSelector(
-//     Selectors.Authentication.isNotUnauthenticated
-//   );
+// function ProtectedElement(element: React.ReactNode): React.ReactNode {
+//   const currentUser = useSelector(Selectors.App.currentUserInfo);
 
 //   const redirectPath = "/login";
 
-//   if (isAuthenticated) {
-//     return <Route {...props} />;
+//   const user = document.cookie
+//     .split("; ")
+//     .find((cookie) => cookie.startsWith(`${USER_COOKIE_NAME}=`))
+//     ?.split("=")[1];
+
+//   if (currentUser.employeeId !== "00000" || (user && user !== "undefined")) {
+//     return element;
 //   } else {
-//     const renderComponent = () => <Redirect to={{ pathname: redirectPath }} />;
-//     return <Route component={renderComponent} render={undefined} />;
+//     return <Navigate to={redirectPath} />;
 //   }
-// };
+// }

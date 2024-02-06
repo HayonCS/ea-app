@@ -10,6 +10,7 @@ import {
   PnProcessRecordRepository,
   SnProcessRecordRepository,
 } from "./processdata";
+import { UserRecordRepository } from "./user";
 
 export const repositoriesAdapter = (ctx: Hexagonal.Context) => {
   return new Repositories(ctx);
@@ -27,4 +28,5 @@ export class Repositories extends RepositoriesBase {
     sn: new SnProcessRecordRepository(this.ctx),
     asset: new AssetProcessRecordRepository(this.ctx),
   };
+  users = new UserRecordRepository(this.ctx);
 }

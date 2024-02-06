@@ -1,0 +1,22 @@
+{
+  "title": "DashboardGraphOperator",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "dateTime": {
+      "type": "string",
+      "tsType": "Date",
+      "format": "date-time"
+    },
+    "timeString": {
+      "type": "string"
+    },
+    "efficiency": {
+      "type": "number"
+    },
+    "efficiencyString": {
+      "type": "string"
+    }
+  },
+  "required": ["dateTime", "timeString", "efficiency", "efficiencyString"]
+}

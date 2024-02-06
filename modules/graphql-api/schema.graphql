@@ -7,11 +7,15 @@ scalar UserAppData
 scalar EmployeeInfoResponse
 scalar UserInformation
 scalar ProcessDataExport
+scalar TestHistory
 scalar RunningNowItem
 scalar PartDataRow
 scalar AssetDataRow
 scalar SerialDataRow
+scalar BomRouting
 scalar Decimal
+scalar StatsDataOperatorRow
+scalar LineConfiguration
 
 """
 A type used to represent a Bi Asset's information.
@@ -136,6 +140,26 @@ type Query {
 
   cycleTimesLineOperationPart: [LineOperationPart!]!
 
+  getLineConfiguration(lineName: String!, orgCode: Int!): LineConfiguration
+
+  getLineConfigurationsAll: [LineConfiguration!]!
+
+  getTestHistoriesById(identifierCode: String!): [TestHistory!]!
+
+  getTestHistoryById(identifierCode: String!, operation: Int!): TestHistory
+
+  getTestHistoryByMetadata(metaDataId: String!): TestHistory
+
+  getResultFileByMetadata(metaDataId: String!): String!
+
+  getFailedTagsByMetadata(metaDataId: String!): [String!]!
+
+  getBomRouting(orgCode: Int!, partNumber: String!): BomRouting
+
+  getBomRoutings(orgCode: Int!, partNumbers: [String!]!): [BomRouting!]!
+
+  getAllBomRoutings: [BomRouting!]!
+
   """
   Retrieves a user's app data based on their User ID.
   """
@@ -158,12 +182,12 @@ type Query {
     asset: String!
     startDate: String!
     endDate: String!
-  ): [ProcessDataExport]!
+  ): [ProcessDataExport!]!
 
   """
   Returns MES Process Data from redis based on asset name and a single date.
   """
-  getProcessDataRedis(asset: String!, date: String!): [ProcessDataExport]!
+  getProcessDataRedis(asset: String!, date: String!): [ProcessDataExport!]!
 
   """
   Returns a list of assets that have been active in the last 24 hours.
@@ -191,64 +215,15 @@ type Query {
     operatorIds: [Int!]
   ): [SerialDataRow!]!
 
-  comboRowsByAssetDateRange(
-    assetId: Int!
+  comboPerformanceRowsDateRange(
     start: String!
     end: String!
-  ): [SerialDataRow!]!
+    assetIds: [Int!]
+    partIds: [Int!]
+    operatorIds: [Int!]
+  ): [StatsDataOperatorRow!]!
 
-  comboRowsByAssetsDateRange(
-    assetIds: [Int!]!
-    start: String!
-    end: String!
-  ): [SerialDataRow!]!
-
-  comboRowsByPartDateRange(
-    partId: Int!
-    start: String!
-    end: String!
-  ): [SerialDataRow!]!
-
-  comboRowsByOperatorDateRange(
-    operatorId: Int!
-    start: String!
-    end: String!
-  ): [SerialDataRow!]!
-
-  comboRowsByOperatorsDateRange(
-    operatorIds: [Int!]!
-    start: String!
-    end: String!
-  ): [SerialDataRow!]!
-
-  comboRowsByAssetPartDateRange(
-    assetId: Int!
-    partId: Int!
-    start: String!
-    end: String!
-  ): [SerialDataRow!]!
-
-  comboRowsByAssetOperatorDateRange(
-    assetId: Int!
-    operatorId: Int!
-    start: String!
-    end: String!
-  ): [SerialDataRow!]!
-
-  comboRowsByPartOperatorDateRange(
-    partId: Int!
-    operatorId: Int!
-    start: String!
-    end: String!
-  ): [SerialDataRow!]!
-
-  comboRowsByAssetPartOperatorDateRange(
-    assetId: Int!
-    partId: Int!
-    operatorId: Int!
-    start: String!
-    end: String!
-  ): [SerialDataRow!]!
+  comboRowByMetaData(metaDataId: String!): SerialDataRow
 
   processRowsDateRange(
     start: String!
@@ -258,52 +233,15 @@ type Query {
     operatorIds: [Int!]
   ): [SerialDataRow!]!
 
-  processRowsByAssetDateRange(
-    assetId: Int!
+  processPerformanceRowsDateRange(
     start: String!
     end: String!
-  ): [SerialDataRow!]!
+    assetIds: [Int!]
+    partIds: [Int!]
+    operatorIds: [Int!]
+  ): [StatsDataOperatorRow!]!
 
-  processRowsByPartDateRange(
-    partId: Int!
-    start: String!
-    end: String!
-  ): [SerialDataRow!]!
-
-  processRowsByOperatorDateRange(
-    operatorId: Int!
-    start: String!
-    end: String!
-  ): [SerialDataRow!]!
-
-  processRowsByAssetPartDateRange(
-    assetId: Int!
-    partId: Int!
-    start: String!
-    end: String!
-  ): [SerialDataRow!]!
-
-  processRowsByAssetOperatorDateRange(
-    assetId: Int!
-    operatorId: Int!
-    start: String!
-    end: String!
-  ): [SerialDataRow!]!
-
-  processRowsByPartOperatorDateRange(
-    partId: Int!
-    operatorId: Int!
-    start: String!
-    end: String!
-  ): [SerialDataRow!]!
-
-  processRowsByAssetPartOperatorDateRange(
-    assetId: Int!
-    partId: Int!
-    operatorId: Int!
-    start: String!
-    end: String!
-  ): [SerialDataRow!]!
+  processRowByMetaData(metaDataId: String!): SerialDataRow
 }
 
 ####################################################################################################

@@ -8,6 +8,7 @@ import {
   SavedProcessDataRecord,
   UnsavedProcessDataRecord,
 } from "./processdata";
+import { UnsavedUserRecord, SavedUserRecord } from "./user";
 
 export function RepositoryBase<Rec extends KnexRecordInfo>(recordType: Rec) {
   return UnboundRepositoryBase<Rec>(recordType);
@@ -24,3 +25,9 @@ export const ProcessDataRecord = recordInfo<
   SavedProcessDataRecord,
   "ProcessDataID"
 >("ProcessData", ["ProcessDataID"]);
+
+export const UserRecord = recordInfo<
+  UnsavedUserRecord,
+  SavedUserRecord,
+  "UserID"
+>("Users", ["UserID"]);

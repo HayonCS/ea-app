@@ -52,10 +52,11 @@ export async function getTimeZone(
   timezone: string
 ): Promise<TimeZoneInfo | undefined> {
   try {
-    const url =
-      config.get<string>("mesRestApi.worldTimeEndpoint") +
-      "timezone/" +
-      timezone;
+    const url = "https://worldtimeapi.org/api/timezone/" + timezone;
+    // const url =
+    //   config.get<string>("mesRestApi.worldTimeEndpoint") +
+    //   "timezone/" +
+    //   timezone;
     const response = await fetch(url, {
       method: "GET",
       headers: {

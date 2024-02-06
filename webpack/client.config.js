@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ProgressBarPlugin = require("progress-bar-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const loaders = require("./loaders");
 const monacoLoader = require("../webpack/monaco-loader");
 // const fs = require("fs");
@@ -63,12 +64,12 @@ module.exports = {
   entry: {
     app: [
       "whatwg-fetch",
-      // "core-js/es/object",
-      // "core-js/es/array",
-      // "core-js/es/symbol",
-      // "core-js/es/promise",
-      // "core-js/es/map",
-      // "core-js/es/set",
+      "core-js/es/object",
+      "core-js/es/array",
+      "core-js/es/symbol",
+      "core-js/es/promise",
+      "core-js/es/map",
+      "core-js/es/set",
       "./entry/client.tsx",
     ],
   },
@@ -142,6 +143,19 @@ module.exports = {
       ),
     }),
 
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: "modules/client/images",
+          to: "images/",
+        },
+        {
+          from: "modules/client/videos",
+          to: "videos/",
+        },
+      ],
+    }),
+
     // Process index.html and insert script and stylesheet tags for us.
     new HtmlWebpackPlugin({
       template: "./entry/index.html",
@@ -197,6 +211,10 @@ module.exports = {
       loaders.clientSideTypeScript,
       loaders.graphql,
       loaders.scss,
+      // {
+      //   test: /\.(jpg|png|svg|gif)$/,
+      //   type: "asset/resource",
+      // },
     ].concat(loaders.allImagesAndFontsArray),
     exprContextRegExp: /$^/,
     exprContextCritical: false,

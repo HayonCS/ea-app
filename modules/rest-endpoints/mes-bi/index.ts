@@ -2,11 +2,14 @@ import * as Hexagonal from "atomic-object/hexagonal";
 import { MesBiPort } from "./port";
 import {
   AssetInfo,
+  LineConfiguration,
   LineOperationPart,
   getAssetByName,
   getAssetsAll,
   getAssetsName,
   getCycleTimesLineOperationPart,
+  getLineConfiguration,
+  getLineConfigurationsAll,
 } from "./mes-bi";
 
 export type MesBi = {
@@ -17,6 +20,13 @@ export type MesBi = {
   getAssetByName: (assetName: string) => Promise<AssetInfo | undefined>;
 
   getCycleTimesLineOperationPart: () => Promise<LineOperationPart[]>;
+
+  getLineConfiguration: (
+    lineName: string,
+    orgCode: number
+  ) => Promise<LineConfiguration | undefined>;
+
+  getLineConfigurationsAll: () => Promise<LineConfiguration[]>;
 };
 
 export const mesBiAdapter = Hexagonal.adapter({
@@ -35,6 +45,12 @@ export const mesBiAdapter = Hexagonal.adapter({
       },
       getCycleTimesLineOperationPart: async () => {
         return await getCycleTimesLineOperationPart();
+      },
+      getLineConfiguration: async (lineName: string, orgCode: number) => {
+        return await getLineConfiguration(lineName, orgCode);
+      },
+      getLineConfigurationsAll: async () => {
+        return await getLineConfigurationsAll();
       },
     };
   },

@@ -46,6 +46,16 @@ import { WorldTimePort } from "rest-endpoints/world-time/port";
 import { worldTimeAdapter } from "rest-endpoints/world-time";
 import { UserInfoPort } from "domain-services/user-information/port";
 import { userInfoAdapter } from "domain-services/user-information";
+import { EmployeeInfoRedisPort } from "domain-services/employee-directory-redis/port";
+import { employeeInfoRedisAdapter } from "domain-services/employee-directory-redis";
+import { MesBomPort } from "rest-endpoints/mes-bom/port";
+import { mesBomAdapter } from "rest-endpoints/mes-bom";
+import { BomRoutingsPort } from "domain-services/bom-routings/port";
+import { bomRoutingsAdapter } from "domain-services/bom-routings";
+import { MesTestHistoryPort } from "rest-endpoints/test-history/port";
+import { mesTestHistoryAdapter } from "rest-endpoints/test-history";
+import { DcToolsPort } from "rest-endpoints/dctools/port";
+import { dcToolsAdapter } from "rest-endpoints/dctools";
 
 export type ContextOpts = {
   db?: db.Knex;
@@ -87,14 +97,19 @@ const ContextBase = Hexagonal.contextClass((c) =>
     })
     .add(MesSecurityPort, mesSecurityAdapter)
     .add(MesBiPort, mesBiAdapter)
+    .add(MesBomPort, mesBomAdapter)
+    .add(BomRoutingsPort, bomRoutingsAdapter)
     .add(MesProcessDataPort, mesProcessDataAdapter)
+    .add(MesTestHistoryPort, mesTestHistoryAdapter)
     .add(ProcessDataRedisPort, processDataRedisAdapter)
     .add(UserPicturePort, userPictureAdapter)
     .add(EmployeeInfoPort, employeeInfoAdapter)
+    .add(EmployeeInfoRedisPort, employeeInfoRedisAdapter)
     .add(AssetsBiPort, assetsBiAdapter)
     .add(UserInfoPort, userInfoAdapter)
     .add(UserAppDataPort, userAppDataAdapter)
     .add(WorldTimePort, worldTimeAdapter)
+    .add(DcToolsPort, dcToolsAdapter)
 );
 
 /** The graphql context type for this app.  */
@@ -144,8 +159,24 @@ export class Context extends ContextBase {
     return this.get(MesBiPort);
   }
 
+  get mesBom() {
+    return this.get(MesBomPort);
+  }
+
+  get bomRoutings() {
+    return this.get(BomRoutingsPort);
+  }
+
   get mesProcessData() {
     return this.get(MesProcessDataPort);
+  }
+
+  get mesTestHistory() {
+    return this.get(MesTestHistoryPort);
+  }
+
+  get dcTools() {
+    return this.get(DcToolsPort);
   }
 
   get processDataRedis() {
@@ -154,6 +185,10 @@ export class Context extends ContextBase {
 
   get employeeInfo() {
     return this.get(EmployeeInfoPort);
+  }
+
+  get employeeInfoRedis() {
+    return this.get(EmployeeInfoRedisPort);
   }
 
   get employeeDirectory() {

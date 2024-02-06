@@ -1,6 +1,11 @@
 import { Flavor } from "helpers";
+import { getPerformanceRows } from "helpers/webdc-helpers";
 import { RepositoryBase } from "records/core";
 import { ComboDataRecord } from "records/core";
+import {
+  getTestHistoryByMetadata,
+  TestHistory,
+} from "rest-endpoints/test-history/test-history";
 import {
   getCurrentDateTime,
   getCurrentTimeOffset,
@@ -54,11 +59,12 @@ export type SnRow = {
   OperationID: string | null;
 };
 
-async function dateToString(date: Date) {
-  const currentTime = await getCurrentDateTime();
-  console.log("Param: " + date);
-  console.log("Current: " + currentTime);
-  console.log("Now: " + new Date());
+function dateToString(date: Date) {
+  // const currentTime = await getCurrentDateTime();
+  // console.log("Param: " + date);
+  // console.log("Current: " + currentTime);
+  // console.log("Now: " + new Date());
+
   // const timeDiff = (currentTime.getTime() - new Date().getTime()) / 3600000;
   // date.setHours(date.getHours() + timeDiff);
   // date.setHours(date.getHours() + 4);
@@ -126,19 +132,6 @@ export class AssetComboRecordRepository extends RepositoryBase(
     );
     return tables;
   };
-
-  //   findByUserName = async (userName: string) => {
-  //     const rows: Array<SavedUserRecord> = await this.db
-  //       .select()
-  //       .from("Users")
-  //       .where({ Name: userName });
-
-  //     if (rows.length === 0) {
-  //       return null;
-  //     }
-
-  //     return rows[0];
-  //   };
 }
 
 export class PnComboRecordRepository extends RepositoryBase(ComboDataRecord) {
@@ -186,6 +179,12 @@ export class PnComboRecordRepository extends RepositoryBase(ComboDataRecord) {
 }
 
 export class SnComboRecordRepository extends RepositoryBase(ComboDataRecord) {
+  getServerDate = async () => {
+    const sqlData = await this.db.raw(`SELECT GETDATE()`);
+    console.log(sqlData);
+    return sqlData;
+  };
+
   showColumns = async () => {
     const sqlData = await this.db.raw(
       `SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'SN'`
@@ -241,9 +240,116 @@ export class SnComboRecordRepository extends RepositoryBase(ComboDataRecord) {
     } else if (operatorIds) {
       return [];
     }
-    connStr += `(TESTDATETIME >= '${startDate}' AND TESTDATETIME <= '${endDate}')`;
-    // console.log(connStr);
-    // const sqlData = await this.db.raw(`SELECT * FROM COMBODATA.dbo.ASSET`);
+    // connStr += `(TESTDATETIME >= '${startDate}' AND TESTDATETIME <= '${endDate}')`;
+
+    let totalResult: SnRow[] = [];
+
+    const dateEnd = new Date(endDate);
+    for (
+      let dateStart = new Date(startDate);
+      dateStart < dateEnd;
+      dateStart.setDate(dateStart.getDate() + 1)
+    ) {
+      try {
+        let rangeEnd = new Date(dateStart);
+        rangeEnd.setDate(rangeEnd.getDate() + 1);
+        rangeEnd.setMilliseconds(rangeEnd.getMilliseconds() - 1);
+        const rangeStr = `(TESTDATETIME >= '${dateStart.toISOString()}' AND TESTDATETIME <= '${rangeEnd.toISOString()}')`;
+        const sqlData = await this.db.raw(connStr + rangeStr);
+        let result: SnRow[] = sqlData.map((x: any) => {
+          let date = new Date(x["TESTDATETIME"]);
+          date.setHours(date.getHours() + timeOffset);
+          const row: SnRow = {
+            SNID: x["SNID"],
+            PNID: x["PNID"],
+            AssetID: x["ASSET_ID"],
+            TestDateTime: date,
+            Failed: x["FAILED"],
+            Retest: x["RETEST"],
+            Traceable: x["TRACEABLE"],
+            TagCount: x["TAGCNT"],
+            SN: x["SN"],
+            RevID: x["REVID"],
+            FailCount: x["FAILCNT"],
+            FailedTags: x["FAILEDTAGS"],
+            OperID: x["OPERID"],
+            Barcode: x["BARCODE"],
+            MetaDataID: x["METADATAID"],
+            OperatorID: x["OPERATORID"],
+            OperationID: x["OPERATIONID"],
+          };
+          return row;
+        });
+        totalResult = totalResult.concat(result);
+
+        console.log(
+          `Queried ComboData: ${dateStart.toISOString()} to ${rangeEnd.toISOString()}, Rows: ${
+            result.length
+          }`
+        );
+
+        // console.log("GOT DAY RANGE:");
+        // console.log(result);
+      } catch (e) {
+        console.log("ERROR Querying SQL ComboData.");
+        console.log(e);
+        dateStart.setDate(dateStart.getDate() - 1);
+      }
+    }
+    totalResult = totalResult.sort(
+      (a, b) => a.TestDateTime.getTime() - b.TestDateTime.getTime()
+    );
+    totalResult = totalResult.sort((a, b) => a.AssetID - b.AssetID);
+
+    // let timeDifference = 0;
+    // for (let i = totalResult.length - 1; i >= 0; i--) {
+    //   const testRow = totalResult[i];
+    //   if (testRow.MetaDataID) {
+    //     const foundTest = await getTestHistoryByMetadata(testRow.MetaDataID);
+    //     if (foundTest) {
+    //       console.log("Time Offset:");
+    //       console.log(timeOffset);
+    //       console.log("Raw Test");
+    //       console.log(testRow.TestDateTime);
+    //       console.log("FOUND");
+    //       console.log(foundTest.opEndTime);
+    //       console.log(new Date(foundTest.opEndTime));
+    //       break;
+    //     }
+    //   }
+    // }
+
+    // totalResult.forEach((x) => {
+    //   if (x.MetaDataID === "14719534907512284") {
+    //     console.log("METADATA");
+    //     console.log(x);
+    //   }
+    // });
+
+    return totalResult;
+  };
+
+  getPerformanceRowsDateRange = async (
+    startDate: string,
+    endDate: string,
+    assetIds?: number[],
+    partIds?: number[],
+    operatorIds?: number[]
+  ) => {
+    const rows = await this.getRowsDateRange(
+      startDate,
+      endDate,
+      assetIds,
+      partIds,
+      operatorIds
+    );
+    const result = getPerformanceRows(rows);
+    return result;
+  };
+
+  getRowByMetaData = async (metaDataId: string) => {
+    const timeOffset = await getCurrentTimeOffset();
+    const connStr = `SELECT * FROM COMBODATA.dbo.SN WHERE SN = '${metaDataId}'`;
     const sqlData = await this.db.raw(connStr);
     let result: SnRow[] = sqlData.map((x: any) => {
       let date = new Date(x["TESTDATETIME"]);
@@ -270,299 +376,114 @@ export class SnComboRecordRepository extends RepositoryBase(ComboDataRecord) {
       return row;
     });
     result = result.sort(
-      (a, b) => a.TestDateTime.getTime() - b.TestDateTime.getTime()
+      (a, b) => b.TestDateTime.getTime() - a.TestDateTime.getTime()
     );
-    result = result.sort((a, b) => a.AssetID - b.AssetID);
-    // const ops = result
-    //   .map((x) => x.OperatorID)
-    //   .filter((v, i, a) => a.indexOf(v) === i);
-    // console.log(ops);
-    return result;
+    console.log(result);
+    return result.length > 0 ? result[0] : undefined;
   };
 
-  getRowsByAssetDateRange = async (
-    assetId: number,
-    startDate: Date,
-    endDate: Date
-  ) => {
-    const start = await dateToString(startDate);
-    const end = await dateToString(endDate);
-    const sqlData = await this.db.raw(
-      `SELECT * FROM COMBODATA.dbo.SN WHERE ASSET_ID = ${assetId} AND TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
-    );
-    const result: SnRow[] = sqlData.map((x: any) => {
-      const row: SnRow = {
-        SNID: x["SNID"],
-        PNID: x["PNID"],
-        AssetID: x["ASSET_ID"],
-        TestDateTime: new Date(x["TESTDATETIME"]),
-        Failed: x["FAILED"],
-        Retest: x["RETEST"],
-        Traceable: x["TRACEABLE"],
-        TagCount: x["TAGCNT"],
-        SN: x["SN"],
-        RevID: x["REVID"],
-        FailCount: x["FAILCNT"],
-        FailedTags: x["FAILEDTAGS"],
-        OperID: x["OPERID"],
-        Barcode: x["BARCODE"],
-        MetaDataID: x["METADATAID"],
-        OperatorID: x["OPERATORID"],
-        OperationID: x["OPERATIONID"],
-      };
-      return row;
-    });
-    return result;
-  };
+  // getRowsDateRange = async (
+  //   startDate: string,
+  //   endDate: string,
+  //   assetIds?: number[],
+  //   partIds?: number[],
+  //   operatorIds?: number[]
+  // ) => {
+  //   try {
+  //     const timeOffset = await getCurrentTimeOffset();
+  //     // const start = await dateToString(startDate);
+  //     // const end = await dateToString(endDate);
+  //     // const providedAssets = assetIds && assetIds.length > 0;
+  //     // const providedParts = partIds && partIds.length > 0;
+  //     // const providedOperators = operatorIds && operatorIds.length > 0;
+  //     let connStr = `SELECT * FROM COMBODATA.dbo.SN WHERE `;
+  //     // str += providedAssets || providedParts || providedOperators ? " WHERE " : ""
+  //     if (assetIds && assetIds.length > 0) {
+  //       for (let i = 0; i < assetIds.length; ++i) {
+  //         if (i === 0) connStr += "(";
+  //         connStr += `ASSET_ID = ${assetIds[i]}`;
+  //         if (i < assetIds.length - 1) connStr += " OR ";
+  //         else if (i === assetIds.length - 1) connStr += ")";
+  //       }
+  //       connStr += " AND ";
+  //     } else if (assetIds) {
+  //       return [];
+  //     }
+  //     if (partIds && partIds.length > 0) {
+  //       for (let i = 0; i < partIds.length; ++i) {
+  //         if (i === 0) connStr += "(";
+  //         connStr += `PNID = ${partIds[i]}`;
+  //         if (i < partIds.length - 1) connStr += " OR ";
+  //         else if (i === partIds.length - 1) connStr += ")";
+  //       }
+  //       connStr += " AND ";
+  //     } else if (partIds) {
+  //       return [];
+  //     }
+  //     if (operatorIds && operatorIds.length > 0) {
+  //       for (let i = 0; i < operatorIds.length; ++i) {
+  //         if (i === 0) connStr += "(";
+  //         connStr += `OPERATORID = ${operatorIds[i]}`;
+  //         if (i < operatorIds.length - 1) connStr += " OR ";
+  //         else if (i === operatorIds.length - 1) connStr += ")";
+  //       }
+  //       connStr += " AND ";
+  //     } else if (operatorIds) {
+  //       return [];
+  //     }
+  //     connStr += `(TESTDATETIME >= '${startDate}' AND TESTDATETIME <= '${endDate}')`;
 
-  getRowsByAssetsDateRange = async (
-    assetIds: number[],
-    startDate: Date,
-    endDate: Date
-  ) => {
-    let totalRows: SnRow[] = [];
-    for (const assetId of assetIds) {
-      const rows = await this.getRowsByAssetDateRange(
-        assetId,
-        startDate,
-        endDate
-      );
-      totalRows = totalRows.concat(rows);
-    }
-    return totalRows;
-  };
+  //     // let totalResult: SnRow[] = [];
 
-  getRowsByPartDateRange = async (
-    partId: number,
-    startDate: Date,
-    endDate: Date
-  ) => {
-    const start = await dateToString(startDate);
-    const end = await dateToString(endDate);
-    const sqlData = await this.db.raw(
-      `SELECT * FROM COMBODATA.dbo.SN WHERE PNID = ${partId} AND TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
-    );
-    const result: SnRow[] = sqlData.map((x: any) => {
-      const row: SnRow = {
-        SNID: x["SNID"],
-        PNID: x["PNID"],
-        AssetID: x["ASSET_ID"],
-        TestDateTime: new Date(x["TESTDATETIME"]),
-        Failed: x["FAILED"],
-        Retest: x["RETEST"],
-        Traceable: x["TRACEABLE"],
-        TagCount: x["TAGCNT"],
-        SN: x["SN"],
-        RevID: x["REVID"],
-        FailCount: x["FAILCNT"],
-        FailedTags: x["FAILEDTAGS"],
-        OperID: x["OPERID"],
-        Barcode: x["BARCODE"],
-        MetaDataID: x["METADATAID"],
-        OperatorID: x["OPERATORID"],
-        OperationID: x["OPERATIONID"],
-      };
-      return row;
-    });
-    return result;
-  };
+  //     // const dateEnd = new Date(endDate);
+  //     // for (
+  //     //   let dateStart = new Date(startDate);
+  //     //   dateStart < dateEnd;
+  //     //   dateStart.setDate(dateStart.getDate() + 1)
+  //     // ) {
+  //     //   console.log(dateStart.toISOString());
+  //     // }
 
-  getRowsByOperatorDateRange = async (
-    operatorId: number,
-    startDate: Date,
-    endDate: Date
-  ) => {
-    const start = await dateToString(startDate);
-    const end = await dateToString(endDate);
-    const sqlData = await this.db.raw(
-      `SELECT * FROM COMBODATA.dbo.SN WHERE OPERATORID = ${operatorId} AND TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
-    );
-    const result: SnRow[] = sqlData.map((x: any) => {
-      const row: SnRow = {
-        SNID: x["SNID"],
-        PNID: x["PNID"],
-        AssetID: x["ASSET_ID"],
-        TestDateTime: new Date(x["TESTDATETIME"]),
-        Failed: x["FAILED"],
-        Retest: x["RETEST"],
-        Traceable: x["TRACEABLE"],
-        TagCount: x["TAGCNT"],
-        SN: x["SN"],
-        RevID: x["REVID"],
-        FailCount: x["FAILCNT"],
-        FailedTags: x["FAILEDTAGS"],
-        OperID: x["OPERID"],
-        Barcode: x["BARCODE"],
-        MetaDataID: x["METADATAID"],
-        OperatorID: x["OPERATORID"],
-        OperationID: x["OPERATIONID"],
-      };
-      return row;
-    });
-    return result;
-  };
-
-  getRowsByOperatorsDateRange = async (
-    operatorIds: number[],
-    startDate: Date,
-    endDate: Date
-  ) => {
-    let totalRows: SnRow[] = [];
-    for (const operatorId of operatorIds) {
-      const rows = await this.getRowsByOperatorDateRange(
-        operatorId,
-        startDate,
-        endDate
-      );
-      totalRows = totalRows.concat(rows);
-    }
-    return totalRows;
-  };
-
-  getRowsByAssetPartDateRange = async (
-    assetId: number,
-    partId: number,
-    startDate: Date,
-    endDate: Date
-  ) => {
-    const start = await dateToString(startDate);
-    const end = await dateToString(endDate);
-    const sqlData = await this.db.raw(
-      `SELECT * FROM COMBODATA.dbo.SN WHERE ASSET_ID = ${assetId} AND PNID = ${partId} AND TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
-    );
-    const result: SnRow[] = sqlData.map((x: any) => {
-      const row: SnRow = {
-        SNID: x["SNID"],
-        PNID: x["PNID"],
-        AssetID: x["ASSET_ID"],
-        TestDateTime: new Date(x["TESTDATETIME"]),
-        Failed: x["FAILED"],
-        Retest: x["RETEST"],
-        Traceable: x["TRACEABLE"],
-        TagCount: x["TAGCNT"],
-        SN: x["SN"],
-        RevID: x["REVID"],
-        FailCount: x["FAILCNT"],
-        FailedTags: x["FAILEDTAGS"],
-        OperID: x["OPERID"],
-        Barcode: x["BARCODE"],
-        MetaDataID: x["METADATAID"],
-        OperatorID: x["OPERATORID"],
-        OperationID: x["OPERATIONID"],
-      };
-      return row;
-    });
-    return result;
-  };
-
-  getRowsByAssetOperatorDateRange = async (
-    assetId: number,
-    operatorId: number,
-    startDate: Date,
-    endDate: Date
-  ) => {
-    const start = await dateToString(startDate);
-    const end = await dateToString(endDate);
-    const sqlData = await this.db.raw(
-      `SELECT * FROM COMBODATA.dbo.SN WHERE ASSET_ID = ${assetId} AND OPERATORID = ${operatorId} AND TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
-    );
-    const result: SnRow[] = sqlData.map((x: any) => {
-      const row: SnRow = {
-        SNID: x["SNID"],
-        PNID: x["PNID"],
-        AssetID: x["ASSET_ID"],
-        TestDateTime: new Date(x["TESTDATETIME"]),
-        Failed: x["FAILED"],
-        Retest: x["RETEST"],
-        Traceable: x["TRACEABLE"],
-        TagCount: x["TAGCNT"],
-        SN: x["SN"],
-        RevID: x["REVID"],
-        FailCount: x["FAILCNT"],
-        FailedTags: x["FAILEDTAGS"],
-        OperID: x["OPERID"],
-        Barcode: x["BARCODE"],
-        MetaDataID: x["METADATAID"],
-        OperatorID: x["OPERATORID"],
-        OperationID: x["OPERATIONID"],
-      };
-      return row;
-    });
-    return result;
-  };
-
-  getRowsByPartOperatorDateRange = async (
-    partId: number,
-    operatorId: number,
-    startDate: Date,
-    endDate: Date
-  ) => {
-    const start = await dateToString(startDate);
-    const end = await dateToString(endDate);
-    const sqlData = await this.db.raw(
-      `SELECT * FROM COMBODATA.dbo.SN WHERE PNID = ${partId} AND OPERATORID = ${operatorId} AND TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
-    );
-    const result: SnRow[] = sqlData.map((x: any) => {
-      const row: SnRow = {
-        SNID: x["SNID"],
-        PNID: x["PNID"],
-        AssetID: x["ASSET_ID"],
-        TestDateTime: new Date(x["TESTDATETIME"]),
-        Failed: x["FAILED"],
-        Retest: x["RETEST"],
-        Traceable: x["TRACEABLE"],
-        TagCount: x["TAGCNT"],
-        SN: x["SN"],
-        RevID: x["REVID"],
-        FailCount: x["FAILCNT"],
-        FailedTags: x["FAILEDTAGS"],
-        OperID: x["OPERID"],
-        Barcode: x["BARCODE"],
-        MetaDataID: x["METADATAID"],
-        OperatorID: x["OPERATORID"],
-        OperationID: x["OPERATIONID"],
-      };
-      return row;
-    });
-    return result;
-  };
-
-  getRowsByAssetPartOperatorDateRange = async (
-    assetId: number,
-    partId: number,
-    operatorId: number,
-    startDate: Date,
-    endDate: Date
-  ) => {
-    const start = await dateToString(startDate);
-    const end = await dateToString(endDate);
-    const sqlData = await this.db.raw(
-      `SELECT * FROM COMBODATA.dbo.SN WHERE ASSET_ID = ${assetId} AND PNID = ${partId} AND OPERATORID = ${operatorId} AND TESTDATETIME >= '${start}' AND TESTDATETIME <= '${end}'`
-    );
-    const result: SnRow[] = sqlData.map((x: any) => {
-      const row: SnRow = {
-        SNID: x["SNID"],
-        PNID: x["PNID"],
-        AssetID: x["ASSET_ID"],
-        TestDateTime: new Date(x["TESTDATETIME"]),
-        Failed: x["FAILED"],
-        Retest: x["RETEST"],
-        Traceable: x["TRACEABLE"],
-        TagCount: x["TAGCNT"],
-        SN: x["SN"],
-        RevID: x["REVID"],
-        FailCount: x["FAILCNT"],
-        FailedTags: x["FAILEDTAGS"],
-        OperID: x["OPERID"],
-        Barcode: x["BARCODE"],
-        MetaDataID: x["METADATAID"],
-        OperatorID: x["OPERATORID"],
-        OperationID: x["OPERATIONID"],
-      };
-      return row;
-    });
-    return result;
-  };
+  //     const sqlData = await this.db.raw(connStr);
+  //     let result: SnRow[] = sqlData.map((x: any) => {
+  //       let date = new Date(x["TESTDATETIME"]);
+  //       date.setHours(date.getHours() + timeOffset);
+  //       const row: SnRow = {
+  //         SNID: x["SNID"],
+  //         PNID: x["PNID"],
+  //         AssetID: x["ASSET_ID"],
+  //         TestDateTime: date,
+  //         Failed: x["FAILED"],
+  //         Retest: x["RETEST"],
+  //         Traceable: x["TRACEABLE"],
+  //         TagCount: x["TAGCNT"],
+  //         SN: x["SN"],
+  //         RevID: x["REVID"],
+  //         FailCount: x["FAILCNT"],
+  //         FailedTags: x["FAILEDTAGS"],
+  //         OperID: x["OPERID"],
+  //         Barcode: x["BARCODE"],
+  //         MetaDataID: x["METADATAID"],
+  //         OperatorID: x["OPERATORID"],
+  //         OperationID: x["OPERATIONID"],
+  //       };
+  //       return row;
+  //     });
+  //     result = result.sort(
+  //       (a, b) => a.TestDateTime.getTime() - b.TestDateTime.getTime()
+  //     );
+  //     result = result.sort((a, b) => a.AssetID - b.AssetID);
+  //     // const ops = result
+  //     //   .map((x) => x.OperatorID)
+  //     //   .filter((v, i, a) => a.indexOf(v) === i);
+  //     // console.log(ops);
+  //     return result;
+  //   } catch (e) {
+  //     console.log("ERROR Querying SQL ComboData.");
+  //     console.log(e);
+  //     return [];
+  //   }
+  // };
 
   showTables = async () => {
     // const tables = await this.db.raw(
@@ -597,17 +518,4 @@ export class SnComboRecordRepository extends RepositoryBase(ComboDataRecord) {
     });
     return result;
   };
-
-  //   findByUserName = async (userName: string) => {
-  //     const rows: Array<SavedUserRecord> = await this.db
-  //       .select()
-  //       .from("Users")
-  //       .where({ Name: userName });
-
-  //     if (rows.length === 0) {
-  //       return null;
-  //     }
-
-  //     return rows[0];
-  //   };
 }

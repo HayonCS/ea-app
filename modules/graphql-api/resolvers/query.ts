@@ -10,6 +10,11 @@ import { MesBiPort } from "rest-endpoints/mes-bi/port";
 import { RepositoriesPort } from "records";
 import { SnRow } from "records/processdata";
 import { UserInfoPort } from "domain-services/user-information/port";
+import { EmployeeInfoRedisPort } from "domain-services/employee-directory-redis/port";
+import { MesBomPort } from "rest-endpoints/mes-bom/port";
+import { BomRoutingsPort } from "domain-services/bom-routings/port";
+import { MesTestHistoryPort } from "rest-endpoints/test-history/port";
+import { DcToolsPort } from "rest-endpoints/dctools/port";
 
 const queryResolvers: QueryResolvers = {
   mesUserInfo: async (parent, args, ctx) => {
@@ -29,10 +34,10 @@ const queryResolvers: QueryResolvers = {
   },
 
   employeeDirectory: async (parent, args, ctx) => {
-    // const directory = await ctx
-    //   .get(EmployeeDirectoryRedisPort)
-    //   .getEmployeeDirectory();
-    const directory = await ctx.get(EmployeeInfoPort).employeeDirectory();
+    const directory = await ctx
+      .get(EmployeeInfoRedisPort)
+      .getEmployeeDirectoryRedis();
+    // const directory = await ctx.get(EmployeeInfoPort).employeeDirectory();
     return directory;
   },
 
@@ -53,8 +58,8 @@ const queryResolvers: QueryResolvers = {
   assetListBi: async (parent, args, ctx) => {
     // const assetList = await ctx.get(MesBiPort).getAssetsAll();
     // return assetList;
-    const combos = (await ctx.get(MesBiPort).getAssetsName("CMB")).filter((x) =>
-      x.assetName.startsWith("CMB")
+    const combos = (await ctx.get(MesBiPort).getAssetsName("C")).filter((x) =>
+      x.assetName.startsWith("C")
     );
     const monorails = (await ctx.get(MesBiPort).getAssetsName("MR")).filter(
       (x) => x.assetName.startsWith("MR")
@@ -62,7 +67,10 @@ const queryResolvers: QueryResolvers = {
     const presses = (await ctx.get(MesBiPort).getAssetsName("PCB")).filter(
       (x) => x.assetName.startsWith("PCB")
     );
-    let assets = [...combos, ...monorails, ...presses];
+    const other = (await ctx.get(MesBiPort).getAssetsName("I")).filter((x) =>
+      x.assetName.startsWith("I")
+    );
+    let assets = [...combos, ...monorails, ...presses, ...other];
     assets = assets.sort((a, b) => a.assetName.localeCompare(b.assetName));
     return assets;
   },
@@ -84,12 +92,78 @@ const queryResolvers: QueryResolvers = {
     return cycleTimes;
   },
 
+  getLineConfiguration: async (parent, args, ctx) => {
+    const config = await ctx
+      .get(MesBiPort)
+      .getLineConfiguration(args.lineName, args.orgCode);
+    return config;
+  },
+
+  getLineConfigurationsAll: async (parent, args, ctx) => {
+    const configs = await ctx.get(MesBiPort).getLineConfigurationsAll();
+    return configs;
+  },
+
+  getBomRouting: async (parent, args, ctx) => {
+    const bomRouting = await ctx
+      .get(MesBomPort)
+      .getBomRouting(args.orgCode, args.partNumber);
+    return bomRouting;
+  },
+
+  getBomRoutings: async (parent, args, ctx) => {
+    const routings = await ctx
+      .get(MesBomPort)
+      .getBomRoutings(args.orgCode, args.partNumbers);
+    return routings;
+  },
+
+  getAllBomRoutings: async (parent, args, ctx) => {
+    const routings = await ctx.get(BomRoutingsPort).getBomRoutings();
+    return routings;
+  },
+
   getProcessDataExport: async (parent, args, ctx) => {
     const processData = await ctx
       .get(MesProcessDataPort)
       .getProcessDataExport(args.asset, args.startDate, args.endDate);
 
     return processData;
+  },
+
+  getTestHistoriesById: async (parent, args, ctx) => {
+    const testHistories = await ctx
+      .get(MesTestHistoryPort)
+      .getTestHistoriesById(args.identifierCode);
+    return testHistories;
+  },
+
+  getTestHistoryById: async (parent, args, ctx) => {
+    const test = await ctx
+      .get(MesTestHistoryPort)
+      .getTestHistoryById(args.identifierCode, args.operation);
+    return test;
+  },
+
+  getTestHistoryByMetadata: async (parent, args, ctx) => {
+    const test = await ctx
+      .get(MesTestHistoryPort)
+      .getTestHistoryByMetadata(args.metaDataId);
+    return test;
+  },
+
+  getResultFileByMetadata: async (parent, args, ctx) => {
+    const result = await ctx
+      .get(DcToolsPort)
+      .getResultFileByMetadata(args.metaDataId);
+    return result;
+  },
+
+  getFailedTagsByMetadata: async (parent, args, ctx) => {
+    const tags = await ctx
+      .get(DcToolsPort)
+      .getFailedTagsByMetadata(args.metaDataId);
+    return tags;
   },
 
   getProcessDataRedis: async (parent, args, ctx) => {
@@ -182,10 +256,6 @@ const queryResolvers: QueryResolvers = {
     let testRows = await ctx
       .get(RepositoriesPort)
       .domain("WebDC", async (domCtx) => {
-        // let start = new Date(args.start);
-        // let end = new Date(args.end);
-        // start.setHours(start.getHours() + 4);
-        // end.setHours(end.getHours() + 4);
         const rows = await domCtx.combodata.sn.getRowsDateRange(
           args.start,
           args.end,
@@ -196,195 +266,38 @@ const queryResolvers: QueryResolvers = {
         return rows;
       });
     testRows = testRows.sort((a, b) => a.AssetID - b.AssetID);
-    // partData = partData.filter(
-    //   (x) =>
-    //     !x.PartNumber.includes("I") &&
-    //     !x.PartNumber.includes("E") &&
-    //     !x.PartNumber.includes("U") &&
-    //     !x.PartNumber.includes("A") &&
-    //     !x.PartNumber.includes("L") &&
-    //     !x.PartNumber.includes("0000")
-    // );
     return testRows;
-    // const testRows = await ctx
-    //   .get(RepositoriesPort)
-    //   .domain("WebDC", async (domCtx) => {
-    //     const start = new Date(args.start);
-    //     const end = new Date(args.end);
-    //     let assetList = await domCtx.combodata.asset.getRows();
-    //     assetList = assetList.filter(
-    //       (x) => x.Asset.startsWith("CMB") || x.Asset.startsWith("MR")
-    //     );
-    //     let totalRows: SnRow[] = [];
-    //     for (const asset of assetList) {
-    //       const rows = await domCtx.combodata.sn.getRowsByAssetDateRange(
-    //         asset.AssetID,
-    //         start,
-    //         end
-    //       );
-    //       totalRows = totalRows.concat(rows);
-    //     }
-    //     return totalRows;
-    //   });
-    // return testRows;
   },
 
-  comboRowsByAssetDateRange: async (parent, args, ctx) => {
-    const testRows = await ctx
+  comboPerformanceRowsDateRange: async (parent, args, ctx) => {
+    let result = await ctx
       .get(RepositoriesPort)
       .domain("WebDC", async (domCtx) => {
-        const start = new Date(args.start);
-        const end = new Date(args.end);
-        const rows = await domCtx.combodata.sn.getRowsByAssetDateRange(
-          args.assetId,
-          start,
-          end
+        const rows = await domCtx.combodata.sn.getPerformanceRowsDateRange(
+          args.start,
+          args.end,
+          args.assetIds ?? undefined,
+          args.partIds ?? undefined,
+          args.operatorIds ?? undefined
         );
         return rows;
       });
-    return testRows;
+    return result;
   },
 
-  comboRowsByAssetsDateRange: async (parent, args, ctx) => {
-    const testRows = await ctx
+  comboRowByMetaData: async (parent, args, ctx) => {
+    const result = await ctx
       .get(RepositoriesPort)
       .domain("WebDC", async (domCtx) => {
-        const start = new Date(args.start);
-        const end = new Date(args.end);
-        const rows = await domCtx.combodata.sn.getRowsByAssetsDateRange(
-          args.assetIds,
-          start,
-          end
-        );
-        return rows;
+        return await domCtx.combodata.sn.getRowByMetaData(args.metaDataId);
       });
-    return testRows;
-  },
-
-  comboRowsByPartDateRange: async (parent, args, ctx) => {
-    const testRows = await ctx
-      .get(RepositoriesPort)
-      .domain("WebDC", async (domCtx) => {
-        const start = new Date(args.start);
-        const end = new Date(args.end);
-        const rows = await domCtx.combodata.sn.getRowsByPartDateRange(
-          args.partId,
-          start,
-          end
-        );
-        return rows;
-      });
-    return testRows;
-  },
-
-  comboRowsByOperatorDateRange: async (parent, args, ctx) => {
-    const testRows = await ctx
-      .get(RepositoriesPort)
-      .domain("WebDC", async (domCtx) => {
-        const start = new Date(args.start);
-        const end = new Date(args.end);
-        const rows = await domCtx.combodata.sn.getRowsByOperatorDateRange(
-          args.operatorId,
-          start,
-          end
-        );
-        return rows;
-      });
-    return testRows;
-  },
-
-  comboRowsByOperatorsDateRange: async (parent, args, ctx) => {
-    const testRows = await ctx
-      .get(RepositoriesPort)
-      .domain("WebDC", async (domCtx) => {
-        const start = new Date(args.start);
-        const end = new Date(args.end);
-        const rows = await domCtx.combodata.sn.getRowsByOperatorsDateRange(
-          args.operatorIds,
-          start,
-          end
-        );
-        return rows;
-      });
-    return testRows;
-  },
-
-  comboRowsByAssetPartDateRange: async (parent, args, ctx) => {
-    const testRows = await ctx
-      .get(RepositoriesPort)
-      .domain("WebDC", async (domCtx) => {
-        const start = new Date(args.start);
-        const end = new Date(args.end);
-        const rows = await domCtx.combodata.sn.getRowsByAssetPartDateRange(
-          args.assetId,
-          args.partId,
-          start,
-          end
-        );
-        return rows;
-      });
-    return testRows;
-  },
-
-  comboRowsByAssetOperatorDateRange: async (parent, args, ctx) => {
-    const testRows = await ctx
-      .get(RepositoriesPort)
-      .domain("WebDC", async (domCtx) => {
-        const start = new Date(args.start);
-        const end = new Date(args.end);
-        const rows = await domCtx.combodata.sn.getRowsByAssetOperatorDateRange(
-          args.assetId,
-          args.operatorId,
-          start,
-          end
-        );
-        return rows;
-      });
-    return testRows;
-  },
-
-  comboRowsByPartOperatorDateRange: async (parent, args, ctx) => {
-    const testRows = await ctx
-      .get(RepositoriesPort)
-      .domain("WebDC", async (domCtx) => {
-        const start = new Date(args.start);
-        const end = new Date(args.end);
-        const rows = await domCtx.combodata.sn.getRowsByPartOperatorDateRange(
-          args.partId,
-          args.operatorId,
-          start,
-          end
-        );
-        return rows;
-      });
-    return testRows;
-  },
-
-  comboRowsByAssetPartOperatorDateRange: async (parent, args, ctx) => {
-    const testRows = await ctx
-      .get(RepositoriesPort)
-      .domain("WebDC", async (domCtx) => {
-        const start = new Date(args.start);
-        const end = new Date(args.end);
-        const rows =
-          await domCtx.combodata.sn.getRowsByAssetPartOperatorDateRange(
-            args.assetId,
-            args.partId,
-            args.operatorId,
-            start,
-            end
-          );
-        return rows;
-      });
-    return testRows;
+    return result;
   },
 
   processRowsDateRange: async (parent, args, ctx) => {
     let testRows = await ctx
       .get(RepositoriesPort)
       .domain("WebDC", async (domCtx) => {
-        // const start = new Date(args.start);
-        // const end = new Date(args.end);
         const rows = await domCtx.processdata.sn.getRowsDateRange(
           args.start,
           args.end,
@@ -398,123 +311,29 @@ const queryResolvers: QueryResolvers = {
     return testRows;
   },
 
-  processRowsByAssetDateRange: async (parent, args, ctx) => {
-    const testRows = await ctx
+  processPerformanceRowsDateRange: async (parent, args, ctx) => {
+    let result = await ctx
       .get(RepositoriesPort)
       .domain("WebDC", async (domCtx) => {
-        const start = new Date(args.start);
-        const end = new Date(args.end);
-        const rows = await domCtx.processdata.sn.getRowsByAssetDateRange(
-          args.assetId,
-          start,
-          end
+        const rows = await domCtx.processdata.sn.getPerformanceRowsDateRange(
+          args.start,
+          args.end,
+          args.assetIds ?? undefined,
+          args.partIds ?? undefined,
+          args.operatorIds ?? undefined
         );
         return rows;
       });
-    return testRows;
+    return result;
   },
 
-  processRowsByPartDateRange: async (parent, args, ctx) => {
-    const testRows = await ctx
+  processRowByMetaData: async (parent, args, ctx) => {
+    const result = await ctx
       .get(RepositoriesPort)
       .domain("WebDC", async (domCtx) => {
-        const start = new Date(args.start);
-        const end = new Date(args.end);
-        const rows = await domCtx.processdata.sn.getRowsByPartDateRange(
-          args.partId,
-          start,
-          end
-        );
-        return rows;
+        return await domCtx.processdata.sn.getRowByMetaData(args.metaDataId);
       });
-    return testRows;
-  },
-
-  processRowsByOperatorDateRange: async (parent, args, ctx) => {
-    const testRows = await ctx
-      .get(RepositoriesPort)
-      .domain("WebDC", async (domCtx) => {
-        const start = new Date(args.start);
-        const end = new Date(args.end);
-        const rows = await domCtx.processdata.sn.getRowsByOperatorDateRange(
-          args.operatorId,
-          start,
-          end
-        );
-        return rows;
-      });
-    return testRows;
-  },
-
-  processRowsByAssetPartDateRange: async (parent, args, ctx) => {
-    const testRows = await ctx
-      .get(RepositoriesPort)
-      .domain("WebDC", async (domCtx) => {
-        const start = new Date(args.start);
-        const end = new Date(args.end);
-        const rows = await domCtx.processdata.sn.getRowsByAssetPartDateRange(
-          args.assetId,
-          args.partId,
-          start,
-          end
-        );
-        return rows;
-      });
-    return testRows;
-  },
-
-  processRowsByAssetOperatorDateRange: async (parent, args, ctx) => {
-    const testRows = await ctx
-      .get(RepositoriesPort)
-      .domain("WebDC", async (domCtx) => {
-        const start = new Date(args.start);
-        const end = new Date(args.end);
-        const rows =
-          await domCtx.processdata.sn.getRowsByAssetOperatorDateRange(
-            args.assetId,
-            args.operatorId,
-            start,
-            end
-          );
-        return rows;
-      });
-    return testRows;
-  },
-
-  processRowsByPartOperatorDateRange: async (parent, args, ctx) => {
-    const testRows = await ctx
-      .get(RepositoriesPort)
-      .domain("WebDC", async (domCtx) => {
-        const start = new Date(args.start);
-        const end = new Date(args.end);
-        const rows = await domCtx.processdata.sn.getRowsByPartOperatorDateRange(
-          args.partId,
-          args.operatorId,
-          start,
-          end
-        );
-        return rows;
-      });
-    return testRows;
-  },
-
-  processRowsByAssetPartOperatorDateRange: async (parent, args, ctx) => {
-    const testRows = await ctx
-      .get(RepositoriesPort)
-      .domain("WebDC", async (domCtx) => {
-        const start = new Date(args.start);
-        const end = new Date(args.end);
-        const rows =
-          await domCtx.processdata.sn.getRowsByAssetPartOperatorDateRange(
-            args.assetId,
-            args.partId,
-            args.operatorId,
-            start,
-            end
-          );
-        return rows;
-      });
-    return testRows;
+    return result;
   },
 };
 

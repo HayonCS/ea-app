@@ -59,8 +59,20 @@ export const ORGANIZATIONS = [
     name: "Centennial West",
   },
   {
+    code: 3,
+    name: "State St.",
+  },
+  {
     code: 4,
     name: "58 Riley",
+  },
+  {
+    code: 5,
+    name: "380 Riley",
+  },
+  {
+    code: 6,
+    name: "310 Riley",
   },
   {
     code: 7,
@@ -68,7 +80,27 @@ export const ORGANIZATIONS = [
   },
   {
     code: 8,
-    name: "State St.",
+    name: "State St. North",
+  },
+  {
+    code: 9,
+    name: "Consignment",
+  },
+  {
+    code: 10,
+    name: "Precious Metal",
+  },
+  {
+    code: 11,
+    name: "Distribution Center - E",
+  },
+  {
+    code: 12,
+    name: "Gentex GmbH",
+  },
+  {
+    code: 13,
+    name: "Dropship",
   },
   {
     code: 14,
@@ -77,6 +109,10 @@ export const ORGANIZATIONS = [
   {
     code: 15,
     name: "220 Riley",
+  },
+  {
+    code: 16,
+    name: "Case Karsten",
   },
   {
     code: 17,
@@ -90,6 +126,10 @@ export const ORGANIZATIONS = [
     code: 19,
     name: "North Riley Building 3",
   },
+  {
+    code: 20,
+    name: "GR Manufacturing Building 1",
+  },
 ];
 
-export const USER_COOKIE_NAME = "eaAppCurrentUser";
+export const USER_COOKIE_NAME = "eaPerformanceCurrentUser";

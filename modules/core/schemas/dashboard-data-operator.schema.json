@@ -1,0 +1,75 @@
+{
+  "title": "DashboardDataOperator",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "operator": {
+      "type": "string"
+    },
+    "lastRun": {
+      "type": "string",
+      "tsType": "Date",
+      "format": "date-time"
+    },
+    "partNumber": {
+      "type": "string"
+    },
+    "passes": {
+      "type": "integer"
+    },
+    "fails": {
+      "type": "integer"
+    },
+    "cycleLast": {
+      "type": "number"
+    },
+    "cycleGoal": {
+      "type": "number"
+    },
+    "cycleTimer": {
+      "type": "number"
+    },
+    "cycleAvg": {
+      "type": "number"
+    },
+    "partsPerPallet": {
+      "type": "number"
+    },
+    "partsPerHour": {
+      "type": "number"
+    },
+    "partsPerHourGoal": {
+      "type": "number"
+    },
+    "runActual": {
+      "type": "number"
+    },
+    "runTheory": {
+      "type": "number"
+    },
+    "runVariance": {
+      "type": "number"
+    },
+    "efficiency": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "operator",
+    "lastRun",
+    "partNumber",
+    "passes",
+    "fails",
+    "cycleLast",
+    "cycleGoal",
+    "cycleTimer",
+    "cycleAvg",
+    "partsPerPallet",
+    "partsPerHour",
+    "partsPerHourGoal",
+    "runActual",
+    "runTheory",
+    "runVariance",
+    "efficiency"
+  ]
+}

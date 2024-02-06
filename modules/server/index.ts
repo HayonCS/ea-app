@@ -23,6 +23,8 @@ import { execute, subscribe } from "graphql";
 import { jwtConfig } from "./jwt-config";
 import { checkForAppKey } from "./app-key-config";
 
+require("./passport");
+
 ErrorNotifier.setup(config.get("rollbar.serverAccessToken"));
 
 const Arena = require("bull-arena");
@@ -114,7 +116,7 @@ export function startServer() {
 
   app.get(
     AuthRoutes.LOGIN,
-    // passport.authenticate("login", { session: false }),
+    passport.authenticate("login", { session: false }),
     (req, res) => {
       if (req.user) {
         res.status(200).json({
@@ -129,7 +131,7 @@ export function startServer() {
 
   app.post(
     AuthRoutes.LOGIN,
-    // passport.authenticate("login", { session: false }),
+    passport.authenticate("login", { session: false }),
     (req, res) => {
       if (req.user) {
         res.status(200).json({
@@ -156,6 +158,11 @@ export function startServer() {
         res.status(401).json({ auth: false, reason: "User does not exist" });
       }
     }
+  );
+
+  app.get(
+    AuthRoutes.CHECK_AUTH,
+    passport.authenticate("jwt", { session: false })
   );
 
   app.use(

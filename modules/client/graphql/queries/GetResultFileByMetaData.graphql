@@ -1,0 +1,3 @@
+query GetResultFileByMetaData($metaDataId: String!) {
+  getResultFileByMetadata(metaDataId: $metaDataId)
+}

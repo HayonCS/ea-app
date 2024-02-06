@@ -77,6 +77,7 @@ export const Settings: React.FC<{}> = () => {
 
   const comboAssetData = useSelector(Selectors.ComboData.assetData);
   const processAssetData = useSelector(Selectors.ProcessData.assetData);
+  const assetInfoBi = useSelector(Selectors.App.assetList);
 
   const currentUser = useSelector(Selectors.App.currentUserInfo);
   const userAppDataRedux = useSelector(Selectors.App.currentUserAppData);
@@ -142,9 +143,11 @@ export const Settings: React.FC<{}> = () => {
     const comboAssets = comboAssetData.map((x) => x.Asset);
     const processAssets = processAssetData.map((x) => x.Asset);
     let totalAssets = [...comboAssets, ...processAssets];
-    totalAssets = totalAssets.sort((a, b) => a.localeCompare(b));
+    totalAssets = totalAssets
+      .filter((x) => assetInfoBi.some((a) => a.assetName === x))
+      .sort((a, b) => a.localeCompare(b));
     setAssetsTotal(totalAssets);
-  }, [comboAssetData, processAssetData]);
+  }, [comboAssetData, processAssetData, assetInfoBi]);
 
   React.useEffect(() => {
     if (userAppDataRedux && !loadedRedux) {

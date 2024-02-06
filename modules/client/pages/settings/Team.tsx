@@ -14,8 +14,8 @@ import {
   Typography,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { UserDisplayClick } from "client/components/user-display/UserDisplayClick";
-import { UserDisplayHover } from "client/components/user-display/UserDisplayHover";
+import { UserDisplayClick } from "client/components/info-display/UserDisplayClick";
+import { UserDisplayHover } from "client/components/info-display/UserDisplayHover";
 import { formatUserName } from "../../user-utils";
 import { enqueueSnackbar } from "notistack";
 import { UserInformation } from "core/schemas/user-information.gen";
@@ -64,7 +64,7 @@ export const TeamSettingsPanel: React.FC<{
   const [loadedProps, setLoadedProps] = React.useState(false);
 
   React.useEffect(() => {
-    if (!loadedProps) {
+    if (!loadedProps && employeeDirectoryRedux.length > 0) {
       const operators = [...props.operators].sort((a, b) => a.localeCompare(b));
       const employeeDirectory = employeeDirectoryRedux.sort(
         (a, b) =>

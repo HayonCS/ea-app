@@ -16,12 +16,15 @@ module.exports = {
     graphqlAppSecret: "--testAppKey1--testAppKey2--testAppKey3--",
   },
   mesRestApi: {
-    mesSecurityEndpoint: "http://rest-endpoints:3070/",
-    mesBiEndpoint: "http://rest-endpoints:3070/",
+    mesSecurityEndpoint: "http://rest-endpoints:3070/security/",
+    mesBiEndpoint: "http://rest-endpoints:3070/bi/",
+    mesBomEndpoint: "http://rest-endpoints:3070/bom/",
     mesUserPictureUrl: "http://rest-endpoints:3070/user/image/",
     employeeDirectoryEndpoint: "http://rest-endpoints:3070/employees/",
     mesRegistryEndpoint: "http://rest-endpoints:3070/mes/",
-    mesProcessDataEndpoint: "http://rest-endpoints:3070/processData",
+    mesProcessDataEndpoint: "http://rest-endpoints:3070/processData/",
+    mesTestHistoryEndpoint: "http://rest-endpoints:3070/testhistory/",
     worldTimeEndpoint: "http://worldtimeapi.org/api/",
+    dcToolsEndpoint: "http://rest-endpoints:3070/dctools/",
   },
 };

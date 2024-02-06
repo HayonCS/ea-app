@@ -32,4 +32,5 @@ module.exports = makeJobProcessorFunction({
       ...opts,
     }),
   // jobs: ALL_JOBS.filter((job: any) => job.queue === "main"),
+  // jobs: [],
 });

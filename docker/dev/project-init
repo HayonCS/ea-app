@@ -4,7 +4,7 @@ set -e
 DIR=/home/dev/app
 
 # Checkout the repository
-[ ! -d "${DIR}/.git" ] && echo "Cloning git repository..." && git clone git@ssh.dev.azure.com:v3/gentex/MFG/EABackEnd .
+[ ! -d "${DIR}/.git" ] && echo "Cloning git repository..." && git clone git@ssh.dev.azure.com:v3/gentex/MFG/EAPerformance .
 
 cd $DIR
 
@@ -17,4 +17,4 @@ cd $DIR
 # Instructions for copying over .gitconfig
 # Container name may be different for you.
 # Path to the gitconfig file may also be different depending on your system, i.e. linux vs windows.
-[ ! -f "/home/dev/config/gitconfig" ] && printf "To copy your host machine's .gitconfig run this from the host:\n\n  docker cp ~/.gitconfig tpe_dev_1:/home/dev/config/gitconfig\n"
+[ ! -f "/home/dev/config/gitconfig" ] && printf "To copy your host machine's .gitconfig run this from the host:\n\n  docker cp ~/.gitconfig app_dev_1:/home/dev/config/gitconfig\n"

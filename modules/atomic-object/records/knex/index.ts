@@ -44,7 +44,7 @@ export type IsolationLevel =
   | "REPEATABLE READ"
   | "SERIALIZABLE";
 
-export type Domain = "WebDC";
+export type Domain = "WebDC" | "Production" | "Engineering";
 
 export interface KnexRecordInfo<
   Unsaved = any,

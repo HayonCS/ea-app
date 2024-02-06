@@ -9,10 +9,16 @@
     "Swipeable",
     "testid",
     "notistack",
-    "webdav"
+    "webdav",
+    "erphr",
+    "perc",
+    "pnid",
+    "snid",
+    "webm"
   ],
   // words - list of words to be always considered correct (will show up in suggestions)
   "words": [
+    "eaperformance",
     "asynciterable",
     "clickaway",
     "combodata",
@@ -22,7 +28,12 @@
     "Krueger",
     "processdata",
     "rollbar",
-    "webdc"
+    "webdc",
+    "undox",
+    "dropship",
+    "karsten",
+    "leaderboard",
+    "nums"
   ],
   // flagWords - list of words to be always considered incorrect
   // This is useful for offensive words and common spelling errors.

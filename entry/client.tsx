@@ -13,6 +13,7 @@ import { CssBaseline } from "@mui/material";
 import { AppTheme } from "client/styles/mui-theme";
 import { FlagsProvider } from "react-feature-flags";
 import { featureFlags } from "./feature-flags";
+import { checkAuthStatus } from "client/redux/actions/thunks/authentication-thunks";
 
 const history = createBrowserHistory();
 
@@ -37,7 +38,7 @@ const bootstrapClient = () => {
 
   const store = configureStore();
   const graphqlClient = buildGraphqlClient(store, history);
-  // void store.dispatch(checkAuthStatus());
+  void store.dispatch(checkAuthStatus());
 
   const root = ReactDOM.createRoot(
     document.getElementById("app") as HTMLElement

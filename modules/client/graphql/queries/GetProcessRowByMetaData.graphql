@@ -1,0 +1,3 @@
+query GetProcessRowByMetaData($metaDataId: String!) {
+  processRowByMetaData(metaDataId: $metaDataId)
+}

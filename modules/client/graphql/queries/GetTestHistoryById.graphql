@@ -1,0 +1,3 @@
+query GetTestHistoryById($identifierCode: String!, $operation: Int!) {
+  getTestHistoryById(identifierCode: $identifierCode, operation: $operation)
+}

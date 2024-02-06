@@ -1,8 +1,17 @@
 import * as Bull from "bull";
 import * as config from "config";
 
+// const mainQueue = new Bull("main", {
+//   redis: config.get("redis.url"),
+//   prefix: config.get("redis.prefix"),
+// });
 const mainQueue = new Bull("main", {
-  redis: config.get("redis.url"),
+  redis: {
+    path: config.get("redis.url"),
+    enableTLSForSentinelMode: false,
+    tls: undefined,
+    maxRetriesPerRequest: null,
+  },
   prefix: config.get("redis.prefix"),
 });
 
